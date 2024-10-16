@@ -8,7 +8,7 @@ folium==0.17.0  # Latest version as of now
 # If you’re using JSON or handling other data formats, these may be useful.
 requests # For making HTTP requests, useful for API calls
 json5  # In case you want to parse JSON5 files
-
+python-dotenv
 
 # Other dependencies specific to your project
 # For example, if you're doing data processing or analysis, you might need:
