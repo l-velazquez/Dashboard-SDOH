@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Map of Puerto Rico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #4b0082;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar .logo {
+            width: auto;
+            height: 80px;
+        }
+        .title-section {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;                /* Use flexbox */
+            align-items: center;          /* Vertically center content */
+            justify-content: space-between; /* Space out title and button */
+        }
+        
+        .title-section h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4b0082;
+            margin: 0;
+        }
+        
+        .toggle-button {
+            padding: 8px 16px;
+            background-color: #4b0082;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .main-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .sidebar {
+            width: 20%;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            color: #4b0082;
+            margin-bottom: 15px;
+        }
+
+        .dropdown-group {
+            margin-bottom: 15px;
+        }
+
+        .dropdown-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .dropdown-group select {
+            width: 100%;
+            padding: 8px;
+            font-size: 0.9rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #map {
+            width: 80%;
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #222;
+            color: #ddd;
+        }
+
+        .dark-mode .navbar {
+            background-color: #2c004d;
+            color: #ddd;
+        }
+
+        .dark-mode .title-section {
+            background-color: #333;
+        }
+        
+        .dark-mode .title-section h1 {
+            color: #ddd;
+        }
+
+        .dark-mode .sidebar {
+            background-color: #444;
+            color: #ddd;
+        }
+
+        .dark-mode .toggle-container {
+            background-color: #333;
+        }
+
+        .dark-mode .toggle-button {
+            background-color: #2c004d;
+            color: #ddd;
+        }
+
+        .dark-mode .dropdown-group label,
+        .dark-mode .sidebar h2 {
+            color: #ddd;
+        }
+    </style>
+</head>
+<body class="{% if not light_mode %}dark-mode{% endif %}">
+    <div class="navbar">
+        <img src="{% static 'images/rcmi.webp' %}" alt="Company Logo" class="logo">
+        <img src="{% static 'images/aim_ahead_600x474.png' %}" alt="Sponsor Logo" class="logo">
+    </div>
+
+    <!-- Dark Mode Toggle Container -->
+    
+
+    <div class="title-section">
+        <h1>Cardiovascular and Liver Disease in Puerto Rico</h1>
+        <div class="toggle-container">
+            <button class="toggle-button" onclick="toggleMode()">
+                <i id="toggle-icon" class="{% if not light_mode %}fas fa-sun{% else %}fas fa-moon{% endif %}"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <h2>Explore Concepts</h2>
+
+            <!-- Disease Selection Dropdown -->
+            <div class="dropdown-group">
+                <label for="disease">Select Disease Type</label>
+                <select id="disease" name="disease">
+                    <option value="" disabled selected>Select a disease</option>
+                    <option value="cardiovascular">Cardiovascular Disease</option>
+                    <option value="liver">Liver Disease</option>
+                </select>
+            </div>
+
+            <!-- Social Determinants of Health Dropdown -->
+            <div class="dropdown-group">
+                <label for="sdoh">Select Social Determinant of Health</label>
+                <select id="sdoh" name="sdoh">
+                    <option value="" disabled selected>Select an indicator</option>
+                    <option value="access_healthcare">Access to Healthcare</option>
+                    <option value="income_levels">Income Levels</option>
+                    <option value="education">Education Level</option>
+                    <option value="housing">Housing Stability</option>
+                    <option value="food_security">Food Security</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="map">{{ map|safe }}</div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 My Map Dashboard. Created with Folium and Django.</p>
+    </footer>
+
+    <script>
+        function toggleMode() {
+            const isLightMode = {{ light_mode|lower }};
+            const newMode = isLightMode ? 'false' : 'true';
+            window.location.href = `?light_mode=${newMode}`;
+        }
+
+        // Icon toggle
+        const toggleButton = document.querySelector('.toggle-button');
+        const toggleIcon = document.getElementById('toggle-icon');
+        toggleButton.addEventListener('click', () => {
+            if (toggleIcon.classList.contains('fa-moon')) {
+                toggleIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                toggleIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
+    </script>
+</body>
+</html>
