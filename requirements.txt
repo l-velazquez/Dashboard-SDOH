@@ -1,0 +1,16 @@
+# Django web framework
+Django==5.1.2  # latest stable version 
+
+# Folium for mapping
+folium==0.17.0  # Latest version as of now
+
+# Additional packages (optional, but commonly used)
+# If you’re using JSON or handling other data formats, these may be useful.
+requests # For making HTTP requests, useful for API calls
+json5  # In case you want to parse JSON5 files
+
+
+# Other dependencies specific to your project
+# For example, if you're doing data processing or analysis, you might need:
+pandas
+numpy
