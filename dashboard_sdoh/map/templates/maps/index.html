@@ -36,14 +36,15 @@
             width: auto;
             height: 80px;
         }
+
         .title-section {
             width: 100%;
             background-color: #ffffff;
             padding: 20px;
             box-sizing: border-box;
-            display: flex;                /* Use flexbox */
-            align-items: center;          /* Vertically center content */
-            justify-content: space-between; /* Space out title and button */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
         .title-section h1 {
@@ -68,16 +69,18 @@
             width: 100%;
             max-width: 1200px;
             margin: 20px auto;
+            justify-content: space-between;
         }
 
         .sidebar {
             width: 20%;
+            height: 500px;
             background-color: #f2f2f2;
             border-radius: 10px;
             padding: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-right: 20px;
             box-sizing: border-box;
+            margin: 20px;
         }
 
         .sidebar h2 {
@@ -107,10 +110,46 @@
         }
 
         #map {
-            width: 80%;
-            height: 500px;
-            border-radius: 10px;
+            width: 70%;
+            height: auto;
+            border-radius: 10px ;
             overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        .scale-section {
+            width: 20%;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row-reverse; /* Puts the scale on the right side */
+            align-items: center;
+        }
+        
+        
+        .scale-container {
+            width: 20px; /* Narrower width for the vertical bar */
+            height: 500px;
+            background: linear-gradient(to bottom, #8B0000, #FF4500, #FFA500, #FFD700, #ADFF2F, #7CFC00);
+            border-radius: 5px;
+            margin-top: 20px; /* Space between scale and labels */
+          
+        }
+        
+        .scale-labels {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #333;
+            height: 500px;
+            text-align: left; /* Aligns text to the right for consistency */
+            margin: 20px; /* Space between scale and labels */
+            
         }
 
         /* Dark mode styles */
@@ -132,7 +171,8 @@
             color: #ddd;
         }
 
-        .dark-mode .sidebar {
+        .dark-mode .sidebar,
+        .dark-mode .scale-section {
             background-color: #444;
             color: #ddd;
         }
@@ -147,7 +187,11 @@
         }
 
         .dark-mode .dropdown-group label,
-        .dark-mode .sidebar h2 {
+        .dark-mode .sidebar h2,
+        .dark-mode .scale-section h3 {
+            color: #ddd;
+        }
+        .dark-mode .scale-labels {
             color: #ddd;
         }
     </style>
@@ -159,18 +203,15 @@
     </div>
 
     <!-- Dark Mode Toggle Container -->
-    
-
     <div class="title-section">
         <h1>Cardiovascular and Liver Disease in Puerto Rico</h1>
-        <div class="toggle-container">
-            <button class="toggle-button" onclick="toggleMode()">
-                <i id="toggle-icon" class="{% if not light_mode %}fas fa-sun{% else %}fas fa-moon{% endif %}"></i>
-            </button>
-        </div>
+        <button class="toggle-button" onclick="toggleMode()">
+            <i id="toggle-icon" class="{% if not light_mode %}fas fa-sun{% else %}fas fa-moon{% endif %}"></i>
+        </button>
     </div>
     
     <div class="main-container">
+        <!-- Explore Concepts Sidebar -->
         <div class="sidebar">
             <h2>Explore Concepts</h2>
 
@@ -196,10 +237,46 @@
                     <option value="food_security">Food Security</option>
                 </select>
             </div>
+            <!-- Submit Button -->
+            <div class="dropdown-group">
+                <button class="toggle-button" onclick="submitForm()">Submit</button>
+            </div>
+
+            <script>
+                function submitForm() {
+                    const disease = document.getElementById('disease').value;
+                    const sdoh = document.getElementById('sdoh').value;
+                    if (disease && sdoh) {
+                        // Assuming you have a form submission logic here
+                        alert(`Selected Disease: ${disease}, Selected SDOH: ${sdoh}`);
+                        // You can replace the alert with actual form submission logic
+                    } else {
+                        alert('Please select both a disease and a social determinant of health.');
+                    }
+                }
+            </script>
         </div>
 
+        <!-- Map Section -->
         <div id="map">{{ map|safe }}</div>
-    </div>
+
+        <!-- Scale Section -->
+        
+        
+        <div class="scale-container"></div>
+            <div class="scale-labels">
+                <div>Extreme Danger</div>
+                <div>High Danger</div>
+                <div>Danger</div>
+                <div>Elevated Risk</div>
+                <div>Warning</div>
+                <div>Caution</div>
+                <div>Moderate</div>
+                <div>Low Risk</div>
+                <div>Safe</div>
+            </div>
+        </div>
+    
 
     <footer>
         <p>&copy; 2024 Cadio and Liver Labs Disease. Created with Folium and Django by Luis F. Velazquez Sosa.</p>
