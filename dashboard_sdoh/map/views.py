@@ -7,8 +7,15 @@ import json
 def index(request):
     light_mode = request.GET.get('light_mode', 'true') == 'true'
     mode = 'cartodbpositron' if light_mode else 'cartodbdark_matter'
-
-    m = folium.Map(location=[18.1208, -66.3901], zoom_start=9, tiles=mode)
+    
+    m = folium.Map(
+        location=[18.1208, -66.3901], 
+        zoom_start=9, tiles=mode, 
+        scrollWheelZoom=False,  # Disable scroll zoom
+        dragging=True,         # Disable dragging
+        zoomControl=False,       # Disable zoom controls
+        font_size=16,
+)
 
     # Load the GeoJSON data from the file
     geojson_path = os.path.join(settings.BASE_DIR, 'static', 'maps', 'municipalities.geojson')
@@ -126,7 +133,7 @@ def index(request):
             'fillColor': color,
             'color': 'black',
             'weight': 1,
-            'fillOpacity': 0.6,
+            'fillOpacity': 0.9,
         }
 
     # Add the GeoJSON layer to the map
