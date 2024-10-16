@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["rpi4.tail78a70.ts.net"]
+ALLOWED_HOSTS = ["rpi4.tail78a70.ts.net", "localhost", "127.0.0.1"]
 
 
 # Application definition
