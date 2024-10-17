@@ -12,7 +12,7 @@ Table of Contents
 - Testing
 - License
 
-Requirements
+### Requirements
 
 Make sure you have the following installed:
 
@@ -21,7 +21,7 @@ Make sure you have the following installed:
 - Virtualenv (optional but recommended)
 - Other dependencies are listed in requirements.txt
 
-Installation
+### Installation
 
 1. Clone the repository
 
@@ -43,7 +43,7 @@ source env/bin/activate  # On Windows use `env\Scripts\activate`
 pip install --upgrade pip && pip install -r requirements.txt
 ```
 
-Environment Variables
+### Environment Variables
 
 1. Copy the .env.example file to .env
 
@@ -53,7 +53,7 @@ cp .env.example .env
 
 2. Update the .env file with your environment-specific variables, such as database credentials, secret key, etc.
 
-Running the Project
+### Running the Project
 
 1.Run migrations to set up the database schema:
 
@@ -71,7 +71,7 @@ python manage.py runserver
 
 3. Open a browser and go to http://localhost:8000 to view the project.
 
-License
+### License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
