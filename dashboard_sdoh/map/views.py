@@ -9,7 +9,7 @@ def index(request):
     mode = 'cartodbpositron' if light_mode else 'cartodbdark_matter'
     
     m = folium.Map(
-        location=[18.1208, -66.3901], 
+        location=[18.1208, -66.2601], 
         zoom_start=9, tiles=mode, 
         scrollWheelZoom=False,  # Disable scroll zoom
         dragging=True,         # Disable dragging
