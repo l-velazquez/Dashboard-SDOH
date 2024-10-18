@@ -6,7 +6,7 @@ import json
 
 def index(request):
     light_mode = request.GET.get('light_mode', 'true') == 'true'
-    mode = 'cartodbpositron' if light_mode else 'cartodbdark_matter'
+    mode = 'cartodbpositronnolabels' if light_mode else 'cartodbdark_matter_nolabels'
     
     m = folium.Map(
         location=[18.1208, -66.2601], 
