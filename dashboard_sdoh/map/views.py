@@ -28,14 +28,11 @@ def index(request):
     with open(data_path, 'r') as f:
         data = json.load(f)
     
-    # Debugging print to check structure of data
-    print(data)
-
+   
     # Function to style the municipalities based on the data values
     def style_function(feature):
         municipality_name = feature['properties']['NAME'] # Normalize name
         value = data.get(municipality_name, 0)  # Direct value
-        print(value)
         color = '#32CD32'  # Default color
         if value > 90000:
             color = '#8B0000'
