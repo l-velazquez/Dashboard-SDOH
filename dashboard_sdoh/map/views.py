@@ -29,36 +29,36 @@ def index(request):
         data = json.load(f)
     
    
-    # Function to style the municipalities based on the data values
     def style_function(feature):
-        municipality_name = feature['properties']['NAME'] # Normalize name
-        value = data.get(municipality_name, 0)  # Direct value
-        color = '#32CD32'  # Default color
+        municipality_name = feature['properties']['NAME']
+        value = data.get(municipality_name, 0)
+        color = '#F0FFF0'  # Mint green default
         if value > 90000:
-            color = '#8B0000'
+            color = '#800080'  # Purple
         elif value > 80000:
-            color = '#FF4500'
+            color = '#9400D3'  # Dark Violet
         elif value > 70000:
-            color = '#FF6347'
+            color = '#9932CC'  # Dark Orchid
         elif value > 60000:
-            color = '#FF8C00'
+            color = '#BA55D3'  # Medium Orchid
         elif value > 50000:
-            color = '#FFA500'
+            color = '#DA70D6'  # Orchid
         elif value > 40000:
-            color = '#FFD700'
+            color = '#D8BFD8'  # Thistle
         elif value > 30000:
-            color = '#FFFF00'
+            color = '#E6E6FA'  # Lavender
         elif value > 20000:
-            color = '#ADFF2F'
+            color = '#F8F8FF'  # GhostWhite
         elif value > 10000:
-            color = '#7CFC00'
-        
+            color = '#E0FFFF'  # LightCyan
+
         return {
             'fillColor': color,
             'color': 'black',
             'weight': 1,
             'fillOpacity': 0.9,
         }
+
 
     # Add the GeoJSON layer to the map
     folium.GeoJson(
