@@ -1,5 +1,5 @@
 # Django web framework
-Django==5.1.5  # latest stable version 
+Django==5.1.7  # latest stable version 
 
 # Folium for mapping
 folium==0.17.0  # Latest version as of now
