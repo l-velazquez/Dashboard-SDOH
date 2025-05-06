@@ -1,0 +1,3191 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.75266,
+          18.18027
+        ]
+      },
+      "properties": {
+        "zip": "00601",
+        "city": "Adjuntas",
+        "county": "Adjuntas",
+        "fips": "72001",
+        "latitude": 18.18027,
+        "longitude": -66.75266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.17541,
+          18.36075
+        ]
+      },
+      "properties": {
+        "zip": "00602",
+        "city": "Aguada",
+        "county": "Aguada",
+        "fips": "72003",
+        "latitude": 18.36075,
+        "longitude": -67.17541
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.12225,
+          18.45744
+        ]
+      },
+      "properties": {
+        "zip": "00603",
+        "city": "Aguadilla",
+        "county": "Aguadilla",
+        "fips": "72005",
+        "latitude": 18.45744,
+        "longitude": -67.12225
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.12225,
+          18.45744
+        ]
+      },
+      "properties": {
+        "zip": "00604",
+        "city": "Aguadilla",
+        "county": "Aguadilla",
+        "fips": "72005",
+        "latitude": 18.45744,
+        "longitude": -67.12225
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.12225,
+          18.45744
+        ]
+      },
+      "properties": {
+        "zip": "00605",
+        "city": "Aguadilla",
+        "county": "Aguadilla",
+        "fips": "72005",
+        "latitude": 18.45744,
+        "longitude": -67.12225
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.09734,
+          18.49363
+        ]
+      },
+      "properties": {
+        "zip": "00690",
+        "city": "San Antonio",
+        "county": "Aguadilla",
+        "fips": "72005",
+        "latitude": 18.49363,
+        "longitude": -67.09734
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.13143,
+          18.24739
+        ]
+      },
+      "properties": {
+        "zip": "00703",
+        "city": "Aguas Buenas",
+        "county": "Aguas Buenas",
+        "fips": "72007",
+        "latitude": 18.24739,
+        "longitude": -66.13143
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.26653,
+          18.1294
+        ]
+      },
+      "properties": {
+        "zip": "00705",
+        "city": "Aibonito",
+        "county": "Aibonito",
+        "fips": "72009",
+        "latitude": 18.1294,
+        "longitude": -66.26653
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.22881,
+          18.1357
+        ]
+      },
+      "properties": {
+        "zip": "00786",
+        "city": "La Plata",
+        "county": "Aibonito",
+        "fips": "72009",
+        "latitude": 18.1357,
+        "longitude": -66.22881
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.12243,
+          18.2911
+        ]
+      },
+      "properties": {
+        "zip": "00610",
+        "city": "Anasco",
+        "county": "Añasco",
+        "fips": "72011",
+        "latitude": 18.2911,
+        "longitude": -67.12243
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.7051,
+          18.41283
+        ]
+      },
+      "properties": {
+        "zip": "00612",
+        "city": "Arecibo",
+        "county": "Arecibo",
+        "fips": "72013",
+        "latitude": 18.41283,
+        "longitude": -66.7051
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.7051,
+          18.41283
+        ]
+      },
+      "properties": {
+        "zip": "00613",
+        "city": "Arecibo",
+        "county": "Arecibo",
+        "fips": "72013",
+        "latitude": 18.41283,
+        "longitude": -66.7051
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.7051,
+          18.41283
+        ]
+      },
+      "properties": {
+        "zip": "00614",
+        "city": "Arecibo",
+        "county": "Arecibo",
+        "fips": "72013",
+        "latitude": 18.41283,
+        "longitude": -66.7051
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.6679,
+          18.41878
+        ]
+      },
+      "properties": {
+        "zip": "00616",
+        "city": "Bajadero",
+        "county": "Arecibo",
+        "fips": "72013",
+        "latitude": 18.41878,
+        "longitude": -66.6679
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.60194,
+          18.45614
+        ]
+      },
+      "properties": {
+        "zip": "00652",
+        "city": "Garrochales",
+        "county": "Arecibo",
+        "fips": "72013",
+        "latitude": 18.45614,
+        "longitude": -66.60194
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.62496,
+          18.3807
+        ]
+      },
+      "properties": {
+        "zip": "00688",
+        "city": "Sabana Hoyos",
+        "county": "Arecibo",
+        "fips": "72013",
+        "latitude": 18.3807,
+        "longitude": -66.62496
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.05635,
+          17.9981
+        ]
+      },
+      "properties": {
+        "zip": "00714",
+        "city": "Arroyo",
+        "county": "Arroyo",
+        "fips": "72015",
+        "latitude": 17.9981,
+        "longitude": -66.05635
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.56006,
+          18.44598
+        ]
+      },
+      "properties": {
+        "zip": "00617",
+        "city": "Barceloneta",
+        "county": "Barceloneta",
+        "fips": "72017",
+        "latitude": 18.44598,
+        "longitude": -66.56006
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.31179,
+          18.19934
+        ]
+      },
+      "properties": {
+        "zip": "00794",
+        "city": "Barranquitas",
+        "county": "Barranquitas",
+        "fips": "72019",
+        "latitude": 18.19934,
+        "longitude": -66.31179
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.11998,
+          18.41372
+        ]
+      },
+      "properties": {
+        "zip": "00934",
+        "city": "Fort Buchanan",
+        "county": "Guaynabo",
+        "fips": "72061",
+        "latitude": 18.41372,
+        "longitude": -66.11998
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.17185,
+          18.32121
+        ]
+      },
+      "properties": {
+        "zip": "00956",
+        "city": "Bayamon",
+        "county": "Bayamón",
+        "fips": "72021",
+        "latitude": 18.32121,
+        "longitude": -66.17185
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.18857,
+          18.36696
+        ]
+      },
+      "properties": {
+        "zip": "00957",
+        "city": "Bayamon",
+        "county": "Bayamón",
+        "fips": "72021",
+        "latitude": 18.36696,
+        "longitude": -66.18857
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.18857,
+          18.36696
+        ]
+      },
+      "properties": {
+        "zip": "00958",
+        "city": "Bayamon",
+        "county": "Bayamón",
+        "fips": "72021",
+        "latitude": 18.36696,
+        "longitude": -66.18857
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.15583,
+          18.3852
+        ]
+      },
+      "properties": {
+        "zip": "00959",
+        "city": "Bayamon",
+        "county": "Bayamón",
+        "fips": "72021",
+        "latitude": 18.3852,
+        "longitude": -66.15583
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.14365,
+          18.41674
+        ]
+      },
+      "properties": {
+        "zip": "00960",
+        "city": "Bayamon",
+        "county": "Bayamón",
+        "fips": "72021",
+        "latitude": 18.41674,
+        "longitude": -66.14365
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.16415,
+          18.40987
+        ]
+      },
+      "properties": {
+        "zip": "00961",
+        "city": "Bayamon",
+        "county": "Bayamón",
+        "fips": "72021",
+        "latitude": 18.40987,
+        "longitude": -66.16415
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.1566,
+          17.98892
+        ]
+      },
+      "properties": {
+        "zip": "00622",
+        "city": "Boqueron",
+        "county": "Cabo Rojo",
+        "fips": "72023",
+        "latitude": 17.98892,
+        "longitude": -67.1566
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.15336,
+          18.08429
+        ]
+      },
+      "properties": {
+        "zip": "00623",
+        "city": "Cabo Rojo",
+        "county": "Cabo Rojo",
+        "fips": "72023",
+        "latitude": 18.08429,
+        "longitude": -67.15336
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.03962,
+          18.22052
+        ]
+      },
+      "properties": {
+        "zip": "00725",
+        "city": "Caguas",
+        "county": "Caguas",
+        "fips": "72025",
+        "latitude": 18.22052,
+        "longitude": -66.03962
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.03962,
+          18.22052
+        ]
+      },
+      "properties": {
+        "zip": "00726",
+        "city": "Caguas",
+        "county": "Caguas",
+        "fips": "72025",
+        "latitude": 18.22052,
+        "longitude": -66.03962
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07374,
+          18.21142
+        ]
+      },
+      "properties": {
+        "zip": "00727",
+        "city": "Caguas",
+        "county": "Caguas",
+        "fips": "72025",
+        "latitude": 18.21142,
+        "longitude": -66.07374
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.86037,
+          18.41905
+        ]
+      },
+      "properties": {
+        "zip": "00627",
+        "city": "Camuy",
+        "county": "Camuy",
+        "fips": "72027",
+        "latitude": 18.41905,
+        "longitude": -66.86037
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.88677,
+          18.33524
+        ]
+      },
+      "properties": {
+        "zip": "00729",
+        "city": "Canovanas",
+        "county": "Canóvanas",
+        "fips": "72029",
+        "latitude": 18.33524,
+        "longitude": -65.88677
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.98104,
+          18.41788
+        ]
+      },
+      "properties": {
+        "zip": "00983",
+        "city": "Carolina",
+        "county": "Carolina",
+        "fips": "72031",
+        "latitude": 18.41788,
+        "longitude": -65.98104
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.98104,
+          18.41788
+        ]
+      },
+      "properties": {
+        "zip": "00984",
+        "city": "Carolina",
+        "county": "Carolina",
+        "fips": "72031",
+        "latitude": 18.41788,
+        "longitude": -65.98104
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.94767,
+          18.40628
+        ]
+      },
+      "properties": {
+        "zip": "00985",
+        "city": "Carolina",
+        "county": "Carolina",
+        "fips": "72031",
+        "latitude": 18.40628,
+        "longitude": -65.94767
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.94767,
+          18.40628
+        ]
+      },
+      "properties": {
+        "zip": "00986",
+        "city": "Carolina",
+        "county": "Carolina",
+        "fips": "72031",
+        "latitude": 18.40628,
+        "longitude": -65.94767
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.94257,
+          18.34115
+        ]
+      },
+      "properties": {
+        "zip": "00987",
+        "city": "Carolina",
+        "county": "Carolina",
+        "fips": "72031",
+        "latitude": 18.34115,
+        "longitude": -65.94257
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.94257,
+          18.34115
+        ]
+      },
+      "properties": {
+        "zip": "00988",
+        "city": "Carolina",
+        "county": "Carolina",
+        "fips": "72031",
+        "latitude": 18.34115,
+        "longitude": -65.94257
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.13949,
+          18.43514
+        ]
+      },
+      "properties": {
+        "zip": "00962",
+        "city": "Catano",
+        "county": "Cataño",
+        "fips": "72033",
+        "latitude": 18.43514,
+        "longitude": -66.13949
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.13949,
+          18.43514
+        ]
+      },
+      "properties": {
+        "zip": "00963",
+        "city": "Catano",
+        "county": "Cataño",
+        "fips": "72033",
+        "latitude": 18.43514,
+        "longitude": -66.13949
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.14994,
+          18.10736
+        ]
+      },
+      "properties": {
+        "zip": "00736",
+        "city": "Cayey",
+        "county": "Cayey",
+        "fips": "72035",
+        "latitude": 18.10736,
+        "longitude": -66.14994
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.14994,
+          18.10736
+        ]
+      },
+      "properties": {
+        "zip": "00737",
+        "city": "Cayey",
+        "county": "Cayey",
+        "fips": "72035",
+        "latitude": 18.10736,
+        "longitude": -66.14994
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.67534,
+          18.2525
+        ]
+      },
+      "properties": {
+        "zip": "00735",
+        "city": "Ceiba",
+        "county": "Ceiba",
+        "fips": "72037",
+        "latitude": 18.2525,
+        "longitude": -65.67534
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.67534,
+          18.2525
+        ]
+      },
+      "properties": {
+        "zip": "00742",
+        "city": "Roosevelt Roads",
+        "county": "Ceiba",
+        "fips": "72037",
+        "latitude": 18.2525,
+        "longitude": -65.67534
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.5137,
+          18.28462
+        ]
+      },
+      "properties": {
+        "zip": "00638",
+        "city": "Ciales",
+        "county": "Ciales",
+        "fips": "72039",
+        "latitude": 18.28462,
+        "longitude": -66.5137
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.16198,
+          18.17543
+        ]
+      },
+      "properties": {
+        "zip": "00739",
+        "city": "Cidra",
+        "county": "Cidra",
+        "fips": "72041",
+        "latitude": 18.17543,
+        "longitude": -66.16198
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.3607,
+          18.09459
+        ]
+      },
+      "properties": {
+        "zip": "00769",
+        "city": "Coamo",
+        "county": "Coamo",
+        "fips": "72043",
+        "latitude": 18.09459,
+        "longitude": -66.3607
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.22452,
+          18.22501
+        ]
+      },
+      "properties": {
+        "zip": "00782",
+        "city": "Comerio",
+        "county": "Comerío",
+        "fips": "72045",
+        "latitude": 18.22501,
+        "longitude": -66.22452
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.32851,
+          18.30348
+        ]
+      },
+      "properties": {
+        "zip": "00783",
+        "city": "Corozal",
+        "county": "Corozal",
+        "fips": "72047",
+        "latitude": 18.30348,
+        "longitude": -66.32851
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.28618,
+          18.31387
+        ]
+      },
+      "properties": {
+        "zip": "00775",
+        "city": "Culebra",
+        "county": "Culebra",
+        "fips": "72049",
+        "latitude": 18.31387,
+        "longitude": -65.28618
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.28429,
+          18.43251
+        ]
+      },
+      "properties": {
+        "zip": "00646",
+        "city": "Dorado",
+        "county": "Dorado",
+        "fips": "72051",
+        "latitude": 18.43251,
+        "longitude": -66.28429
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.66793,
+          18.31793
+        ]
+      },
+      "properties": {
+        "zip": "00738",
+        "city": "Fajardo",
+        "county": "Fajardo",
+        "fips": "72053",
+        "latitude": 18.31793,
+        "longitude": -65.66793
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.63419,
+          18.33251
+        ]
+      },
+      "properties": {
+        "zip": "00740",
+        "city": "Puerto Real",
+        "county": "Fajardo",
+        "fips": "72053",
+        "latitude": 18.33251,
+        "longitude": -65.63419
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.58347,
+          18.34487
+        ]
+      },
+      "properties": {
+        "zip": "00650",
+        "city": "Florida",
+        "county": "Florida",
+        "fips": "72054",
+        "latitude": 18.34487,
+        "longitude": -66.58347
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.94266,
+          17.96667
+        ]
+      },
+      "properties": {
+        "zip": "00647",
+        "city": "Ensenada",
+        "county": "Guánica",
+        "fips": "72055",
+        "latitude": 17.96667,
+        "longitude": -66.94266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.90266,
+          17.99413
+        ]
+      },
+      "properties": {
+        "zip": "00653",
+        "city": "Guanica",
+        "county": "Guánica",
+        "fips": "72055",
+        "latitude": 17.99413,
+        "longitude": -66.90266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.22888,
+          17.97442
+        ]
+      },
+      "properties": {
+        "zip": "00704",
+        "city": "Aguirre",
+        "county": "Salinas",
+        "fips": "72123",
+        "latitude": 17.97442,
+        "longitude": -66.22888
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.13651,
+          18.00558
+        ]
+      },
+      "properties": {
+        "zip": "00784",
+        "city": "Guayama",
+        "county": "Guayama",
+        "fips": "72057",
+        "latitude": 18.00558,
+        "longitude": -66.13651
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.79123,
+          18.04186
+        ]
+      },
+      "properties": {
+        "zip": "00656",
+        "city": "Guayanilla",
+        "county": "Guayanilla",
+        "fips": "72059",
+        "latitude": 18.04186,
+        "longitude": -66.79123
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.13651,
+          18.00558
+        ]
+      },
+      "properties": {
+        "zip": "00785",
+        "city": "Guayama",
+        "county": "Guayama",
+        "fips": "72057",
+        "latitude": 18.00558,
+        "longitude": -66.13651
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.11175,
+          18.42853
+        ]
+      },
+      "properties": {
+        "zip": "00965",
+        "city": "Guaynabo",
+        "county": "Guaynabo",
+        "fips": "72061",
+        "latitude": 18.42853,
+        "longitude": -66.11175
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.11394,
+          18.39784
+        ]
+      },
+      "properties": {
+        "zip": "00966",
+        "city": "Guaynabo",
+        "county": "Guaynabo",
+        "fips": "72061",
+        "latitude": 18.39784,
+        "longitude": -66.11394
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.11,
+          18.36696
+        ]
+      },
+      "properties": {
+        "zip": "00969",
+        "city": "Guaynabo",
+        "county": "Guaynabo",
+        "fips": "72061",
+        "latitude": 18.36696,
+        "longitude": -66.11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.11,
+          18.36696
+        ]
+      },
+      "properties": {
+        "zip": "00970",
+        "city": "Guaynabo",
+        "county": "Guaynabo",
+        "fips": "72061",
+        "latitude": 18.36696,
+        "longitude": -66.11
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.11751,
+          18.32067
+        ]
+      },
+      "properties": {
+        "zip": "00971",
+        "city": "Guaynabo",
+        "county": "Guaynabo",
+        "fips": "72061",
+        "latitude": 18.32067,
+        "longitude": -66.11751
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.97938,
+          18.26319
+        ]
+      },
+      "properties": {
+        "zip": "00778",
+        "city": "Gurabo",
+        "county": "Gurabo",
+        "fips": "72063",
+        "latitude": 18.26319,
+        "longitude": -65.97938
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.79691,
+          18.41036
+        ]
+      },
+      "properties": {
+        "zip": "00659",
+        "city": "Hatillo",
+        "county": "Hatillo",
+        "fips": "72065",
+        "latitude": 18.41036,
+        "longitude": -66.79691
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.11399,
+          18.13412
+        ]
+      },
+      "properties": {
+        "zip": "00660",
+        "city": "Hormigueros",
+        "county": "Hormigueros",
+        "fips": "72067",
+        "latitude": 18.13412,
+        "longitude": -67.11399
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.75506,
+          18.16569
+        ]
+      },
+      "properties": {
+        "zip": "00741",
+        "city": "Punta Santiago",
+        "county": "Humacao",
+        "fips": "72069",
+        "latitude": 18.16569,
+        "longitude": -65.75506
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.81398,
+          18.14391
+        ]
+      },
+      "properties": {
+        "zip": "00791",
+        "city": "Humacao",
+        "county": "Humacao",
+        "fips": "72069",
+        "latitude": 18.14391,
+        "longitude": -65.81398
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.81398,
+          18.14391
+        ]
+      },
+      "properties": {
+        "zip": "00792",
+        "city": "Humacao",
+        "county": "Humacao",
+        "fips": "72069",
+        "latitude": 18.14391,
+        "longitude": -65.81398
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.01508,
+          18.46622
+        ]
+      },
+      "properties": {
+        "zip": "00662",
+        "city": "Isabela",
+        "county": "Isabela",
+        "fips": "72071",
+        "latitude": 18.46622,
+        "longitude": -67.01508
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.59066,
+          18.21064
+        ]
+      },
+      "properties": {
+        "zip": "00664",
+        "city": "Jayuya",
+        "county": "Jayuya",
+        "fips": "72073",
+        "latitude": 18.21064,
+        "longitude": -66.59066
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.49485,
+          18.05128
+        ]
+      },
+      "properties": {
+        "zip": "00795",
+        "city": "Juana Diaz",
+        "county": "Juana Díaz",
+        "fips": "72075",
+        "latitude": 18.05128,
+        "longitude": -66.49485
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.90904,
+          18.22365
+        ]
+      },
+      "properties": {
+        "zip": "00777",
+        "city": "Juncos",
+        "county": "Juncos",
+        "fips": "72077",
+        "latitude": 18.22365,
+        "longitude": -65.90904
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.0417,
+          18.01246
+        ]
+      },
+      "properties": {
+        "zip": "00667",
+        "city": "Lajas",
+        "county": "Lajas",
+        "fips": "72079",
+        "latitude": 18.01246,
+        "longitude": -67.0417
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.83169,
+          18.1852
+        ]
+      },
+      "properties": {
+        "zip": "00631",
+        "city": "Castaner",
+        "county": "Lares",
+        "fips": "72081",
+        "latitude": 18.1852,
+        "longitude": -66.83169
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.86727,
+          18.27019
+        ]
+      },
+      "properties": {
+        "zip": "00669",
+        "city": "Lares",
+        "county": "Lares",
+        "fips": "72081",
+        "latitude": 18.27019,
+        "longitude": -66.86727
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.98852,
+          18.23782
+        ]
+      },
+      "properties": {
+        "zip": "00670",
+        "city": "Las Marias",
+        "county": "Las Marías",
+        "fips": "72083",
+        "latitude": 18.23782,
+        "longitude": -66.98852
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.86916,
+          18.18797
+        ]
+      },
+      "properties": {
+        "zip": "00771",
+        "city": "Las Piedras",
+        "county": "Las Piedras",
+        "fips": "72085",
+        "latitude": 18.18797,
+        "longitude": -65.86916
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.90377,
+          18.43048
+        ]
+      },
+      "properties": {
+        "zip": "00772",
+        "city": "Loiza",
+        "county": "Loíza",
+        "fips": "72087",
+        "latitude": 18.43048,
+        "longitude": -65.90377
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.72756,
+          18.34073
+        ]
+      },
+      "properties": {
+        "zip": "00773",
+        "city": "Luquillo",
+        "county": "Luquillo",
+        "fips": "72089",
+        "latitude": 18.34073,
+        "longitude": -65.72756
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.4891,
+          18.42229
+        ]
+      },
+      "properties": {
+        "zip": "00674",
+        "city": "Manati",
+        "county": "Manatí",
+        "fips": "72091",
+        "latitude": 18.42229,
+        "longitude": -66.4891
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.93716,
+          18.16585
+        ]
+      },
+      "properties": {
+        "zip": "00606",
+        "city": "Maricao",
+        "county": "Maricao",
+        "fips": "72093",
+        "latitude": 18.16585,
+        "longitude": -66.93716
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.92127,
+          18.01752
+        ]
+      },
+      "properties": {
+        "zip": "00707",
+        "city": "Maunabo",
+        "county": "Maunabo",
+        "fips": "72095",
+        "latitude": 18.01752,
+        "longitude": -65.92127
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.36122,
+          18.16307
+        ]
+      },
+      "properties": {
+        "zip": "00680",
+        "city": "Mayaguez",
+        "county": "Mayagüez",
+        "fips": "72097",
+        "latitude": 18.16307,
+        "longitude": -67.36122
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.36122,
+          18.16307
+        ]
+      },
+      "properties": {
+        "zip": "00681",
+        "city": "Mayaguez",
+        "county": "Mayagüez",
+        "fips": "72097",
+        "latitude": 18.16307,
+        "longitude": -67.36122
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.15309,
+          18.22415
+        ]
+      },
+      "properties": {
+        "zip": "00682",
+        "city": "Mayaguez",
+        "county": "Mayagüez",
+        "fips": "72097",
+        "latitude": 18.22415,
+        "longitude": -67.15309
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.08098,
+          18.37897
+        ]
+      },
+      "properties": {
+        "zip": "00676",
+        "city": "Moca",
+        "county": "Moca",
+        "fips": "72099",
+        "latitude": 18.37897,
+        "longitude": -67.08098
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.42029,
+          18.31707
+        ]
+      },
+      "properties": {
+        "zip": "00687",
+        "city": "Morovis",
+        "county": "Morovis",
+        "fips": "72101",
+        "latitude": 18.31707,
+        "longitude": -66.42029
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.76067,
+          18.23145
+        ]
+      },
+      "properties": {
+        "zip": "00718",
+        "city": "Naguabo",
+        "county": "Naguabo",
+        "fips": "72103",
+        "latitude": 18.23145,
+        "longitude": -65.76067
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.76067,
+          18.23145
+        ]
+      },
+      "properties": {
+        "zip": "00744",
+        "city": "Rio Blanco",
+        "county": "Naguabo",
+        "fips": "72103",
+        "latitude": 18.23145,
+        "longitude": -65.76067
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.25316,
+          18.28879
+        ]
+      },
+      "properties": {
+        "zip": "00719",
+        "city": "Naranjito",
+        "county": "Naranjito",
+        "fips": "72105",
+        "latitude": 18.28879,
+        "longitude": -66.25316
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.42421,
+          18.21559
+        ]
+      },
+      "properties": {
+        "zip": "00720",
+        "city": "Orocovis",
+        "county": "Orocovis",
+        "fips": "72107",
+        "latitude": 18.21559,
+        "longitude": -66.42421
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.01122,
+          18.03139
+        ]
+      },
+      "properties": {
+        "zip": "00723",
+        "city": "Patillas",
+        "county": "Patillas",
+        "fips": "72109",
+        "latitude": 18.03139,
+        "longitude": -66.01122
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.71932,
+          18.05905
+        ]
+      },
+      "properties": {
+        "zip": "00624",
+        "city": "Penuelas",
+        "county": "Peñuelas",
+        "fips": "72111",
+        "latitude": 18.05905,
+        "longitude": -66.71932
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.56104,
+          17.99738
+        ]
+      },
+      "properties": {
+        "zip": "00715",
+        "city": "Mercedita",
+        "county": "Ponce",
+        "fips": "72113",
+        "latitude": 17.99738,
+        "longitude": -66.56104
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.59868,
+          17.99942
+        ]
+      },
+      "properties": {
+        "zip": "00716",
+        "city": "Ponce",
+        "county": "Ponce",
+        "fips": "72113",
+        "latitude": 17.99942,
+        "longitude": -66.59868
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.61146,
+          18.00272
+        ]
+      },
+      "properties": {
+        "zip": "00717",
+        "city": "Ponce",
+        "county": "Ponce",
+        "fips": "72113",
+        "latitude": 18.00272,
+        "longitude": -66.61146
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.65995,
+          18.00697
+        ]
+      },
+      "properties": {
+        "zip": "00728",
+        "city": "Ponce",
+        "county": "Ponce",
+        "fips": "72113",
+        "latitude": 18.00697,
+        "longitude": -66.65995
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.61384,
+          18.03256
+        ]
+      },
+      "properties": {
+        "zip": "00730",
+        "city": "Ponce",
+        "county": "Ponce",
+        "fips": "72113",
+        "latitude": 18.03256,
+        "longitude": -66.61384
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.63279,
+          18.09914
+        ]
+      },
+      "properties": {
+        "zip": "00731",
+        "city": "Ponce",
+        "county": "Ponce",
+        "fips": "72113",
+        "latitude": 18.09914,
+        "longitude": -66.63279
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.61384,
+          18.03256
+        ]
+      },
+      "properties": {
+        "zip": "00732",
+        "city": "Ponce",
+        "county": "Ponce",
+        "fips": "72113",
+        "latitude": 18.03256,
+        "longitude": -66.61384
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.61384,
+          18.03256
+        ]
+      },
+      "properties": {
+        "zip": "00733",
+        "city": "Ponce",
+        "county": "Ponce",
+        "fips": "72113",
+        "latitude": 18.03256,
+        "longitude": -66.61384
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.61384,
+          18.03256
+        ]
+      },
+      "properties": {
+        "zip": "00734",
+        "city": "Ponce",
+        "county": "Ponce",
+        "fips": "72113",
+        "latitude": 18.03256,
+        "longitude": -66.61384
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.57032,
+          18.09998
+        ]
+      },
+      "properties": {
+        "zip": "00780",
+        "city": "Coto Laurel",
+        "county": "Ponce",
+        "fips": "72113",
+        "latitude": 18.09998,
+        "longitude": -66.57032
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.93016,
+          18.42949
+        ]
+      },
+      "properties": {
+        "zip": "00678",
+        "city": "Quebradillas",
+        "county": "Quebradillas",
+        "fips": "72115",
+        "latitude": 18.42949,
+        "longitude": -66.93016
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.23155,
+          18.33535
+        ]
+      },
+      "properties": {
+        "zip": "00677",
+        "city": "Rincon",
+        "county": "Rincón",
+        "fips": "72117",
+        "latitude": 18.33535,
+        "longitude": -67.23155
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.81382,
+          18.3466
+        ]
+      },
+      "properties": {
+        "zip": "00721",
+        "city": "Palmer",
+        "county": "Río Grande",
+        "fips": "72119",
+        "latitude": 18.3466,
+        "longitude": -65.81382
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.81382,
+          18.3466
+        ]
+      },
+      "properties": {
+        "zip": "00745",
+        "city": "Rio Grande",
+        "county": "Río Grande",
+        "fips": "72119",
+        "latitude": 18.3466,
+        "longitude": -65.81382
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.94659,
+          18.081
+        ]
+      },
+      "properties": {
+        "zip": "00637",
+        "city": "Sabana Grande",
+        "county": "Sabana Grande",
+        "fips": "72121",
+        "latitude": 18.081,
+        "longitude": -66.94659
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.25871,
+          18.01205
+        ]
+      },
+      "properties": {
+        "zip": "00751",
+        "city": "Salinas",
+        "county": "Salinas",
+        "fips": "72123",
+        "latitude": 18.01205,
+        "longitude": -66.25871
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.03803,
+          18.10926
+        ]
+      },
+      "properties": {
+        "zip": "00636",
+        "city": "Rosario",
+        "county": "San Germán",
+        "fips": "72125",
+        "latitude": 18.10926,
+        "longitude": -67.03803
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.03803,
+          18.10926
+        ]
+      },
+      "properties": {
+        "zip": "00683",
+        "city": "San German",
+        "county": "San Germán",
+        "fips": "72125",
+        "latitude": 18.10926,
+        "longitude": -67.03803
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.10277,
+          18.46478
+        ]
+      },
+      "properties": {
+        "zip": "00901",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.46478,
+        "longitude": -66.10277
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.10277,
+          18.46478
+        ]
+      },
+      "properties": {
+        "zip": "00902",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.46478,
+        "longitude": -66.10277
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.09499,
+          18.46446
+        ]
+      },
+      "properties": {
+        "zip": "00906",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.46446,
+        "longitude": -66.09499
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.08381,
+          18.45287
+        ]
+      },
+      "properties": {
+        "zip": "00907",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.45287,
+        "longitude": -66.08381
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.08381,
+          18.45287
+        ]
+      },
+      "properties": {
+        "zip": "00908",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.45287,
+        "longitude": -66.08381
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.06866,
+          18.44131
+        ]
+      },
+      "properties": {
+        "zip": "00909",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.44131,
+        "longitude": -66.06866
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.06866,
+          18.44131
+        ]
+      },
+      "properties": {
+        "zip": "00910",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.44131,
+        "longitude": -66.06866
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.05636,
+          18.45133
+        ]
+      },
+      "properties": {
+        "zip": "00911",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.45133,
+        "longitude": -66.05636
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.05995,
+          18.44503
+        ]
+      },
+      "properties": {
+        "zip": "00912",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.44503,
+        "longitude": -66.05995
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.04275,
+          18.45024
+        ]
+      },
+      "properties": {
+        "zip": "00913",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.45024,
+        "longitude": -66.04275
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.04275,
+          18.45024
+        ]
+      },
+      "properties": {
+        "zip": "00914",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.45024,
+        "longitude": -66.04275
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.04576,
+          18.43673
+        ]
+      },
+      "properties": {
+        "zip": "00915",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.43673,
+        "longitude": -66.04576
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.04576,
+          18.43673
+        ]
+      },
+      "properties": {
+        "zip": "00916",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.43673,
+        "longitude": -66.04576
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.04989,
+          18.4208
+        ]
+      },
+      "properties": {
+        "zip": "00917",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.4208,
+        "longitude": -66.04989
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.06774,
+          18.42139
+        ]
+      },
+      "properties": {
+        "zip": "00918",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.42139,
+        "longitude": -66.06774
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.06774,
+          18.42139
+        ]
+      },
+      "properties": {
+        "zip": "00919",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.42139,
+        "longitude": -66.06774
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.09023,
+          18.41904
+        ]
+      },
+      "properties": {
+        "zip": "00920",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.41904,
+        "longitude": -66.09023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.0871,
+          18.39206
+        ]
+      },
+      "properties": {
+        "zip": "00921",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.39206,
+        "longitude": -66.0871
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.0871,
+          18.39206
+        ]
+      },
+      "properties": {
+        "zip": "00922",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.39206,
+        "longitude": -66.0871
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.03715,
+          18.41146
+        ]
+      },
+      "properties": {
+        "zip": "00923",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.41146,
+        "longitude": -66.03715
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.01344,
+          18.39987
+        ]
+      },
+      "properties": {
+        "zip": "00924",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.39987,
+        "longitude": -66.01344
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.05058,
+          18.40028
+        ]
+      },
+      "properties": {
+        "zip": "00925",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.40028,
+        "longitude": -66.05058
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.05434,
+          18.34691
+        ]
+      },
+      "properties": {
+        "zip": "00926",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.34691,
+        "longitude": -66.05434
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00927",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00928",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00929",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00930",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00931",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00933",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00935",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00936",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00937",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00938",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00939",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00940",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00955",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.10123,
+          18.40609
+        ]
+      },
+      "properties": {
+        "zip": "00968",
+        "city": "Guaynabo",
+        "county": "Guaynabo",
+        "fips": "72061",
+        "latitude": 18.40609,
+        "longitude": -66.10123
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.07149,
+          18.38884
+        ]
+      },
+      "properties": {
+        "zip": "00975",
+        "city": "San Juan",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.38884,
+        "longitude": -66.07149
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.0089,
+          18.43734
+        ]
+      },
+      "properties": {
+        "zip": "00979",
+        "city": "Carolina",
+        "county": "Carolina",
+        "fips": "72031",
+        "latitude": 18.43734,
+        "longitude": -66.0089
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.0089,
+          18.43734
+        ]
+      },
+      "properties": {
+        "zip": "00981",
+        "city": "Carolina",
+        "county": "Carolina",
+        "fips": "72031",
+        "latitude": 18.43734,
+        "longitude": -66.0089
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.99143,
+          18.40961
+        ]
+      },
+      "properties": {
+        "zip": "00982",
+        "city": "Carolina",
+        "county": "Carolina",
+        "fips": "72031",
+        "latitude": 18.40961,
+        "longitude": -65.99143
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.97565,
+          18.1447
+        ]
+      },
+      "properties": {
+        "zip": "00754",
+        "city": "San Lorenzo",
+        "county": "San Lorenzo",
+        "fips": "72129",
+        "latitude": 18.1447,
+        "longitude": -65.97565
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.97518,
+          18.33656
+        ]
+      },
+      "properties": {
+        "zip": "00685",
+        "city": "San Sebastian",
+        "county": "San Sebastián",
+        "fips": "72131",
+        "latitude": 18.33656,
+        "longitude": -66.97518
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.39056,
+          17.9933
+        ]
+      },
+      "properties": {
+        "zip": "00757",
+        "city": "Santa Isabel",
+        "county": "Santa Isabel",
+        "fips": "72133",
+        "latitude": 17.9933,
+        "longitude": -66.39056
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.24764,
+          18.36319
+        ]
+      },
+      "properties": {
+        "zip": "00953",
+        "city": "Toa Alta",
+        "county": "Toa Alta",
+        "fips": "72135",
+        "latitude": 18.36319,
+        "longitude": -66.24764
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.24764,
+          18.36319
+        ]
+      },
+      "properties": {
+        "zip": "00954",
+        "city": "Toa Alta",
+        "county": "Toa Alta",
+        "fips": "72135",
+        "latitude": 18.36319,
+        "longitude": -66.24764
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.21349,
+          18.43166
+        ]
+      },
+      "properties": {
+        "zip": "00949",
+        "city": "Toa Baja",
+        "county": "Toa Baja",
+        "fips": "72137",
+        "latitude": 18.43166,
+        "longitude": -66.21349
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.23917,
+          18.46201
+        ]
+      },
+      "properties": {
+        "zip": "00950",
+        "city": "Toa Baja",
+        "county": "Dorado",
+        "fips": "72051",
+        "latitude": 18.46201,
+        "longitude": -66.23917
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.25628,
+          18.43175
+        ]
+      },
+      "properties": {
+        "zip": "00951",
+        "city": "Toa Baja",
+        "county": "Toa Baja",
+        "fips": "72137",
+        "latitude": 18.43175,
+        "longitude": -66.25628
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.18897,
+          18.42874
+        ]
+      },
+      "properties": {
+        "zip": "00952",
+        "city": "Sabana Seca",
+        "county": "Toa Baja",
+        "fips": "72137",
+        "latitude": 18.42874,
+        "longitude": -66.18897
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.99286,
+          18.33903
+        ]
+      },
+      "properties": {
+        "zip": "00976",
+        "city": "Trujillo Alto",
+        "county": "Trujillo Alto",
+        "fips": "72139",
+        "latitude": 18.33903,
+        "longitude": -65.99286
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.99286,
+          18.33903
+        ]
+      },
+      "properties": {
+        "zip": "00977",
+        "city": "Trujillo Alto",
+        "county": "Trujillo Alto",
+        "fips": "72139",
+        "latitude": 18.33903,
+        "longitude": -65.99286
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.05434,
+          18.34691
+        ]
+      },
+      "properties": {
+        "zip": "00978",
+        "city": "St Just",
+        "county": "San Juan",
+        "fips": "72127",
+        "latitude": 18.34691,
+        "longitude": -66.05434
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.80688,
+          18.27698
+        ]
+      },
+      "properties": {
+        "zip": "00611",
+        "city": "Angeles",
+        "county": "Utuado",
+        "fips": "72141",
+        "latitude": 18.27698,
+        "longitude": -66.80688
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.70212,
+          18.26742
+        ]
+      },
+      "properties": {
+        "zip": "00641",
+        "city": "Utuado",
+        "county": "Utuado",
+        "fips": "72141",
+        "latitude": 18.26742,
+        "longitude": -66.70212
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.33768,
+          18.40905
+        ]
+      },
+      "properties": {
+        "zip": "00692",
+        "city": "Vega Alta",
+        "county": "Vega Alta",
+        "fips": "72143",
+        "latitude": 18.40905,
+        "longitude": -66.33768
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.39811,
+          18.42633
+        ]
+      },
+      "properties": {
+        "zip": "00693",
+        "city": "Vega Baja",
+        "county": "Vega Baja",
+        "fips": "72145",
+        "latitude": 18.42633,
+        "longitude": -66.39811
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.39269,
+          18.48327
+        ]
+      },
+      "properties": {
+        "zip": "00694",
+        "city": "Vega Baja",
+        "county": "Vega Baja",
+        "fips": "72145",
+        "latitude": 18.48327,
+        "longitude": -66.39269
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.43013,
+          18.12365
+        ]
+      },
+      "properties": {
+        "zip": "00765",
+        "city": "Vieques",
+        "county": "Vieques",
+        "fips": "72147",
+        "latitude": 18.12365,
+        "longitude": -65.43013
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.4757,
+          18.13039
+        ]
+      },
+      "properties": {
+        "zip": "00766",
+        "city": "Villalba",
+        "county": "Villalba",
+        "fips": "72149",
+        "latitude": 18.13039,
+        "longitude": -66.4757
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -65.89618,
+          18.07033
+        ]
+      },
+      "properties": {
+        "zip": "00767",
+        "city": "Yabucoa",
+        "county": "Yabucoa",
+        "fips": "72151",
+        "latitude": 18.07033,
+        "longitude": -65.89618
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.85519,
+          18.07274
+        ]
+      },
+      "properties": {
+        "zip": "00698",
+        "city": "Yauco",
+        "county": "Yauco",
+        "fips": "72153",
+        "latitude": 18.07274,
+        "longitude": -66.85519
+      }
+    }
+  ]
+}
