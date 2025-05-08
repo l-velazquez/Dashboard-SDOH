@@ -99,11 +99,23 @@
         const isLight = {{ light_mode|lower }};
 
         // Initialize map
-        const map = L.map('map').setView([18.1208, -66.2601], 9); // Centered on Puerto Rico
+        const map = L.map('map',{
+            zoomControl: false,
+            scrollWheelZoom: false,
+            doubleClickZoom: false,
+            boxZoom: false,
+            touchZoom: false,
+            minZoom: 9,
+            maxZoom: 9
+        } ).setView([18.1208, -66.2601], 9); // Centered on Puerto Rico
         const tileUrl = isLight
             ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
             : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
         L.tileLayer(tileUrl, { maxZoom: 9 }).addTo(map);
+        
+        
+        
+       
 
         // Prepare metric selection
         const metricSelect = document.getElementById('metric');

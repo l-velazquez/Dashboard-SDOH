@@ -101,5 +101,54 @@ def index(request):
         'formula_details': json.dumps(formula_details)
     })
 
+def puerto_rico(request):
+    return render(request, 'maps/puerto_rico_info.html')
 
+def zipcode_map(request):
+    # Construct paths to your JSON files within the static directory
+    # This assumes your static files are collected or served correctly.
+    # For development, Django's staticfiles finders will locate them.
+    
+    # Path for GeoJSON
+    geojson_file_path = os.path.join(settings.BASE_DIR,'static' , 'maps', 'puerto_rico_zcta.geojson')
+    # Path for health data JSON
+    health_data_file_path = os.path.join(settings.BASE_DIR, 'static', 'data', 'cardio_risk_by_zipcodes.json')
 
+    geojson_data_str = "{}"
+    health_stats_data_str = "{}"
+
+    try:
+        with open(geojson_file_path, 'r') as f:
+            # We pass it as a string, JavaScript will parse it
+            geojson_data_str = f.read() 
+    except FileNotFoundError:
+        print(f"Error: GeoJSON file not found at {geojson_file_path}")
+        # Handle error appropriately, maybe pass an empty GeoJSON or an error message
+    
+    try:
+        with open(health_data_file_path, 'r') as f:
+            # We pass it as a string, JavaScript will parse it
+            health_stats_data_str = f.read()
+    except FileNotFoundError:
+        print(f"Error: Health data file not found at {health_data_file_path}")
+        # Handle error appropriately
+
+    context = {
+        'geojson_data': geojson_data_str,
+        'health_stats_data': health_stats_data_str,
+    }
+    return render(request, 'maps/zip_code.html', context)
+
+def handle_500(request):
+    """
+    Custom error handler for 500 Internal Server Error.
+    This function renders a custom error page.
+    """
+    return render(request, 'errors/500.html', status=500)
+
+def handle_404(request, exception):
+    """
+    Custom error handler for 404 Not Found.
+    This function renders a custom error page.
+    """
+    return render(request, 'errors/404.html', status=404)

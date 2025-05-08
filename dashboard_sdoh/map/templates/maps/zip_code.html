@@ -1,0 +1,499 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puerto Rico Health Indicators Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    
+    <!-- Simple CSS for layout and styling -->
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #00796b; /* Teal shade */
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        .main-content {
+            display: flex;
+            flex-grow: 1;
+            padding: 20px;
+            gap: 20px; /* Space between columns */
+        }
+
+        .sidebar {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow-y: auto; /* For scrollable content if it overflows */
+        }
+
+        .left-sidebar {
+            flex: 0 0 280px; /* Fixed width for left sidebar */
+        }
+
+        .map-container {
+            flex-grow: 1; /* Map takes remaining space */
+            display: flex; /* To center the map div */
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 15px;
+        }
+
+        #map {
+            width: 100%;
+            height: 600px; /* Or adjust as needed, maybe make it responsive */
+            border-radius: 8px; /* Rounded corners for the map itself */
+            border: 1px solid #ddd;
+        }
+
+        .right-sidebar {
+            flex: 0 0 320px; /* Fixed width for right sidebar */
+        }
+        
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 1.4em;
+            color: #004d40; /* Darker teal */
+            border-bottom: 2px solid #b2dfdb; /* Light teal accent */
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .control-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            font-size: 0.95em;
+        }
+        
+        .legend {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            border-radius: 3px; /* Slightly rounded legend color swatches */
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .legend span {
+            display: block;
+            margin-bottom: 5px; /* Space between legend items */
+        }
+
+        .info-panel h3 {
+            font-size: 1.2em;
+            color: #004d40;
+            margin-top: 0;
+        }
+        .info-panel p {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        .info-panel .data-item {
+            margin-bottom: 10px;
+        }
+        .info-panel .data-label {
+            font-weight: 600;
+            color: #444;
+        }
+        .info-panel .data-value {
+            color: #111;
+        }
+        .placeholder-text {
+            color: #777;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #e0e0e0;
+            color: #555;
+            font-size: 0.9em;
+            margin-top: auto; /* Pushes footer to the bottom if content is short */
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Puerto Rico Health Indicators</h1>
+    </header>
+
+    <div class="main-content">
+        <div class="left-sidebar sidebar">
+            <h2>Controls & Legend</h2>
+            <div class="control-group">
+                <label for="metric-select">Select Health Indicator:</label>
+                <select id="metric-select"></select>
+            </div>
+            <div class="control-group">
+                <label>Legend:</label>
+                <div id="legend" class="legend">
+                    <p class="placeholder-text">Select an indicator to see the legend.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+
+        <div class="right-sidebar sidebar">
+            <h2>Area Information</h2>
+            <div id="info-panel" class="info-panel">
+                <p class="placeholder-text">Click on a ZIP code area on the map to see details.</p>
+                <!-- Info will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Data Source: Fictional Health Data & US Census ZCTA</p>
+    </footer>
+
+<script>
+    // --- Data from Django context ---
+    const geojsonDataString = `{{ geojson_data|safe }}`;
+    const healthStatsDataString = `{{ health_stats_data|safe }}`;
+
+    let geojsonData;
+    let healthStatsData;
+
+    try {
+        geojsonData = JSON.parse(geojsonDataString);
+    } catch (e) {
+        console.error("Error parsing GeoJSON data:", e);
+        geojsonData = { "type": "FeatureCollection", "features": [] };
+    }
+
+    try {
+        healthStatsData = JSON.parse(healthStatsDataString);
+    } catch (e) {
+        console.error("Error parsing health stats data:", e);
+        healthStatsData = {};
+    }
+    
+    // --- Metric Configurations (Crucial for good/bad coloring) ---
+    // type: 'goodIsHigh', 'goodIsLow', 'neutral'
+    // breaks: values separating categories
+    // colors: corresponding to categories defined by breaks
+    //         (e.g., value <= breaks[0] -> colors[0], breaks[0] < value <= breaks[1] -> colors[1], etc.)
+    //         Ensure colors array has one more item than breaks array.
+    const metricConfigs = {
+        'composite_score': {
+            displayName: 'Overall Health Score',
+            type: 'goodIsHigh',
+            breaks: [30, 50, 70, 85], // Lower scores are worse
+            colors: ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641'], // Red, Orange, Yellow, Light Green, Green
+            unit: 'points'
+        },
+        'cholesterol': {
+            displayName: 'Avg. Cholesterol',
+            type: 'goodIsLow', // Lower is generally better (target < 200)
+            breaks: [180, 200, 220, 240], // Example: Desirable, Borderline, High
+            colors: ['#1a9641', '#a6d96a', '#ffffbf', '#fdae61', '#d7191c'], // Green to Red
+            unit: 'mg/dL'
+        },
+        'hdl': {
+            displayName: 'Avg. HDL (Good Cholesterol)',
+            type: 'goodIsHigh', // Higher is better (target > 60 protective, < 40 risk)
+            breaks: [30, 40, 50, 60],
+            colors: ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641'], // Red to Green
+            unit: 'mg/dL'
+        },
+        'ldl': {
+            displayName: 'Avg. LDL (Bad Cholesterol)',
+            type: 'goodIsLow', // Lower is better (target < 100 optimal)
+            breaks: [100, 130, 160, 190],
+            colors: ['#1a9641', '#a6d96a', '#ffffbf', '#fdae61', '#d7191c'], // Green to Red
+            unit: 'mg/dL'
+        },
+        'triglycerides': {
+            displayName: 'Avg. Triglycerides',
+            type: 'goodIsLow', // Lower is better (target < 150 normal)
+            breaks: [150, 200, 300, 500],
+            colors: ['#1a9641', '#a6d96a', '#ffffbf', '#fdae61', '#d7191c'],
+            unit: 'mg/dL'
+        },
+        'ct_hdl_ratio': {
+            displayName: 'Cholesterol/HDL Ratio',
+            type: 'goodIsLow', // Lower is better
+            breaks: [3.5, 4.0, 5.0, 6.0],
+            colors: ['#1a9641', '#a6d96a', '#ffffbf', '#fdae61', '#d7191c'],
+            unit: ''
+        }
+        // Add more metrics here following the same structure
+    };
+    
+    let currentMetricKey = 'composite_score'; // Default metric
+    let geojsonLayer;
+    let selectedLayer = null; // To keep track of the clicked/selected layer
+
+    // --- Leaflet Map Initialization ---
+    const map = L.map('map').setView([18.2208, -66.5901], 9);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', { // A cleaner base map
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(map);
+
+    // --- Populate the metric selector dropdown ---
+    const metricSelect = document.getElementById('metric-select');
+    for (const key in metricConfigs) {
+        const option = document.createElement('option');
+        option.value = key;
+        option.textContent = metricConfigs[key].displayName;
+        if (key === currentMetricKey) {
+            option.selected = true;
+        }
+        metricSelect.appendChild(option);
+    }
+
+    // --- Merge Health Data into GeoJSON Properties ---
+    if (geojsonData && geojsonData.features && healthStatsData) {
+        geojsonData.features.forEach(feature => {
+            const zipCode = feature.properties.ZCTA5CE10;
+            if (healthStatsData[zipCode]) {
+                Object.assign(feature.properties, healthStatsData[zipCode]);
+            } else {
+                // Ensure all potential metric keys from configs exist for consistent handling
+                for (const mKey in metricConfigs) {
+                    if (!(mKey in feature.properties)) {
+                        feature.properties[mKey] = null;
+                    }
+                }
+                feature.properties.municipality = "N/A (No Data)";
+            }
+        });
+    }
+    
+    // --- Styling and Interaction ---
+    function getColor(value, metricKey) {
+        const config = metricConfigs[metricKey];
+        if (!config || value === null || value === undefined) {
+            return '#E0E0E0'; // Default grey for no data or no config
+        }
+
+        const breaks = config.breaks;
+        const colors = config.colors;
+
+        if (config.type === 'goodIsHigh') { // Higher values get "better" colors (later in array)
+            for (let i = 0; i < breaks.length; i++) {
+                if (value <= breaks[i]) return colors[i];
+            }
+            return colors[colors.length - 1]; // Value is above the last break
+        } else if (config.type === 'goodIsLow') { // Lower values get "better" colors (earlier in array)
+            for (let i = 0; i < breaks.length; i++) {
+                if (value <= breaks[i]) return colors[i];
+            }
+            return colors[colors.length - 1];
+        } else { // Neutral or undefined type
+            // Fallback to a simple scale or a default color
+             for (let i = 0; i < breaks.length; i++) {
+                if (value <= breaks[i]) return colors[i];
+            }
+            return colors[colors.length - 1];
+        }
+    }
+
+    function style(feature) {
+        const value = feature.properties[currentMetricKey];
+        return {
+            fillColor: getColor(value, currentMetricKey),
+            weight: 1,
+            opacity: 1,
+            color: '#fff', // White borders for polygons
+            fillOpacity: 0.75
+        };
+    }
+    
+    function highlightFeature(e) {
+        const layer = e.target;
+        if (layer !== selectedLayer) { // Don't override selected layer's highlight
+            layer.setStyle({
+                weight: 2.5,
+                color: '#00796b', // Highlight color
+                fillOpacity: 0.85
+            });
+        }
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            if (layer !== selectedLayer) layer.bringToFront();
+        }
+    }
+
+    function resetHighlight(e) {
+        if (e.target !== selectedLayer) { // Only reset if not the selected one
+            geojsonLayer.resetStyle(e.target);
+        }
+    }
+
+    function selectFeature(e) {
+        const layer = e.target;
+
+        // Reset style of previously selected layer
+        if (selectedLayer && selectedLayer !== layer) {
+            geojsonLayer.resetStyle(selectedLayer);
+            selectedLayer.bringToBack(); // Send previously selected layer to back
+        }
+        
+        map.fitBounds(layer.getBounds().pad(0.1)); // Pad slightly for better view
+
+        // Style for selected layer
+        layer.setStyle({
+            weight: 3,
+            color: '#004d40', // Darker, prominent selection color
+            dashArray: '',
+            fillOpacity: 0.9
+        });
+        layer.bringToFront();
+        selectedLayer = layer;
+
+        updateInfoPanel(layer.feature.properties);
+    }
+    
+    function onEachFeature(feature, layer) {
+        layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight,
+            click: selectFeature
+        });
+    }
+
+    // --- Update Info Panel (Right Sidebar) ---
+    const infoPanel = document.getElementById('info-panel');
+    function updateInfoPanel(props) {
+        if (!props) {
+            infoPanel.innerHTML = '<p class="placeholder-text">Click on a ZIP code area on the map to see details.</p>';
+            return;
+        }
+        
+        const config = metricConfigs[currentMetricKey];
+        const currentMetricValue = props[currentMetricKey];
+        const currentMetricDisplay = currentMetricValue !== null && currentMetricValue !== undefined 
+                                    ? `${currentMetricValue.toFixed(2)} ${config.unit || ''}` 
+                                    : 'N/A';
+
+        let content = `<h3>ZIP Code: ${props.ZCTA5CE10 || 'N/A'}</h3>`;
+        content += `<p><span class="data-label">Municipality:</span> <span class="data-value">${props.municipality || 'N/A'}</span></p>`;
+        content += `<hr>`;
+        content += `<p class="data-item"><span class="data-label">${config.displayName}:</span> <strong class="data-value">${currentMetricDisplay}</strong></p>`;
+        
+        content += `<h4>All Indicators for this Area:</h4>`;
+        for (const key in metricConfigs) {
+            if (props.hasOwnProperty(key)) {
+                const val = props[key];
+                const displayVal = val !== null && val !== undefined ? `${val.toFixed(2)} ${metricConfigs[key].unit || ''}` : 'N/A';
+                content += `<p class="data-item"><span class="data-label">${metricConfigs[key].displayName}:</span> <span class="data-value">${displayVal}</span></p>`;
+            }
+        }
+        infoPanel.innerHTML = content;
+    }
+    
+    // --- Update Legend (Left Sidebar) ---
+    const legendDiv = document.getElementById('legend');
+    function updateLegend(metricKey) {
+        const config = metricConfigs[metricKey];
+        if (!config) {
+            legendDiv.innerHTML = '<p class="placeholder-text">Legend not available for this indicator.</p>';
+            return;
+        }
+
+        const breaks = config.breaks;
+        const colors = config.colors;
+        let legendHtml = '';
+
+        // First category (<= breaks[0])
+        legendHtml += `<span><i style="background:${colors[0]}"></i> ≤ ${breaks[0].toFixed(1)} ${config.unit || ''}</span>`;
+
+        for (let i = 0; i < breaks.length -1; i++) {
+            legendHtml += `<span><i style="background:${colors[i+1]}"></i> ${breaks[i].toFixed(1)} - ${breaks[i+1].toFixed(1)} ${config.unit || ''}</span>`;
+        }
+        
+        // Last category (> breaks[breaks.length-1])
+        legendHtml += `<span><i style="background:${colors[colors.length-1]}"></i> > ${breaks[breaks.length-1].toFixed(1)} ${config.unit || ''}</span>`;
+
+        if (colors.includes('#E0E0E0') || getColor(null, metricKey) === '#E0E0E0') {
+             legendHtml += `<span><i style="background:#E0E0E0"></i> No Data</span>`;
+        }
+
+        legendDiv.innerHTML = legendHtml;
+    }
+
+    // --- Event listener for metric selection ---
+    metricSelect.addEventListener('change', function() {
+        currentMetricKey = this.value;
+        if (geojsonLayer) {
+            geojsonLayer.setStyle(style); // Re-apply style based on the new metric
+        }
+        updateLegend(currentMetricKey);
+        // If a layer is selected, update its info in the panel for the new metric
+        if (selectedLayer) {
+            updateInfoPanel(selectedLayer.feature.properties);
+        } else {
+            updateInfoPanel(null); // Or clear panel
+        }
+    });
+
+    // --- Add GeoJSON layer to the map ---
+    if (geojsonData && geojsonData.features && geojsonData.features.length > 0) {
+        geojsonLayer = L.geoJson(geojsonData, {
+            style: style,
+            onEachFeature: onEachFeature
+        }).addTo(map);
+        updateLegend(currentMetricKey); // Initial legend update
+    } else {
+        document.getElementById('map').innerHTML = "<p style='text-align:center; padding-top: 50px;'>Could not load map data.</p>";
+        legendDiv.innerHTML = '<p class="placeholder-text">Map data unavailable.</p>';
+        updateInfoPanel(null);
+    }
+
+</script>
+</body>
+</html>

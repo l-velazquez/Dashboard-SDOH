@@ -392,7 +392,7 @@ body.dark-mode {
   .map-legend-area {
       /* Map and legend can still be side-by-side if space is enough,
          or stack them if not. Let's try side-by-side first. */
-      /* gap: 15px; */
+      gap: 15px;
   }
 
   #map {
