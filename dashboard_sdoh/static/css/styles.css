@@ -137,7 +137,7 @@ body {
 
 /* Legend Section Styling */
 .scale-section {
-  width: 180px;
+  width: 130px;
   flex-shrink: 0;
   background-color: #ffffff;
   border-radius: 8px;
@@ -257,133 +257,208 @@ body.dark-mode {
 
 
 /* --- Mobile Responsiveness --- */
+/* Small Mobile (up to 768px) - Stacks everything */
 @media (max-width: 768px) {
-    .navbar {
-        padding: 10px 15px; /* Reduce padding slightly */
-    }
-    .navbar .logo {
-        height: 50px; /* Smaller logos */
-    }
+  .navbar {
+      padding: 10px 15px; /* Reduce padding slightly */
+  }
+  .navbar .logo {
+      height: 50px; /* Smaller logos */
+  }
 
-    .title-section {
-        flex-direction: column; /* Stack title and button */
-        align-items: flex-start; /* Align title to left */
-        gap: 10px;
-        padding: 15px;
-    }
-    .title-section h1 {
-        font-size: 1.4rem; /* Smaller title */
-    }
-    .toggle-button {
-        align-self: flex-end; /* Move button to the right */
-        padding: 6px 12px;
-        font-size: 0.9rem;
-    }
+  .title-section {
+      flex-direction: column; /* Stack title and button */
+      align-items: flex-start; /* Align title to left */
+      gap: 10px;
+      padding: 15px;
+  }
+  .title-section h1 {
+      font-size: 1.4rem; /* Smaller title */
+  }
+  .toggle-button {
+      align-self: flex-end; /* Move button to the right */
+      padding: 6px 12px;
+      font-size: 0.9rem;
+  }
 
-    .main-container {
-        flex-direction: column; /* Stack sidebar and map/legend area */
-        align-items: center; /* Center items when stacked */
-        gap: 15px;
-        margin: 15px auto;
-        padding: 0 10px; /* Reduce overall padding */
-    }
+  .main-container {
+      flex-direction: column; /* Stack sidebar and map/legend area */
+      align-items: center; /* Center items when stacked */
+      gap: 15px;
+      margin: 15px auto;
+      padding: 0 10px; /* Reduce overall padding */
+  }
 
-    .sidebar {
-        width: 100%; /* Sidebar takes full width */
-        margin-bottom: 0; /* Gap is handled by main-container */
-        padding: 15px;
-    }
-    .sidebar h2 {
-        font-size: 1.2rem;
-    }
+  .sidebar {
+      width: 100%; /* Sidebar takes full width */
+      margin-bottom: 0; /* Gap is handled by main-container */
+      padding: 15px;
+  }
+  .sidebar h2 {
+      font-size: 1.2rem;
+  }
 
-    .map-legend-area {
-        flex-direction: column; /* Stack map and legend */
-        width: 100%;
-        gap: 15px;
-    }
+  .map-legend-area {
+      flex-direction: column; /* Stack map and legend */
+      width: 100%;
+      gap: 15px;
+  }
 
-    #map {
-        width: 100%; /* Map takes full width of its container */
-        height: 350px; /* Reduce map height on mobile */
-    }
+  #map {
+      width: 100%; /* Map takes full width of its container */
+      height: 350px; /* Reduce map height on mobile */
+  }
 
-    .scale-section {
-        width: 100%; /* Legend takes full width */
-        flex-direction: column; /* Stack color bar above labels */
-        align-items: center; /* Center legend content */
-        padding: 10px;
-        max-height: none; /* Allow legend to grow as needed */
-        overflow-y: visible; /* No specific scroll needed if items wrap */
-    }
+  .scale-section {
+      width: 100%; /* Legend takes full width */
+      flex-direction: column; /* Stack color bar above labels */
+      align-items: center; /* Center legend content */
+      padding: 10px;
+      max-height: none; /* Allow legend to grow as needed */
+      overflow-y: visible; /* No specific scroll needed if items wrap */
+  }
 
-    .scale-container { /* Color boxes horizontal */
-        flex-direction: row;
-        flex-wrap: wrap; /* Allow boxes to wrap to next line */
-        justify-content: center; /* Center the color boxes */
-        width: 100%;
-        margin-bottom: 10px; /* Space between color boxes and labels */
-    }
-    .scale-box {
-        height: 25px;
-        width: 25px; /* Square boxes for better touch */
-        margin: 2px; /* Spacing between boxes */
-        border-radius: 3px !important; /* Ensure all boxes are slightly rounded */
-    }
+  .scale-container { /* Color boxes horizontal */
+      flex-direction: row;
+      flex-wrap: wrap; /* Allow boxes to wrap to next line */
+      justify-content: center; /* Center the color boxes */
+      width: 100%;
+      margin-bottom: 10px; /* Space between color boxes and labels */
+  }
+  .scale-box {
+      height: 25px;
+      width: 25px; /* Square boxes for better touch */
+      margin: 2px; /* Spacing between boxes */
+      border-radius: 3px !important; /* Ensure all boxes are slightly rounded */
+  }
 
-    .scale-labels { /* Labels also horizontal and centered */
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-        padding-right: 0; /* No specific padding needed if centered */
-        text-align: center;
-    }
-    .scale-labels div {
-        height: auto; /* Natural height */
-        line-height: 1.2;
-        padding: 2px 5px; /* Spacing around each label piece */
-        margin-bottom: 3px; /* If labels wrap */
-        white-space: normal; /* Allow labels to wrap text if very long */
-    }
+  .scale-labels { /* Labels also horizontal and centered */
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      padding-right: 0; /* No specific padding needed if centered */
+      text-align: center;
+  }
+  .scale-labels div {
+      height: auto; /* Natural height */
+      line-height: 1.2;
+      padding: 2px 5px; /* Spacing around each label piece */
+      margin-bottom: 3px; /* If labels wrap */
+      white-space: normal; /* Allow labels to wrap text if very long */
+  }
+   .dropdown-group { /* Ensure some bottom margin if descriptions get long */
+      margin-bottom: 10px; 
+  }
+  .metric-option-description {
+      font-size: 0.75em;
+      padding: 6px 8px;
+  }
+  .info-box {
+      width: calc(100% - 20px); /* Full width with small side margins */
+      max-width: none;
+      margin: 15px auto;
+      padding: 15px;
+  }
+  .info-box h3 {
+      font-size: 1.2rem;
+  }
+  .info-box li {
+      font-size: 0.85rem;
+  }
 
-    .info-box {
-        width: calc(100% - 20px); /* Full width with small side margins */
-        max-width: none;
-        margin: 15px auto;
-        padding: 15px;
-    }
-    .info-box h3 {
-        font-size: 1.2rem;
-    }
-    .info-box li {
-        font-size: 0.85rem;
-    }
-
-    footer p {
-        font-size: 0.8rem;
-    }
+  footer p {
+      font-size: 0.8rem;
+  }
 }
 
-/* Optional: For very small screens, you might want to adjust further */
+/* --- Tablet / Larger Mobile (e.g., 769px to 992px) --- */
+@media (min-width: 769px) and (max-width: 992px) {
+  .main-container {
+      /* Keep sidebar and map-legend-area side-by-side, but adjust widths */
+      /* gap: 15px; */ /* Slightly smaller gap */
+      padding: 0 15px;
+  }
+
+  .sidebar {
+      width: 30%; /* Sidebar takes a bit more space than on desktop */
+      padding: 15px;
+  }
+  .sidebar h2 {
+      font-size: 1.25rem;
+  }
+
+
+  .map-legend-area {
+      /* Map and legend can still be side-by-side if space is enough,
+         or stack them if not. Let's try side-by-side first. */
+      /* gap: 15px; */
+  }
+
+  #map {
+      height: 450px; /* Height between small mobile and desktop */
+  }
+
+  .scale-section {
+      width: 160px; /* Slightly narrower legend than full desktop */
+      padding: 12px;
+      /* Keep flex-direction: row-reverse; for vertical legend */
+  }
+  .scale-container {
+      width: 25px; /* Slightly narrower color bar */
+  }
+  .scale-box {
+      height: 18px; /* Adjust if needed */
+  }
+  .scale-labels div {
+      height: 18px;
+      line-height: 18px;
+      font-size: 0.75rem;
+  }
+  .metric-option-description {
+      font-size: 0.78em;
+  }
+
+  .info-box {
+      /* Max width can be a bit less than full desktop if main-container is narrower */
+      max-width: calc(100% - 30px); /* Example */
+      padding: 18px;
+  }
+   .info-box h3 {
+      font-size: 1.3rem;
+  }
+  .info-box li {
+      font-size: 0.88rem;
+  }
+
+  .title-section h1 {
+      font-size: 1.6rem;
+  }
+  .navbar .logo {
+      height: 65px;
+  }
+}
+
+
+/* Optional: For very small screens, if the 768px isn't granular enough */
 @media (max-width: 480px) {
-    .navbar .logo {
-        height: 40px;
-    }
-    .title-section h1 {
-        font-size: 1.2rem;
-    }
-    #map {
-        height: 300px;
-    }
-    .scale-box {
-        height: 20px;
-        width: 20px;
-    }
-    .info-box h3 {
-        font-size: 1.1rem;
-    }
-    .info-box li {
-        font-size: 0.8rem;
-    }
+  .navbar .logo {
+      height: 40px;
+  }
+  .title-section h1 {
+      font-size: 1.2rem;
+  }
+  #map {
+      height: 300px;
+  }
+  .scale-box { /* These are for the stacked horizontal legend on small mobile */
+      height: 20px;
+      width: 20px;
+  }
+  .info-box h3 {
+      font-size: 1.1rem;
+  }
+  .info-box li {
+      font-size: 0.8rem;
+  }
 }

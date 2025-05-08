@@ -70,7 +70,7 @@
             <!-- Legend Section -->
             <aside class="scale-section">
                 <!-- Optional: You can add a title for the legend if desired -->
-                <!-- <h3 style="text-align: center; width: 100%; margin-bottom: 10px;">Legend</h3> -->
+                {% comment %} <h3 style="text-align: center; width: 100%; margin-bottom: 10px;">Legend</h3> {% endcomment %}
                 <div class="scale-container">
                     <!-- Color boxes will be generated here by JavaScript -->
                 </div>
@@ -99,11 +99,11 @@
         const isLight = {{ light_mode|lower }};
 
         // Initialize map
-        const map = L.map('map').setView([18.1208, -66.2601], 9);
+        const map = L.map('map').setView([18.1208, -66.2601], 9); // Centered on Puerto Rico
         const tileUrl = isLight
             ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
             : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-        L.tileLayer(tileUrl, { maxZoom: 19 }).addTo(map);
+        L.tileLayer(tileUrl, { maxZoom: 9 }).addTo(map);
 
         // Prepare metric selection
         const metricSelect = document.getElementById('metric');
