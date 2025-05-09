@@ -12,77 +12,99 @@
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
     
-    <!-- Simple CSS for layout and styling -->
     <style>
+        /* --- 1. Global & Basic Resets --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
             background-color: #f4f7f6;
             color: #333;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            line-height: 1.6;
         }
 
+        /* --- 2. Header --- */
         header {
-            background-color: #00796b; /* Teal shade */
+            background-color:rgb(52, 0, 121);
             color: white;
             padding: 15px 20px;
-            text-align: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column; /* Mobile: Title on top, then logo container */
+            align-items: center;
+            gap: 10px; /* Space between title and logo container */
         }
 
         header h1 {
             margin: 0;
-            font-size: 1.8em;
+            font-size: 1.5em; /* Mobile font size */
+            text-align: center;
+            order: 1; /* Title first on mobile */
         }
 
+        .header-logos-container { /* Container for logos */
+            display: flex; /* Arrange logos side-by-side within this container */
+            justify-content: center; /* Center the group of logos */
+            align-items: center;
+            gap: 20px; /* Space between the two logos */
+            order: 2; /* Logo container second on mobile, below the title */
+        }
+
+        .header-logo { /* Styling for individual logos */
+            height: 40px; /* Mobile logo height */
+            max-width: 120px; /* Prevent logos from being too wide on mobile */
+            object-fit: contain; /* Scale nicely */
+        }
+
+
+        /* --- 3. Main Content Area --- */
         .main-content {
-            display: flex;
             flex-grow: 1;
-            padding: 20px;
-            gap: 20px; /* Space between columns */
+            padding: 15px;
+        }
+
+        .sidebar, .map-container {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            width: 100%; /* Take full width on mobile */
+            margin-bottom: 20px; /* Space between stacked elements */
+        }
+
+        .main-content > *:last-child {
+            margin-bottom: 0;
         }
 
         .sidebar {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            overflow-y: auto; /* For scrollable content if it overflows */
+            overflow-y: auto;
         }
-
-        .left-sidebar {
-            flex: 0 0 280px; /* Fixed width for left sidebar */
-        }
-
+        
         .map-container {
-            flex-grow: 1; /* Map takes remaining space */
-            display: flex; /* To center the map div */
+            display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            padding: 15px;
         }
 
         #map {
             width: 100%;
-            height: 600px; /* Or adjust as needed, maybe make it responsive */
-            border-radius: 8px; /* Rounded corners for the map itself */
+            height: 450px; /* Reduced height for mobile */
+            border-radius: 8px;
             border: 1px solid #ddd;
-        }
-
-        .right-sidebar {
-            flex: 0 0 320px; /* Fixed width for right sidebar */
         }
         
         .sidebar h2 {
             margin-top: 0;
-            font-size: 1.4em;
-            color: #004d40; /* Darker teal */
-            border-bottom: 2px solid #b2dfdb; /* Light teal accent */
+            font-size: 1.3em;
+            color: #004d40;
+            border-bottom: 2px solid #b2dfdb;
             padding-bottom: 10px;
             margin-bottom: 15px;
         }
@@ -117,16 +139,16 @@
             height: 18px;
             float: left;
             margin-right: 8px;
-            border-radius: 3px; /* Slightly rounded legend color swatches */
+            border-radius: 3px;
             border: 1px solid rgba(0,0,0,0.1);
         }
         .legend span {
             display: block;
-            margin-bottom: 5px; /* Space between legend items */
+            margin-bottom: 5px;
         }
 
         .info-panel h3 {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: #004d40;
             margin-top: 0;
         }
@@ -149,21 +171,102 @@
             font-style: italic;
         }
 
+        /* --- 4. Footer --- */
         footer {
             text-align: center;
             padding: 15px;
             background-color: #e0e0e0;
             color: #555;
             font-size: 0.9em;
-            margin-top: auto; /* Pushes footer to the bottom if content is short */
+            margin-top: auto;
         }
 
+        /* --- 5. Media Queries for Larger Screens (Tablets & Desktops) --- */
+        @media (min-width: 992px) {
+            /* Desktop Header */
+            header {
+                flex-direction: row; /* Horizontal layout */
+                justify-content: space-between; /* This will be effectively managed by order */
+                align-items: center;
+            }
+
+            header h1 {
+                font-size: 1.8em; /* Restore original font size */
+                order: 2; /* Title in the middle */
+                flex-grow: 1; /* Allow title to take space for centering */
+                text-align: center;
+            }
+            
+            .header-logos-container {
+                /* This makes the container 'disappear' for flex purposes,
+                   allowing its children (the logos) to be ordered directly
+                   within the main header flex context. */
+                display: contents;
+            }
+
+            .header-logo { /* General desktop logo styling */
+                 height: 50px; /* Restore desktop logo height */
+                 max-width: none; /* Remove mobile constraint */
+            }
+            
+            /* Specific ordering for logos on desktop */
+            /* Assign these classes to your img tags if they don't have them */
+            img[alt="AIM AHEAD Logo"] { /* More robust selector if classes aren't used */
+                order: 1; /* AIM AHEAD logo first */
+            }
+            img[alt="RCMI Logo"] { /* More robust selector if classes aren't used */
+                order: 3; /* RCMI logo last */
+            }
+
+
+            /* Desktop Main Content */
+            .main-content {
+                display: flex;
+                padding: 20px;
+                gap: 20px;
+            }
+
+            .sidebar, .map-container {
+                width: auto;
+                margin-bottom: 0;
+                padding: 20px;
+            }
+
+            .left-sidebar {
+                flex: 0 0 280px;
+            }
+
+            .map-container {
+                flex-grow: 1;
+            }
+
+            #map {
+                height: 600px;
+            }
+
+            .right-sidebar {
+                flex: 0 0 320px;
+            }
+
+            .sidebar h2 {
+                font-size: 1.4em;
+            }
+            .info-panel h3 {
+                font-size: 1.2em;
+            }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Puerto Rico Health Indicators</h1>
+        <!-- Title first for natural mobile stacking before CSS order applies -->
+        <h1>Puerto Rico Cardio Risk Map</h1>
+        <!-- Container for logos, makes mobile layout easier -->
+        <div class="header-logos-container">
+            <img src="{% static 'images/aim_ahead_600x474.webp' %}" alt="AIM AHEAD Logo" class="header-logo">
+            <img src="{% static 'images/rcmi.webp' %}" alt="RCMI Logo" class="header-logo">
+        </div>
     </header>
 
     <div class="main-content">
@@ -172,6 +275,15 @@
             <div class="control-group">
                 <label for="metric-select">Select Health Indicator:</label>
                 <select id="metric-select"></select>
+            </div>
+            {% comment %} This is still in development {% endcomment %}
+            <div class="control-group">
+                <label for="metric-description">Indicator Description:</label>
+                <div id="metric-description" class="metric-description-panel">
+                    <p class="placeholder-text">Select an indicator to see its description.</p> 
+                    <br>
+                    <p class="placeholder-text">This is still in development</p>
+                </div>
             </div>
             <div class="control-group">
                 <label>Legend:</label>
@@ -189,311 +301,422 @@
             <h2>Area Information</h2>
             <div id="info-panel" class="info-panel">
                 <p class="placeholder-text">Click on a ZIP code area on the map to see details.</p>
-                <!-- Info will be populated here -->
             </div>
         </div>
     </div>
 
     <footer>
-        <p>Data Source: Fictional Health Data & US Census ZCTA</p>
+        <p>Data Source: Abartys Health & US Census ZCTA</p>
+        <p>Map created by Luis F. Velazquez Sosa © 2025</p>
     </footer>
 
-<script>
-    // --- Data from Django context ---
-    const geojsonDataString = `{{ geojson_data|safe }}`;
-    const healthStatsDataString = `{{ health_stats_data|safe }}`;
+    <script>
+      // --- Data from Django context ---
+      const geojsonDataString = `{{ geojson_data|safe }}`;
+      const healthStatsDataString = `{{ health_stats_data|safe }}`; // This is now an array of objects
+  
+      let geojsonData;
+      let healthStatsRawData; // Will hold the parsed array
+      let healthStatsLookup = {}; // Will be an object keyed by postal code
+  
+      try {
+          geojsonData = JSON.parse(geojsonDataString);
+      } catch (e) {
+          console.error("Error parsing GeoJSON data:", e);
+          geojsonData = { "type": "FeatureCollection", "features": [] };
+      }
+  
+      try {
+          healthStatsRawData = JSON.parse(healthStatsDataString);
+          // NEW: Transform the array into a lookup object
+          if (Array.isArray(healthStatsRawData)) {
+              healthStatsRawData.forEach(item => {
+                  if (item.postal) {
+                      healthStatsLookup[item.postal] = item;
+                  }
+              });
+          } else {
+              console.error("Health stats data is not an array:", healthStatsRawData);
+              healthStatsLookup = {}; // Fallback to empty if not an array
+          }
+      } catch (e) {
+          console.error("Error parsing health stats data:", e);
+          healthStatsLookup = {};
+      }
+  
+      // NEW/UPDATED: metricConfigs to match your new data structure
+      // Add a 'dataKey' to map the metric key to the actual key in your JSON
+      // define once
+      // Crameri “managua” (5 steps)
+      // Purple sequential (dark bad → light good)
+      // Good/high = green → yellow → red (bad/low)
+      const GOOD_HIGH_COLORS = [
+        '#E7080C', // worst (deep maroon)
+        '#DF5E1D', // bad (orange-red)
+        '#FFC300', // mid (gold)
+        '#39D834', // good (bright green)
+        '#15D886'  // best (teal-green)
+      ];
 
-    let geojsonData;
-    let healthStatsData;
+      const GOOD_LOW_COLORS = [
+        '#15D886',
+        '#39D834',
+        '#FFC300',
+        '#DF5E1D',
+        '#E7080C'
+      ];
+      const NEUTRAL_COLORS   = ['#edf8fb','#b3cde3','#8c96c6','#8856a7','#810f7c'];
 
-    try {
-        geojsonData = JSON.parse(geojsonDataString);
-    } catch (e) {
-        console.error("Error parsing GeoJSON data:", e);
-        geojsonData = { "type": "FeatureCollection", "features": [] };
-    }
-
-    try {
-        healthStatsData = JSON.parse(healthStatsDataString);
-    } catch (e) {
-        console.error("Error parsing health stats data:", e);
-        healthStatsData = {};
-    }
-    
-    // --- Metric Configurations (Crucial for good/bad coloring) ---
-    // type: 'goodIsHigh', 'goodIsLow', 'neutral'
-    // breaks: values separating categories
-    // colors: corresponding to categories defined by breaks
-    //         (e.g., value <= breaks[0] -> colors[0], breaks[0] < value <= breaks[1] -> colors[1], etc.)
-    //         Ensure colors array has one more item than breaks array.
-    const metricConfigs = {
-        'composite_score': {
-            displayName: 'Overall Health Score',
-            type: 'goodIsHigh',
-            breaks: [30, 50, 70, 85], // Lower scores are worse
-            colors: ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641'], // Red, Orange, Yellow, Light Green, Green
-            unit: 'points'
-        },
-        'cholesterol': {
-            displayName: 'Avg. Cholesterol',
-            type: 'goodIsLow', // Lower is generally better (target < 200)
-            breaks: [180, 200, 220, 240], // Example: Desirable, Borderline, High
-            colors: ['#1a9641', '#a6d96a', '#ffffbf', '#fdae61', '#d7191c'], // Green to Red
-            unit: 'mg/dL'
-        },
-        'hdl': {
-            displayName: 'Avg. HDL (Good Cholesterol)',
-            type: 'goodIsHigh', // Higher is better (target > 60 protective, < 40 risk)
-            breaks: [30, 40, 50, 60],
-            colors: ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641'], // Red to Green
-            unit: 'mg/dL'
-        },
-        'ldl': {
-            displayName: 'Avg. LDL (Bad Cholesterol)',
-            type: 'goodIsLow', // Lower is better (target < 100 optimal)
-            breaks: [100, 130, 160, 190],
-            colors: ['#1a9641', '#a6d96a', '#ffffbf', '#fdae61', '#d7191c'], // Green to Red
-            unit: 'mg/dL'
-        },
-        'triglycerides': {
-            displayName: 'Avg. Triglycerides',
-            type: 'goodIsLow', // Lower is better (target < 150 normal)
-            breaks: [150, 200, 300, 500],
-            colors: ['#1a9641', '#a6d96a', '#ffffbf', '#fdae61', '#d7191c'],
-            unit: 'mg/dL'
-        },
-        'ct_hdl_ratio': {
-            displayName: 'Cholesterol/HDL Ratio',
-            type: 'goodIsLow', // Lower is better
-            breaks: [3.5, 4.0, 5.0, 6.0],
-            colors: ['#1a9641', '#a6d96a', '#ffffbf', '#fdae61', '#d7191c'],
-            unit: ''
-        }
-        // Add more metrics here following the same structure
-    };
-    
-    let currentMetricKey = 'composite_score'; // Default metric
-    let geojsonLayer;
-    let selectedLayer = null; // To keep track of the clicked/selected layer
-
-    // --- Leaflet Map Initialization ---
-    const map = L.map('map').setView([18.2208, -66.5901], 9);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', { // A cleaner base map
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
-    }).addTo(map);
-
-    // --- Populate the metric selector dropdown ---
-    const metricSelect = document.getElementById('metric-select');
-    for (const key in metricConfigs) {
-        const option = document.createElement('option');
-        option.value = key;
-        option.textContent = metricConfigs[key].displayName;
-        if (key === currentMetricKey) {
-            option.selected = true;
-        }
-        metricSelect.appendChild(option);
-    }
-
-    // --- Merge Health Data into GeoJSON Properties ---
-    if (geojsonData && geojsonData.features && healthStatsData) {
-        geojsonData.features.forEach(feature => {
-            const zipCode = feature.properties.ZCTA5CE10;
-            if (healthStatsData[zipCode]) {
-                Object.assign(feature.properties, healthStatsData[zipCode]);
-            } else {
-                // Ensure all potential metric keys from configs exist for consistent handling
-                for (const mKey in metricConfigs) {
-                    if (!(mKey in feature.properties)) {
-                        feature.properties[mKey] = null;
-                    }
-                }
-                feature.properties.municipality = "N/A (No Data)";
-            }
-        });
-    }
-    
-    // --- Styling and Interaction ---
-    function getColor(value, metricKey) {
-        const config = metricConfigs[metricKey];
-        if (!config || value === null || value === undefined) {
-            return '#E0E0E0'; // Default grey for no data or no config
-        }
-
-        const breaks = config.breaks;
-        const colors = config.colors;
-
-        if (config.type === 'goodIsHigh') { // Higher values get "better" colors (later in array)
-            for (let i = 0; i < breaks.length; i++) {
-                if (value <= breaks[i]) return colors[i];
-            }
-            return colors[colors.length - 1]; // Value is above the last break
-        } else if (config.type === 'goodIsLow') { // Lower values get "better" colors (earlier in array)
-            for (let i = 0; i < breaks.length; i++) {
-                if (value <= breaks[i]) return colors[i];
-            }
-            return colors[colors.length - 1];
-        } else { // Neutral or undefined type
-            // Fallback to a simple scale or a default color
-             for (let i = 0; i < breaks.length; i++) {
-                if (value <= breaks[i]) return colors[i];
-            }
-            return colors[colors.length - 1];
-        }
-    }
-
-    function style(feature) {
-        const value = feature.properties[currentMetricKey];
-        return {
-            fillColor: getColor(value, currentMetricKey),
-            weight: 1,
-            opacity: 1,
-            color: '#fff', // White borders for polygons
-            fillOpacity: 0.75
-        };
-    }
-    
-    function highlightFeature(e) {
-        const layer = e.target;
-        if (layer !== selectedLayer) { // Don't override selected layer's highlight
-            layer.setStyle({
-                weight: 2.5,
-                color: '#00796b', // Highlight color
-                fillOpacity: 0.85
-            });
-        }
-        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-            if (layer !== selectedLayer) layer.bringToFront();
-        }
-    }
-
-    function resetHighlight(e) {
-        if (e.target !== selectedLayer) { // Only reset if not the selected one
-            geojsonLayer.resetStyle(e.target);
-        }
-    }
-
-    function selectFeature(e) {
-        const layer = e.target;
-
-        // Reset style of previously selected layer
-        if (selectedLayer && selectedLayer !== layer) {
-            geojsonLayer.resetStyle(selectedLayer);
-            selectedLayer.bringToBack(); // Send previously selected layer to back
-        }
-        
-        map.fitBounds(layer.getBounds().pad(0.1)); // Pad slightly for better view
-
-        // Style for selected layer
-        layer.setStyle({
-            weight: 3,
-            color: '#004d40', // Darker, prominent selection color
-            dashArray: '',
-            fillOpacity: 0.9
-        });
-        layer.bringToFront();
-        selectedLayer = layer;
-
-        updateInfoPanel(layer.feature.properties);
-    }
-    
-    function onEachFeature(feature, layer) {
-        layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
-            click: selectFeature
-        });
-    }
-
-    // --- Update Info Panel (Right Sidebar) ---
-    const infoPanel = document.getElementById('info-panel');
-    function updateInfoPanel(props) {
-        if (!props) {
-            infoPanel.innerHTML = '<p class="placeholder-text">Click on a ZIP code area on the map to see details.</p>';
-            return;
-        }
-        
-        const config = metricConfigs[currentMetricKey];
-        const currentMetricValue = props[currentMetricKey];
-        const currentMetricDisplay = currentMetricValue !== null && currentMetricValue !== undefined 
-                                    ? `${currentMetricValue.toFixed(2)} ${config.unit || ''}` 
-                                    : 'N/A';
-
-        let content = `<h3>ZIP Code: ${props.ZCTA5CE10 || 'N/A'}</h3>`;
-        content += `<p><span class="data-label">Municipality:</span> <span class="data-value">${props.municipality || 'N/A'}</span></p>`;
-        content += `<hr>`;
-        content += `<p class="data-item"><span class="data-label">${config.displayName}:</span> <strong class="data-value">${currentMetricDisplay}</strong></p>`;
-        
-        content += `<h4>All Indicators for this Area:</h4>`;
-        for (const key in metricConfigs) {
-            if (props.hasOwnProperty(key)) {
-                const val = props[key];
-                const displayVal = val !== null && val !== undefined ? `${val.toFixed(2)} ${metricConfigs[key].unit || ''}` : 'N/A';
-                content += `<p class="data-item"><span class="data-label">${metricConfigs[key].displayName}:</span> <span class="data-value">${displayVal}</span></p>`;
-            }
-        }
-        infoPanel.innerHTML = content;
-    }
-    
-    // --- Update Legend (Left Sidebar) ---
-    const legendDiv = document.getElementById('legend');
-    function updateLegend(metricKey) {
-        const config = metricConfigs[metricKey];
-        if (!config) {
-            legendDiv.innerHTML = '<p class="placeholder-text">Legend not available for this indicator.</p>';
-            return;
-        }
-
-        const breaks = config.breaks;
-        const colors = config.colors;
-        let legendHtml = '';
-
-        // First category (<= breaks[0])
-        legendHtml += `<span><i style="background:${colors[0]}"></i> ≤ ${breaks[0].toFixed(1)} ${config.unit || ''}</span>`;
-
-        for (let i = 0; i < breaks.length -1; i++) {
-            legendHtml += `<span><i style="background:${colors[i+1]}"></i> ${breaks[i].toFixed(1)} - ${breaks[i+1].toFixed(1)} ${config.unit || ''}</span>`;
-        }
-        
-        // Last category (> breaks[breaks.length-1])
-        legendHtml += `<span><i style="background:${colors[colors.length-1]}"></i> > ${breaks[breaks.length-1].toFixed(1)} ${config.unit || ''}</span>`;
-
-        if (colors.includes('#E0E0E0') || getColor(null, metricKey) === '#E0E0E0') {
-             legendHtml += `<span><i style="background:#E0E0E0"></i> No Data</span>`;
-        }
-
-        legendDiv.innerHTML = legendHtml;
-    }
-
-    // --- Event listener for metric selection ---
-    metricSelect.addEventListener('change', function() {
-        currentMetricKey = this.value;
-        if (geojsonLayer) {
-            geojsonLayer.setStyle(style); // Re-apply style based on the new metric
-        }
-        updateLegend(currentMetricKey);
-        // If a layer is selected, update its info in the panel for the new metric
-        if (selectedLayer) {
-            updateInfoPanel(selectedLayer.feature.properties);
-        } else {
-            updateInfoPanel(null); // Or clear panel
-        }
-    });
-
-    // --- Add GeoJSON layer to the map ---
-    if (geojsonData && geojsonData.features && geojsonData.features.length > 0) {
-        geojsonLayer = L.geoJson(geojsonData, {
-            style: style,
-            onEachFeature: onEachFeature
-        }).addTo(map);
-        updateLegend(currentMetricKey); // Initial legend update
-    } else {
-        document.getElementById('map').innerHTML = "<p style='text-align:center; padding-top: 50px;'>Could not load map data.</p>";
-        legendDiv.innerHTML = '<p class="placeholder-text">Map data unavailable.</p>';
-        updateInfoPanel(null);
-    }
-
-</script>
+      const metricConfigs = {
+          'composite_risk_score_mean': {
+              displayName: 'Composite Risk Score (Mean)',
+              dataKey: 'composite_risk_score_mean', // Key from your new JSON
+              type: 'goodIsHigh', // Assuming higher is better, adjust if needed
+              breaks: [0.5, 0.75, 1.0, 1.25], // Adjust breaks based on typical range
+              colors: GOOD_HIGH_COLORS,
+              unit: 'score'
+          },
+          'composite_risk_score_median': {
+              displayName: 'Composite Risk Score (Median)',
+              dataKey: 'composite_risk_score_median',
+              type: 'goodIsHigh',
+              breaks: [0.5, 0.75, 1.0, 1.25],
+              colors: GOOD_HIGH_COLORS,
+              unit: 'score'
+          },
+          'ldl_value_mean': {
+              displayName: 'Avg. LDL (Mean)',
+              dataKey: 'ldl_value_mean',
+              type: 'goodIsLow',
+              breaks: [100, 130, 160, 190],
+              colors: GOOD_LOW_COLORS,
+              unit: 'mg/dL'
+          },
+          'ldl_value_median': {
+              displayName: 'Median LDL',
+              dataKey: 'ldl_value_median',
+              type: 'goodIsLow',
+              breaks: [100, 130, 160, 190],
+              colors: GOOD_LOW_COLORS,
+              unit: 'mg/dL'
+          },
+          'hdl_value_mean': {
+              displayName: 'Avg. HDL (Mean)',
+              dataKey: 'hdl_value_mean',
+              type: 'goodIsHigh',
+              breaks: [30, 40, 50, 60], // HDL < 40 is low (bad), > 60 is good
+              colors: GOOD_HIGH_COLORS,
+              unit: 'mg/dL'
+          },
+          'hdl_value_median': {
+              displayName: 'Median HDL',
+              dataKey: 'hdl_value_median',
+              type: 'goodIsHigh',
+              breaks: [30, 40, 50, 60],
+              colors: GOOD_HIGH_COLORS,
+              unit: 'mg/dL'
+          },
+          'tc_value_mean': {
+              displayName: 'Avg. Total Cholesterol (Mean)',
+              dataKey: 'tc_value_mean',
+              type: 'goodIsLow', // Generally < 200 is desirable
+              breaks: [180, 200, 220, 240],
+              colors: GOOD_LOW_COLORS,
+              unit: 'mg/dL'
+          },
+          'tc_value_median': {
+              displayName: 'Median Total Cholesterol',
+              dataKey: 'tc_value_median',
+              type: 'goodIsLow',
+              breaks: [180, 200, 220, 240],
+              colors: GOOD_LOW_COLORS,
+              unit: 'mg/dL'
+          },
+          'tg_value_mean': {
+              displayName: 'Avg. Triglycerides (Mean)',
+              dataKey: 'tg_value_mean',
+              type: 'goodIsLow', // < 150 is desirable
+              breaks: [150, 200, 300, 500],
+              colors: GOOD_LOW_COLORS,
+              unit: 'mg/dL'
+          },
+          'tc_hdl_ratio_mean': {
+              displayName: 'TC/HDL Ratio (Mean)',
+              dataKey: 'tc_hdl_ratio_mean',
+              type: 'goodIsLow', // Desirable < 3.5, High risk > 5.0
+              breaks: [3.5, 4.0, 5.0, 6.0],
+              colors: GOOD_LOW_COLORS,
+              unit: ''
+          },
+          'ldl_hdl_ratio_mean': {
+              displayName: 'LDL/HDL Ratio (Mean)',
+              dataKey: 'ldl_hdl_ratio_mean',
+              type: 'goodIsLow', // Desirable < 2.0
+              breaks: [2.0, 2.5, 3.0, 3.5],
+              colors: GOOD_LOW_COLORS,
+              unit: ''
+          },
+          'ldl_is_high_percentage': {
+              displayName: '% LDL High',
+              dataKey: 'ldl_is_high_percentage',
+              type: 'goodIsLow', // Lower percentage is better
+              breaks: [5, 10, 15, 20],
+              colors: GOOD_LOW_COLORS,
+              unit: '%'
+          },
+          'hdl_is_low_percentage': {
+              displayName: '% HDL Low',
+              dataKey: 'hdl_is_low_percentage',
+              type: 'goodIsLow', // Lower percentage is better
+              breaks: [20, 30, 40, 50],
+              colors: GOOD_LOW_COLORS,
+              unit: '%'
+          },
+          'patient_month_count': {
+              displayName: 'Patient Month Count',
+              dataKey: 'patient_month_count',
+              type: 'neutral', // Or 'goodIsHigh' if more data is better for reliability
+              breaks: [1000, 5000, 10000, 20000], // Example breaks
+              colors: NEUTRAL_COLORS,
+              unit: ''
+          }
+          // ... Add more metrics as needed, mapping to your JSON fields ...
+          // e.g., tc_is_high_percentage, tg_is_high_percentage, etc.
+      };
+  
+      // Set initial metric, choose one from the new metricConfigs
+      let currentMetricKey = 'composite_risk_score_mean';
+      let geojsonLayer;
+      let selectedLayer = null;
+  
+      const map = L.map('map').setView([18.1208, -66.2601], 9);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
+          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
+          subdomains: 'abcd',
+          maxZoom: 12 // You can adjust this
+      }).addTo(map);
+  
+      const metricSelect = document.getElementById('metric-select');
+      for (const key in metricConfigs) {
+          const option = document.createElement('option');
+          option.value = key;
+          option.textContent = metricConfigs[key].displayName;
+          if (key === currentMetricKey) {
+              option.selected = true;
+          }
+          metricSelect.appendChild(option);
+      }
+  
+      // UPDATED: Data merging logic
+      if (geojsonData && geojsonData.features && Object.keys(healthStatsLookup).length > 0) {
+          geojsonData.features.forEach(feature => {
+              const zipCode = feature.properties.ZCTA5CE10;
+              const statsForZip = healthStatsLookup[zipCode]; // Use the lookup
+  
+              if (statsForZip) {
+                  // Assign all configured metrics to the feature properties
+                  // The property name on the feature will be the key from metricConfigs (e.g., 'ldl_value_mean')
+                  // The value will come from statsForZip[metricConfigs[mKey].dataKey]
+                  for (const mKey in metricConfigs) {
+                      const dataKeyValue = metricConfigs[mKey].dataKey;
+                      if (statsForZip.hasOwnProperty(dataKeyValue)) {
+                          feature.properties[mKey] = statsForZip[dataKeyValue];
+                      } else {
+                          feature.properties[mKey] = null; // Metric not found in stats for this ZIP
+                      }
+                  }
+                  // You might want to add other general properties if available and needed
+                  // feature.properties.municipality = statsForZip.municipality_name; // If you have municipality name in new JSON
+              } else {
+                  // No health stats for this ZIP code, set all configured metrics to null
+                  for (const mKey in metricConfigs) {
+                      feature.properties[mKey] = null;
+                  }
+                  // feature.properties.municipality = "N/A (No Data)";
+              }
+          });
+      } else {
+          console.warn("GeoJSON data or health stats lookup is empty. Map features may not have health data.");
+      }
+  
+      function getColor(value, metricKey) {
+          const config = metricConfigs[metricKey];
+          if (!config || value === null || value === undefined || isNaN(value)) {
+              return '#E0E0E0'; // Default color for no data or invalid
+          }
+  
+          const breaks = config.breaks;
+          const colors = config.colors;
+  
+          // For 'neutral' type, or if type is not goodIsHigh/goodIsLow, just use the breaks directly
+          // (This is simplified, you might need more specific logic for 'neutral' if colors don't map directly to breaks)
+          if (config.type === 'goodIsHigh' || config.type === 'goodIsLow' || config.type === 'neutral') {
+              for (let i = 0; i < breaks.length; i++) {
+                  if (value <= breaks[i]) return colors[i];
+              }
+              return colors[colors.length - 1]; // Value is greater than all breaks
+          } else {
+              // Fallback if type is misconfigured, or you add other types
+               for (let i = 0; i < breaks.length; i++) {
+                  if (value <= breaks[i]) return colors[i];
+              }
+              return colors[colors.length - 1];
+          }
+      }
+  
+      function style(feature) {
+          // currentMetricKey is the key from metricConfigs (e.g., 'ldl_value_mean')
+          // feature.properties[currentMetricKey] will now correctly access the data
+          // because we populated it like that in the merging step.
+          const value = feature.properties[currentMetricKey];
+          return {
+              fillColor: getColor(value, currentMetricKey),
+              weight: 1,
+              opacity: 1,
+              color: '#0e0e0e', 
+              fillOpacity: 0.75
+          };
+      }
+  
+      function highlightFeature(e) {
+          const layer = e.target;
+          if (layer !== selectedLayer) {
+              layer.setStyle({
+                  weight: 4,
+                  color: '#051B35', 
+                  fillOpacity: 0.85
+              });
+          }
+          if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+              if (layer !== selectedLayer) layer.bringToFront();
+          }
+      }
+  
+      function resetHighlight(e) {
+          if (e.target !== selectedLayer) {
+              geojsonLayer.resetStyle(e.target);
+          }
+      }
+  
+      function selectFeature(e) {
+          const layer = e.target;
+          if (selectedLayer && selectedLayer !== layer) {
+              geojsonLayer.resetStyle(selectedLayer);
+              // Optionally bring previous layer back if you manage z-indexing
+              // selectedLayer.bringToBack();
+          }
+          map.fitBounds(layer.getBounds().pad(0.1));
+          layer.setStyle({
+              weight: 3,
+              color: '#041427', // Even darker for selected
+              dashArray: '',
+              fillOpacity: 0.9
+          });
+          layer.bringToFront();
+          selectedLayer = layer;
+          updateInfoPanel(layer.feature.properties);
+      }
+  
+      function onEachFeature(feature, layer) {
+          layer.on({
+              mouseover: highlightFeature,
+              mouseout: resetHighlight,
+              click: selectFeature
+          });
+      }
+  
+      const infoPanel = document.getElementById('info-panel');
+      function updateInfoPanel(props) {
+          if (!props) {
+              infoPanel.innerHTML = '<p class="placeholder-text">Click on a ZIP code area on the map to see details.</p>';
+              return;
+          }
+  
+          const currentConfig = metricConfigs[currentMetricKey];
+          // props[currentMetricKey] will access the value for the currently selected metric
+          const currentMetricValue = props[currentMetricKey];
+          const currentMetricDisplay = (currentMetricValue !== null && currentMetricValue !== undefined && !isNaN(currentMetricValue))
+                                      ? `${parseFloat(currentMetricValue).toFixed(2)} ${currentConfig.unit || ''}`
+                                      : 'N/A';
+  
+          let content = `<h3>ZIP Code: ${props.ZCTA5CE10 || 'N/A'}</h3>`;
+          // Add municipality if you have it and merged it
+          // content += `<p><span class="data-label">Municipality:</span> <span class="data-value">${props.municipality || 'N/A'}</span></p>`;
+          content += `<hr>`;
+          content += `<p class="data-item"><span class="data-label">${currentConfig.displayName}:</span> <strong class="data-value">${currentMetricDisplay}</strong></p>`;
+  
+          content += `<h4>All Indicators for this Area:</h4>`;
+          for (const keyInConfig in metricConfigs) { // Iterate through metricConfigs keys
+              if (props.hasOwnProperty(keyInConfig)) { // Check if the feature has this property
+                  const val = props[keyInConfig]; // This is the data value
+                  const conf = metricConfigs[keyInConfig]; // This is the config for this specific metric
+                  const displayVal = (val !== null && val !== undefined && !isNaN(val))
+                                      ? `${parseFloat(val).toFixed(2)} ${conf.unit || ''}`
+                                      : 'N/A';
+                  content += `<p class="data-item"><span class="data-label">${conf.displayName}:</span> <span class="data-value">${displayVal}</span></p>`;
+              }
+          }
+          infoPanel.innerHTML = content;
+      }
+  
+      const legendDiv = document.getElementById('legend');
+      function updateLegend(metricKey) {
+          const config = metricConfigs[metricKey];
+          if (!config) {
+              legendDiv.innerHTML = '<p class="placeholder-text">Legend not available for this indicator.</p>';
+              return;
+          }
+  
+          const breaks = config.breaks;
+          const colors = config.colors;
+          let legendHtml = `<h4>${config.displayName}</h4>`; // Add title to legend
+  
+          // Handle 'goodIsLow' type for legend text if needed (colors are already reversed in config)
+          // Or ensure colors array matches the break order for display
+          // The first color corresponds to values <= breaks[0]
+          legendHtml += `<span><i style="background:${colors[0]}"></i> ≤ ${breaks[0].toFixed(config.unit === '%' ? 1: 2)} ${config.unit || ''}</span>`;
+  
+          for (let i = 0; i < breaks.length - 1; i++) {
+              legendHtml += `<span><i style="background:${colors[i+1]}"></i> ${breaks[i].toFixed(config.unit === '%' ? 1: 2)} - ${breaks[i+1].toFixed(config.unit === '%' ? 1: 2)} ${config.unit || ''}</span>`;
+          }
+          // The last color corresponds to values > breaks[breaks.length - 1]
+          legendHtml += `<span><i style="background:${colors[colors.length-1]}"></i> > ${breaks[breaks.length-1].toFixed(config.unit === '%' ? 1: 2)} ${config.unit || ''}</span>`;
+  
+          // Check if a "No Data" entry is needed.
+          // The getColor function returns '#E0E0E0' for null/undefined values.
+          // So, if any feature could potentially have no data for the current metric, include it.
+          legendHtml += `<span><i style="background:#E0E0E0"></i> No Data</span>`;
+  
+          legendDiv.innerHTML = legendHtml;
+      }
+  
+      metricSelect.addEventListener('change', function() {
+          currentMetricKey = this.value;
+          if (geojsonLayer) {
+              // This will call style() for each feature, which in turn calls getColor()
+              geojsonLayer.setStyle(style);
+          }
+          updateLegend(currentMetricKey);
+          if (selectedLayer) {
+              // Update info panel with the new metric for the currently selected layer
+              updateInfoPanel(selectedLayer.feature.properties);
+          } else {
+              updateInfoPanel(null); // Clear info panel if nothing is selected
+          }
+      });
+  
+      if (geojsonData && geojsonData.features && geojsonData.features.length > 0) {
+          geojsonLayer = L.geoJson(geojsonData, {
+              style: style,
+              onEachFeature: onEachFeature
+          }).addTo(map);
+          updateLegend(currentMetricKey); // Initial legend update
+          updateInfoPanel(null); // Initial info panel state
+      } else {
+          document.getElementById('map').innerHTML = "<p style='text-align:center; padding-top: 50px;'>Could not load map data or health statistics.</p>";
+          legendDiv.innerHTML = '<p class="placeholder-text">Map data unavailable.</p>';
+          updateInfoPanel(null);
+      }
+  </script>
 </body>
 </html>

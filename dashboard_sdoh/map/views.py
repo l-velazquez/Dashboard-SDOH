@@ -4,105 +4,6 @@ from django.http import HttpResponseServerError
 import os
 import json
 
-def index(request):
-    light_mode = request.GET.get('light_mode', 'true') == 'true'
-
-    shapes_path = os.path.join(settings.BASE_DIR, 'static', 'maps', 'municipalities.geojson')
-    with open(shapes_path, 'r') as f:
-        muni_shapes = json.load(f)
-
-    data_path = os.path.join(settings.BASE_DIR, 'static', 'data', 'cardio_risk.json')
-    with open(data_path, 'r') as f:
-        risk_map = json.load(f)
-
-    first_muni_data = next(iter(risk_map.values()), {})
-    
-    # --- Define Metric Display Information (Key, Display Name, Description) ---
-    # The order here will be the order in the dropdown.
-    # Ensure 'key' matches the keys in your cardio_risk.json
-    metric_display_info = [
-        {
-            "key": "composite_score",
-            "display_name": "Composite Score",
-            "description": "An overall score combining multiple lipid values to assess cardiovascular risk."
-        },
-        {
-            "key": "ct_hdl_ratio",
-            "display_name": "CT/HDL Ratio",
-            "description": "Ratio of Total Cholesterol to HDL Cholesterol. Indicates coronary heart disease risk."
-        },
-        {
-            "key": "ldl_hdl_ratio",
-            "display_name": "LDL/HDL Ratio",
-            "description": "Ratio of LDL Cholesterol to HDL Cholesterol. Assesses risk of heart attack or atherosclerosis."
-        },
-        {
-            "key": "non_hdl",
-            "display_name": "Non-HDL Cholesterol",
-            "description": "Total Cholesterol minus HDL. Represents all atherogenic cholesterol; assesses arterial obstruction risk."
-        },
-        {
-            "key": "cholesterol",
-            "display_name": "Total Cholesterol",
-            "description": "Total amount of cholesterol in your blood, including LDL and HDL."
-        },
-        {
-            "key": "hdl",
-            "display_name": "HDL Cholesterol",
-            "description": "'Good' cholesterol; helps remove other forms of cholesterol from your bloodstream."
-        },
-        {
-            "key": "ldl",
-            "display_name": "LDL Cholesterol",
-            "description": "'Bad' cholesterol; high levels can lead to plaque buildup in arteries."
-        },
-        {
-            "key": "triglycerides",
-            "display_name": "Triglycerides",
-            "description": "A type of fat found in your blood. High levels can contribute to artery hardening."
-        }
-    ]
-
-    # Filter this list to only include metrics actually present in the first municipality's data
-    # This ensures we don't offer options for which there's no data.
-    available_metrics_for_dropdown = [
-        item for item in metric_display_info if item["key"] in first_muni_data and isinstance(first_muni_data[item["key"]], (int, float))
-    ]
-    
-    # If any numeric keys in first_muni_data are NOT in metric_display_info, add them with default naming
-    # This is a fallback if your JSON has new metrics not yet defined in metric_display_info
-    defined_keys = {item["key"] for item in metric_display_info}
-    for key, val in first_muni_data.items():
-        if isinstance(val, (int, float)) and key not in defined_keys:
-            available_metrics_for_dropdown.append({
-                "key": key,
-                "display_name": key.replace("_", " ").title(), # Default display name
-                "description": "No specific description available for this metric."
-            })
-
-
-    # --- Hardcoded Cardiovascular Risk Formula Details ---
-    formula_details = {
-        "ct_hdl_ratio": {"friendly_name": "Riesgo de Enfermedad Coronaria", "math_formula": "Colesterol Total / HDL", "risk_type": "Dislipidemia Aterogénica", "threshold": "< 4.0", "interpretation": "Riesgo bajo"},
-        "ldl_hdl_ratio": {"friendly_name": "Riesgo de Infarto o Ateroesclerosis", "math_formula": "LDL / HDL", "risk_type": "Dislipidemia Aterogénica", "threshold": "< 2.5", "interpretation": "Riesgo bajo"},
-        "non_hdl": {"friendly_name": "Riesgo de Obstrucción Arterial", "math_formula": "Colesterol Total - HDL", "risk_type": "Riesgo Residual de Colesterol Aterogénico", "threshold": "< 130 mg/dL", "interpretation": "Riesgo bajo"},
-        "composite_score": {"friendly_name": "Riesgo Global Cardiovascular", "math_formula": "(0.5*LDL)+(0.3*CT)-(0.7*HDL)", "risk_type": "Riesgo Compuesto", "threshold": "< 100", "interpretation": "Riesgo bajo"},
-        "cholesterol": {"friendly_name": "Colesterol Total", "math_formula": "N/A (Medido)", "risk_type": "General", "threshold": "< 200 mg/dL", "interpretation": "Deseable"},
-        "hdl": {"friendly_name": "Colesterol HDL", "math_formula": "N/A (Medido)", "risk_type": "Protector", "threshold": "> 40 mg/dL", "interpretation": "Deseable alto"},
-        "ldl": {"friendly_name": "Colesterol LDL", "math_formula": "N/A (Medido)", "risk_type": "Aterogénico", "threshold": "< 100 mg/dL", "interpretation": "Deseable bajo"},
-        "triglycerides": {"friendly_name": "Triglicéridos", "math_formula": "N/A (Medido)", "risk_type": "Grasa en sangre", "threshold": "< 150 mg/dL", "interpretation": "Normal"}
-    }
-
-    return render(request, 'maps/index.html', {
-        'light_mode': light_mode,
-        'muni_geojson': json.dumps(muni_shapes),
-        'risk_map': json.dumps(risk_map),
-        'metrics_for_dropdown': available_metrics_for_dropdown, # Use this new variable
-        'formula_details': json.dumps(formula_details)
-    })
-
-def puerto_rico(request):
-    return render(request, 'maps/puerto_rico_info.html')
 
 def zipcode_map(request):
     # Construct paths to your JSON files within the static directory
@@ -112,7 +13,7 @@ def zipcode_map(request):
     # Path for GeoJSON
     geojson_file_path = os.path.join(settings.BASE_DIR,'static' , 'maps', 'puerto_rico_zcta.geojson')
     # Path for health data JSON
-    health_data_file_path = os.path.join(settings.BASE_DIR, 'static', 'data', 'cardio_risk_by_zipcodes.json')
+    health_data_file_path = os.path.join(settings.BASE_DIR, 'static', 'data', 'puerto_rico_cardiovascular_risk_by_zip_monthly_avg.json')
 
     geojson_data_str = "{}"
     health_stats_data_str = "{}"
@@ -152,3 +53,41 @@ def handle_404(request, exception):
     This function renders a custom error page.
     """
     return render(request, 'errors/404.html', status=404)
+
+def sdoh(request):
+    sdoh_json_variable_map = {
+    "YEAR": "SDOH file year",
+    "COUNTYFIPS": "State-county FIPS Code (5-digit)",
+    "COUNTY": "County name",
+    "STATE": "State name",
+    "lon": "Longitude",
+    "lat": "Latitude",
+    "ACS_PCT_INC50_ABOVE65": "Percentage of population with income to poverty ratio under 0.50 (ages 65 and over)",
+    "ACS_PCT_INC50_BELOW17": "Percentage of children with income to poverty ratio under 0.50 (ages 17 and below)",
+    "ACS_PCT_HEALTH_INC_BELOW137": "Percentage of population under 1.37 of the poverty threshold (relevant for health insurance coverage)",
+    "ACS_PCT_HEALTH_INC_138_199": "Percentage of population between 1.38 and 1.99 of the poverty threshold (relevant for health insurance coverage)",
+    "ACS_PCT_HEALTH_INC_200_399": "Percentage of population between 2.00 and 3.99 of the poverty threshold (relevant for health insurance coverage)",
+    "ACS_PCT_HEALTH_INC_ABOVE400": "Percentage of population over 4.00 of the poverty threshold (relevant for health insurance coverage)",
+    "ACS_PCT_HH_PUB_ASSIST": "Percentage of households with public assistance income or food stamps/SNAP",
+    "ACS_PCT_COLLEGE_ASSOCIATE_DGR": "Percentage of population with some college or associate's degree (ages 25 and over)",
+    "ACS_PCT_BACHELOR_DGR": "Percentage of population with a bachelor's degree (ages 25 and over)",
+    "ACS_PCT_GRADUATE_DGR": "Percentage of population with a master's or professional school degree or doctorate (ages 25 and over)",
+    "ACS_PCT_HS_GRADUATE": "Percentage of population with only high school diploma (ages 25 and over)",
+    "ACS_PCT_LT_HS": "Percentage of population with less than high school education (ages 25 and over)",
+    "ACS_PCT_POSTHS_ED": "Percentage of population with any postsecondary education (ages 25 and over)",
+    "ACS_TOT_CIVIL_EMPLOY_POP": "Total civilian employed population (ages 16 and over)",
+    "ACS_PCT_UNINSURED": "Percentage of population with no health insurance coverage",
+    "HIFLD_MIN_DIST_UC": "Minimum distance in miles to the nearest urgent care, calculated using population weighted tract centroids in the county",
+    "POS_MIN_DIST_ED": "Minimum distance in miles to the nearest emergency department, calculated using population weighted tract centroids in the county",
+    "POS_MIN_DIST_ALC": "Minimum distance in miles to the nearest hospital with alcohol and drug abuse inpatient care, calculated using population weighted tract centroids in the county",
+    "ACS_PCT_DISABLE": "Percentage of population with a disability",
+    "ACS_PCT_NONVET_DISABLE_18_64": "Percentage of nonveterans with a disability (between ages 18 and 64)",
+    "ACS_PCT_VET_DISABLE_18_64": "Percentage of civilian veterans with a disability (between ages 18 and 64)"
+}
+    
+
+
+
+
+def puerto_rico(request):
+    return render(request, 'maps/puerto_rico_info.html')
