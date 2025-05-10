@@ -129,6 +129,23 @@
             font-size: 0.95em;
         }
         
+        /* Style for the metric description panel */
+        .metric-description-panel {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #333;
+            min-height: 60px; /* Ensure it has some height even when empty initially */
+        }
+        .metric-description-panel p {
+            margin: 0 0 5px 0; /* Adjust paragraph margin within description */
+        }
+        .metric-description-panel strong {
+            color: #004d40; /* Emphasize key terms */
+        }
+
         .legend {
             line-height: 1.6;
             color: #555;
@@ -260,9 +277,7 @@
 <body>
 
     <header>
-        <!-- Title first for natural mobile stacking before CSS order applies -->
         <h1>Puerto Rico Cardio Risk Map</h1>
-        <!-- Container for logos, makes mobile layout easier -->
         <div class="header-logos-container">
             <img src="{% static 'images/aim_ahead_600x474.webp' %}" alt="AIM AHEAD Logo" class="header-logo">
             <img src="{% static 'images/rcmi.webp' %}" alt="RCMI Logo" class="header-logo">
@@ -276,13 +291,11 @@
                 <label for="metric-select">Select Health Indicator:</label>
                 <select id="metric-select"></select>
             </div>
-            {% comment %} This is still in development {% endcomment %}
+            
             <div class="control-group">
                 <label for="metric-description">Indicator Description:</label>
                 <div id="metric-description" class="metric-description-panel">
                     <p class="placeholder-text">Select an indicator to see its description.</p> 
-                    <br>
-                    <p class="placeholder-text">This is still in development</p>
                 </div>
             </div>
             <div class="control-group">
@@ -313,11 +326,11 @@
     <script>
       // --- Data from Django context ---
       const geojsonDataString = `{{ geojson_data|safe }}`;
-      const healthStatsDataString = `{{ health_stats_data|safe }}`; // This is now an array of objects
+      const healthStatsDataString = `{{ health_stats_data|safe }}`;
   
       let geojsonData;
-      let healthStatsRawData; // Will hold the parsed array
-      let healthStatsLookup = {}; // Will be an object keyed by postal code
+      let healthStatsRawData; 
+      let healthStatsLookup = {}; 
   
       try {
           geojsonData = JSON.parse(geojsonDataString);
@@ -328,7 +341,6 @@
   
       try {
           healthStatsRawData = JSON.parse(healthStatsDataString);
-          // NEW: Transform the array into a lookup object
           if (Array.isArray(healthStatsRawData)) {
               healthStatsRawData.forEach(item => {
                   if (item.postal) {
@@ -337,52 +349,35 @@
               });
           } else {
               console.error("Health stats data is not an array:", healthStatsRawData);
-              healthStatsLookup = {}; // Fallback to empty if not an array
+              healthStatsLookup = {};
           }
       } catch (e) {
           console.error("Error parsing health stats data:", e);
           healthStatsLookup = {};
       }
   
-      // NEW/UPDATED: metricConfigs to match your new data structure
-      // Add a 'dataKey' to map the metric key to the actual key in your JSON
-      // define once
-      // Crameri “managua” (5 steps)
-      // Purple sequential (dark bad → light good)
-      // Good/high = green → yellow → red (bad/low)
-      const GOOD_HIGH_COLORS = [
-        '#E7080C', // worst (deep maroon)
-        '#DF5E1D', // bad (orange-red)
-        '#FFC300', // mid (gold)
-        '#39D834', // good (bright green)
-        '#15D886'  // best (teal-green)
-      ];
-
-      const GOOD_LOW_COLORS = [
-        '#15D886',
-        '#39D834',
-        '#FFC300',
-        '#DF5E1D',
-        '#E7080C'
-      ];
+      const GOOD_HIGH_COLORS = ['#E7080C', '#DF5E1D', '#FFC300', '#39D834', '#15D886'];
+      const GOOD_LOW_COLORS = ['#15D886', '#39D834', '#FFC300', '#DF5E1D', '#E7080C'];
       const NEUTRAL_COLORS   = ['#edf8fb','#b3cde3','#8c96c6','#8856a7','#810f7c'];
 
       const metricConfigs = {
           'composite_risk_score_mean': {
               displayName: 'Composite Risk Score (Mean)',
-              dataKey: 'composite_risk_score_mean', // Key from your new JSON
-              type: 'goodIsHigh', // Assuming higher is better, adjust if needed
-              breaks: [0.5, 0.75, 1.0, 1.25], // Adjust breaks based on typical range
-              colors: GOOD_HIGH_COLORS,
-              unit: 'score'
+              dataKey: 'composite_risk_score_mean',
+              type: 'goodIsLow', // Assuming lower score (fewer risk factors) is better
+              breaks: [0.5, 0.75, 1.0, 1.25], 
+              colors: GOOD_LOW_COLORS, // Swapped to GOOD_LOW_COLORS, lower scores are better
+              unit: 'score',
+              description: "Displays the average composite risk score for individuals in this area. The score (ranging from 0 to 4) is calculated by assigning 1 point for each of the following conditions met by an individual: LDL > 160 mg/dL, HDL < 40 mg/dL, Triglycerides > 150 mg/dL, or TC/HDL Ratio ≥ 5.0. A lower average score suggests a lower prevalence of these combined cardiovascular risk factors in the area."
           },
           'composite_risk_score_median': {
               displayName: 'Composite Risk Score (Median)',
               dataKey: 'composite_risk_score_median',
-              type: 'goodIsHigh',
+              type: 'goodIsLow', // Assuming lower score (fewer risk factors) is better
               breaks: [0.5, 0.75, 1.0, 1.25],
-              colors: GOOD_HIGH_COLORS,
-              unit: 'score'
+              colors: GOOD_LOW_COLORS, // Swapped to GOOD_LOW_COLORS
+              unit: 'score',
+              description: "Displays the median composite risk score for individuals in this area. The score (ranging from 0 to 4) is calculated by assigning 1 point for each of the following conditions met by an individual: LDL > 160 mg/dL, HDL < 40 mg/dL, Triglycerides > 150 mg/dL, or TC/HDL Ratio ≥ 5.0. The median represents the middle value; a lower median score is better."
           },
           'ldl_value_mean': {
               displayName: 'Avg. LDL (Mean)',
@@ -390,7 +385,8 @@
               type: 'goodIsLow',
               breaks: [100, 130, 160, 190],
               colors: GOOD_LOW_COLORS,
-              unit: 'mg/dL'
+              unit: 'mg/dL',
+              description: "Average LDL Cholesterol (Low-Density Lipoprotein, 'bad' cholesterol). LDL contributes to artery plaque. <strong>High Risk:</strong> > 160 mg/dL (or >190 mg/dL very high). <strong>Borderline High:</strong> 130-159 mg/dL. Lower average values are generally better."
           },
           'ldl_value_median': {
               displayName: 'Median LDL',
@@ -398,15 +394,17 @@
               type: 'goodIsLow',
               breaks: [100, 130, 160, 190],
               colors: GOOD_LOW_COLORS,
-              unit: 'mg/dL'
+              unit: 'mg/dL',
+              description: "Median LDL Cholesterol (Low-Density Lipoprotein, 'bad' cholesterol). LDL contributes to artery plaque. <strong>High Risk:</strong> > 160 mg/dL (or >190 mg/dL very high). <strong>Borderline High:</strong> 130-159 mg/dL. Lower median values are generally better."
           },
           'hdl_value_mean': {
               displayName: 'Avg. HDL (Mean)',
               dataKey: 'hdl_value_mean',
-              type: 'goodIsHigh',
-              breaks: [30, 40, 50, 60], // HDL < 40 is low (bad), > 60 is good
+              type: 'goodIsHigh', 
+              breaks: [30, 40, 50, 60],
               colors: GOOD_HIGH_COLORS,
-              unit: 'mg/dL'
+              unit: 'mg/dL',
+              description: "Average HDL Cholesterol (High-Density Lipoprotein, 'good' cholesterol). HDL helps remove other cholesterol. <strong>Low (Risk Factor):</strong> < 40 mg/dL (general marker). Higher average values are generally better."
           },
           'hdl_value_median': {
               displayName: 'Median HDL',
@@ -414,15 +412,17 @@
               type: 'goodIsHigh',
               breaks: [30, 40, 50, 60],
               colors: GOOD_HIGH_COLORS,
-              unit: 'mg/dL'
+              unit: 'mg/dL',
+              description: "Median HDL Cholesterol (High-Density Lipoprotein, 'good' cholesterol). HDL helps remove other cholesterol. <strong>Low (Risk Factor):</strong> < 40 mg/dL (general marker). Higher median values are generally better."
           },
           'tc_value_mean': {
               displayName: 'Avg. Total Cholesterol (Mean)',
               dataKey: 'tc_value_mean',
-              type: 'goodIsLow', // Generally < 200 is desirable
+              type: 'goodIsLow',
               breaks: [180, 200, 220, 240],
               colors: GOOD_LOW_COLORS,
-              unit: 'mg/dL'
+              unit: 'mg/dL',
+              description: "Average Total Cholesterol (TC). <strong>High Risk:</strong> > 240 mg/dL. <strong>Borderline High:</strong> 200-239 mg/dL. Lower average values are generally better."
           },
           'tc_value_median': {
               displayName: 'Median Total Cholesterol',
@@ -430,61 +430,65 @@
               type: 'goodIsLow',
               breaks: [180, 200, 220, 240],
               colors: GOOD_LOW_COLORS,
-              unit: 'mg/dL'
+              unit: 'mg/dL',
+              description: "Median Total Cholesterol (TC). <strong>High Risk:</strong> > 240 mg/dL. <strong>Borderline High:</strong> 200-239 mg/dL. Lower median values are generally better."
           },
           'tg_value_mean': {
               displayName: 'Avg. Triglycerides (Mean)',
               dataKey: 'tg_value_mean',
-              type: 'goodIsLow', // < 150 is desirable
+              type: 'goodIsLow',
               breaks: [150, 200, 300, 500],
               colors: GOOD_LOW_COLORS,
-              unit: 'mg/dL'
+              unit: 'mg/dL',
+              description: "Average Triglycerides (TG). <strong>Very High:</strong> ≥ 500 mg/dL. <strong>High:</strong> 200-499 mg/dL. <strong>Borderline High:</strong> 150-199 mg/dL. <strong>Normal:</strong> < 150 mg/dL. Lower average values are generally better."
           },
           'tc_hdl_ratio_mean': {
               displayName: 'TC/HDL Ratio (Mean)',
               dataKey: 'tc_hdl_ratio_mean',
-              type: 'goodIsLow', // Desirable < 3.5, High risk > 5.0
+              type: 'goodIsLow',
               breaks: [3.5, 4.0, 5.0, 6.0],
               colors: GOOD_LOW_COLORS,
-              unit: ''
+              unit: '',
+              description: "Average Total Cholesterol / HDL Cholesterol Ratio. A higher ratio indicates higher risk. <strong>Desirable:</strong> < 3.5. <strong>Good:</strong> < 5.0. <strong>High Risk:</strong> ≥ 5.0. Lower average ratios are generally better."
           },
           'ldl_hdl_ratio_mean': {
               displayName: 'LDL/HDL Ratio (Mean)',
               dataKey: 'ldl_hdl_ratio_mean',
-              type: 'goodIsLow', // Desirable < 2.0
+              type: 'goodIsLow',
               breaks: [2.0, 2.5, 3.0, 3.5],
               colors: GOOD_LOW_COLORS,
-              unit: ''
+              unit: '',
+              description: "Average LDL Cholesterol / HDL Cholesterol Ratio. A higher ratio indicates higher risk. <strong>Desirable:</strong> < 2.5. <strong>Acceptable:</strong> < 3.5. <strong>High Risk:</strong> > 3.5. Lower average ratios are generally better."
           },
           'ldl_is_high_percentage': {
-              displayName: '% LDL High',
+              displayName: '% LDL High (>160 mg/dL)',
               dataKey: 'ldl_is_high_percentage',
-              type: 'goodIsLow', // Lower percentage is better
+              type: 'goodIsLow', 
               breaks: [5, 10, 15, 20],
               colors: GOOD_LOW_COLORS,
-              unit: '%'
+              unit: '%',
+              description: "Percentage of individuals with LDL ('bad') cholesterol > 160 mg/dL. This threshold is considered high risk. A lower percentage indicates fewer individuals at high risk due to elevated LDL."
           },
           'hdl_is_low_percentage': {
-              displayName: '% HDL Low',
+              displayName: '% HDL Low (<40 mg/dL)',
               dataKey: 'hdl_is_low_percentage',
-              type: 'goodIsLow', // Lower percentage is better
+              type: 'goodIsLow',
               breaks: [20, 30, 40, 50],
               colors: GOOD_LOW_COLORS,
-              unit: '%'
+              unit: '%',
+              description: "Percentage of individuals with HDL ('good') cholesterol < 40 mg/dL. This level is considered a risk factor. A lower percentage indicates fewer individuals at risk due to low HDL."
           },
           'patient_month_count': {
               displayName: 'Patient Month Count',
               dataKey: 'patient_month_count',
-              type: 'neutral', // Or 'goodIsHigh' if more data is better for reliability
-              breaks: [1000, 5000, 10000, 20000], // Example breaks
+              type: 'neutral',
+              breaks: [1000, 5000, 10000, 20000],
               colors: NEUTRAL_COLORS,
-              unit: ''
+              unit: '',
+              description: "Represents the total count of patient-months data available for this ZIP code area. This can give an indication of the sample size contributing to the health statistics for this area."
           }
-          // ... Add more metrics as needed, mapping to your JSON fields ...
-          // e.g., tc_is_high_percentage, tg_is_high_percentage, etc.
       };
   
-      // Set initial metric, choose one from the new metricConfigs
       let currentMetricKey = 'composite_risk_score_mean';
       let geojsonLayer;
       let selectedLayer = null;
@@ -493,10 +497,23 @@
       L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
           attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
           subdomains: 'abcd',
-          maxZoom: 12 // You can adjust this
+          maxZoom: 12
       }).addTo(map);
   
       const metricSelect = document.getElementById('metric-select');
+      // NEW: Get reference to the description panel
+      const metricDescriptionPanel = document.getElementById('metric-description'); 
+
+      // NEW: Function to update the metric description panel
+      function updateMetricDescriptionPanel(metricKey) {
+          const config = metricConfigs[metricKey];
+          if (config && config.description) {
+              metricDescriptionPanel.innerHTML = `<p>${config.description}</p>`; // Use innerHTML to parse <strong> tags
+          } else {
+              metricDescriptionPanel.innerHTML = '<p class="placeholder-text">Description not available for this indicator.</p>';
+          }
+      }
+
       for (const key in metricConfigs) {
           const option = document.createElement('option');
           option.value = key;
@@ -506,33 +523,27 @@
           }
           metricSelect.appendChild(option);
       }
+      // NEW: Initial update for the description panel
+      updateMetricDescriptionPanel(currentMetricKey);
   
-      // UPDATED: Data merging logic
       if (geojsonData && geojsonData.features && Object.keys(healthStatsLookup).length > 0) {
           geojsonData.features.forEach(feature => {
               const zipCode = feature.properties.ZCTA5CE10;
-              const statsForZip = healthStatsLookup[zipCode]; // Use the lookup
+              const statsForZip = healthStatsLookup[zipCode];
   
               if (statsForZip) {
-                  // Assign all configured metrics to the feature properties
-                  // The property name on the feature will be the key from metricConfigs (e.g., 'ldl_value_mean')
-                  // The value will come from statsForZip[metricConfigs[mKey].dataKey]
                   for (const mKey in metricConfigs) {
                       const dataKeyValue = metricConfigs[mKey].dataKey;
                       if (statsForZip.hasOwnProperty(dataKeyValue)) {
                           feature.properties[mKey] = statsForZip[dataKeyValue];
                       } else {
-                          feature.properties[mKey] = null; // Metric not found in stats for this ZIP
+                          feature.properties[mKey] = null;
                       }
                   }
-                  // You might want to add other general properties if available and needed
-                  // feature.properties.municipality = statsForZip.municipality_name; // If you have municipality name in new JSON
               } else {
-                  // No health stats for this ZIP code, set all configured metrics to null
                   for (const mKey in metricConfigs) {
                       feature.properties[mKey] = null;
                   }
-                  // feature.properties.municipality = "N/A (No Data)";
               }
           });
       } else {
@@ -542,21 +553,18 @@
       function getColor(value, metricKey) {
           const config = metricConfigs[metricKey];
           if (!config || value === null || value === undefined || isNaN(value)) {
-              return '#E0E0E0'; // Default color for no data or invalid
+              return '#E0E0E0';
           }
   
           const breaks = config.breaks;
           const colors = config.colors;
   
-          // For 'neutral' type, or if type is not goodIsHigh/goodIsLow, just use the breaks directly
-          // (This is simplified, you might need more specific logic for 'neutral' if colors don't map directly to breaks)
           if (config.type === 'goodIsHigh' || config.type === 'goodIsLow' || config.type === 'neutral') {
               for (let i = 0; i < breaks.length; i++) {
                   if (value <= breaks[i]) return colors[i];
               }
-              return colors[colors.length - 1]; // Value is greater than all breaks
+              return colors[colors.length - 1];
           } else {
-              // Fallback if type is misconfigured, or you add other types
                for (let i = 0; i < breaks.length; i++) {
                   if (value <= breaks[i]) return colors[i];
               }
@@ -565,9 +573,6 @@
       }
   
       function style(feature) {
-          // currentMetricKey is the key from metricConfigs (e.g., 'ldl_value_mean')
-          // feature.properties[currentMetricKey] will now correctly access the data
-          // because we populated it like that in the merging step.
           const value = feature.properties[currentMetricKey];
           return {
               fillColor: getColor(value, currentMetricKey),
@@ -602,13 +607,11 @@
           const layer = e.target;
           if (selectedLayer && selectedLayer !== layer) {
               geojsonLayer.resetStyle(selectedLayer);
-              // Optionally bring previous layer back if you manage z-indexing
-              // selectedLayer.bringToBack();
           }
           map.fitBounds(layer.getBounds().pad(0.1));
           layer.setStyle({
               weight: 3,
-              color: '#041427', // Even darker for selected
+              color: '#041427',
               dashArray: '',
               fillOpacity: 0.9
           });
@@ -633,23 +636,20 @@
           }
   
           const currentConfig = metricConfigs[currentMetricKey];
-          // props[currentMetricKey] will access the value for the currently selected metric
           const currentMetricValue = props[currentMetricKey];
           const currentMetricDisplay = (currentMetricValue !== null && currentMetricValue !== undefined && !isNaN(currentMetricValue))
                                       ? `${parseFloat(currentMetricValue).toFixed(2)} ${currentConfig.unit || ''}`
                                       : 'N/A';
   
           let content = `<h3>ZIP Code: ${props.ZCTA5CE10 || 'N/A'}</h3>`;
-          // Add municipality if you have it and merged it
-          // content += `<p><span class="data-label">Municipality:</span> <span class="data-value">${props.municipality || 'N/A'}</span></p>`;
           content += `<hr>`;
           content += `<p class="data-item"><span class="data-label">${currentConfig.displayName}:</span> <strong class="data-value">${currentMetricDisplay}</strong></p>`;
   
           content += `<h4>All Indicators for this Area:</h4>`;
-          for (const keyInConfig in metricConfigs) { // Iterate through metricConfigs keys
-              if (props.hasOwnProperty(keyInConfig)) { // Check if the feature has this property
-                  const val = props[keyInConfig]; // This is the data value
-                  const conf = metricConfigs[keyInConfig]; // This is the config for this specific metric
+          for (const keyInConfig in metricConfigs) {
+              if (props.hasOwnProperty(keyInConfig)) {
+                  const val = props[keyInConfig];
+                  const conf = metricConfigs[keyInConfig];
                   const displayVal = (val !== null && val !== undefined && !isNaN(val))
                                       ? `${parseFloat(val).toFixed(2)} ${conf.unit || ''}`
                                       : 'N/A';
@@ -669,22 +669,14 @@
   
           const breaks = config.breaks;
           const colors = config.colors;
-          let legendHtml = `<h4>${config.displayName}</h4>`; // Add title to legend
+          let legendHtml = `<h4>${config.displayName}</h4>`;
   
-          // Handle 'goodIsLow' type for legend text if needed (colors are already reversed in config)
-          // Or ensure colors array matches the break order for display
-          // The first color corresponds to values <= breaks[0]
           legendHtml += `<span><i style="background:${colors[0]}"></i> ≤ ${breaks[0].toFixed(config.unit === '%' ? 1: 2)} ${config.unit || ''}</span>`;
   
           for (let i = 0; i < breaks.length - 1; i++) {
               legendHtml += `<span><i style="background:${colors[i+1]}"></i> ${breaks[i].toFixed(config.unit === '%' ? 1: 2)} - ${breaks[i+1].toFixed(config.unit === '%' ? 1: 2)} ${config.unit || ''}</span>`;
           }
-          // The last color corresponds to values > breaks[breaks.length - 1]
           legendHtml += `<span><i style="background:${colors[colors.length-1]}"></i> > ${breaks[breaks.length-1].toFixed(config.unit === '%' ? 1: 2)} ${config.unit || ''}</span>`;
-  
-          // Check if a "No Data" entry is needed.
-          // The getColor function returns '#E0E0E0' for null/undefined values.
-          // So, if any feature could potentially have no data for the current metric, include it.
           legendHtml += `<span><i style="background:#E0E0E0"></i> No Data</span>`;
   
           legendDiv.innerHTML = legendHtml;
@@ -693,15 +685,14 @@
       metricSelect.addEventListener('change', function() {
           currentMetricKey = this.value;
           if (geojsonLayer) {
-              // This will call style() for each feature, which in turn calls getColor()
               geojsonLayer.setStyle(style);
           }
           updateLegend(currentMetricKey);
+          updateMetricDescriptionPanel(currentMetricKey); // NEW: Update description on change
           if (selectedLayer) {
-              // Update info panel with the new metric for the currently selected layer
               updateInfoPanel(selectedLayer.feature.properties);
           } else {
-              updateInfoPanel(null); // Clear info panel if nothing is selected
+              updateInfoPanel(null);
           }
       });
   
@@ -710,12 +701,14 @@
               style: style,
               onEachFeature: onEachFeature
           }).addTo(map);
-          updateLegend(currentMetricKey); // Initial legend update
-          updateInfoPanel(null); // Initial info panel state
+          updateLegend(currentMetricKey); 
+          updateInfoPanel(null);
+          // Note: updateMetricDescriptionPanel is already called after populating metricSelect
       } else {
           document.getElementById('map').innerHTML = "<p style='text-align:center; padding-top: 50px;'>Could not load map data or health statistics.</p>";
           legendDiv.innerHTML = '<p class="placeholder-text">Map data unavailable.</p>';
           updateInfoPanel(null);
+          updateMetricDescriptionPanel(currentMetricKey); // Ensure even on error, a default description shows
       }
   </script>
 </body>
