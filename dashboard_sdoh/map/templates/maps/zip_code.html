@@ -358,7 +358,16 @@
   
       const GOOD_HIGH_COLORS = ['#E7080C', '#DF5E1D', '#FFC300', '#39D834', '#15D886'];
       const GOOD_LOW_COLORS = ['#15D886', '#39D834', '#FFC300', '#DF5E1D', '#E7080C'];
-      const NEUTRAL_COLORS   = ['#edf8fb','#b3cde3','#8c96c6','#8856a7','#810f7c'];
+      const NEUTRAL_COLORS   = [
+        '#f7fcfd', // lightest - for < 1000
+        '#e0ecf4', // for 1000 - 2499
+        '#bfd3e6', // for 2500 - 4999
+        '#9ebcda', // for 5000 - 9999
+        '#8c96c6', // for 10000 - 19999
+        '#8c6bb1', // for 20000 - 49999
+        '#88419d', // for 50000 - 99999
+        '#6e016b'  // darkest - for >= 100000
+        ];
 
       const metricConfigs = {
           'composite_risk_score_mean': {
@@ -479,14 +488,14 @@
               description: "Percentage of individuals with HDL ('good') cholesterol < 40 mg/dL. This level is considered a risk factor. A lower percentage indicates fewer individuals at risk due to low HDL."
           },
           'patient_month_count': {
-              displayName: 'Patient Count',
-              dataKey: 'patient_month_count',
-              type: 'neutral',
-              breaks: [2000, 5000, 10000, 100000],
-              colors: NEUTRAL_COLORS,
-              unit: '',
-              description: "Represents the total count of patients data available for this ZIP code area. This can give an indication of the sample size contributing to the health statistics for this area."
-          }
+                displayName: 'Patient Count',
+                dataKey: 'patient_month_count',
+                type: 'neutral', // Or 'sequential' if you prefer that naming convention for this type
+                breaks: [1000, 2500, 5000, 10000, 20000, 50000, 100000], // 7 breaks for 8 colors
+                colors: NEUTRAL_COLORS,
+                unit: '',  
+                description: "Represents the total count of patients data available for this ZIP code area. This can give an indication of the sample size contributing to the health statistics for this area."
+            }
       };
   
       let currentMetricKey = 'composite_risk_score_mean';
