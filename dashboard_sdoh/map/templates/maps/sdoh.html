@@ -3,6 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static '/site.webmanifest' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puerto Rico Health Indicators Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -335,7 +339,7 @@
       };
 
       // --- Map Initialization ---
-      const map = L.map('map').setView([18.2208, -66.255167], 9);
+      const map = L.map('map').setView([18.080, -66.255167], 9);
       L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
           attribution: '© OpenStreetMap contributors © CARTO | Health: Abartys | SDoH: ACS 2020', // Slightly shorter
           subdomains: 'abcd', minZoom: 8, maxZoom: 14
