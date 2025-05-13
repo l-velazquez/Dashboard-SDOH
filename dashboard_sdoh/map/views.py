@@ -201,4 +201,4 @@ def sdoh_map(request):
     }
     # Make sure you have a template named 'zip_code_sdoh.html' or similar
     # Using the name provided in the user prompt 'zip_code_2.html'
-    return render(request, 'maps/zip_code_2.html', context)
+    return render(request, 'maps/sdoh.html', context)

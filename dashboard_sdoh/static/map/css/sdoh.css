@@ -1,0 +1,180 @@
+/* --- 1. Global & Basic Resets --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* --- 2. Header --- */
+header {
+    background-color:rgb(52, 0, 121);
+    color: white;
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+header h1 { margin: 0; font-size: 1.5em; text-align: center; order: 1; }
+.header-logos-container { display: flex; justify-content: center; align-items: center; gap: 20px; order: 2; }
+.header-logo { height: 40px; max-width: 120px; object-fit: contain; }
+
+/* --- 3. Main Content Area (Mobile First) --- */
+.main-content {
+    flex-grow: 1;
+    padding: 15px;
+}
+
+.sidebar, .map-container {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    width: 100%;
+    margin-bottom: 20px;
+}
+.main-content > *:last-child { margin-bottom: 0; }
+.sidebar { overflow-y: auto; }
+
+.map-container {
+    display: flex; /* Make it a flex container */
+    flex-direction: column; /* Stack map and legends vertically */
+    /* Height will be determined by content or by desktop rules */
+}
+
+#map {
+    width: 100%;
+    height: 400px; /* Mobile height */
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    flex-shrink: 0; /* Prevent map from shrinking if legends are tall */
+}
+
+.sidebar h2 { margin-top: 0; font-size: 1.3em; color: #004d40; border-bottom: 2px solid #b2dfdb; padding-bottom: 10px; margin-bottom: 15px; }
+.control-group { margin-bottom: 20px; }
+.control-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #555; }
+.control-group select { width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; background-color: #fff; font-size: 0.95em; }
+.metric-description-panel { padding: 10px; background-color: #f9f9f9; border: 1px solid #eee; border-radius: 4px; font-size: 0.9em; color: #333; min-height: 60px; margin-top: 5px; }
+.metric-description-panel p { margin: 0 0 5px 0; }
+.metric-description-panel strong { color: #004d40; }
+
+/* --- 4. Legend Styles --- */
+#legend-container {
+    margin-top: 15px; /* Space between map and legends */
+    padding: 10px 0; /* Padding for the container */
+    border-top: 1px solid #e0e0e0; /* Separator line */
+    width: 100%;
+}
+#legend-container > label { /* Optional general title for legends */
+    display: block;
+    text-align: center;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+.legends-content { /* NEW OR MODIFIED: This div wraps the two .legend divs */
+    display: flex;
+    flex-direction: row; /* Side-by-side by default (for mobile too) */
+    flex-wrap: wrap; /* Allow wrapping if screen is too narrow */
+    justify-content: space-around; /* Distribute space */
+    gap: 10px; /* Space between legend boxes */
+}
+
+.legend { /* Individual legend boxes */
+        line-height: 1.4; /* Slightly tighter for smaller space */
+        color: #555;
+        padding: 8px; /* Slightly less padding */
+        background-color: #fdfdfd;
+        border-radius: 4px;
+        border: 1px solid #eee;
+        /* flex: 1; /* Allow them to grow, will make them equal width */
+        /* Consider min-width or specific width for mobile if flex:1 makes them too narrow */
+        min-width: calc(50% - 10px); /* Example: try to make them take up half width minus gap */
+        box-sizing: border-box; /* Ensure padding/border included in width */
+}
+
+.legend h5 { font-size: 0.9em; color: #333; margin:0 0 6px 0; font-weight: 600; border-bottom: 1px solid #eee; padding-bottom: 3px; }
+.legend i { width: 16px; height: 16px; float: left; margin-right: 6px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.1); }
+.legend span { display: block; margin-bottom: 4px; clear: left; font-size: 0.85em; } /* Smaller font */
+.legend .legend-circle { width: 16px; height: 16px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; border: 1px solid rgba(0,0,0,0.2); }
+.legend .legend-circle-label { display: inline-block; vertical-align: middle; font-size: 0.85em; } /* Smaller font */
+
+/* --- 5. Info Panel Styles --- */
+.info-panel h3, .info-panel h4 { font-size: 1.1em; color: #004d40; margin: 0 0 5px 0; }
+.info-panel h4 { font-size: 1.0em; color: #333; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; }
+.info-panel p { margin: 5px 0; line-height: 1.5; }
+.info-panel .data-item { margin-bottom: 8px; }
+.info-panel .data-label { font-weight: 600; color: #444; }
+.info-panel .data-value { color: #111; }
+.placeholder-text { color: #777; font-style: italic; }
+
+/* --- 6. Footer --- */
+footer { text-align: center; padding: 15px; background-color: #e0e0e0; color: #555; font-size: 0.9em; margin-top: auto; }
+
+/* --- 7. Media Queries for Larger Screens (Tablets & Desktops) --- */
+@media (min-width: 992px) {
+    /* Header */
+    header { flex-direction: row; justify-content: space-between; align-items: center; }
+    header h1 { font-size: 1.8em; order: 2; flex-grow: 1; text-align: center; }
+    .header-logos-container { display: contents; }
+    .header-logo { height: 50px; max-width: none; }
+    img[alt="AIM AHEAD Logo"] { order: 1; } img[alt="RCMI Logo"] { order: 3; }
+
+    /* Main Content Row */
+    .main-content { display: flex; padding: 20px; gap: 20px; align-items: stretch; }
+    .sidebar, .map-container { width: auto; margin-bottom: 0; padding: 20px; }
+    .left-sidebar { flex: 0 0 300px; }
+    .right-sidebar { flex: 0 0 350px; }
+    .sidebar { display: flex; flex-direction: column; }
+
+    /* Map Container & Map Sizing */
+    .map-container {
+        flex-grow: 1; /* Takes remaining width */
+        display: flex;
+        flex-direction: column; /* Stack map and legends vertically */
+        /* Height determined by align-items:stretch on .main-content */
+    }
+    #map {
+        /* Desktop map takes most of the vertical space in map-container */
+        flex-grow: 1; /* Allow map to grow */
+        height: auto; /* Override mobile fixed height */
+        min-height: 500px; /* Ensure it's reasonably tall */
+    }
+
+    /* Legends below map - Desktop */
+    #legend-container {
+        display: flex; /* Arrange individual legends side-by-side */
+        flex-direction: row;
+        justify-content: space-around; /* Distribute space */
+        gap: 20px; /* Space between legend boxes */
+        margin-top: 20px; /* Space above legends */
+        padding: 15px 0; /* Padding for the container */
+        width: 100%; /* Full width of map-container */
+        flex-shrink: 0; /* Prevent legend container from shrinking */
+    }
+        #legend-container > label { /* General legends title */
+            display: none; /* Hide general label on desktop if preferred */
+        }
+    .legend { /* Individual legend boxes on desktop */
+            flex: 1; /* Each legend takes equal space */
+            max-width: 48%; /* Limit width, allowing for gap */
+            margin-bottom: 0; /* Remove bottom margin as they are side-by-side */
+    }
+
+    /* Other Desktop Font Size Adjustments */
+    .sidebar h2 { font-size: 1.4em; }
+    .info-panel h3 { font-size: 1.2em; }
+    .info-panel h4 { font-size: 1.1em; }
+}

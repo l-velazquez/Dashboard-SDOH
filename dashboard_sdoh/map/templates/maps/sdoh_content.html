@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}ZIP Code & SDoH Map{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'map/css/sdoh.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="main-content">
+        <div class="left-sidebar sidebar">
+            <h2>Controls</h2> 
+
+            <div class="control-group">
+                <label for="metric-select">Select Health Indicator (ZIP Code):</label>
+                <select id="metric-select"></select>
+                <div id="metric-description" class="metric-description-panel">
+                    <p class="placeholder-text">Select a health indicator to see its description.</p>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="sdoh-select">Select SDoH Indicator (Municipality):</label>
+                <select id="sdoh-select"></select>
+                 <div id="sdoh-description" class="metric-description-panel">
+                    <p class="placeholder-text">Select an SDoH indicator to see its description.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <div id="map"></div>
+            
+            <!-- Legends container is NOW a direct child of map-container, AFTER the map -->
+            <div id="legend-container">
+                <!-- Optional general title for legends -->
+                <!-- <label>Legends:</label> -->
+                <div id="health-legend" class="legend">
+                    <p class="placeholder-text">Select a health indicator for legend.</p>
+                </div>
+                 <div id="sdoh-legend" class="legend">
+                     <p class="placeholder-text">Select an SDoH indicator for legend.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-sidebar sidebar">
+            <h2>Area Information</h2>
+            <div id="info-panel" class="info-panel">
+                <p class="placeholder-text">Click on a ZIP code area on the map to see details.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Data Source: Abartys Health, US Census ZCTA, ACS 5-Year Estimates (2020)</p>
+        <p>Map created by Luis F. Velazquez Sosa © 2025</p>
+    </footer>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'map/js/sdoh.js' %}"></script>
+{% endblock %}
