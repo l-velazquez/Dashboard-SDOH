@@ -139,7 +139,7 @@ def puerto_rico(request):
 
 
 # --- NEW VIEW for combined map ---
-def sdoh_map(request):
+def sdoh_zip(request):
     # Paths for existing data
     geojson_file_path = os.path.join(settings.BASE_DIR, 'static', 'maps', 'puerto_rico_zcta.geojson')
     health_data_file_path = os.path.join(settings.BASE_DIR, 'static', 'data', 'puerto_rico_cardiovascular_risk_by_zip_monthly_avg.json')
@@ -201,4 +201,60 @@ def sdoh_map(request):
     }
     # Make sure you have a template named 'zip_code_sdoh.html' or similar
     # Using the name provided in the user prompt 'zip_code_2.html'
-    return render(request, 'maps/sdoh.html', context)
+    return render(request, 'maps/sdoh_zipcodes.html', context)
+
+
+def sdoh_municipality(request):
+    #Path to the GeoJSON file
+    pr_municipalities = os.path.join(settings.BASE_DIR, 'static', 'maps', 'municipalities.geojson')
+
+    #Path to the cardio health data file
+    health_data_file_path = os.path.join(settings.BASE_DIR, 'static', 'data', 'cardiovascular_risk_by_municipality.json')
+
+    #Path to the SDoH data file
+    sdoh_data_file_path = os.path.join(settings.BASE_DIR, 'static', 'data', 'sdoh_by_municipality.json')
+
+    geojson_data_str = "{}"
+    health_stats_data_str = "[]"
+    sdoh_data_str = "[]" 
+
+    # Load GeoJSON
+    try:
+        with open(pr_municipalities, 'r', encoding='utf-8') as f:
+            geojson_data_str = f.read()
+    except FileNotFoundError:
+        print(f"Error: GeoJSON file not found at {pr_municipalities}")
+        return HttpResponseServerError("Required map boundary file is missing.")
+    except Exception as e:
+        print(f"Error reading GeoJSON file: {e}")
+        return HttpResponseServerError("Error processing map boundary file.")
+    
+    # Load Health Data
+    try:
+        with open(health_data_file_path, 'r', encoding='utf-8') as f:
+            health_stats_data_str = f.read()
+    except FileNotFoundError:
+        print(f"Warning: Health data file not found at {health_data_file_path}. Map may lack health details.")
+    except Exception as e:
+        print(f"Error reading health data file: {e}")
+
+    # Load SDoH Data
+    try:
+        with open(sdoh_data_file_path, 'r', encoding='utf-8') as f:
+            sdoh_data_str = f.read()
+    except FileNotFoundError:
+        print(f"Error: SDoH data file not found at {sdoh_data_file_path}")
+        return HttpResponseServerError("Required SDoH data file is missing.")
+    except Exception as e:
+        print(f"Error reading SDoH data file: {e}")
+        return HttpResponseServerError("Error processing SDoH data file.")
+    
+    context = {
+        'geojson_data': geojson_data_str,
+        'health_stats_data': health_stats_data_str,
+        'sdoh_data': sdoh_data_str,                   # Pass SDoH data as string
+        'sdoh_variable_map_json': json.dumps(sdoh_json_variable_map), # Pass SDoH descriptions as JSON string
+    }
+
+    return render(request, 'maps/sdoh_municipality.html', context)
+
