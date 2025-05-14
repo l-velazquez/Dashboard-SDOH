@@ -1,0 +1,128 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+<head>
+    <link
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .map-img {
+            max-width: 250px;
+            height: auto;
+            margin: 0 auto 15px auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(75, 6, 106, 0.15);
+            transition: transform 0.2s;
+        }
+        .map-img:hover {
+            transform: scale(1.05);
+        }
+        .custom-btn {
+            background-color: rgb(75, 6, 106);
+            color: white;
+            padding: 10px 28px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            font-weight: 500;
+            box-shadow: 0 2px 6px rgba(75, 6, 106, 0.08);
+        }
+        .custom-btn:hover {
+            background-color: rgb(35, 51, 159);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(35, 51, 159, 0.15);
+            text-decoration: none;
+        }
+        .card {
+            border: none;
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+            transition: box-shadow 0.2s;
+            background: linear-gradient(135deg, #f8f9fa 80%, #e9ecef 100%);
+        }
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(75, 6, 106, 0.13);
+        }
+        .card-body {
+            padding: 28px 24px;
+        }
+        .card-title {
+            font-size: 1.6em;
+            margin-bottom: 12px;
+            color: rgb(75, 6, 106);
+            font-weight: 600;
+        }
+        .card-text {
+            color: #444;
+            margin-bottom: 18px;
+        }
+        .page-description {
+            font-size: 1.15em;
+            color: #555;
+            margin-bottom: 32px;
+            text-align: center;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (max-width: 767px) {
+            .card-body {
+                padding: 18px 10px;
+            }
+            .map-img {
+                max-width: 180px;
+            }
+        }
+    </style>
+</head>
+<div class="container mt-5">
+    <h1 class="text-center mb-3" style="color:rgb(75, 6, 106); font-weight:700;">Explore SDOH Maps</h1>
+    <div class="page-description">
+        Discover Social Determinants of Health (SDOH) data for Puerto Rico. Choose a map to explore aggregated data by zip code or municipality.
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center d-flex flex-column">
+                    <h5 class="card-title">Zip Code Map</h5>
+                    <p class="card-text">View SDOH data aggregated by <b>176 zip codes</b> in Puerto Rico.</p>
+                    <a href="{% url 'sdoh_zip' %}">
+                        <img
+                            src="{% static 'images/zipcodes_map_sdoh.webp' %}"
+                            alt="Zip Code Map"
+                            class="map-img"
+                            style="cursor:pointer;"
+                        />
+                    </a>
+                    <a href="{% url 'sdoh_zip' %}" class="custom-btn mt-auto"
+                        >Go to Zip Code Map</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center d-flex flex-column">
+                    <h5 class="card-title">Municipality Map</h5>
+                    <p class="card-text">View SDOH data aggregated by <b>78 municipalities</b> in Puerto Rico.</p>
+                    <a href="{% url 'sdoh_muni' %}">
+                        <img
+                            src="{% static 'images/muni_map_sdoh.webp' %}"
+                            alt="Municipality Map"
+                            class="map-img"
+                            style="cursor:pointer;"
+                        />
+                    </a>
+                    <a href="{% url 'sdoh_muni' %}" class="custom-btn mt-auto"
+                        >Go to Municipality Map</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

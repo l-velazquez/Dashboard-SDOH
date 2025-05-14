@@ -140,6 +140,8 @@ def puerto_rico(request):
 
 # --- NEW VIEW for combined map ---
 def sdoh_zip(request):
+
+    title = "Puerto Rico SDoH and Health Data by Zip Code"
     # Paths for existing data
     geojson_file_path = os.path.join(settings.BASE_DIR, 'static', 'maps', 'puerto_rico_zcta.geojson')
     health_data_file_path = os.path.join(settings.BASE_DIR, 'static', 'data', 'puerto_rico_cardiovascular_risk_by_zip_monthly_avg.json')
@@ -197,7 +199,8 @@ def sdoh_zip(request):
         'health_stats_data': health_stats_data_str,
         'sdoh_data': sdoh_data_str,                   # Pass SDoH data as string
         'sdoh_variable_map_json': sdoh_variable_map_json, # Pass SDoH descriptions as JSON string
-        'zip_to_muni_map_json': zip_to_muni_map_json      # Pass Zip to Muni map as JSON string
+        'zip_to_muni_map_json': zip_to_muni_map_json,      # Pass Zip to Muni map as JSON string
+        'title': title,
     }
     # Make sure you have a template named 'zip_code_sdoh.html' or similar
     # Using the name provided in the user prompt 'zip_code_2.html'
@@ -205,6 +208,7 @@ def sdoh_zip(request):
 
 
 def sdoh_municipality(request):
+    title = "Puerto Rico SDoH and Health Data by Municipality"
     #Path to the GeoJSON file
     pr_municipalities = os.path.join(settings.BASE_DIR, 'static', 'maps', 'municipalities.geojson')
 
@@ -254,7 +258,15 @@ def sdoh_municipality(request):
         'health_stats_data': health_stats_data_str,
         'sdoh_data': sdoh_data_str,                   # Pass SDoH data as string
         'sdoh_variable_map_json': json.dumps(sdoh_json_variable_map), # Pass SDoH descriptions as JSON string
+        'title': title,
     }
 
     return render(request, 'maps/sdoh_municipality.html', context)
 
+
+def sdoh(request):
+    # This function is a placeholder for the SDoH map view.
+    # You can implement it as needed or remove it if not required.
+    title = "Health Related Maps of Puerto Rico"
+
+    return render(request, 'maps/sdoh.html', {'title': title})

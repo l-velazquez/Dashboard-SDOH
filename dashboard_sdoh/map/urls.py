@@ -8,4 +8,5 @@ urlpatterns = [
     path('', views.zipcode_map, name='zipcode'),  # Zipcode map
     path('sdoh/zipcodes', views.sdoh_zip, name='sdoh_zip'),  # SDOH map
     path('sdoh/municipalities', views.sdoh_municipality, name='sdoh_muni'),  # Test page
+    path('sdoh/', views.sdoh, name='sdoh'),  # SDOH map
 ]
