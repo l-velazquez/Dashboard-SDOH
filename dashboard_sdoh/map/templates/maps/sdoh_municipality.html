@@ -569,10 +569,8 @@
       let sdohVariableMap = {};
       let currentHealthMetricKey = "AO_High";
       let currentSDoHMetricKey = "POS_MIN_DIST_ED";
-      // let geojsonLayer; // No longer a single Leaflet layer object
-      // let healthRiskCirclesLayerGroup = L.layerGroup(); // Replaced by MapLibre source/layer
-      let selectedFeatureId = null; // For MapLibre feature state
-      let hoveredFeatureId = null; // For MapLibre feature state
+      let selectedFeatureId = null;
+      let hoveredFeatureId = null;
 
       const riskCalculationDescriptions = {
         "Risk of Coronary Heart Disease":
@@ -599,21 +597,10 @@
       try {
         sdohRawData = JSON.parse(sdohDataString);
         if (Array.isArray(sdohRawData)) {
-          sdohRawData.forEach((item) => {
-            if (item.COUNTY && item.YEAR === 2020)
-              sdohDataLookup[item.COUNTY] = item;
-          });
-        } else {
-          console.error("SDoH data not array");
-        }
-      } catch (e) {
-        console.error("SDoH Data Parse Error:", e);
-      }
-      try {
-        sdohVariableMap = JSON.parse(sdohVariableMapString);
-      } catch (e) {
-        console.error("SDoH Map Parse Error:", e);
-      }
+          sdohRawData.forEach((item) => { if (item.COUNTY && item.YEAR === 2020) sdohDataLookup[item.COUNTY] = item; });
+        } else { console.error("SDoH data not array"); }
+      } catch (e) { console.error("SDoH Data Parse Error:", e); }
+      try { sdohVariableMap = JSON.parse(sdohVariableMapString); } catch (e) { /* ... */ }
 
       const GOOD_LOW_COLORS = [ "#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"];
       const SDOH_COLORS = [ "#e0ecf4", "#bfd3e6", "#9ebcda", "#8c96c6", "#8c6bb1", "#88419d", "#6e016b", "#4d0042" ];
@@ -655,11 +642,10 @@
       const healthLegendDiv = document.getElementById("health-legend");
       const sdohLegendDiv = document.getElementById("sdoh-legend");
       const infoPanel = document.getElementById("info-panel");
-      
-      // --- Helper Functions ---
+
       function getInitialMapZoom() {
-        if (window.innerWidth <= 600) return 7.5; // Mobile: zoom
-        return 8.5; // Desktop/tablet: default zoom (MapLibre zoom levels can feel different)
+        if (window.innerWidth <= 600) return 7.5;
+        return 8.5;
       }
 
       function getNestedHealthValue(healthData, dataPath) {
@@ -802,51 +788,75 @@
       updateDescriptionPanel(healthMetricDescriptionPanel, currentHealthMetricKey, filteredHealthMetricConfigs);
       updateDescriptionPanel(sdohDescriptionPanel, currentSDoHMetricKey, sdohMetricConfigs, sdohVariableMap);
 
-      // --- Map Initialization & Layers ---
+      // --- Map Initialization with Blank Background Style ---
       map = new maplibregl.Map({
         container: "map",
-        style: "https://demotiles.maplibre.org/style.json", // Basic style, replace with your preferred one
+        style: {
+            "version": 8,
+            "name": "Blank Light Background",
+            "sources": {}, // No external map data sources
+            "layers": [{
+                "id": "background",
+                "type": "background",
+                "paint": {
+                    // Choose your desired background color:
+                    "background-color": "#f8f4f0" // A very light off-white/beige
+                    // "background-color": "#ffffff" // Pure white
+                    // "background-color": "#e9e9e9" // Light gray
+                }
+            }]
+            // Glyphs and sprite properties are not strictly needed for a blank background,
+            // but MapLibre might add defaults. If you add text/icons later from your *own* data,
+            // you might need to specify glyphs.
+            // "glyphs": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf", // Example if needed later
+        },
         center: [-66.25, 18.18], // Lng, Lat for Puerto Rico
         zoom: getInitialMapZoom(),
-        minZoom: 7,
-        maxZoom: 12,
-        attributionControl: false, // We'll add a custom one
+        minZoom: 6, // Adjust as needed; without basemap context, very low zoom might not be useful
+        maxZoom: 11, // Adjust as needed
+        attributionControl: false, // No external basemap to attribute
       });
 
       map.addControl(new maplibregl.NavigationControl(), 'top-right');
       map.addControl(new maplibregl.FullscreenControl(), 'top-right');
+      // Add attribution only for your data sources
       map.addControl(new maplibregl.AttributionControl({
-          customAttribution: 'Health Risk: Abartys Health | SDoH: ACS 2020 | Base Map: © OpenStreetMap contributors, © CARTO'
+          customAttribution: 'Health Risk: Abartys Health | SDoH: ACS 2020 | Municipalities: US Census' // Or similar
       }), 'bottom-right');
 
 
       map.on("load", () => {
+        console.log("Map style loaded: Blank Background");
+
         if (!geojsonData || !geojsonData.features || geojsonData.features.length === 0) {
             document.getElementById("map").innerHTML = "<p>Could not load map boundary data.</p>";
             return;
         }
 
+        // Add MUNICIPALITIES source
         map.addSource("municipalities", {
           type: "geojson",
           data: geojsonData,
-          promoteId: 'NAME' // Use NAME property as feature ID if available and unique
+          promoteId: 'NAME' // Or whatever ID you set in preprocessGeojsonData
         });
 
+        // Add MUNICIPALITIES FILL layer
         map.addLayer({
           id: "municipalities-fill",
           type: "fill",
           source: "municipalities",
           paint: {
             "fill-color": getSDoHColorExpression(currentSDoHMetricKey),
-            "fill-opacity": [ // Slightly change opacity on hover/select
+            "fill-opacity": [
                 'case',
                 ['boolean', ['feature-state', 'select'], false], 0.9,
-                ['boolean', ['feature-state', 'hover'], false], 0.75,
-                0.6
+                ['boolean', ['feature-state', 'hover'], false], 0.8, // Adjusted opacity
+                0.85 // Adjusted base opacity
             ]
           },
         });
 
+        // Add MUNICIPALITIES OUTLINE layer
         map.addLayer({
           id: "municipalities-outline",
           type: "line",
@@ -854,20 +864,20 @@
           paint: {
             "line-color": [
                 'case',
-                ['boolean', ['feature-state', 'select'], false], '#020c1a', // Darker for selected
-                ['boolean', ['feature-state', 'hover'], false], '#051B35', // Dark for hover
-                '#555' // Default
+                ['boolean', ['feature-state', 'select'], false], '#020c1a',
+                ['boolean', ['feature-state', 'hover'], false], '#051B35',
+                '#777' // Adjusted default outline color
             ],
             "line-width": [
                 'case',
-                ['boolean', ['feature-state', 'select'], false], 3,
-                ['boolean', ['feature-state', 'hover'], false], 2.5,
-                1.5
+                ['boolean', ['feature-state', 'select'], false], 2.5, // Adjusted width
+                ['boolean', ['feature-state', 'hover'], false], 2,   // Adjusted width
+                1    // Adjusted base width
             ]
           },
         });
 
-        // Interactions for municipalities
+        // Interactions for municipalities (mousemove, mouseleave, click)
         map.on("mousemove", "municipalities-fill", (e) => {
           map.getCanvas().style.cursor = "pointer";
           if (e.features.length > 0) {
@@ -876,10 +886,11 @@
               map.setFeatureState({ source: "municipalities", id: hoveredFeatureId }, { hover: false });
             }
             hoveredFeatureId = currentFeatureId;
-            map.setFeatureState({ source: "municipalities", id: hoveredFeatureId }, { hover: true });
+            if (hoveredFeatureId !== selectedFeatureId) {
+                 map.setFeatureState({ source: "municipalities", id: hoveredFeatureId }, { hover: true });
+            }
           }
         });
-
         map.on("mouseleave", "municipalities-fill", () => {
           map.getCanvas().style.cursor = "";
           if (hoveredFeatureId) {
@@ -887,7 +898,6 @@
           }
           hoveredFeatureId = null;
         });
-
         map.on("click", "municipalities-fill", (e) => {
           if (e.features.length > 0) {
             const clickedFeature = e.features[0];
@@ -895,19 +905,19 @@
               map.setFeatureState({ source: "municipalities", id: selectedFeatureId }, { select: false });
             }
             selectedFeatureId = clickedFeature.id;
-            map.setFeatureState({ source: "municipalities", id: selectedFeatureId }, { select: true });
-            
-            map.fitBounds(getFeatureLngLatBounds(clickedFeature), { padding: 40, maxZoom:10 });
+            map.setFeatureState({ source: "municipalities", id: selectedFeatureId }, { select: true, hover: false });
+            map.fitBounds(getFeatureLngLatBounds(clickedFeature), { padding: 60, maxZoom: 11 }); // Adjusted padding/zoom
             updateInfoPanel(clickedFeature.properties);
           }
         });
 
-        // Initialize health circles source and layer (data will be added by drawHealthRiskCircles)
+        // Add HEALTH POINTS source
         map.addSource('health-points', {
             type: 'geojson',
             data: { type: 'FeatureCollection', features: [] }
         });
 
+        // Add HEALTH CIRCLES layer
         map.addLayer({
             id: 'health-circles',
             type: 'circle',
@@ -915,16 +925,15 @@
             paint: {
                 'circle-radius': ['get', 'radiusForCircle'],
                 'circle-color': ['get', 'colorForCircle'],
-                'circle-stroke-width': 0.75,
-                'circle-stroke-color': '#333333',
-                'circle-opacity': 0.9
+                'circle-stroke-width': 0.5, // Thinner stroke for cleaner look
+                'circle-stroke-color': '#444', // Darker stroke
+                'circle-opacity': 0.85 // Slightly adjusted opacity
             }
-        }, 'municipalities-outline'); // Draw circles on top of fills, potentially under outlines if needed, or on top of all municipality layers
+        }, 'municipalities-outline'); // Draw before outline, or remove to draw on top
 
+        // Popup for health circles
         const healthCirclePopup = new maplibregl.Popup({
-            closeButton: false,
-            closeOnClick: false,
-            anchor: 'bottom'
+            closeButton: false, closeOnClick: false, anchor: 'bottom'
         });
 
         map.on('mouseenter', 'health-circles', (e) => {
@@ -1048,7 +1057,7 @@
       // --- Event Listeners for Selectors ---
       healthMetricSelect.addEventListener("change", function () {
         currentHealthMetricKey = this.value;
-        drawHealthRiskCircles(); // This updates circles data and health legend
+        drawHealthRiskCircles();
         updateDescriptionPanel(healthMetricDescriptionPanel, currentHealthMetricKey, filteredHealthMetricConfigs);
         if (selectedFeatureId) { // Update info panel if a feature is selected
             const features = map.querySourceFeatures('municipalities', {
@@ -1056,9 +1065,7 @@
                 filter: ['==', ['id'], selectedFeatureId]
             });
             if (features.length > 0) updateInfoPanel(features[0].properties);
-        } else {
-            updateInfoPanel(null);
-        }
+        } else { updateInfoPanel(null); }
       });
 
       sdohSelect.addEventListener("change", function () {
@@ -1066,17 +1073,13 @@
         if (!sdohMetricConfigs[currentSDoHMetricKey]) {
           console.error(`Config missing for SDoH key: ${currentSDoHMetricKey}`);
           sdohLegendDiv.innerHTML = `<p>Viz config missing.</p>`;
-          // Potentially set a default non-data-driven color if config is missing
-          // map.setPaintProperty('municipalities-fill', 'fill-color', '#ccc'); 
         } else {
             map.setPaintProperty('municipalities-fill', 'fill-color', getSDoHColorExpression(currentSDoHMetricKey));
             updateSDoHLegend(currentSDoHMetricKey);
         }
         updateDescriptionPanel(sdohDescriptionPanel, currentSDoHMetricKey, sdohMetricConfigs, sdohVariableMap);
-        if (selectedFeatureId) { // Update info panel
-             const features = map.querySourceFeatures('municipalities', {
-                filter: ['==', ['id'], selectedFeatureId]
-            });
+        if (selectedFeatureId) {
+             const features = map.querySourceFeatures('municipalities', { filter: ['==', ['id'], selectedFeatureId] });
             if (features.length > 0) updateInfoPanel(features[0].properties);
         }
       });
