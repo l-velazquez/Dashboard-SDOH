@@ -968,15 +968,16 @@
           infoPanel.innerHTML = '<p class="placeholder-text">Click on a municipality for details.</p>';
           return;
         }
-        const { NAME: municipalityName, healthData, sdoh: sdohData } = muniProps; // sdoh is now embedded
+        const { NAME: municipalityName, healthData } = muniProps;
+        const sdohData = sdohDataLookup[municipalityName] || null;
         let content = `<h3>Municipality: ${municipalityName}</h3>`;
 
         content += `<hr style="margin:10px 0;"><h4>SDoH Indicator (Outline)</h4>`;
-        if (sdohData && Object.keys(sdohData).length > 0) {
+        if (sdohData) {
           const sc = sdohMetricConfigs[currentSDoHMetricKey];
           const sv = sdohData[currentSDoHMetricKey];
           const sd = sdohVariableMap[currentSDoHMetricKey] || sc?.displayName || currentSDoHMetricKey;
-          const sdv = (sv !== null && sv !== undefined && !isNaN(sv)) ? `${parseFloat(sv).toFixed(sc?.type === "percentage" ? 1 : sc?.type === "count" ? 0 : 2)}${sc?.unit || ""}` : "N/A";
+          const sdv = (sv !== null && !isNaN(sv)) ? `${parseFloat(sv).toFixed(sc?.type === "percentage" ? 1 : sc?.type === "count" ? 0 : 2)}${sc?.unit || ""}` : "N/A";
           content += `<p><span class="data-label">${sd}:</span> <strong class="data-value">${sdv}</strong></p>`;
         } else {
           content += `<p>No SDoH data for "${currentSDoHMetricKey}" in ${municipalityName}.</p>`;
@@ -1002,45 +1003,68 @@
             const totalEvalDisp = (totalEval !== null && !isNaN(totalEval)) ? `${parseFloat(totalEval).toLocaleString()}` : "N/A";
             const riskShortName = riskTypeKey.split(" ").length > 2 ? riskTypeKey.split(" ")[2] : riskTypeKey.split(" ")[0];
             content += `<p style="font-size:0.9em;"><span class="data-label">Total Evaluated (${riskShortName}):</span> <span class="data-value">${totalEvalDisp}</span></p>`;
-          } else { content += `<p>Config for ${currentHealthMetricKey} incomplete.</p>`; }
-        } else { content += `<p>No cardiovascular health data for ${municipalityName}.</p>`; }
+          } else {
+            content += `<p>Config for ${currentHealthMetricKey} incomplete.</p>`;
+          }
+        } else {
+          content += `<p>No cardiovascular health data for ${municipalityName}.</p>`;
+        }
         infoPanel.innerHTML = content;
       }
 
-      function updateHealthLegend(metricKey, valueForMaxRadiusForLegend) { // Unchanged from original
+      function updateHealthLegend(metricKey, valueForMaxRadiusForLegend) {
         const config = filteredHealthMetricConfigs[metricKey];
         healthLegendDiv.innerHTML = "";
+
         if (!config || !config.colors || !config.colors.length || !config.breaks || !config.breaks.length) {
-          healthLegendDiv.innerHTML = `<p>Health Risk legend N/A.</p>`; return;
+          healthLegendDiv.innerHTML = `<p>Health Risk legend N/A.</p>`;
+          return;
         }
         if (config.colors.length < config.breaks.length + 1) {
-          healthLegendDiv.innerHTML = `<p>Health legend config error.</p>`; return;
+          healthLegendDiv.innerHTML = `<p>Health legend config error.</p>`;
+          return;
         }
+
         const { colors, breaks, unit, displayName } = config;
-        let barWidth = healthLegendDiv.offsetWidth || 300; barWidth = Math.max(160, Math.min(barWidth, 420));
+        // Responsive bar width
+        let barWidth = healthLegendDiv.offsetWidth || 300;
+        barWidth = Math.max(160, Math.min(barWidth, 420));
         let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18">`;
         const bandWidth = barWidth / colors.length;
         for (let i = 0; i < colors.length; i++) {
           barSvg += `<rect x="${i * bandWidth}" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
         }
         barSvg += `</svg>`;
+
+        // Min/Max labels (less text)
         let min = breaks[0], max = breaks[breaks.length - 1];
         let minLabel = `${min}${unit}`, maxLabel = `${max}${unit}`;
         let labelsHtml = `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}+</span></div>`;
-        healthLegendDiv.innerHTML = `<div class="legend-title">${displayName}</div>${barSvg}${labelsHtml}`;
+
+        healthLegendDiv.innerHTML = `
+          <div class="legend-title">${displayName}</div>
+          ${barSvg}
+          ${labelsHtml}
+        `;
       }
 
-      function updateSDoHLegend(metricKey) { // Unchanged from original
+      function updateSDoHLegend(metricKey) {
         const config = sdohMetricConfigs[metricKey];
         const variableDesc = sdohVariableMap[metricKey] || metricKey;
         sdohLegendDiv.innerHTML = "";
+
         if (!config || !config.colors || !config.colors.length || !config.breaks || !config.breaks.length) {
-          sdohLegendDiv.innerHTML = `<p>SDoH Legend N/A.</p>`; return;
+          sdohLegendDiv.innerHTML = `<p>SDoH Legend N/A.</p>`;
+          return;
         }
         if (config.colors.length < config.breaks.length + 1) {
-          sdohLegendDiv.innerHTML = `<p>SDoH legend config error.</p>`; return;
+          sdohLegendDiv.innerHTML = `<p>SDoH legend config error.</p>`;
+          return;
         }
-        let barWidth = sdohLegendDiv.offsetWidth || 300; barWidth = Math.max(160, Math.min(barWidth, 420));
+
+        // Responsive bar width
+        let barWidth = sdohLegendDiv.offsetWidth || 300;
+        barWidth = Math.max(160, Math.min(barWidth, 420));
         const { colors, breaks, unit } = config;
         let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18">`;
         const bandWidth = barWidth / colors.length;
@@ -1048,10 +1072,17 @@
           barSvg += `<rect x="${i * bandWidth}" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
         }
         barSvg += `</svg>`;
+
+        // Min/Max labels (less text)
         let min = breaks[0], max = breaks[breaks.length - 1];
         let minLabel = `${min}${unit}`, maxLabel = `${max}${unit}`;
         let labelsHtml = `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}+</span></div>`;
-        sdohLegendDiv.innerHTML = `<div class="legend-title">${variableDesc}</div>${barSvg}${labelsHtml}`;
+
+        sdohLegendDiv.innerHTML = `
+          <div class="legend-title">${variableDesc}</div>
+          ${barSvg}
+          ${labelsHtml}
+        `;
       }
 
       // --- Event Listeners for Selectors ---
