@@ -800,7 +800,7 @@
                 "type": "background",
                 "paint": {
                     // Choose your desired background color:
-                    "background-color": "#f8f4f0" // A very light off-white/beige
+                    "background-color": "#e3f2fd" // A very light blue
                     // "background-color": "#ffffff" // Pure white
                     // "background-color": "#e9e9e9" // Light gray
                 }
@@ -812,7 +812,7 @@
         },
         center: [-66.25, 18.18], // Lng, Lat for Puerto Rico
         zoom: getInitialMapZoom(),
-        minZoom: 6, // Adjust as needed; without basemap context, very low zoom might not be useful
+        minZoom: 7, // Adjust as needed; without basemap context, very low zoom might not be useful
         maxZoom: 11, // Adjust as needed
         attributionControl: false, // No external basemap to attribute
       });
@@ -849,8 +849,8 @@
             "fill-color": getSDoHColorExpression(currentSDoHMetricKey),
             "fill-opacity": [
                 'case',
-                ['boolean', ['feature-state', 'select'], false], 0.9,
-                ['boolean', ['feature-state', 'hover'], false], 0.8, // Adjusted opacity
+                ['boolean', ['feature-state', 'select'], false], 0.95,
+                ['boolean', ['feature-state', 'hover'], false], 0.9, // Adjusted opacity
                 0.85 // Adjusted base opacity
             ]
           },
