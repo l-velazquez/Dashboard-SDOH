@@ -78,17 +78,12 @@
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Puerto Rico Health Indicators Map</title>
+    <!-- MapLibre GL JS -->
     <link
+      href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css"
       rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
     />
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 
     <style>
       /* --- 1. Global & Basic Resets --- */
@@ -174,6 +169,14 @@
         border: 1px solid #ddd;
         flex-shrink: 0;
       }
+      /* MapLibre specific: ensure cursor changes work */
+      .maplibregl-canvas-container.maplibregl-interactive,
+      .maplibregl-ctrl-group button.maplibregl-ctrl-compass {
+        cursor: grab;
+      }
+      .maplibregl-canvas-container.maplibregl-interactive.maplibregl-grabbing {
+        cursor: grabbing;
+      }
 
       .sidebar h2 {
         margin-top: 0;
@@ -225,7 +228,7 @@
         width: 100%;
         background: #fafbfc;
         border-radius: 0 0 8px 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
       }
       #legend-container > label {
         display: block;
@@ -268,15 +271,13 @@
         max-width: 420px;
         min-width: 160px;
         height: 18px;
-        /* Remove border-radius for sharp edges */
         border-radius: 0;
         margin-bottom: 6px;
         position: relative;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-        border: none; /* Remove border for seamless color */
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        border: none;
         overflow: hidden;
         transition: max-width 0.2s;
-        /* Remove background to avoid white showing through */
         background: none;
       }
       .legend-labels {
@@ -448,15 +449,14 @@
           display: none;
         }
         .legends-content {
-          justify-content: space-between; /* Desktop: Space between the two legend boxes */
-          gap: 20px; /* Desktop: Gap between legend boxes */
+          justify-content: space-between;
+          gap: 20px;
         }
         .legend {
-          flex-grow: 1;         /* Allow legend boxes to grow */
-          flex-shrink: 1;       /* Allow them to shrink if needed */
-          flex-basis: 0;        /* Distribute space based on flex-grow, effectively making them equal width */
-          min-width: 250px;     /* Desktop: Prevent them from becoming too narrow, adjust as needed */
-          /* max-width: none; /* Ensure no max-width limits them if previously set for desktop */
+          flex-grow: 1;
+          flex-shrink: 1;
+          flex-basis: 0;
+          min-width: 250px;
           margin-bottom: 0;
         }
 
@@ -509,9 +509,9 @@
           </div>
         </div>
 
-        <div class="back-button-container">
+        {% comment %} <div class="back-button-container">
           <a href="{% url 'sdoh' %}" class="back-button">Back to SDoH Page</a>
-        </div> 
+        </div> {% endcomment %}
       </div>
 
       <div class="map-container">
@@ -538,7 +538,6 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <footer>
@@ -557,17 +556,15 @@
       const sdohVariableMapString = `{{ sdoh_variable_map_json|safe }}`;
 
       // --- Global Variables ---
+      let map;
       let geojsonData;
-      let healthStatsRawData;
       let healthStatsLookup = {};
-      let sdohRawData;
       let sdohDataLookup = {};
       let sdohVariableMap = {};
       let currentHealthMetricKey = "AO_High";
       let currentSDoHMetricKey = "POS_MIN_DIST_ED";
-      let geojsonLayer;
-      let healthRiskCirclesLayerGroup = L.layerGroup();
-      let selectedLayer = null;
+      let selectedFeatureId = null;
+      let hoveredFeatureId = null;
 
       const riskCalculationDescriptions = {
         "Risk of Coronary Heart Disease":
@@ -581,33 +578,115 @@
       try {
         geojsonData = JSON.parse(geojsonDataString);
       } catch (e) {
-        console.error("GeoJSON Parse Error:", e);
+        console.error(
+          "GeoJSON Parse Error:",
+          e,
+          "\nString snippet:",
+          geojsonDataString.substring(0, 200)
+        );
         geojsonData = { type: "FeatureCollection", features: [] };
       }
+
       try {
-        healthStatsRawData = JSON.parse(healthStatsDataString);
-        healthStatsLookup = healthStatsRawData || {};
-      } catch (e) {
-        console.error("Health Stats Parse Error:", e);
-        healthStatsLookup = {};
-      }
-      try {
-        sdohRawData = JSON.parse(sdohDataString);
-        if (Array.isArray(sdohRawData)) {
-          sdohRawData.forEach((item) => {
-            if (item.COUNTY && item.YEAR === 2020)
-              sdohDataLookup[item.COUNTY] = item;
-          });
+        if (
+          healthStatsDataString &&
+          healthStatsDataString.trim() !== "" &&
+          healthStatsDataString.trim() !== "{}"
+        ) {
+          const parsedHealthData = JSON.parse(healthStatsDataString);
+          if (
+            typeof parsedHealthData === "object" &&
+            !Array.isArray(parsedHealthData)
+          ) {
+            healthStatsLookup = parsedHealthData;
+          } else {
+            console.warn(
+              "Health Stats data is not a JSON object. Received:",
+              healthStatsDataString.substring(0, 200),
+              "\nUsing empty lookup."
+            );
+            healthStatsLookup = {};
+          }
         } else {
-          console.error("SDoH data not array");
+          healthStatsLookup = {};
         }
       } catch (e) {
-        console.error("SDoH Data Parse Error:", e);
+        console.error(
+          "Health Stats Parse Error:",
+          e,
+          "\nString snippet:",
+          healthStatsDataString.substring(0, 200)
+        );
+        healthStatsLookup = {};
       }
+      // console.log("DEBUG: Raw healthStatsDataString (first 500 chars):", healthStatsDataString.substring(0, 500));
+      if (Object.keys(healthStatsLookup).length > 0) {
+        const firstKey = Object.keys(healthStatsLookup)[0];
+        // console.log("DEBUG: Sample healthStatsLookup entry for key '" + firstKey + "':", JSON.stringify(healthStatsLookup[firstKey]));
+        console.log(
+          `DEBUG: healthStatsLookup contains ${
+            Object.keys(healthStatsLookup).length
+          } entries.`
+        );
+      } else {
+        console.warn(
+          "DEBUG: healthStatsLookup is EMPTY or not an object! Check health_stats_data from Django and JSON file format."
+        );
+      }
+
       try {
-        sdohVariableMap = JSON.parse(sdohVariableMapString);
+        if (
+          sdohDataString &&
+          sdohDataString.trim() !== "" &&
+          sdohDataString.trim() !== "[]"
+        ) {
+          const sdohRawData = JSON.parse(sdohDataString);
+          if (Array.isArray(sdohRawData)) {
+            sdohRawData.forEach((item) => {
+              if (
+                item.COUNTY &&
+                typeof item.COUNTY === "string" &&
+                item.YEAR === 2020
+              ) {
+                // Ensure COUNTY is a string before trimming
+                sdohDataLookup[item.COUNTY.trim()] = item;
+              } else if (item.COUNTY && item.YEAR === 2020) {
+                sdohDataLookup[item.COUNTY] = item; // Fallback if COUNTY is not a string (e.g. number)
+              }
+            });
+          } else {
+            console.warn(
+              "SDoH data is not a JSON array. Received:",
+              sdohDataString.substring(0, 200)
+            );
+          }
+        }
       } catch (e) {
-        console.error("SDoH Map Parse Error:", e);
+        console.error(
+          "SDoH Data Parse Error:",
+          e,
+          "\nString snippet:",
+          sdohDataString.substring(0, 200)
+        );
+      }
+      if (Object.keys(sdohDataLookup).length > 0) {
+        console.log(
+          `DEBUG: sdohDataLookup contains ${
+            Object.keys(sdohDataLookup).length
+          } entries.`
+        );
+        // if (sdohDataLookup["Yauco"]) { console.log("DEBUG: sdohDataLookup entry for Yauco:", sdohDataLookup["Yauco"]); }
+        // else { console.warn("DEBUG: No SDoH data found for Yauco in sdohDataLookup (after trim)."); }
+      } else {
+        console.warn("DEBUG: sdohDataLookup is EMPTY!");
+      }
+
+      try {
+        if (sdohVariableMapString && sdohVariableMapString.trim() !== "") {
+          sdohVariableMap = JSON.parse(sdohVariableMapString);
+        }
+      } catch (e) {
+        console.error("SDoH Variable Map Parse Error:", e);
       }
 
       const GOOD_LOW_COLORS = [
@@ -617,9 +696,9 @@
         "#fd8d3c",
         "#fc4e2a",
         "#e31a1c",
-        "#b10026"
+        "#b10026",
       ];
-      const SDOH_COLORS = [ // Should be 8 colors if breaks length is 7
+      const SDOH_COLORS = [
         "#e0ecf4",
         "#bfd3e6",
         "#9ebcda",
@@ -627,7 +706,7 @@
         "#8c6bb1",
         "#88419d",
         "#6e016b",
-        "#4d0042", 
+        "#4d0042",
       ];
 
       const filteredHealthMetricConfigs = {
@@ -635,7 +714,7 @@
           displayName: "Coronary Heart Disease",
           dataPath: ["Risk of Coronary Heart Disease", "percentages", "High"],
           type: "goodIsLow",
-          breaks: [10, 11.5, 13, 14.5, 16, 17.5], // 6 breaks for 7 colors
+          breaks: [10, 11.5, 13, 14.5, 16, 17.5],
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
@@ -645,7 +724,7 @@
           displayName: "Arterial Obstruction",
           dataPath: ["Risk of Arterial Obstruction", "percentages", "High"],
           type: "goodIsLow",
-          breaks: [15, 16, 17, 18, 19, 20], // 6 breaks for 7 colors
+          breaks: [15, 16, 17, 18, 19, 20],
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
@@ -659,7 +738,7 @@
             "High",
           ],
           type: "goodIsLow",
-          breaks: [5, 7, 9, 11, 12.5, 13.2], // 6 breaks for 7 colors
+          breaks: [5, 7, 9, 11, 12.5, 13.2],
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
@@ -667,65 +746,134 @@
         },
       };
 
-      const sdohMetricConfigs = { // Ensure colors.length = breaks.length + 1 for each
+      const sdohMetricConfigs = {
         ACS_PCT_UNINSURED: {
-          type: "percentage", breaks: [4.0, 5.0, 6.3, 8.0, 10.1, 12.7, 16.0], colors: SDOH_COLORS, unit: "%",
+          type: "percentage",
+          breaks: [4.0, 5.0, 6.3, 8.0, 10.1, 12.7, 16.0],
+          colors: SDOH_COLORS,
+          unit: "%",
         },
         ACS_PCT_LT_HS: {
-          type: "percentage", breaks: [15.0, 18.0, 21.6, 26.0, 31.2, 37.5, 45.0], colors: SDOH_COLORS, unit: "%",
+          type: "percentage",
+          breaks: [15.0, 18.0, 21.6, 26.0, 31.2, 37.5, 45.0],
+          colors: SDOH_COLORS,
+          unit: "%",
         },
-        // ... (ensure all SDoH configs have appropriate breaks and colors array lengths)
         POS_MIN_DIST_ED: {
-          type: "distance", breaks: [1.0, 1.6, 2.7, 4.5, 7.4, 12.1, 20.0], colors: SDOH_COLORS, unit: " mi",
+          type: "distance",
+          breaks: [1.0, 1.6, 2.7, 4.5, 7.4, 12.1, 20.0],
+          colors: SDOH_COLORS,
+          unit: " mi",
         },
-         // Add other SDoH configs here, ensuring `colors.length` is `breaks.length + 1`
-        ACS_PCT_HH_PUB_ASSIST: { type: "percentage", breaks: [25.0, 29.3, 34.4, 40.3, 47.3, 55.4, 65.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_INC50_BELOW17: { type: "percentage", breaks: [25.0, 29.3, 34.4, 40.3, 47.3, 55.4, 65.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_INC50_ABOVE65: { type: "percentage", breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_DISABLE: { type: "percentage", breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_NONVET_DISABLE_18_64: { type: "percentage", breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_VET_DISABLE_18_64: { type: "percentage", breaks: [10.0, 13.8, 19.1, 26.5, 36.6, 50.6, 70.0], colors: SDOH_COLORS, unit: "%" },
-        HIFLD_MIN_DIST_UC: { type: "distance", breaks: [2.0, 3.0, 4.6, 7.1, 10.8, 16.4, 25.0], colors: SDOH_COLORS, unit: " mi" },
-        POS_MIN_DIST_ALC: { type: "distance", breaks: [5.0, 7.1, 10.0, 14.1, 20.0, 28.3, 40.0], colors: SDOH_COLORS, unit: " mi" },
-        ACS_TOT_CIVIL_EMPLOY_POP: { type: "count", breaks: [2500, 4754, 9040, 17192, 32692, 62167, 120000], colors: SDOH_COLORS, unit: "" },
-        ACS_PCT_COLLEGE_ASSOCIATE_DGR: { type: "percentage", breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_BACHELOR_DGR: { type: "percentage", breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_GRADUATE_DGR: { type: "percentage", breaks: [1.0, 1.6, 2.5, 4.0, 6.3, 10.1, 16.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_HS_GRADUATE: { type: "percentage", breaks: [20.0, 23.3, 27.1, 31.6, 36.8, 42.9, 50.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_POSTHS_ED: { type: "percentage", breaks: [20.0, 24.0, 28.8, 34.6, 41.6, 50.0, 60.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_HEALTH_INC_BELOW137: { type: "percentage", breaks: [30.0, 36.0, 43.3, 52.0, 62.4, 74.9, 90.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_HEALTH_INC_138_199: { type: "percentage", breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_HEALTH_INC_200_399: { type: "percentage", breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0], colors: SDOH_COLORS, unit: "%" },
-        ACS_PCT_HEALTH_INC_ABOVE400: { type: "percentage", breaks: [1.0, 1.6, 2.7, 4.5, 7.4, 12.1, 20.0], colors: SDOH_COLORS, unit: "%" },
+        ACS_PCT_HH_PUB_ASSIST: {
+          type: "percentage",
+          breaks: [25.0, 29.3, 34.4, 40.3, 47.3, 55.4, 65.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_INC50_BELOW17: {
+          type: "percentage",
+          breaks: [25.0, 29.3, 34.4, 40.3, 47.3, 55.4, 65.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_INC50_ABOVE65: {
+          type: "percentage",
+          breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_DISABLE: {
+          type: "percentage",
+          breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_NONVET_DISABLE_18_64: {
+          type: "percentage",
+          breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_VET_DISABLE_18_64: {
+          type: "percentage",
+          breaks: [10.0, 13.8, 19.1, 26.5, 36.6, 50.6, 70.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        HIFLD_MIN_DIST_UC: {
+          type: "distance",
+          breaks: [2.0, 3.0, 4.6, 7.1, 10.8, 16.4, 25.0],
+          colors: SDOH_COLORS,
+          unit: " mi",
+        },
+        POS_MIN_DIST_ALC: {
+          type: "distance",
+          breaks: [5.0, 7.1, 10.0, 14.1, 20.0, 28.3, 40.0],
+          colors: SDOH_COLORS,
+          unit: " mi",
+        },
+        ACS_TOT_CIVIL_EMPLOY_POP: {
+          type: "count",
+          breaks: [2500, 4754, 9040, 17192, 32692, 62167, 120000],
+          colors: SDOH_COLORS,
+          unit: "",
+        },
+        ACS_PCT_COLLEGE_ASSOCIATE_DGR: {
+          type: "percentage",
+          breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_BACHELOR_DGR: {
+          type: "percentage",
+          breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_GRADUATE_DGR: {
+          type: "percentage",
+          breaks: [1.0, 1.6, 2.5, 4.0, 6.3, 10.1, 16.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_HS_GRADUATE: {
+          type: "percentage",
+          breaks: [20.0, 23.3, 27.1, 31.6, 36.8, 42.9, 50.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_POSTHS_ED: {
+          type: "percentage",
+          breaks: [20.0, 24.0, 28.8, 34.6, 41.6, 50.0, 60.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_HEALTH_INC_BELOW137: {
+          type: "percentage",
+          breaks: [30.0, 36.0, 43.3, 52.0, 62.4, 74.9, 90.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_HEALTH_INC_138_199: {
+          type: "percentage",
+          breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_HEALTH_INC_200_399: {
+          type: "percentage",
+          breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
+        ACS_PCT_HEALTH_INC_ABOVE400: {
+          type: "percentage",
+          breaks: [1.0, 1.6, 2.7, 4.5, 7.4, 12.1, 20.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+        },
       };
-
-      // --- Responsive map zoom ---
-      function getInitialMapZoom() {
-        if (window.innerWidth <= 600) {
-          return 8; // Mobile: zoom 8
-        }
-        return 10; // Desktop/tablet: default zoom
-      }
-
-      const map = L.map("map").setView([18.18, -66.25], getInitialMapZoom());
-      L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
-        {
-          attribution:
-            "© OpenStreetMap contributors © CARTO | Health Risk: Abartys Health | SDoH: ACS 2020",
-          subdomains: "abcd",
-          minZoom: 8,
-          maxZoom: 11,
-        }
-      ).addTo(map);
-
-      map.createPane("healthRiskPane");
-      map.getPane("healthRiskPane").style.zIndex = 650;
-      map.getPane("healthRiskPane").style.pointerEvents = "none";
-      healthRiskCirclesLayerGroup.addTo(map);
-      if (map.getPane("tooltipPane")) {
-        map.getPane("tooltipPane").style.zIndex = 670;
-      }
 
       const healthMetricSelect = document.getElementById("metric-select");
       const healthMetricDescriptionPanel =
@@ -736,8 +884,20 @@
       const sdohLegendDiv = document.getElementById("sdoh-legend");
       const infoPanel = document.getElementById("info-panel");
 
+      function getInitialMapZoom() {
+        if (window.innerWidth <= 600) return 7.5;
+        return 8.5;
+      }
+
       function getNestedHealthValue(healthData, dataPath) {
-        if (!healthData || !dataPath || !Array.isArray(dataPath)) return null;
+        if (
+          !healthData ||
+          typeof healthData !== "object" ||
+          Array.isArray(healthData) ||
+          !dataPath ||
+          !Array.isArray(dataPath)
+        )
+          return null;
         let value = healthData;
         for (const key of dataPath) {
           if (value && typeof value === "object" && key in value) {
@@ -748,6 +908,214 @@
         }
         return value;
       }
+
+      function getHealthColor(value, metricKey) {
+        const config = filteredHealthMetricConfigs[metricKey]; // Assuming metricKey here is exact from config
+        if (
+          !config ||
+          value === null ||
+          value === undefined ||
+          isNaN(parseFloat(value))
+        )
+          return "#E0E0E0";
+        const { breaks, colors } = config;
+        if (!breaks || !colors || breaks.length === 0 || colors.length === 0)
+          return "#E0E0E0";
+        if (colors.length < breaks.length + 1)
+          return colors[colors.length - 1] || "#E0E0E0";
+        const numericValue = parseFloat(value);
+        for (let i = 0; i < breaks.length; i++) {
+          if (numericValue <= breaks[i]) return colors[i];
+        }
+        return colors[breaks.length];
+      }
+
+      function getSDoHColorExpression(metricKey) {
+        const trimmedMetricKey = metricKey.trim(); // Trim the key used for lookups and expressions
+        const config = sdohMetricConfigs[trimmedMetricKey];
+
+        if (!config || !config.breaks || !config.colors) {
+          console.warn(`No config for SDoH metric: ${trimmedMetricKey}`);
+          return "rgba(200,200,200,0.3)";
+        }
+        const { breaks, colors } = config;
+        if (colors.length !== breaks.length + 1) {
+          console.error(
+            `SDoH Color/breaks mismatch for key: ${trimmedMetricKey}. Colors: ${colors.length}, Breaks: ${breaks.length}`
+          );
+          return colors.length > 0
+            ? colors[colors.length - 1]
+            : "rgba(200,200,200,0.3)";
+        }
+
+        const sdohObjectExpression = ["get", "sdoh"];
+        const sDoHValueGetter = [
+          "to-number",
+          ["get", trimmedMetricKey, sdohObjectExpression],
+        ];
+
+        const stepExpression = ["step", sDoHValueGetter, colors[0]];
+        for (let i = 0; i < breaks.length; i++) {
+          stepExpression.push(breaks[i]);
+          stepExpression.push(colors[i + 1]);
+        }
+
+        return [
+          "case",
+          ["!", ["has", "sdoh"]],
+          "rgba(201,201,201,0.3)",
+          ["!=", ["typeof", sdohObjectExpression], "object"],
+          "rgba(202,202,202,0.3)",
+          ["==", sdohObjectExpression, null],
+          "rgba(203,203,203,0.3)",
+          ["!", ["has", trimmedMetricKey, sdohObjectExpression]],
+          "rgba(210,210,210,0.3)",
+          [
+            "any",
+            ["==", ["get", trimmedMetricKey, sdohObjectExpression], null],
+            [
+              "==",
+              ["typeof", ["get", trimmedMetricKey, sdohObjectExpression]],
+              "undefined",
+            ],
+            [
+              "all",
+              [
+                "==",
+                ["typeof", ["get", trimmedMetricKey, sdohObjectExpression]],
+                "string",
+              ],
+              [
+                "==",
+                ["length", ["get", trimmedMetricKey, sdohObjectExpression]],
+                0,
+              ],
+            ],
+          ],
+          "rgba(220,220,220,0.3)",
+          stepExpression,
+        ];
+      }
+
+      function getHealthRiskCircleRadius(value, valueForMaxRadius) {
+        const minRadius = 2,
+          maxRadius = 12;
+        if (
+          value === null ||
+          value === undefined ||
+          isNaN(parseFloat(value)) ||
+          parseFloat(value) <= 0
+        )
+          return minRadius / 2;
+        let numericValue = parseFloat(value);
+        let radius =
+          valueForMaxRadius <= 0
+            ? minRadius
+            : minRadius +
+              (numericValue / valueForMaxRadius) * (maxRadius - minRadius);
+        return Math.max(minRadius / 2, Math.min(maxRadius, radius));
+      }
+
+      function getFeatureLngLatBounds(feature) {
+        const bounds = new maplibregl.LngLatBounds();
+        const geom = feature.geometry;
+        function processCoordinates(coords) {
+          if (
+            typeof coords[0] === "number" &&
+            typeof coords[1] === "number" &&
+            coords.length === 2
+          ) {
+            bounds.extend(coords);
+          } else if (Array.isArray(coords)) {
+            coords.forEach((c) => processCoordinates(c));
+          }
+        }
+        processCoordinates(geom.coordinates);
+        return bounds;
+      }
+
+      function preprocessGeojsonData() {
+        if (!geojsonData || !geojsonData.features) {
+          console.warn(
+            "DEBUG: geojsonData is null or has no features during preprocessing."
+          );
+          return;
+        }
+        let healthDataFoundCount = 0;
+        let sdohDataFoundCount = 0;
+
+        geojsonData.features.forEach((feature, index) => {
+          const originalName = feature.properties?.NAME;
+          let municipalityNameForLookup =
+            originalName && typeof originalName === "string"
+              ? originalName.trim()
+              : `Unnamed Area ${index}`;
+
+          if (feature.properties && originalName) {
+            feature.id = originalName;
+            feature.properties.NAME = municipalityNameForLookup;
+          } else {
+            feature.id = index;
+            if (feature.properties)
+              feature.properties.NAME = municipalityNameForLookup;
+            else feature.properties = { NAME: municipalityNameForLookup };
+          }
+
+          const muniHealthData = healthStatsLookup[municipalityNameForLookup];
+          const muniSDoHData = sdohDataLookup[municipalityNameForLookup];
+
+          if (
+            muniHealthData &&
+            typeof muniHealthData === "object" &&
+            !Array.isArray(muniHealthData)
+          ) {
+            feature.properties.healthData = muniHealthData;
+            healthDataFoundCount++;
+          } else {
+            feature.properties.healthData = null;
+          }
+
+          if (
+            muniSDoHData &&
+            typeof muniSDoHData === "object" &&
+            !Array.isArray(muniSDoHData)
+          ) {
+            feature.properties.sdoh = muniSDoHData;
+            sdohDataFoundCount++;
+          } else {
+            feature.properties.sdoh = {};
+          }
+
+          // if (municipalityNameForLookup === "Yauco") {
+          //     console.log(`DEBUG (Yauco Preprocess): Original GeoJSON Name: '${originalName}', Used Lookup Name: '${municipalityNameForLookup}'`);
+          //     console.log(`DEBUG (Yauco Preprocess): Embedded healthData:`, JSON.parse(JSON.stringify(feature.properties.healthData)));
+          //     console.log(`DEBUG (Yauco Preprocess): Embedded sdohData:`, JSON.parse(JSON.stringify(feature.properties.sdoh)));
+          // }
+        });
+
+        console.log(
+          `DEBUG: Preprocessing complete. Health data linked for ${healthDataFoundCount}/${geojsonData.features.length} municipalities.`
+        );
+        console.log(
+          `DEBUG: Preprocessing complete. SDoH data linked for ${sdohDataFoundCount}/${geojsonData.features.length} municipalities.`
+        );
+
+        if (
+          healthDataFoundCount === 0 &&
+          geojsonData.features.length > 0 &&
+          Object.keys(healthStatsLookup).length > 0
+        ) {
+          console.error("DEBUG: CRITICAL: No health data was linked.");
+        }
+        if (
+          sdohDataFoundCount === 0 &&
+          geojsonData.features.length > 0 &&
+          Object.keys(sdohDataLookup).length > 0
+        ) {
+          console.error("DEBUG: CRITICAL: No SDoH data was linked.");
+        }
+      }
+      preprocessGeojsonData();
 
       function populateSelect(selectElement, configObject, defaultKey) {
         selectElement.innerHTML = "";
@@ -771,12 +1139,22 @@
         sortedKeys.forEach((key) => {
           if (selectElement.id === "sdoh-select") {
             const nonNumericSDoHKeys = [
-              "YEAR", "COUNTYFIPS", "COUNTY", "STATE", "lon", "lat",
+              "YEAR",
+              "COUNTYFIPS",
+              "COUNTY",
+              "STATE",
+              "lon",
+              "lat",
             ];
-            if (nonNumericSDoHKeys.includes(key) || !sdohMetricConfigs[key]) return;
+            // Ensure key exists in sdohMetricConfigs before adding, sdohVariableMap might have more keys
+            if (
+              nonNumericSDoHKeys.includes(key) ||
+              !sdohMetricConfigs[key.trim()]
+            )
+              return;
           }
           const option = document.createElement("option");
-          option.value = key;
+          option.value = key; // Value from dropdown should be the exact key for config lookup
           const item = configObject[key];
           option.textContent =
             typeof item === "object" && item?.displayName
@@ -788,164 +1166,470 @@
           selectElement.appendChild(option);
         });
       }
-      populateSelect( healthMetricSelect, filteredHealthMetricConfigs, currentHealthMetricKey );
+      populateSelect(
+        healthMetricSelect,
+        filteredHealthMetricConfigs,
+        currentHealthMetricKey
+      );
       populateSelect(sdohSelect, sdohVariableMap, currentSDoHMetricKey);
 
-      function updateDescriptionPanel( panelElement, key, configMap, variableMap = null ) {
+      function updateDescriptionPanel(
+        panelElement,
+        key,
+        configMap,
+        variableMap = null
+      ) {
         let description = "Description not available.";
-        if (configMap && configMap[key]?.description) {
-          description = configMap[key].description;
-        } else if (variableMap && variableMap[key]) {
-          description = variableMap[key];
-        } else if (configMap && configMap[key]?.displayName) {
-          description = configMap[key].displayName;
+        const lookupKey = key.trim();
+        if (configMap && configMap[lookupKey]?.description) {
+          description = configMap[lookupKey].description;
+        } else if (variableMap && variableMap[lookupKey]) {
+          description = variableMap[lookupKey];
+        } else if (configMap && configMap[lookupKey]?.displayName) {
+          description = configMap[lookupKey].displayName;
         }
         panelElement.innerHTML = description
           ? `<p>${description.replace(/\n/g, "<br>")}</p>`
           : '<p class="placeholder-text">Select an indicator.</p>';
       }
-      updateDescriptionPanel( healthMetricDescriptionPanel, currentHealthMetricKey, filteredHealthMetricConfigs );
-      updateDescriptionPanel( sdohDescriptionPanel, currentSDoHMetricKey, sdohMetricConfigs, sdohVariableMap );
+      updateDescriptionPanel(
+        healthMetricDescriptionPanel,
+        currentHealthMetricKey,
+        filteredHealthMetricConfigs
+      );
+      updateDescriptionPanel(
+        sdohDescriptionPanel,
+        currentSDoHMetricKey,
+        sdohMetricConfigs,
+        sdohVariableMap
+      );
 
-      if (geojsonData?.features && Object.keys(healthStatsLookup).length > 0) {
-        geojsonData.features.forEach((feature) => {
-          const municipalityName = feature.properties.NAME;
-          if (municipalityName) {
-            feature.properties.healthData = healthStatsLookup[municipalityName] || null;
-          } else {
-            feature.properties.healthData = null;
-          }
-        });
-      } else {
-        console.warn("GeoJSON features or healthStatsLookup is missing/empty.");
-      }
+      map = new maplibregl.Map({
+        container: "map",
+        style: {
+          version: 8,
+          name: "Blank Light Background",
+          sources: {},
+          layers: [
+            {
+              id: "background",
+              type: "background",
+              paint: { "background-color": "#e3f2fd" },
+            },
+          ],
+        },
+        center: [-66.25, 18.18],
+        zoom: getInitialMapZoom(),
+        minZoom: 7,
+        maxZoom: 11,
+        attributionControl: false,
+      });
 
-      function getHealthColor(value, metricKey) {
-        const config = filteredHealthMetricConfigs[metricKey];
-        if (!config || value === null || value === undefined || isNaN(value)) return "#E0E0E0";
-        const { breaks, colors } = config;
-        if (!breaks || !colors || breaks.length === 0 || colors.length === 0) return "#E0E0E0";
-        if (colors.length < breaks.length + 1) return colors[colors.length - 1] || "#E0E0E0";
-        for (let i = 0; i < breaks.length; i++) {
-          if (value <= breaks[i]) return colors[i];
-        }
-        return colors[breaks.length];
-      }
+      map.addControl(new maplibregl.NavigationControl(), "top-right");
+      map.addControl(new maplibregl.FullscreenControl(), "top-right");
+      map.addControl(
+        new maplibregl.AttributionControl({
+          customAttribution:
+            "Health Risk: Abartys Health | SDoH: ACS 2020 | Municipalities: US Census",
+        }),
+        "bottom-right"
+      );
 
-      function getSDoHColor(value, metricKey) {
-        const config = sdohMetricConfigs[metricKey];
-        if (!config || value === null || value === undefined || isNaN(value)) return "transparent";
-        const { breaks, colors } = config;
-        if (!breaks || !colors || breaks.length === 0 || colors.length === 0) return "#DDDDDD";
-        if (colors.length < breaks.length + 1) return colors[colors.length - 1] || "#DDDDDD";
-        for (let i = 0; i < breaks.length; i++) {
-          if (value <= breaks[i]) return colors[i] || "#DDDDDD";
-        }
-        return colors[breaks.length] || colors[colors.length - 1] || "#DDDDDD";
-      }
-
-      function styleHealthLayer(feature) {
-        const municipalityName = feature.properties.NAME;
-        const sdohMuniData = sdohDataLookup[municipalityName];
-        let sdohValue = null;
-        if (sdohMuniData) {
-          sdohValue = sdohMuniData[currentSDoHMetricKey];
-        }
-        return {
-          fillColor: getSDoHColor(sdohValue, currentSDoHMetricKey),
-          weight: 1.5, opacity: 1, color: "#555", fillOpacity: 0.9,
-        };
-      }
-
-      function getHealthRiskCircleRadius(value, valueForMaxRadius) {
-        const minRadius = 2, maxRadius = 12;
-        if (value === null || value === undefined || isNaN(value) || value <= 0) return minRadius / 2;
-        let radius = (valueForMaxRadius <= 0) ? minRadius : minRadius + (value / valueForMaxRadius) * (maxRadius - minRadius);
-        return Math.max(minRadius / 2, Math.min(maxRadius, radius));
-      }
-
-      function highlightFeature(e) {
-        const layer = e.target;
-        if (layer !== selectedLayer) layer.setStyle({ weight: 3, color: "#051B35", fillOpacity: 0.8 });
-        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-          if (layer !== selectedLayer) layer.bringToFront();
-        }
-      }
-
-      function resetHighlight(e) {
-        if (e.target !== selectedLayer) geojsonLayer.resetStyle(e.target);
-      }
-
-      function selectFeature(e) {
-        const layer = e.target;
-        if (selectedLayer && selectedLayer !== layer) {
-          try { geojsonLayer.resetStyle(selectedLayer); } catch (error) { console.warn("Error resetting style:", error); }
-        }
-        map.fitBounds(layer.getBounds().pad(0.1));
-        layer.setStyle({ weight: 4, color: "#020c1a", dashArray: "", fillOpacity: 0.9 });
-        layer.bringToFront();
-        selectedLayer = layer;
-        updateInfoPanel(layer.feature.properties);
-      }
-
-      function onEachFeature(feature, layer) {
-        layer.on({ mouseover: highlightFeature, mouseout: resetHighlight, click: selectFeature });
-      }
-
-      function updateInfoPanel(muniProps) {
-        if (!muniProps?.NAME) {
-          infoPanel.innerHTML = '<p class="placeholder-text">Click on a municipality for details.</p>';
+      map.on("load", () => {
+        // console.log("Map style loaded.");
+        if (
+          !geojsonData ||
+          !geojsonData.features ||
+          geojsonData.features.length === 0
+        ) {
+          document.getElementById("map").innerHTML =
+            "<p>Could not load map boundary data.</p>";
           return;
         }
-        const { NAME: municipalityName, healthData } = muniProps;
-        const sdohData = sdohDataLookup[municipalityName] || null;
-        let content = `<h3>Municipality: ${municipalityName}</h3>`;
+        map.addSource("municipalities", {
+          type: "geojson",
+          data: geojsonData,
+          promoteId: "NAME",
+        });
+        map.addLayer({
+          id: "municipalities-fill",
+          type: "fill",
+          source: "municipalities",
+          paint: {
+            "fill-color": getSDoHColorExpression(currentSDoHMetricKey),
+            "fill-opacity": [
+              "case",
+              ["boolean", ["feature-state", "select"], false],
+              0.95,
+              ["boolean", ["feature-state", "hover"], false],
+              0.9,
+              0.85,
+            ],
+          },
+        });
+        map.addLayer({
+          id: "municipalities-outline",
+          type: "line",
+          source: "municipalities",
+          paint: {
+            "line-color": [
+              "case",
+              ["boolean", ["feature-state", "select"], false],
+              "#020c1a",
+              ["boolean", ["feature-state", "hover"], false],
+              "#051B35",
+              "#777",
+            ],
+            "line-width": [
+              "case",
+              ["boolean", ["feature-state", "select"], false],
+              2.5,
+              ["boolean", ["feature-state", "hover"], false],
+              2,
+              1,
+            ],
+          },
+        });
 
-        content += `<hr style="margin:10px 0;"><h4>SDoH Indicator (Outline)</h4>`;
-        if (sdohData) {
-          const sc = sdohMetricConfigs[currentSDoHMetricKey];
-          const sv = sdohData[currentSDoHMetricKey];
-          const sd = sdohVariableMap[currentSDoHMetricKey] || sc?.displayName || currentSDoHMetricKey;
-          const sdv = (sv !== null && !isNaN(sv)) ? `${parseFloat(sv).toFixed(sc?.type === "percentage" ? 1 : sc?.type === "count" ? 0 : 2)}${sc?.unit || ""}` : "N/A";
-          content += `<p><span class="data-label">${sd}:</span> <strong class="data-value">${sdv}</strong></p>`;
-        } else {
-          content += `<p>No SDoH data for "${currentSDoHMetricKey}" in ${municipalityName}.</p>`;
+        map.on("mousemove", "municipalities-fill", (e) => {
+          map.getCanvas().style.cursor = "pointer";
+          if (e.features.length > 0) {
+            const currentFeatureId = e.features[0].id;
+            if (hoveredFeatureId && hoveredFeatureId !== currentFeatureId) {
+              map.setFeatureState(
+                { source: "municipalities", id: hoveredFeatureId },
+                { hover: false }
+              );
+            }
+            hoveredFeatureId = currentFeatureId;
+            if (hoveredFeatureId !== selectedFeatureId) {
+              map.setFeatureState(
+                { source: "municipalities", id: hoveredFeatureId },
+                { hover: true }
+              );
+            }
+          }
+        });
+        map.on("mouseleave", "municipalities-fill", () => {
+          map.getCanvas().style.cursor = "";
+          if (hoveredFeatureId) {
+            map.setFeatureState(
+              { source: "municipalities", id: hoveredFeatureId },
+              { hover: false }
+            );
+          }
+          hoveredFeatureId = null;
+        });
+        map.on("click", "municipalities-fill", (e) => {
+          if (e.features.length > 0) {
+            const clickedFeature = e.features[0];
+            if (selectedFeatureId) {
+              map.setFeatureState(
+                { source: "municipalities", id: selectedFeatureId },
+                { select: false }
+              );
+            }
+            selectedFeatureId = clickedFeature.id;
+            map.setFeatureState(
+              { source: "municipalities", id: selectedFeatureId },
+              { select: true, hover: false }
+            );
+
+            const bounds = getFeatureLngLatBounds(clickedFeature);
+            if (bounds.getNorthEast() && bounds.getSouthWest()) {
+              map.fitBounds(bounds, { padding: 60, maxZoom: 11 });
+            }
+            updateInfoPanel(clickedFeature.properties);
+          }
+        });
+
+        map.addSource("health-points", {
+          type: "geojson",
+          data: { type: "FeatureCollection", features: [] },
+        });
+        map.addLayer({
+          id: "health-circles",
+          type: "circle",
+          source: "health-points",
+          paint: {
+            "circle-radius": ["get", "radiusForCircle"],
+            "circle-color": ["get", "colorForCircle"],
+            "circle-stroke-width": 0.5,
+            "circle-stroke-color": "#444",
+            "circle-opacity": 0.85,
+          },
+        });
+        const healthCirclePopup = new maplibregl.Popup({
+          closeButton: false,
+          closeOnClick: false,
+          anchor: "bottom",
+        });
+        map.on("mouseenter", "health-circles", (e) => {
+          map.getCanvas().style.cursor = "pointer";
+          const coordinates = e.features[0].geometry.coordinates.slice();
+          const props = e.features[0].properties;
+          const healthConf =
+            filteredHealthMetricConfigs[currentHealthMetricKey]; // No trim for health, keys are exact in config
+
+          let displayHealthValue;
+          if (
+            props.healthRiskValue !== null &&
+            props.healthRiskValue !== undefined &&
+            !isNaN(parseFloat(props.healthRiskValue))
+          ) {
+            const decimals =
+              healthConf.unit === "%"
+                ? 2
+                : healthConf.type === "count" || !healthConf.unit
+                ? 0
+                : 1;
+            displayHealthValue = `${parseFloat(props.healthRiskValue).toFixed(
+              decimals
+            )}${healthConf.unit || ""}`;
+          } else {
+            displayHealthValue = "N/A";
+          }
+          const description = `<b>${props.municipalityName}</b><br>${props.healthDisplayName}: ${displayHealthValue}`;
+
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+          healthCirclePopup
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+        });
+        map.on("mouseleave", "health-circles", () => {
+          map.getCanvas().style.cursor = "";
+          healthCirclePopup.remove();
+        });
+
+        updateSDoHLegend(currentSDoHMetricKey);
+        drawHealthRiskCircles();
+        updateInfoPanel(null);
+      });
+
+      function updateInfoPanel(muniPropsFromEvent) {
+        // Renamed to clarify it's from the event
+        if (!muniPropsFromEvent?.NAME) {
+          infoPanel.innerHTML =
+            '<p class="placeholder-text">Click on a municipality for details.</p>';
+          return;
         }
 
-        content += `<h4 style="margin-top:15px;">Cardiovascular Health Risk (Circles)</h4>`;
-        if (healthData) {
-          const currentHealthConfig = filteredHealthMetricConfigs[currentHealthMetricKey];
+        // --- PARSE THE STRINGIFIED PROPERTIES ---
+        let healthData;
+        let sdohDataForMuni;
+
+        try {
+          if (
+            muniPropsFromEvent.healthData &&
+            typeof muniPropsFromEvent.healthData === "string"
+          ) {
+            healthData = JSON.parse(muniPropsFromEvent.healthData);
+          } else {
+            healthData = muniPropsFromEvent.healthData; // Assume it's already an object or null
+          }
+        } catch (e) {
+          console.error(
+            "Error parsing healthData in updateInfoPanel for " +
+              muniPropsFromEvent.NAME,
+            e,
+            muniPropsFromEvent.healthData
+          );
+          healthData = null; // Fallback
+        }
+
+        try {
+          if (
+            muniPropsFromEvent.sdoh &&
+            typeof muniPropsFromEvent.sdoh === "string"
+          ) {
+            sdohDataForMuni = JSON.parse(muniPropsFromEvent.sdoh);
+          } else {
+            sdohDataForMuni = muniPropsFromEvent.sdoh; // Assume it's already an object or {}
+          }
+        } catch (e) {
+          console.error(
+            "Error parsing sdohDataForMuni in updateInfoPanel for " +
+              muniPropsFromEvent.NAME,
+            e,
+            muniPropsFromEvent.sdoh
+          );
+          sdohDataForMuni = {}; // Fallback
+        }
+        // --- END PARSING ---
+
+        // Now use healthData and sdohDataForMuni as they should be objects
+        const { NAME: municipalityName } = muniPropsFromEvent; // Get NAME from original props
+        const currentSDoHMetricKeyTrimmed = currentSDoHMetricKey.trim();
+        const currentHealthMetricKeyExact = currentHealthMetricKey;
+
+        // --- Log the state of variables AFTER potential parsing ---
+        if (municipalityName === "Yauco") {
+          console.log(
+            `[YAUCO INFOPANEL PARSED] muniPropsFromEvent.NAME: ${municipalityName}`
+          );
+          console.log(
+            `[YAUCO INFOPANEL PARSED] typeof healthData: ${typeof healthData}, healthData:`,
+            JSON.parse(JSON.stringify(healthData))
+          );
+          console.log(
+            `[YAUCO INFOPANEL PARSED] typeof sdohDataForMuni: ${typeof sdohDataForMuni}, sdohDataForMuni:`,
+            JSON.parse(JSON.stringify(sdohDataForMuni))
+          );
+        }
+        // ---
+
+        let content = `<h3>Municipality: ${municipalityName}</h3>`;
+
+        // --- SDoH Section ---
+        content += `<hr style="margin:10px 0;"><h4>SDoH Indicator (Outline)</h4>`; // Removed - Debug
+
+        // Conditional Check Logging for YAUCO (can be removed after fixing)
+        let sdohCheckPass = false;
+        if (municipalityName === "Yauco") {
+          console.log(
+            `[YAUCO SDoH CHECK AFTER PARSE] Evaluating SDoH condition...`
+          );
+          const c1 = sdohDataForMuni;
+          const c2 = typeof sdohDataForMuni === "object";
+          const c3 = !Array.isArray(sdohDataForMuni);
+          const c4 =
+            c1 && c2 && c3 ? Object.keys(sdohDataForMuni).length > 0 : false;
+          sdohCheckPass = c1 && c2 && c3 && c4;
+          console.log(
+            `[YAUCO SDoH CHECK AFTER PARSE] Overall condition result: ${sdohCheckPass}`
+          );
+          if (sdohCheckPass) {
+            console.log(
+              `[YAUCO SDoH CHECK AFTER PARSE] Accessing '${currentSDoHMetricKeyTrimmed}': ${sdohDataForMuni[currentSDoHMetricKeyTrimmed]}`
+            );
+          }
+        }
+
+        if (
+          sdohDataForMuni &&
+          typeof sdohDataForMuni === "object" &&
+          !Array.isArray(sdohDataForMuni) &&
+          Object.keys(sdohDataForMuni).length > 0
+        ) {
+          const sc = sdohMetricConfigs[currentSDoHMetricKeyTrimmed];
+          const sv = sdohDataForMuni[currentSDoHMetricKeyTrimmed];
+          const sd =
+            sdohVariableMap[currentSDoHMetricKeyTrimmed] ||
+            sc?.displayName ||
+            currentSDoHMetricKeyTrimmed;
+          const sdv =
+            sv !== null && sv !== undefined && !isNaN(parseFloat(sv))
+              ? `${parseFloat(sv).toFixed(
+                  sc?.type === "percentage" ? 1 : sc?.type === "count" ? 0 : 2
+                )}${sc?.unit || ""}`
+              : "N/A";
+          content += `<p><span class="data-label">${sd}:</span> <strong class="data-value">${sdv}</strong></p>`;
+        } else {
+          content += `<p>No SDoH data object found for "${currentSDoHMetricKeyTrimmed}" in ${municipalityName}.</p>`;
+        }
+
+        // --- Health Risk Section ---
+        content += `<h4 style="margin-top:15px;"> Health Risk (Circles)</h4>`; // Removed - Debug
+
+        // Conditional Check Logging for YAUCO (can be removed after fixing)
+        let healthCheckPass = false;
+        if (municipalityName === "Yauco") {
+          console.log(
+            `[YAUCO HEALTH CHECK AFTER PARSE] Evaluating Health condition...`
+          );
+          const hc1 = healthData;
+          const hc2 = typeof healthData === "object";
+          const hc3 = !Array.isArray(healthData);
+          healthCheckPass = hc1 && hc2 && hc3;
+          console.log(
+            `[YAUCO HEALTH CHECK AFTER PARSE] Overall condition result: ${healthCheckPass}`
+          );
+          if (healthCheckPass) {
+            const healthConfig =
+              filteredHealthMetricConfigs[currentHealthMetricKeyExact];
+            const dataPath = healthConfig ? healthConfig.dataPath : null;
+            const nestedVal = getNestedHealthValue(healthData, dataPath);
+            console.log(
+              `[YAUCO HEALTH CHECK AFTER PARSE] Value from getNestedHealthValue: ${nestedVal}`
+            );
+          }
+        }
+
+        if (
+          healthData &&
+          typeof healthData === "object" &&
+          !Array.isArray(healthData)
+        ) {
+          const currentHealthConfig =
+            filteredHealthMetricConfigs[currentHealthMetricKeyExact];
           if (currentHealthConfig && currentHealthConfig.dataPath) {
-            const healthValue = getNestedHealthValue(healthData, currentHealthConfig.dataPath);
-            const displayValue = (healthValue !== null && !isNaN(healthValue)) ? `${parseFloat(healthValue).toFixed(currentHealthConfig.unit === "%" ? 2 : 0)} ${currentHealthConfig.unit || ""}`: "N/A";
+            const healthValue = getNestedHealthValue(
+              healthData,
+              currentHealthConfig.dataPath
+            );
+            const displayValue =
+              healthValue !== null &&
+              healthValue !== undefined &&
+              !isNaN(parseFloat(healthValue))
+                ? `${parseFloat(healthValue).toFixed(
+                    currentHealthConfig.unit === "%" ? 2 : 0
+                  )} ${currentHealthConfig.unit || ""}`
+                : "N/A";
             content += `<p><span class="data-label">${currentHealthConfig.displayName}:</span> <strong class="data-value">${displayValue}</strong></p>`;
             const riskTypeKey = currentHealthConfig.dataPath[0];
             const calculationInfo = riskCalculationDescriptions[riskTypeKey];
-            if (calculationInfo) content += `<p style="font-size:0.85em; margin-top:5px; color:#555;"><em><strong>Note:</strong> ${calculationInfo}</em></p>`;
+            if (calculationInfo)
+              content += `<p style="font-size:0.85em; margin-top:5px; color:#555;"><em><strong>Note:</strong> ${calculationInfo}</em></p>`;
             content += `<p style="margin-top:10px;"><small><i>Other risk levels for ${riskTypeKey}:</i></small></p>`;
-            ["Low", "Moderate"].forEach(level => {
-              const val = getNestedHealthValue(healthData, [riskTypeKey, "percentages", level]);
-              const dispVal = (val !== null && !isNaN(val)) ? `${parseFloat(val).toFixed(2)}%` : "N/A";
+            ["Low", "Moderate"].forEach((level) => {
+              const val = getNestedHealthValue(healthData, [
+                riskTypeKey,
+                "percentages",
+                level,
+              ]);
+              const dispVal =
+                val !== null && val !== undefined && !isNaN(parseFloat(val))
+                  ? `${parseFloat(val).toFixed(2)}%`
+                  : "N/A";
               content += `<p style="font-size:0.9em;"><span class="data-label">% ${level} Risk:</span> <span class="data-value">${dispVal}</span></p>`;
             });
-            const totalEval = getNestedHealthValue(healthData, [riskTypeKey, "total_evaluated"]);
-            const totalEvalDisp = (totalEval !== null && !isNaN(totalEval)) ? `${parseFloat(totalEval).toLocaleString()}` : "N/A";
-            const riskShortName = riskTypeKey.split(" ").length > 2 ? riskTypeKey.split(" ")[2] : riskTypeKey.split(" ")[0];
+            const totalEval = getNestedHealthValue(healthData, [
+              riskTypeKey,
+              "total_evaluated",
+            ]);
+            const totalEvalDisp =
+              totalEval !== null &&
+              totalEval !== undefined &&
+              !isNaN(parseFloat(totalEval))
+                ? `${parseFloat(totalEval).toLocaleString()}`
+                : "N/A";
+            const riskShortName =
+              riskTypeKey.split(" ").length > 2
+                ? riskTypeKey.split(" ")[2]
+                : riskTypeKey.split(" ")[0];
             content += `<p style="font-size:0.9em;"><span class="data-label">Total Evaluated (${riskShortName}):</span> <span class="data-value">${totalEvalDisp}</span></p>`;
           } else {
-            content += `<p>Config for ${currentHealthMetricKey} incomplete.</p>`;
+            content += `<p>Health config for ${currentHealthMetricKeyExact} incomplete.</p>`;
           }
         } else {
-          content += `<p>No cardiovascular health data for ${municipalityName}.</p>`;
+          content += `<p>No cardiovascular health data object found for ${municipalityName}.</p>`;
         }
         infoPanel.innerHTML = content;
       }
 
       function updateHealthLegend(metricKey, valueForMaxRadiusForLegend) {
-        const config = filteredHealthMetricConfigs[metricKey];
+        const config = filteredHealthMetricConfigs[metricKey]; // No trim for health keys
         healthLegendDiv.innerHTML = "";
-
-        if (!config || !config.colors || !config.colors.length || !config.breaks || !config.breaks.length) {
+        if (
+          !config ||
+          !config.colors ||
+          !config.colors.length ||
+          !config.breaks ||
+          !config.breaks.length
+        ) {
           healthLegendDiv.innerHTML = `<p>Health Risk legend N/A.</p>`;
           return;
         }
@@ -953,106 +1637,132 @@
           healthLegendDiv.innerHTML = `<p>Health legend config error.</p>`;
           return;
         }
-
         const { colors, breaks, unit, displayName } = config;
-        // Responsive bar width
         let barWidth = healthLegendDiv.offsetWidth || 300;
         barWidth = Math.max(160, Math.min(barWidth, 420));
         let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18">`;
         const bandWidth = barWidth / colors.length;
         for (let i = 0; i < colors.length; i++) {
-          barSvg += `<rect x="${i * bandWidth}" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
+          barSvg += `<rect x="${
+            i * bandWidth
+          }" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
         }
         barSvg += `</svg>`;
-
-        // Min/Max labels (less text)
-        let min = breaks[0], max = breaks[breaks.length - 1];
-        let minLabel = `${min}${unit}`, maxLabel = `${max}${unit}`;
+        let min = breaks[0],
+          max = breaks[breaks.length - 1];
+        let minLabel = `${min}${unit}`,
+          maxLabel = `${max}${unit}`;
         let labelsHtml = `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}+</span></div>`;
-
-        healthLegendDiv.innerHTML = `
-          <div class="legend-title">${displayName}</div>
-          ${barSvg}
-          ${labelsHtml}
-        `;
+        healthLegendDiv.innerHTML = `<div class="legend-title">${displayName}</div>${barSvg}${labelsHtml}`;
       }
 
       function updateSDoHLegend(metricKey) {
-        const config = sdohMetricConfigs[metricKey];
-        const variableDesc = sdohVariableMap[metricKey] || metricKey;
+        const trimmedKey = metricKey.trim();
+        const config = sdohMetricConfigs[trimmedKey];
+        const variableDesc = sdohVariableMap[trimmedKey] || trimmedKey;
         sdohLegendDiv.innerHTML = "";
-
-        if (!config || !config.colors || !config.colors.length || !config.breaks || !config.breaks.length) {
-          sdohLegendDiv.innerHTML = `<p>SDoH Legend N/A.</p>`;
+        if (
+          !config ||
+          !config.colors ||
+          !config.colors.length ||
+          !config.breaks ||
+          !config.breaks.length
+        ) {
+          sdohLegendDiv.innerHTML = `<p>SDoH Legend N/A for ${trimmedKey}.</p>`;
           return;
         }
         if (config.colors.length < config.breaks.length + 1) {
-          sdohLegendDiv.innerHTML = `<p>SDoH legend config error.</p>`;
+          sdohLegendDiv.innerHTML = `<p>SDoH legend config error for ${trimmedKey}.</p>`;
           return;
         }
-
-        // Responsive bar width
         let barWidth = sdohLegendDiv.offsetWidth || 300;
         barWidth = Math.max(160, Math.min(barWidth, 420));
         const { colors, breaks, unit } = config;
         let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18">`;
         const bandWidth = barWidth / colors.length;
         for (let i = 0; i < colors.length; i++) {
-          barSvg += `<rect x="${i * bandWidth}" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
+          barSvg += `<rect x="${
+            i * bandWidth
+          }" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
         }
         barSvg += `</svg>`;
-
-        // Min/Max labels (less text)
-        let min = breaks[0], max = breaks[breaks.length - 1];
-        let minLabel = `${min}${unit}`, maxLabel = `${max}${unit}`;
+        let min = breaks[0],
+          max = breaks[breaks.length - 1];
+        let minLabel = `${min}${unit}`,
+          maxLabel = `${max}${unit}`;
         let labelsHtml = `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}+</span></div>`;
-
-        sdohLegendDiv.innerHTML = `
-          <div class="legend-title">${variableDesc}</div>
-          ${barSvg}
-          ${labelsHtml}
-        `;
+        sdohLegendDiv.innerHTML = `<div class="legend-title">${variableDesc}</div>${barSvg}${labelsHtml}`;
       }
 
-
       healthMetricSelect.addEventListener("change", function () {
-        currentHealthMetricKey = this.value;
+        currentHealthMetricKey = this.value; // No trim, keys in filteredHealthMetricConfigs are exact
         drawHealthRiskCircles();
-        updateDescriptionPanel( healthMetricDescriptionPanel, currentHealthMetricKey, filteredHealthMetricConfigs );
-        if (selectedLayer) updateInfoPanel(selectedLayer.feature.properties);
-        else updateInfoPanel(null);
+        updateDescriptionPanel(
+          healthMetricDescriptionPanel,
+          currentHealthMetricKey,
+          filteredHealthMetricConfigs,
+          null
+        );
+        if (selectedFeatureId && map.getSource("municipalities")) {
+          const features = map.querySourceFeatures("municipalities", {
+            filter: ["==", ["id"], selectedFeatureId],
+          });
+          if (features.length > 0) updateInfoPanel(features[0].properties);
+        } else {
+          updateInfoPanel(null);
+        }
       });
 
       sdohSelect.addEventListener("change", function () {
-        currentSDoHMetricKey = this.value;
-        if (!sdohMetricConfigs[currentSDoHMetricKey]) {
-          console.error(`Config missing for SDoH key: ${currentSDoHMetricKey}`);
-          sdohLegendDiv.innerHTML = `<p>Viz config missing.</p>`;
-          if (geojsonLayer) geojsonLayer.setStyle(styleHealthLayer);
-          updateDescriptionPanel( sdohDescriptionPanel, currentSDoHMetricKey, null, sdohVariableMap );
-          return;
+        currentSDoHMetricKey = this.value.trim(); // Trim value from dropdown
+        const trimmedKey = currentSDoHMetricKey;
+
+        if (!sdohMetricConfigs[trimmedKey]) {
+          console.error(`Config missing for SDoH key: ${trimmedKey}`);
+          sdohLegendDiv.innerHTML = `<p>Viz config missing for ${trimmedKey}.</p>`;
+        } else {
+          if (map.getLayer("municipalities-fill")) {
+            map.setPaintProperty(
+              "municipalities-fill",
+              "fill-color",
+              getSDoHColorExpression(trimmedKey)
+            );
+          }
+          updateSDoHLegend(trimmedKey);
         }
-        if (geojsonLayer) geojsonLayer.setStyle(styleHealthLayer);
-        updateSDoHLegend(currentSDoHMetricKey);
-        updateDescriptionPanel( sdohDescriptionPanel, currentSDoHMetricKey, sdohMetricConfigs, sdohVariableMap );
-        if (selectedLayer) updateInfoPanel(selectedLayer.feature.properties);
+        updateDescriptionPanel(
+          sdohDescriptionPanel,
+          trimmedKey,
+          sdohMetricConfigs,
+          sdohVariableMap
+        );
+        if (selectedFeatureId && map.getSource("municipalities")) {
+          const features = map.querySourceFeatures("municipalities", {
+            filter: ["==", ["id"], selectedFeatureId],
+          });
+          if (features.length > 0) updateInfoPanel(features[0].properties);
+        }
       });
 
-      if (geojsonData?.features?.length > 0) {
-        geojsonLayer = L.geoJson(geojsonData, {
-          style: styleHealthLayer,
-          onEachFeature: onEachFeature,
-        }).addTo(map);
-      } else {
-        document.getElementById("map").innerHTML = "<p>Could not load map boundary data.</p>";
-      }
-
       function drawHealthRiskCircles() {
-        healthRiskCirclesLayerGroup.clearLayers();
-        const healthConfig = filteredHealthMetricConfigs[currentHealthMetricKey];
+        if (
+          !map ||
+          !map.getSource("health-points") ||
+          !map.getLayer("health-circles")
+        ) {
+          return;
+        }
+        const healthConfig =
+          filteredHealthMetricConfigs[currentHealthMetricKey]; // No trim if config keys are exact
         if (!healthConfig || !healthConfig.dataPath) {
-          console.error("Health config/dataPath missing.");
+          console.error(
+            "Health config/dataPath missing for key:",
+            currentHealthMetricKey
+          );
           updateHealthLegend(currentHealthMetricKey, 30);
+          map
+            .getSource("health-points")
+            .setData({ type: "FeatureCollection", features: [] });
           return;
         }
 
@@ -1061,42 +1771,78 @@
         geojsonData.features.forEach((feature) => {
           const healthDataForMuni = feature.properties.healthData;
           if (healthDataForMuni) {
-            const val = getNestedHealthValue( healthDataForMuni, healthConfig.dataPath );
-            if (val !== null && !isNaN(val) && val > 0) {
-              V_max_for_scaling = Math.max(V_max_for_scaling, val);
+            const val = getNestedHealthValue(
+              healthDataForMuni,
+              healthConfig.dataPath
+            );
+            if (
+              val !== null &&
+              val !== undefined &&
+              !isNaN(parseFloat(val)) &&
+              parseFloat(val) > 0
+            ) {
+              V_max_for_scaling = Math.max(V_max_for_scaling, parseFloat(val));
               validValuesFound = true;
             }
           }
         });
-
         if (!validValuesFound || V_max_for_scaling <= 0) {
-          V_max_for_scaling = (healthConfig.breaks && healthConfig.breaks.length > 0) ? healthConfig.breaks[healthConfig.breaks.length - 1] * 1.2 : 30;
+          V_max_for_scaling =
+            healthConfig.breaks && healthConfig.breaks.length > 0
+              ? healthConfig.breaks[healthConfig.breaks.length - 1] * 1.2
+              : 30;
           if (V_max_for_scaling <= 0) V_max_for_scaling = 30;
         }
 
+        const circleFeatures = [];
         geojsonData.features.forEach((feature) => {
-          const { NAME: municipalityName, healthData: healthDataForMuni } = feature.properties;
-          const sdohMuniData = sdohDataLookup[municipalityName];
-          if ( municipalityName && healthDataForMuni && sdohMuniData && typeof sdohMuniData.lat === "number" && typeof sdohMuniData.lon === "number" ) {
-            const healthRiskValue = getNestedHealthValue( healthDataForMuni, healthConfig.dataPath );
-            const radius = getHealthRiskCircleRadius( healthRiskValue, V_max_for_scaling );
-            const color = getHealthColor( healthRiskValue, currentHealthMetricKey );
-            const displayValue = (healthRiskValue !== null && !isNaN(healthRiskValue)) ? `${parseFloat(healthRiskValue).toFixed(1)}${healthConfig.unit || ""}` : "N/A";
-            const circle = L.circleMarker( [sdohMuniData.lat, sdohMuniData.lon], {
-                radius: radius, fillColor: color, color: "#333333", weight: 0.75,
-                opacity: 0.8, fillOpacity: 0.9, pane: "healthRiskPane",
-              }
+          const {
+            NAME: municipalityName,
+            healthData: healthDataForMuni,
+            sdoh: sdohMuniData,
+          } = feature.properties;
+          if (
+            municipalityName &&
+            healthDataForMuni &&
+            sdohMuniData &&
+            typeof sdohMuniData.lat === "number" &&
+            typeof sdohMuniData.lon === "number"
+          ) {
+            const healthRiskValue = getNestedHealthValue(
+              healthDataForMuni,
+              healthConfig.dataPath
             );
-            circle.bindTooltip( `<b>${municipalityName}</b><br>${healthConfig.displayName}: ${displayValue}`, { sticky: true } );
-            healthRiskCirclesLayerGroup.addLayer(circle);
+            const radius = getHealthRiskCircleRadius(
+              healthRiskValue,
+              V_max_for_scaling
+            );
+            const color = getHealthColor(
+              healthRiskValue,
+              currentHealthMetricKey
+            );
+
+            circleFeatures.push({
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: [sdohMuniData.lon, sdohMuniData.lat],
+              },
+              properties: {
+                municipalityName: municipalityName,
+                healthRiskValue: healthRiskValue,
+                healthDisplayName: healthConfig.displayName,
+                colorForCircle: color,
+                radiusForCircle: radius,
+              },
+            });
           }
         });
-        updateHealthLegend(currentHealthMetricKey, V_max_for_scaling);
-      }
 
-      updateSDoHLegend(currentSDoHMetricKey);
-      drawHealthRiskCircles();
-      updateInfoPanel(null);
+        map
+          .getSource("health-points")
+          .setData({ type: "FeatureCollection", features: circleFeatures });
+        updateHealthLegend(currentHealthMetricKey, V_max_for_scaling); // No trim for health keys
+      }
     </script>
   </body>
 </html>
