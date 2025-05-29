@@ -1,17 +1,21 @@
-# Django web framework
-Django==5.1.7  # latest stable version 
-
-# Folium for mapping
-folium==0.17.0  # Latest version as of now
-
-# Additional packages (optional, but commonly used)
-# If you’re using JSON or handling other data formats, these may be useful.
-requests # For making HTTP requests, useful for API calls
-json5  # In case you want to parse JSON5 files
-python-dotenv
-
-# Other dependencies specific to your project
-# For example, if you're doing data processing or analysis, you might need:
-pandas
-numpy
-whitenoise  
+asgiref==3.8.1
+branca==0.8.0
+certifi==2024.8.30
+charset-normalizer==3.4.0
+Django==5.1.7
+idna==3.10
+Jinja2==3.1.4
+json5==0.9.25
+MarkupSafe==3.0.1
+numpy==2.1.2
+pandas==2.2.3
+python-dateutil==2.9.0.post0
+python-dotenv==1.0.1
+pytz==2024.2
+requests==2.32.3
+six==1.16.0
+sqlparse==0.5.1
+tzdata==2024.2
+urllib3==2.2.3
+whitenoise==6.9.0
+xyzservices==2024.9.0
