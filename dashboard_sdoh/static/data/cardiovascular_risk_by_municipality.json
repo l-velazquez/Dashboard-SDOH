@@ -1,1123 +1,12 @@
 {
-    "Adjuntas": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 55.63,
-                "Moderate": 25.47,
-                "High": 18.9
-            },
-            "total_evaluated": 20002
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 51.91,
-                "Moderate": 26.11,
-                "High": 21.98
-            },
-            "total_evaluated": 20002
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 61.11,
-                "Moderate": 27.69,
-                "High": 11.19
-            },
-            "total_evaluated": 19947
-        }
-    },
-    "Aguada": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 69.16,
-                "Moderate": 19.62,
-                "High": 11.22
-            },
-            "total_evaluated": 52527
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 56.42,
-                "Moderate": 24.67,
-                "High": 18.91
-            },
-            "total_evaluated": 52527
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.43,
-                "Moderate": 20.06,
-                "High": 6.5
-            },
-            "total_evaluated": 52347
-        }
-    },
-    "Aguadilla": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.25,
-                "Moderate": 18.76,
-                "High": 10.99
-            },
-            "total_evaluated": 102804
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.48,
-                "Moderate": 23.87,
-                "High": 16.65
-            },
-            "total_evaluated": 102804
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.58,
-                "Moderate": 19.69,
-                "High": 6.73
-            },
-            "total_evaluated": 102017
-        }
-    },
-    "Aguas Buenas": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 64.45,
-                "Moderate": 22.35,
-                "High": 13.2
-            },
-            "total_evaluated": 22007
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 56.23,
-                "Moderate": 25.57,
-                "High": 18.2
-            },
-            "total_evaluated": 22007
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 70.1,
-                "Moderate": 22.71,
-                "High": 7.19
-            },
-            "total_evaluated": 14548
-        }
-    },
-    "Aibonito": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.24,
-                "Moderate": 18.91,
-                "High": 10.85
-            },
-            "total_evaluated": 38999
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.56,
-                "Moderate": 23.41,
-                "High": 17.02
-            },
-            "total_evaluated": 38999
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 78.38,
-                "Moderate": 17.23,
-                "High": 4.39
-            },
-            "total_evaluated": 38120
-        }
-    },
-    "Arecibo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 66.21,
-                "Moderate": 20.44,
-                "High": 13.35
-            },
-            "total_evaluated": 122518
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.61,
-                "Moderate": 23.64,
-                "High": 17.75
-            },
-            "total_evaluated": 122518
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 69.74,
-                "Moderate": 21.58,
-                "High": 8.68
-            },
-            "total_evaluated": 121902
-        }
-    },
-    "Arroyo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 68.93,
-                "Moderate": 19.47,
-                "High": 11.6
-            },
-            "total_evaluated": 15116
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.88,
-                "Moderate": 24.1,
-                "High": 16.02
-            },
-            "total_evaluated": 15116
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.08,
-                "Moderate": 20.09,
-                "High": 6.83
-            },
-            "total_evaluated": 15046
-        }
-    },
-    "A\u00f1asco": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 65.42,
-                "Moderate": 21.15,
-                "High": 13.43
-            },
-            "total_evaluated": 25571
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 52.54,
-                "Moderate": 25.74,
-                "High": 21.72
-            },
-            "total_evaluated": 25571
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 68.3,
-                "Moderate": 23.03,
-                "High": 8.66
-            },
-            "total_evaluated": 25461
-        }
-    },
-    "Barceloneta": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 69.5,
-                "Moderate": 19.49,
-                "High": 11.01
-            },
-            "total_evaluated": 27903
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 57.8,
-                "Moderate": 24.26,
-                "High": 17.95
-            },
-            "total_evaluated": 27903
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 72.38,
-                "Moderate": 20.58,
-                "High": 7.04
-            },
-            "total_evaluated": 27836
-        }
-    },
-    "Barranquitas": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 63.4,
-                "Moderate": 21.68,
-                "High": 14.93
-            },
-            "total_evaluated": 23750
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 56.36,
-                "Moderate": 24.78,
-                "High": 18.85
-            },
-            "total_evaluated": 23750
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 70.64,
-                "Moderate": 22.12,
-                "High": 7.25
-            },
-            "total_evaluated": 23547
-        }
-    },
-    "Bayam\u00f3n": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 71.21,
-                "Moderate": 18.45,
-                "High": 10.35
-            },
-            "total_evaluated": 337749
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 61.36,
-                "Moderate": 23.11,
-                "High": 15.53
-            },
-            "total_evaluated": 337749
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 74.97,
-                "Moderate": 18.75,
-                "High": 6.29
-            },
-            "total_evaluated": 335752
-        }
-    },
-    "Cabo Rojo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.73,
-                "Moderate": 19.38,
-                "High": 9.89
-            },
-            "total_evaluated": 51723
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 62.28,
-                "Moderate": 23.09,
-                "High": 14.63
-            },
-            "total_evaluated": 51723
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 75.08,
-                "Moderate": 19.44,
-                "High": 5.49
-            },
-            "total_evaluated": 51499
-        }
-    },
-    "Caguas": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 68.32,
-                "Moderate": 20.67,
-                "High": 11.01
-            },
-            "total_evaluated": 146904
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.53,
-                "Moderate": 24.96,
-                "High": 16.51
-            },
-            "total_evaluated": 146904
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 72.64,
-                "Moderate": 20.8,
-                "High": 6.56
-            },
-            "total_evaluated": 144682
-        }
-    },
-    "Camuy": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 69.39,
-                "Moderate": 19.33,
-                "High": 11.28
-            },
-            "total_evaluated": 22354
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.16,
-                "Moderate": 24.16,
-                "High": 17.68
-            },
-            "total_evaluated": 22354
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.69,
-                "Moderate": 19.88,
-                "High": 6.43
-            },
-            "total_evaluated": 22226
-        }
-    },
-    "Can\u00f3vanas": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 69.35,
-                "Moderate": 19.63,
-                "High": 11.02
-            },
-            "total_evaluated": 50565
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.57,
-                "Moderate": 24.42,
-                "High": 17.0
-            },
-            "total_evaluated": 50565
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.06,
-                "Moderate": 20.32,
-                "High": 6.62
-            },
-            "total_evaluated": 50072
-        }
-    },
-    "Carolina": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.11,
-                "Moderate": 19.15,
-                "High": 10.75
-            },
-            "total_evaluated": 202213
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.44,
-                "Moderate": 23.97,
-                "High": 16.59
-            },
-            "total_evaluated": 202213
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.1,
-                "Moderate": 20.18,
-                "High": 6.73
-            },
-            "total_evaluated": 201400
-        }
-    },
-    "Cata\u00f1o": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 67.11,
-                "Moderate": 20.53,
-                "High": 12.36
-            },
-            "total_evaluated": 21515
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.46,
-                "Moderate": 23.7,
-                "High": 16.84
-            },
-            "total_evaluated": 21515
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 71.33,
-                "Moderate": 21.02,
-                "High": 7.66
-            },
-            "total_evaluated": 21445
-        }
-    },
-    "Cayey": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 74.7,
-                "Moderate": 16.2,
-                "High": 9.1
-            },
-            "total_evaluated": 79256
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 64.46,
-                "Moderate": 21.29,
-                "High": 14.25
-            },
-            "total_evaluated": 79256
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 78.39,
-                "Moderate": 16.53,
-                "High": 5.08
-            },
-            "total_evaluated": 78308
-        }
-    },
-    "Ceiba": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 67.78,
-                "Moderate": 19.26,
-                "High": 12.96
-            },
-            "total_evaluated": 22434
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 60.13,
-                "Moderate": 22.83,
-                "High": 17.04
-            },
-            "total_evaluated": 22434
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 72.2,
-                "Moderate": 19.85,
-                "High": 7.95
-            },
-            "total_evaluated": 22045
-        }
-    },
-    "Ciales": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 67.52,
-                "Moderate": 20.28,
-                "High": 12.2
-            },
-            "total_evaluated": 19946
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.67,
-                "Moderate": 23.87,
-                "High": 17.46
-            },
-            "total_evaluated": 19946
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 71.38,
-                "Moderate": 21.24,
-                "High": 7.38
-            },
-            "total_evaluated": 19837
-        }
-    },
-    "Cidra": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.43,
-                "Moderate": 19.23,
-                "High": 10.34
-            },
-            "total_evaluated": 43802
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 61.01,
-                "Moderate": 23.39,
-                "High": 15.6
-            },
-            "total_evaluated": 43802
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 75.05,
-                "Moderate": 19.07,
-                "High": 5.88
-            },
-            "total_evaluated": 43368
-        }
-    },
-    "Coamo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 69.93,
-                "Moderate": 19.4,
-                "High": 10.67
-            },
-            "total_evaluated": 61764
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.23,
-                "Moderate": 23.9,
-                "High": 16.87
-            },
-            "total_evaluated": 61764
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 74.77,
-                "Moderate": 19.52,
-                "High": 5.72
-            },
-            "total_evaluated": 61329
-        }
-    },
-    "Comer\u00edo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 64.62,
-                "Moderate": 21.7,
-                "High": 13.68
-            },
-            "total_evaluated": 5286
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 55.79,
-                "Moderate": 23.91,
-                "High": 20.3
-            },
-            "total_evaluated": 5286
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 69.99,
-                "Moderate": 22.2,
-                "High": 7.81
-            },
-            "total_evaluated": 5225
-        }
-    },
-    "Corozal": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 67.26,
-                "Moderate": 20.14,
-                "High": 12.6
-            },
-            "total_evaluated": 27128
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 57.53,
-                "Moderate": 24.57,
-                "High": 17.9
-            },
-            "total_evaluated": 27128
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 70.9,
-                "Moderate": 21.37,
-                "High": 7.72
-            },
-            "total_evaluated": 27006
-        }
-    },
-    "Culebra": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.9,
-                "Moderate": 19.35,
-                "High": 9.75
-            },
-            "total_evaluated": 708
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 54.1,
-                "Moderate": 24.86,
-                "High": 21.05
-            },
-            "total_evaluated": 708
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 72.61,
-                "Moderate": 21.06,
-                "High": 6.33
-            },
-            "total_evaluated": 679
-        }
-    },
-    "Dorado": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 68.01,
-                "Moderate": 20.84,
-                "High": 11.15
-            },
-            "total_evaluated": 44858
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 56.11,
-                "Moderate": 25.39,
-                "High": 18.5
-            },
-            "total_evaluated": 44858
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 71.32,
-                "Moderate": 21.62,
-                "High": 7.06
-            },
-            "total_evaluated": 42146
-        }
-    },
-    "Fajardo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 73.74,
-                "Moderate": 17.05,
-                "High": 9.22
-            },
-            "total_evaluated": 60139
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 62.75,
-                "Moderate": 21.97,
-                "High": 15.29
-            },
-            "total_evaluated": 60139
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 77.25,
-                "Moderate": 17.39,
-                "High": 5.36
-            },
-            "total_evaluated": 58083
-        }
-    },
-    "Florida": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 67.41,
-                "Moderate": 19.77,
-                "High": 12.82
-            },
-            "total_evaluated": 12515
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 54.57,
-                "Moderate": 25.67,
-                "High": 19.76
-            },
-            "total_evaluated": 12515
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 70.65,
-                "Moderate": 21.64,
-                "High": 7.71
-            },
-            "total_evaluated": 12488
-        }
-    },
-    "Guayama": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 71.71,
-                "Moderate": 18.3,
-                "High": 9.99
-            },
-            "total_evaluated": 40997
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 62.32,
-                "Moderate": 22.93,
-                "High": 14.75
-            },
-            "total_evaluated": 40997
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 75.96,
-                "Moderate": 18.55,
-                "High": 5.49
-            },
-            "total_evaluated": 40775
-        }
-    },
-    "Guayanilla": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 66.27,
-                "Moderate": 21.36,
-                "High": 12.37
-            },
-            "total_evaluated": 36675
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 57.57,
-                "Moderate": 25.31,
-                "High": 17.13
-            },
-            "total_evaluated": 36675
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 71.92,
-                "Moderate": 21.42,
-                "High": 6.66
-            },
-            "total_evaluated": 36396
-        }
-    },
-    "Guaynabo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 73.46,
-                "Moderate": 17.61,
-                "High": 8.93
-            },
-            "total_evaluated": 152619
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.85,
-                "Moderate": 24.84,
-                "High": 16.3
-            },
-            "total_evaluated": 152619
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 76.19,
-                "Moderate": 18.31,
-                "High": 5.5
-            },
-            "total_evaluated": 152125
-        }
-    },
-    "Gurabo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 68.71,
-                "Moderate": 20.41,
-                "High": 10.89
-            },
-            "total_evaluated": 39304
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 57.61,
-                "Moderate": 25.01,
-                "High": 17.37
-            },
-            "total_evaluated": 39304
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 72.25,
-                "Moderate": 21.03,
-                "High": 6.72
-            },
-            "total_evaluated": 36034
-        }
-    },
-    "Gu\u00e1nica": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 68.93,
-                "Moderate": 19.4,
-                "High": 11.67
-            },
-            "total_evaluated": 12545
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.91,
-                "Moderate": 24.18,
-                "High": 16.92
-            },
-            "total_evaluated": 12545
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.43,
-                "Moderate": 20.5,
-                "High": 6.07
-            },
-            "total_evaluated": 12465
-        }
-    },
-    "Hatillo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 64.27,
-                "Moderate": 22.23,
-                "High": 13.5
-            },
-            "total_evaluated": 34480
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 56.72,
-                "Moderate": 24.66,
-                "High": 18.62
-            },
-            "total_evaluated": 34480
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 68.18,
-                "Moderate": 23.43,
-                "High": 8.38
-            },
-            "total_evaluated": 34353
-        }
-    },
-    "Hormigueros": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 69.61,
-                "Moderate": 19.82,
-                "High": 10.57
-            },
-            "total_evaluated": 11266
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 60.21,
-                "Moderate": 23.21,
-                "High": 16.58
-            },
-            "total_evaluated": 11266
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.97,
-                "Moderate": 19.79,
-                "High": 6.24
-            },
-            "total_evaluated": 11145
-        }
-    },
-    "Humacao": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 72.08,
-                "Moderate": 18.21,
-                "High": 9.71
-            },
-            "total_evaluated": 72050
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 61.59,
-                "Moderate": 23.24,
-                "High": 15.17
-            },
-            "total_evaluated": 72050
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 75.2,
-                "Moderate": 18.89,
-                "High": 5.92
-            },
-            "total_evaluated": 71116
-        }
-    },
-    "Isabela": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 73.72,
-                "Moderate": 16.89,
-                "High": 9.39
-            },
-            "total_evaluated": 53065
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 60.64,
-                "Moderate": 22.98,
-                "High": 16.39
-            },
-            "total_evaluated": 53065
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 77.11,
-                "Moderate": 17.59,
-                "High": 5.3
-            },
-            "total_evaluated": 52659
-        }
-    },
-    "Jayuya": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 69.73,
-                "Moderate": 18.91,
-                "High": 11.36
-            },
-            "total_evaluated": 19378
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 55.69,
-                "Moderate": 24.59,
-                "High": 19.71
-            },
-            "total_evaluated": 19378
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 74.3,
-                "Moderate": 19.35,
-                "High": 6.35
-            },
-            "total_evaluated": 19294
-        }
-    },
-    "Juana D\u00edaz": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 63.12,
-                "Moderate": 22.96,
-                "High": 13.91
-            },
-            "total_evaluated": 64111
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 56.86,
-                "Moderate": 25.58,
-                "High": 17.57
-            },
-            "total_evaluated": 64111
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 68.4,
-                "Moderate": 23.75,
-                "High": 7.85
-            },
-            "total_evaluated": 59341
-        }
-    },
-    "Juncos": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 69.95,
-                "Moderate": 19.19,
-                "High": 10.86
-            },
-            "total_evaluated": 44809
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.56,
-                "Moderate": 23.58,
-                "High": 16.86
-            },
-            "total_evaluated": 44809
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.5,
-                "Moderate": 19.93,
-                "High": 6.58
-            },
-            "total_evaluated": 43412
-        }
-    },
-    "Lajas": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 65.8,
-                "Moderate": 22.37,
-                "High": 11.82
-            },
-            "total_evaluated": 3053
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.32,
-                "Moderate": 23.52,
-                "High": 17.16
-            },
-            "total_evaluated": 3053
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 70.01,
-                "Moderate": 22.44,
-                "High": 7.55
-            },
-            "total_evaluated": 3061
-        }
-    },
-    "Lares": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 69.42,
-                "Moderate": 19.07,
-                "High": 11.51
-            },
-            "total_evaluated": 37279
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.13,
-                "Moderate": 23.54,
-                "High": 17.33
-            },
-            "total_evaluated": 37279
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.11,
-                "Moderate": 20.22,
-                "High": 6.68
-            },
-            "total_evaluated": 37222
-        }
-    },
-    "Las Mar\u00edas": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 66.54,
-                "Moderate": 21.79,
-                "High": 11.68
-            },
-            "total_evaluated": 2038
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 52.5,
-                "Moderate": 28.41,
-                "High": 19.09
-            },
-            "total_evaluated": 2038
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 70.17,
-                "Moderate": 22.58,
-                "High": 7.25
-            },
-            "total_evaluated": 2028
-        }
-    },
     "Las Piedras": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.4,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 571
+        },
         "Risk of Coronary Heart Disease": {
             "percentages": {
                 "Low": 69.26,
@@ -1143,813 +32,14 @@
             "total_evaluated": 29371
         }
     },
-    "Lo\u00edza": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 71.09,
-                "Moderate": 18.43,
-                "High": 10.49
-            },
-            "total_evaluated": 9823
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.48,
-                "Moderate": 23.92,
-                "High": 17.6
-            },
-            "total_evaluated": 9823
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.33,
-                "Moderate": 19.85,
-                "High": 6.82
-            },
-            "total_evaluated": 9762
-        }
-    },
-    "Luquillo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 71.2,
-                "Moderate": 18.24,
-                "High": 10.56
-            },
-            "total_evaluated": 20170
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.55,
-                "Moderate": 23.72,
-                "High": 16.73
-            },
-            "total_evaluated": 20170
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.99,
-                "Moderate": 19.53,
-                "High": 6.48
-            },
-            "total_evaluated": 19868
-        }
-    },
-    "Manat\u00ed": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.33,
-                "Moderate": 19.46,
-                "High": 10.21
-            },
-            "total_evaluated": 45693
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 60.88,
-                "Moderate": 23.52,
-                "High": 15.6
-            },
-            "total_evaluated": 45693
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.73,
-                "Moderate": 20.2,
-                "High": 6.06
-            },
-            "total_evaluated": 45488
-        }
-    },
-    "Maricao": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 65.83,
-                "Moderate": 22.4,
-                "High": 11.77
-            },
-            "total_evaluated": 2022
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 56.78,
-                "Moderate": 26.76,
-                "High": 16.47
-            },
-            "total_evaluated": 2022
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 70.5,
-                "Moderate": 23.22,
-                "High": 6.29
-            },
-            "total_evaluated": 2020
-        }
-    },
-    "Maunabo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 71.55,
-                "Moderate": 18.69,
-                "High": 9.77
-            },
-            "total_evaluated": 15504
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 63.16,
-                "Moderate": 22.87,
-                "High": 13.98
-            },
-            "total_evaluated": 15504
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 75.07,
-                "Moderate": 19.19,
-                "High": 5.74
-            },
-            "total_evaluated": 15459
-        }
-    },
-    "Mayag\u00fcez": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 67.43,
-                "Moderate": 20.38,
-                "High": 12.19
-            },
-            "total_evaluated": 37895
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 57.01,
-                "Moderate": 24.66,
-                "High": 18.33
-            },
-            "total_evaluated": 37895
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 71.68,
-                "Moderate": 21.16,
-                "High": 7.16
-            },
-            "total_evaluated": 37483
-        }
-    },
-    "Moca": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 60.38,
-                "Moderate": 21.45,
-                "High": 18.17
-            },
-            "total_evaluated": 50889
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 52.68,
-                "Moderate": 25.69,
-                "High": 21.63
-            },
-            "total_evaluated": 50889
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 62.99,
-                "Moderate": 23.65,
-                "High": 13.36
-            },
-            "total_evaluated": 50782
-        }
-    },
-    "Morovis": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 68.48,
-                "Moderate": 19.42,
-                "High": 12.11
-            },
-            "total_evaluated": 28330
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.39,
-                "Moderate": 23.74,
-                "High": 17.87
-            },
-            "total_evaluated": 28330
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 71.09,
-                "Moderate": 21.08,
-                "High": 7.82
-            },
-            "total_evaluated": 25134
-        }
-    },
-    "Naguabo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.63,
-                "Moderate": 19.12,
-                "High": 10.25
-            },
-            "total_evaluated": 27056
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 62.28,
-                "Moderate": 23.29,
-                "High": 14.43
-            },
-            "total_evaluated": 27056
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 74.71,
-                "Moderate": 19.26,
-                "High": 6.04
-            },
-            "total_evaluated": 23962
-        }
-    },
-    "Naranjito": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 67.82,
-                "Moderate": 20.42,
-                "High": 11.76
-            },
-            "total_evaluated": 34893
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 60.81,
-                "Moderate": 23.12,
-                "High": 16.07
-            },
-            "total_evaluated": 34893
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 72.11,
-                "Moderate": 21.01,
-                "High": 6.88
-            },
-            "total_evaluated": 34755
-        }
-    },
-    "Orocovis": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 64.97,
-                "Moderate": 21.49,
-                "High": 13.53
-            },
-            "total_evaluated": 16294
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 56.81,
-                "Moderate": 24.4,
-                "High": 18.79
-            },
-            "total_evaluated": 16294
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 69.67,
-                "Moderate": 22.15,
-                "High": 8.18
-            },
-            "total_evaluated": 16140
-        }
-    },
-    "Patillas": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 72.72,
-                "Moderate": 18.07,
-                "High": 9.2
-            },
-            "total_evaluated": 25273
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 62.75,
-                "Moderate": 23.25,
-                "High": 14.0
-            },
-            "total_evaluated": 25273
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 76.81,
-                "Moderate": 18.47,
-                "High": 4.72
-            },
-            "total_evaluated": 25208
-        }
-    },
-    "Pe\u00f1uelas": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 68.85,
-                "Moderate": 20.38,
-                "High": 10.77
-            },
-            "total_evaluated": 49447
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.66,
-                "Moderate": 23.83,
-                "High": 17.51
-            },
-            "total_evaluated": 49447
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 72.53,
-                "Moderate": 20.93,
-                "High": 6.55
-            },
-            "total_evaluated": 48968
-        }
-    },
-    "Ponce": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 69.35,
-                "Moderate": 19.41,
-                "High": 11.24
-            },
-            "total_evaluated": 172176
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 60.5,
-                "Moderate": 23.41,
-                "High": 16.08
-            },
-            "total_evaluated": 172176
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.62,
-                "Moderate": 19.85,
-                "High": 6.53
-            },
-            "total_evaluated": 170931
-        }
-    },
-    "Quebradillas": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.71,
-                "Moderate": 17.98,
-                "High": 11.32
-            },
-            "total_evaluated": 6114
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 61.19,
-                "Moderate": 22.0,
-                "High": 16.81
-            },
-            "total_evaluated": 6114
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 74.47,
-                "Moderate": 18.39,
-                "High": 7.14
-            },
-            "total_evaluated": 6064
-        }
-    },
-    "Rinc\u00f3n": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 71.1,
-                "Moderate": 18.53,
-                "High": 10.37
-            },
-            "total_evaluated": 13736
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.23,
-                "Moderate": 24.69,
-                "High": 17.08
-            },
-            "total_evaluated": 13736
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 75.23,
-                "Moderate": 18.87,
-                "High": 5.89
-            },
-            "total_evaluated": 13696
-        }
-    },
-    "Rio Grande": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 72.87,
-                "Moderate": 18.19,
-                "High": 8.94
-            },
-            "total_evaluated": 2160
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 60.69,
-                "Moderate": 23.15,
-                "High": 16.16
-            },
-            "total_evaluated": 2160
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 76.57,
-                "Moderate": 17.84,
-                "High": 5.59
-            },
-            "total_evaluated": 2130
-        }
-    },
-    "R\u00edo Grande": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.91,
-                "Moderate": 18.45,
-                "High": 10.64
-            },
-            "total_evaluated": 111811
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 62.23,
-                "Moderate": 22.3,
-                "High": 15.47
-            },
-            "total_evaluated": 111811
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 74.65,
-                "Moderate": 18.92,
-                "High": 6.43
-            },
-            "total_evaluated": 110579
-        }
-    },
-    "Sabana Grande": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 67.24,
-                "Moderate": 20.56,
-                "High": 12.19
-            },
-            "total_evaluated": 32678
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.29,
-                "Moderate": 23.8,
-                "High": 16.91
-            },
-            "total_evaluated": 32678
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 71.8,
-                "Moderate": 21.16,
-                "High": 7.04
-            },
-            "total_evaluated": 32585
-        }
-    },
-    "Salinas": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 67.34,
-                "Moderate": 20.32,
-                "High": 12.34
-            },
-            "total_evaluated": 59311
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 60.31,
-                "Moderate": 23.21,
-                "High": 16.48
-            },
-            "total_evaluated": 59311
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 72.86,
-                "Moderate": 20.52,
-                "High": 6.62
-            },
-            "total_evaluated": 57818
-        }
-    },
-    "San Germ\u00e1n": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 68.46,
-                "Moderate": 20.65,
-                "High": 10.88
-            },
-            "total_evaluated": 8682
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.97,
-                "Moderate": 24.45,
-                "High": 16.57
-            },
-            "total_evaluated": 8682
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 72.48,
-                "Moderate": 20.91,
-                "High": 6.6
-            },
-            "total_evaluated": 9660
-        }
-    },
-    "San Juan": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 71.73,
-                "Moderate": 18.41,
-                "High": 9.86
-            },
-            "total_evaluated": 414798
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.13,
-                "Moderate": 24.42,
-                "High": 16.45
-            },
-            "total_evaluated": 414798
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 74.66,
-                "Moderate": 19.2,
-                "High": 6.14
-            },
-            "total_evaluated": 414586
-        }
-    },
-    "San Lorenzo": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.55,
-                "Moderate": 18.99,
-                "High": 10.46
-            },
-            "total_evaluated": 38201
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 60.73,
-                "Moderate": 23.84,
-                "High": 15.43
-            },
-            "total_evaluated": 38201
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 75.03,
-                "Moderate": 19.01,
-                "High": 5.97
-            },
-            "total_evaluated": 37590
-        }
-    },
-    "San Sebasti\u00e1n": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 64.03,
-                "Moderate": 21.65,
-                "High": 14.32
-            },
-            "total_evaluated": 20450
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 56.09,
-                "Moderate": 24.29,
-                "High": 19.61
-            },
-            "total_evaluated": 20450
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 67.75,
-                "Moderate": 23.25,
-                "High": 9.0
-            },
-            "total_evaluated": 20399
-        }
-    },
-    "Santa Isabel": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.67,
-                "Moderate": 19.39,
-                "High": 9.93
-            },
-            "total_evaluated": 37568
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 61.0,
-                "Moderate": 24.03,
-                "High": 14.96
-            },
-            "total_evaluated": 37568
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 75.24,
-                "Moderate": 19.4,
-                "High": 5.36
-            },
-            "total_evaluated": 37099
-        }
-    },
-    "Toa Alta": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 68.5,
-                "Moderate": 19.87,
-                "High": 11.63
-            },
-            "total_evaluated": 80742
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 58.1,
-                "Moderate": 24.57,
-                "High": 17.33
-            },
-            "total_evaluated": 80742
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 71.46,
-                "Moderate": 21.17,
-                "High": 7.36
-            },
-            "total_evaluated": 80417
-        }
-    },
-    "Toa Baja": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.91,
-                "Moderate": 18.73,
-                "High": 10.36
-            },
-            "total_evaluated": 106497
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 60.41,
-                "Moderate": 23.53,
-                "High": 16.06
-            },
-            "total_evaluated": 106497
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 74.28,
-                "Moderate": 19.41,
-                "High": 6.32
-            },
-            "total_evaluated": 106039
-        }
-    },
-    "Trujillo Alto": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 70.64,
-                "Moderate": 18.81,
-                "High": 10.55
-            },
-            "total_evaluated": 58163
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 59.1,
-                "Moderate": 24.3,
-                "High": 16.6
-            },
-            "total_evaluated": 58163
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 73.73,
-                "Moderate": 19.78,
-                "High": 6.49
-            },
-            "total_evaluated": 58001
-        }
-    },
-    "Utuado": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 60.33,
-                "Moderate": 23.75,
-                "High": 15.92
-            },
-            "total_evaluated": 26618
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 55.32,
-                "Moderate": 25.51,
-                "High": 19.17
-            },
-            "total_evaluated": 26618
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 64.46,
-                "Moderate": 25.45,
-                "High": 10.09
-            },
-            "total_evaluated": 26523
-        }
-    },
-    "Vega Alta": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 66.83,
-                "Moderate": 20.8,
-                "High": 12.37
-            },
-            "total_evaluated": 28212
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 55.86,
-                "Moderate": 24.88,
-                "High": 19.26
-            },
-            "total_evaluated": 28212
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 68.71,
-                "Moderate": 22.67,
-                "High": 8.62
-            },
-            "total_evaluated": 28779
-        }
-    },
-    "Vega Baja": {
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 67.27,
-                "Moderate": 20.46,
-                "High": 12.27
-            },
-            "total_evaluated": 73380
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 57.24,
-                "Moderate": 24.62,
-                "High": 18.14
-            },
-            "total_evaluated": 73380
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 70.82,
-                "Moderate": 21.53,
-                "High": 7.65
-            },
-            "total_evaluated": 71335
-        }
-    },
     "Vieques": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.6,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 453
+        },
         "Risk of Coronary Heart Disease": {
             "percentages": {
                 "Low": 69.2,
@@ -1975,7 +65,575 @@
             "total_evaluated": 10976
         }
     },
+    "Toa Alta": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.7,
+                "Toxicity": 0.3
+            },
+            "total_evaluated": 4968
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.5,
+                "Moderate": 19.87,
+                "High": 11.63
+            },
+            "total_evaluated": 80742
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.1,
+                "Moderate": 24.57,
+                "High": 17.33
+            },
+            "total_evaluated": 80742
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.46,
+                "Moderate": 21.17,
+                "High": 7.36
+            },
+            "total_evaluated": 80417
+        }
+    },
+    "Naranjito": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 3.5,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 883
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.82,
+                "Moderate": 20.42,
+                "High": 11.76
+            },
+            "total_evaluated": 34893
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.81,
+                "Moderate": 23.12,
+                "High": 16.07
+            },
+            "total_evaluated": 34893
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.11,
+                "Moderate": 21.01,
+                "High": 6.88
+            },
+            "total_evaluated": 34755
+        }
+    },
+    "San Germán": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.2,
+                "Toxicity": 1.0
+            },
+            "total_evaluated": 1131
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.46,
+                "Moderate": 20.65,
+                "High": 10.88
+            },
+            "total_evaluated": 8682
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.97,
+                "Moderate": 24.45,
+                "High": 16.57
+            },
+            "total_evaluated": 8682
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.48,
+                "Moderate": 20.91,
+                "High": 6.6
+            },
+            "total_evaluated": 9660
+        }
+    },
+    "Sabana Grande": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 13.3,
+                "Toxicity": 1.0
+            },
+            "total_evaluated": 3717
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.24,
+                "Moderate": 20.56,
+                "High": 12.19
+            },
+            "total_evaluated": 32678
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.29,
+                "Moderate": 23.8,
+                "High": 16.91
+            },
+            "total_evaluated": 32678
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.8,
+                "Moderate": 21.16,
+                "High": 7.04
+            },
+            "total_evaluated": 32585
+        }
+    },
+    "Canóvanas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 12.3,
+                "Toxicity": 0.3
+            },
+            "total_evaluated": 5410
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.35,
+                "Moderate": 19.63,
+                "High": 11.02
+            },
+            "total_evaluated": 50565
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.57,
+                "Moderate": 24.42,
+                "High": 17.0
+            },
+            "total_evaluated": 50565
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.06,
+                "Moderate": 20.32,
+                "High": 6.62
+            },
+            "total_evaluated": 50072
+        }
+    },
+    "Peñuelas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.7,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 643
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.85,
+                "Moderate": 20.38,
+                "High": 10.77
+            },
+            "total_evaluated": 49447
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.66,
+                "Moderate": 23.83,
+                "High": 17.51
+            },
+            "total_evaluated": 49447
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.53,
+                "Moderate": 20.93,
+                "High": 6.55
+            },
+            "total_evaluated": 48968
+        }
+    },
+    "Río Grande": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 12.7,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 13869
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.91,
+                "Moderate": 18.45,
+                "High": 10.64
+            },
+            "total_evaluated": 111811
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.23,
+                "Moderate": 22.3,
+                "High": 15.47
+            },
+            "total_evaluated": 111811
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.65,
+                "Moderate": 18.92,
+                "High": 6.43
+            },
+            "total_evaluated": 110579
+        }
+    },
+    "Humacao": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.5,
+                "Toxicity": 0.8
+            },
+            "total_evaluated": 2959
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 72.08,
+                "Moderate": 18.21,
+                "High": 9.71
+            },
+            "total_evaluated": 72050
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 61.59,
+                "Moderate": 23.24,
+                "High": 15.17
+            },
+            "total_evaluated": 72050
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.2,
+                "Moderate": 18.89,
+                "High": 5.92
+            },
+            "total_evaluated": 71116
+        }
+    },
+    "Quebradillas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 3.2,
+                "Toxicity": 0.8
+            },
+            "total_evaluated": 529
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.71,
+                "Moderate": 17.98,
+                "High": 11.32
+            },
+            "total_evaluated": 6114
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 61.19,
+                "Moderate": 22.0,
+                "High": 16.81
+            },
+            "total_evaluated": 6114
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.47,
+                "Moderate": 18.39,
+                "High": 7.14
+            },
+            "total_evaluated": 6064
+        }
+    },
+    "Ceiba": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.8,
+                "Toxicity": 0.8
+            },
+            "total_evaluated": 1264
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.78,
+                "Moderate": 19.26,
+                "High": 12.96
+            },
+            "total_evaluated": 22434
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.13,
+                "Moderate": 22.83,
+                "High": 17.04
+            },
+            "total_evaluated": 22434
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.2,
+                "Moderate": 19.85,
+                "High": 7.95
+            },
+            "total_evaluated": 22045
+        }
+    },
+    "San Lorenzo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 8.9,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 416
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.55,
+                "Moderate": 18.99,
+                "High": 10.46
+            },
+            "total_evaluated": 38201
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.73,
+                "Moderate": 23.84,
+                "High": 15.43
+            },
+            "total_evaluated": 38201
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.03,
+                "Moderate": 19.01,
+                "High": 5.97
+            },
+            "total_evaluated": 37590
+        }
+    },
+    "Salinas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 12.1,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 7182
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.34,
+                "Moderate": 20.32,
+                "High": 12.34
+            },
+            "total_evaluated": 59311
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.31,
+                "Moderate": 23.21,
+                "High": 16.48
+            },
+            "total_evaluated": 59311
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.86,
+                "Moderate": 20.52,
+                "High": 6.62
+            },
+            "total_evaluated": 57818
+        }
+    },
+    "Aguada": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.2,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 2036
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.16,
+                "Moderate": 19.62,
+                "High": 11.22
+            },
+            "total_evaluated": 52527
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.42,
+                "Moderate": 24.67,
+                "High": 18.91
+            },
+            "total_evaluated": 52527
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.43,
+                "Moderate": 20.06,
+                "High": 6.5
+            },
+            "total_evaluated": 52347
+        }
+    },
+    "Guánica": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 13.3,
+                "Toxicity": 1.1
+            },
+            "total_evaluated": 888
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.93,
+                "Moderate": 19.4,
+                "High": 11.67
+            },
+            "total_evaluated": 12545
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.91,
+                "Moderate": 24.18,
+                "High": 16.92
+            },
+            "total_evaluated": 12545
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.43,
+                "Moderate": 20.5,
+                "High": 6.07
+            },
+            "total_evaluated": 12465
+        }
+    },
+    "Caguas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.4,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 1341
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.32,
+                "Moderate": 20.67,
+                "High": 11.01
+            },
+            "total_evaluated": 146904
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.53,
+                "Moderate": 24.96,
+                "High": 16.51
+            },
+            "total_evaluated": 146904
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.64,
+                "Moderate": 20.8,
+                "High": 6.56
+            },
+            "total_evaluated": 144682
+        }
+    },
+    "Hormigueros": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.5,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 786
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.61,
+                "Moderate": 19.82,
+                "High": 10.57
+            },
+            "total_evaluated": 11266
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.21,
+                "Moderate": 23.21,
+                "High": 16.58
+            },
+            "total_evaluated": 11266
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.97,
+                "Moderate": 19.79,
+                "High": 6.24
+            },
+            "total_evaluated": 11145
+        }
+    },
+    "Ciales": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.1,
+                "Toxicity": 1.0
+            },
+            "total_evaluated": 393
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.52,
+                "Moderate": 20.28,
+                "High": 12.2
+            },
+            "total_evaluated": 19946
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.67,
+                "Moderate": 23.87,
+                "High": 17.46
+            },
+            "total_evaluated": 19946
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.38,
+                "Moderate": 21.24,
+                "High": 7.38
+            },
+            "total_evaluated": 19837
+        }
+    },
     "Villalba": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.0,
+                "Toxicity": 0.6
+            },
+            "total_evaluated": 5625
+        },
         "Risk of Coronary Heart Disease": {
             "percentages": {
                 "Low": 63.32,
@@ -2001,7 +659,344 @@
             "total_evaluated": 54329
         }
     },
+    "Corozal": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.6,
+                "Toxicity": 0.3
+            },
+            "total_evaluated": 693
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.26,
+                "Moderate": 20.14,
+                "High": 12.6
+            },
+            "total_evaluated": 27128
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.53,
+                "Moderate": 24.57,
+                "High": 17.9
+            },
+            "total_evaluated": 27128
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.9,
+                "Moderate": 21.37,
+                "High": 7.72
+            },
+            "total_evaluated": 27006
+        }
+    },
+    "Maunabo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.6,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 119
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.55,
+                "Moderate": 18.69,
+                "High": 9.77
+            },
+            "total_evaluated": 15504
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 63.16,
+                "Moderate": 22.87,
+                "High": 13.98
+            },
+            "total_evaluated": 15504
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.07,
+                "Moderate": 19.19,
+                "High": 5.74
+            },
+            "total_evaluated": 15459
+        }
+    },
+    "Culebra": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.3,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 47
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.9,
+                "Moderate": 19.35,
+                "High": 9.75
+            },
+            "total_evaluated": 708
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 54.1,
+                "Moderate": 24.86,
+                "High": 21.05
+            },
+            "total_evaluated": 708
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.61,
+                "Moderate": 21.06,
+                "High": 6.33
+            },
+            "total_evaluated": 679
+        }
+    },
+    "Manatí": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.1,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 1166
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.33,
+                "Moderate": 19.46,
+                "High": 10.21
+            },
+            "total_evaluated": 45693
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.88,
+                "Moderate": 23.52,
+                "High": 15.6
+            },
+            "total_evaluated": 45693
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.73,
+                "Moderate": 20.2,
+                "High": 6.06
+            },
+            "total_evaluated": 45488
+        }
+    },
+    "Rincón": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.3,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 674
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.1,
+                "Moderate": 18.53,
+                "High": 10.37
+            },
+            "total_evaluated": 13736
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.23,
+                "Moderate": 24.69,
+                "High": 17.08
+            },
+            "total_evaluated": 13736
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.23,
+                "Moderate": 18.87,
+                "High": 5.89
+            },
+            "total_evaluated": 13696
+        }
+    },
+    "Ponce": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.5,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 7574
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.35,
+                "Moderate": 19.41,
+                "High": 11.24
+            },
+            "total_evaluated": 172176
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.5,
+                "Moderate": 23.41,
+                "High": 16.08
+            },
+            "total_evaluated": 172176
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.62,
+                "Moderate": 19.85,
+                "High": 6.53
+            },
+            "total_evaluated": 170931
+        }
+    },
+    "Bayamón": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.5,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 27236
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.21,
+                "Moderate": 18.45,
+                "High": 10.35
+            },
+            "total_evaluated": 337749
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 61.36,
+                "Moderate": 23.11,
+                "High": 15.53
+            },
+            "total_evaluated": 337749
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.97,
+                "Moderate": 18.75,
+                "High": 6.29
+            },
+            "total_evaluated": 335752
+        }
+    },
+    "San Sebastián": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.0,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 987
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 64.03,
+                "Moderate": 21.65,
+                "High": 14.32
+            },
+            "total_evaluated": 20450
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.09,
+                "Moderate": 24.29,
+                "High": 19.61
+            },
+            "total_evaluated": 20450
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 67.75,
+                "Moderate": 23.25,
+                "High": 9.0
+            },
+            "total_evaluated": 20399
+        }
+    },
+    "Aguadilla": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.5,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 6292
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.25,
+                "Moderate": 18.76,
+                "High": 10.99
+            },
+            "total_evaluated": 102804
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.48,
+                "Moderate": 23.87,
+                "High": 16.65
+            },
+            "total_evaluated": 102804
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.58,
+                "Moderate": 19.69,
+                "High": 6.73
+            },
+            "total_evaluated": 102017
+        }
+    },
+    "Lajas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.9,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 350
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 65.8,
+                "Moderate": 22.37,
+                "High": 11.82
+            },
+            "total_evaluated": 3053
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.32,
+                "Moderate": 23.52,
+                "High": 17.16
+            },
+            "total_evaluated": 3053
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.01,
+                "Moderate": 22.44,
+                "High": 7.55
+            },
+            "total_evaluated": 3061
+        }
+    },
     "Yabucoa": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 18.0,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 4153
+        },
         "Risk of Coronary Heart Disease": {
             "percentages": {
                 "Low": 70.66,
@@ -2027,7 +1022,575 @@
             "total_evaluated": 66781
         }
     },
+    "Hatillo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.1,
+                "Toxicity": 0.6
+            },
+            "total_evaluated": 3121
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 64.27,
+                "Moderate": 22.23,
+                "High": 13.5
+            },
+            "total_evaluated": 34480
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.72,
+                "Moderate": 24.66,
+                "High": 18.62
+            },
+            "total_evaluated": 34480
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 68.18,
+                "Moderate": 23.43,
+                "High": 8.38
+            },
+            "total_evaluated": 34353
+        }
+    },
+    "Santa Isabel": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.4,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 1332
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.67,
+                "Moderate": 19.39,
+                "High": 9.93
+            },
+            "total_evaluated": 37568
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 61.0,
+                "Moderate": 24.03,
+                "High": 14.96
+            },
+            "total_evaluated": 37568
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.24,
+                "Moderate": 19.4,
+                "High": 5.36
+            },
+            "total_evaluated": 37099
+        }
+    },
+    "Aibonito": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.0,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 218
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.24,
+                "Moderate": 18.91,
+                "High": 10.85
+            },
+            "total_evaluated": 38999
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.56,
+                "Moderate": 23.41,
+                "High": 17.02
+            },
+            "total_evaluated": 38999
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 78.38,
+                "Moderate": 17.23,
+                "High": 4.39
+            },
+            "total_evaluated": 38120
+        }
+    },
+    "Utuado": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.7,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 298
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 60.33,
+                "Moderate": 23.75,
+                "High": 15.92
+            },
+            "total_evaluated": 26618
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 55.32,
+                "Moderate": 25.51,
+                "High": 19.17
+            },
+            "total_evaluated": 26618
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 64.46,
+                "Moderate": 25.45,
+                "High": 10.09
+            },
+            "total_evaluated": 26523
+        }
+    },
+    "Comerío": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.4,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 270
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 64.62,
+                "Moderate": 21.7,
+                "High": 13.68
+            },
+            "total_evaluated": 5286
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 55.79,
+                "Moderate": 23.91,
+                "High": 20.3
+            },
+            "total_evaluated": 5286
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 69.99,
+                "Moderate": 22.2,
+                "High": 7.81
+            },
+            "total_evaluated": 5225
+        }
+    },
+    "Patillas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.7,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 145
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 72.72,
+                "Moderate": 18.07,
+                "High": 9.2
+            },
+            "total_evaluated": 25273
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.75,
+                "Moderate": 23.25,
+                "High": 14.0
+            },
+            "total_evaluated": 25273
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 76.81,
+                "Moderate": 18.47,
+                "High": 4.72
+            },
+            "total_evaluated": 25208
+        }
+    },
+    "Luquillo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 6.9,
+                "Toxicity": 0.6
+            },
+            "total_evaluated": 1601
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.2,
+                "Moderate": 18.24,
+                "High": 10.56
+            },
+            "total_evaluated": 20170
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.55,
+                "Moderate": 23.72,
+                "High": 16.73
+            },
+            "total_evaluated": 20170
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.99,
+                "Moderate": 19.53,
+                "High": 6.48
+            },
+            "total_evaluated": 19868
+        }
+    },
+    "Juana Díaz": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.4,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 5930
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 63.12,
+                "Moderate": 22.96,
+                "High": 13.91
+            },
+            "total_evaluated": 64111
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.86,
+                "Moderate": 25.58,
+                "High": 17.57
+            },
+            "total_evaluated": 64111
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 68.4,
+                "Moderate": 23.75,
+                "High": 7.85
+            },
+            "total_evaluated": 59341
+        }
+    },
+    "Loíza": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 14.4,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 1490
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.09,
+                "Moderate": 18.43,
+                "High": 10.49
+            },
+            "total_evaluated": 9823
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.48,
+                "Moderate": 23.92,
+                "High": 17.6
+            },
+            "total_evaluated": 9823
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.33,
+                "Moderate": 19.85,
+                "High": 6.82
+            },
+            "total_evaluated": 9762
+        }
+    },
+    "Barceloneta": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 12.4,
+                "Toxicity": 1.3
+            },
+            "total_evaluated": 2663
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.5,
+                "Moderate": 19.49,
+                "High": 11.01
+            },
+            "total_evaluated": 27903
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.8,
+                "Moderate": 24.26,
+                "High": 17.95
+            },
+            "total_evaluated": 27903
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.38,
+                "Moderate": 20.58,
+                "High": 7.04
+            },
+            "total_evaluated": 27836
+        }
+    },
+    "Añasco": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.3,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 2685
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 65.42,
+                "Moderate": 21.15,
+                "High": 13.43
+            },
+            "total_evaluated": 25571
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 52.54,
+                "Moderate": 25.74,
+                "High": 21.72
+            },
+            "total_evaluated": 25571
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 68.3,
+                "Moderate": 23.03,
+                "High": 8.66
+            },
+            "total_evaluated": 25461
+        }
+    },
+    "Juncos": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.2,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 596
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.95,
+                "Moderate": 19.19,
+                "High": 10.86
+            },
+            "total_evaluated": 44809
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.56,
+                "Moderate": 23.58,
+                "High": 16.86
+            },
+            "total_evaluated": 44809
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.5,
+                "Moderate": 19.93,
+                "High": 6.58
+            },
+            "total_evaluated": 43412
+        }
+    },
+    "San Juan": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 6.4,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 15480
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.73,
+                "Moderate": 18.41,
+                "High": 9.86
+            },
+            "total_evaluated": 414798
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.13,
+                "Moderate": 24.42,
+                "High": 16.45
+            },
+            "total_evaluated": 414798
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.66,
+                "Moderate": 19.2,
+                "High": 6.14
+            },
+            "total_evaluated": 414586
+        }
+    },
+    "Toa Baja": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 17.6,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 10551
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.91,
+                "Moderate": 18.73,
+                "High": 10.36
+            },
+            "total_evaluated": 106497
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.41,
+                "Moderate": 23.53,
+                "High": 16.06
+            },
+            "total_evaluated": 106497
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.28,
+                "Moderate": 19.41,
+                "High": 6.32
+            },
+            "total_evaluated": 106039
+        }
+    },
+    "Cayey": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 13.4,
+                "Toxicity": 0.8
+            },
+            "total_evaluated": 11095
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 74.7,
+                "Moderate": 16.2,
+                "High": 9.1
+            },
+            "total_evaluated": 79256
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 64.46,
+                "Moderate": 21.29,
+                "High": 14.25
+            },
+            "total_evaluated": 79256
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 78.39,
+                "Moderate": 16.53,
+                "High": 5.08
+            },
+            "total_evaluated": 78308
+        }
+    },
+    "Carolina": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.7,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 9412
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.11,
+                "Moderate": 19.15,
+                "High": 10.75
+            },
+            "total_evaluated": 202213
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.44,
+                "Moderate": 23.97,
+                "High": 16.59
+            },
+            "total_evaluated": 202213
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.1,
+                "Moderate": 20.18,
+                "High": 6.73
+            },
+            "total_evaluated": 201400
+        }
+    },
+    "Trujillo Alto": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 8.7,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 2009
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.64,
+                "Moderate": 18.81,
+                "High": 10.55
+            },
+            "total_evaluated": 58163
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.1,
+                "Moderate": 24.3,
+                "High": 16.6
+            },
+            "total_evaluated": 58163
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.73,
+                "Moderate": 19.78,
+                "High": 6.49
+            },
+            "total_evaluated": 58001
+        }
+    },
     "Yauco": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 17.3,
+                "Toxicity": 1.0
+            },
+            "total_evaluated": 6301
+        },
         "Risk of Coronary Heart Disease": {
             "percentages": {
                 "Low": 68.3,
@@ -2051,6 +1614,996 @@
                 "High": 6.92
             },
             "total_evaluated": 62271
+        }
+    },
+    "Lares": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 6.4,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 535
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.42,
+                "Moderate": 19.07,
+                "High": 11.51
+            },
+            "total_evaluated": 37279
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.13,
+                "Moderate": 23.54,
+                "High": 17.33
+            },
+            "total_evaluated": 37279
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.11,
+                "Moderate": 20.22,
+                "High": 6.68
+            },
+            "total_evaluated": 37222
+        }
+    },
+    "Dorado": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.4,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 2048
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.01,
+                "Moderate": 20.84,
+                "High": 11.15
+            },
+            "total_evaluated": 44858
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.11,
+                "Moderate": 25.39,
+                "High": 18.5
+            },
+            "total_evaluated": 44858
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.32,
+                "Moderate": 21.62,
+                "High": 7.06
+            },
+            "total_evaluated": 42146
+        }
+    },
+    "Maricao": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.7,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 247
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 65.83,
+                "Moderate": 22.4,
+                "High": 11.77
+            },
+            "total_evaluated": 2022
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.78,
+                "Moderate": 26.76,
+                "High": 16.47
+            },
+            "total_evaluated": 2022
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.5,
+                "Moderate": 23.22,
+                "High": 6.29
+            },
+            "total_evaluated": 2020
+        }
+    },
+    "Gurabo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 8.5,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 457
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.71,
+                "Moderate": 20.41,
+                "High": 10.89
+            },
+            "total_evaluated": 39304
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.61,
+                "Moderate": 25.01,
+                "High": 17.37
+            },
+            "total_evaluated": 39304
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.25,
+                "Moderate": 21.03,
+                "High": 6.72
+            },
+            "total_evaluated": 36034
+        }
+    },
+    "Moca": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.3,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 1529
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 60.38,
+                "Moderate": 21.45,
+                "High": 18.17
+            },
+            "total_evaluated": 50889
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 52.68,
+                "Moderate": 25.69,
+                "High": 21.63
+            },
+            "total_evaluated": 50889
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 62.99,
+                "Moderate": 23.65,
+                "High": 13.36
+            },
+            "total_evaluated": 50782
+        }
+    },
+    "Isabela": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.4,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 2589
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 73.72,
+                "Moderate": 16.89,
+                "High": 9.39
+            },
+            "total_evaluated": 53065
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.64,
+                "Moderate": 22.98,
+                "High": 16.39
+            },
+            "total_evaluated": 53065
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 77.11,
+                "Moderate": 17.59,
+                "High": 5.3
+            },
+            "total_evaluated": 52659
+        }
+    },
+    "Mayagüez": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.9,
+                "Toxicity": 1.1
+            },
+            "total_evaluated": 5083
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.43,
+                "Moderate": 20.38,
+                "High": 12.19
+            },
+            "total_evaluated": 37895
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.01,
+                "Moderate": 24.66,
+                "High": 18.33
+            },
+            "total_evaluated": 37895
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.68,
+                "Moderate": 21.16,
+                "High": 7.16
+            },
+            "total_evaluated": 37483
+        }
+    },
+    "Aguas Buenas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.1,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 241
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 64.45,
+                "Moderate": 22.35,
+                "High": 13.2
+            },
+            "total_evaluated": 22007
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.23,
+                "Moderate": 25.57,
+                "High": 18.2
+            },
+            "total_evaluated": 22007
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.1,
+                "Moderate": 22.71,
+                "High": 7.19
+            },
+            "total_evaluated": 14548
+        }
+    },
+    "Cataño": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.0,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 1067
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.11,
+                "Moderate": 20.53,
+                "High": 12.36
+            },
+            "total_evaluated": 21515
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.46,
+                "Moderate": 23.7,
+                "High": 16.84
+            },
+            "total_evaluated": 21515
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.33,
+                "Moderate": 21.02,
+                "High": 7.66
+            },
+            "total_evaluated": 21445
+        }
+    },
+    "Arecibo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.3,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 3427
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 66.21,
+                "Moderate": 20.44,
+                "High": 13.35
+            },
+            "total_evaluated": 122518
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.61,
+                "Moderate": 23.64,
+                "High": 17.75
+            },
+            "total_evaluated": 122518
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 69.74,
+                "Moderate": 21.58,
+                "High": 8.68
+            },
+            "total_evaluated": 121902
+        }
+    },
+    "Camuy": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.9,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 861
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.39,
+                "Moderate": 19.33,
+                "High": 11.28
+            },
+            "total_evaluated": 22354
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.16,
+                "Moderate": 24.16,
+                "High": 17.68
+            },
+            "total_evaluated": 22354
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.69,
+                "Moderate": 19.88,
+                "High": 6.43
+            },
+            "total_evaluated": 22226
+        }
+    },
+    "Guayama": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.8,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 421
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.71,
+                "Moderate": 18.3,
+                "High": 9.99
+            },
+            "total_evaluated": 40997
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.32,
+                "Moderate": 22.93,
+                "High": 14.75
+            },
+            "total_evaluated": 40997
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.96,
+                "Moderate": 18.55,
+                "High": 5.49
+            },
+            "total_evaluated": 40775
+        }
+    },
+    "Guaynabo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.8,
+                "Toxicity": 1.2
+            },
+            "total_evaluated": 7043
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 73.46,
+                "Moderate": 17.61,
+                "High": 8.93
+            },
+            "total_evaluated": 152619
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.85,
+                "Moderate": 24.84,
+                "High": 16.3
+            },
+            "total_evaluated": 152619
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 76.19,
+                "Moderate": 18.31,
+                "High": 5.5
+            },
+            "total_evaluated": 152125
+        }
+    },
+    "Morovis": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.5,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 763
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.48,
+                "Moderate": 19.42,
+                "High": 12.11
+            },
+            "total_evaluated": 28330
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.39,
+                "Moderate": 23.74,
+                "High": 17.87
+            },
+            "total_evaluated": 28330
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.09,
+                "Moderate": 21.08,
+                "High": 7.82
+            },
+            "total_evaluated": 25134
+        }
+    },
+    "Vega Alta": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 13.0,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 2369
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 66.83,
+                "Moderate": 20.8,
+                "High": 12.37
+            },
+            "total_evaluated": 28212
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 55.86,
+                "Moderate": 24.88,
+                "High": 19.26
+            },
+            "total_evaluated": 28212
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 68.71,
+                "Moderate": 22.67,
+                "High": 8.62
+            },
+            "total_evaluated": 28779
+        }
+    },
+    "Cabo Rojo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.4,
+                "Toxicity": 1.0
+            },
+            "total_evaluated": 5398
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.73,
+                "Moderate": 19.38,
+                "High": 9.89
+            },
+            "total_evaluated": 51723
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.28,
+                "Moderate": 23.09,
+                "High": 14.63
+            },
+            "total_evaluated": 51723
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.08,
+                "Moderate": 19.44,
+                "High": 5.49
+            },
+            "total_evaluated": 51499
+        }
+    },
+    "Cidra": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.0,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 1631
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.43,
+                "Moderate": 19.23,
+                "High": 10.34
+            },
+            "total_evaluated": 43802
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 61.01,
+                "Moderate": 23.39,
+                "High": 15.6
+            },
+            "total_evaluated": 43802
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.05,
+                "Moderate": 19.07,
+                "High": 5.88
+            },
+            "total_evaluated": 43368
+        }
+    },
+    "Orocovis": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.7,
+                "Toxicity": 0.6
+            },
+            "total_evaluated": 509
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 64.97,
+                "Moderate": 21.49,
+                "High": 13.53
+            },
+            "total_evaluated": 16294
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.81,
+                "Moderate": 24.4,
+                "High": 18.79
+            },
+            "total_evaluated": 16294
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 69.67,
+                "Moderate": 22.15,
+                "High": 8.18
+            },
+            "total_evaluated": 16140
+        }
+    },
+    "Guayanilla": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 16.8,
+                "Toxicity": 0.6
+            },
+            "total_evaluated": 2289
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 66.27,
+                "Moderate": 21.36,
+                "High": 12.37
+            },
+            "total_evaluated": 36675
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.57,
+                "Moderate": 25.31,
+                "High": 17.13
+            },
+            "total_evaluated": 36675
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.92,
+                "Moderate": 21.42,
+                "High": 6.66
+            },
+            "total_evaluated": 36396
+        }
+    },
+    "Fajardo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 8.0,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 3884
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 73.74,
+                "Moderate": 17.05,
+                "High": 9.22
+            },
+            "total_evaluated": 60139
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.75,
+                "Moderate": 21.97,
+                "High": 15.29
+            },
+            "total_evaluated": 60139
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 77.25,
+                "Moderate": 17.39,
+                "High": 5.36
+            },
+            "total_evaluated": 58083
+        }
+    },
+    "Arroyo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.6,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 162
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.93,
+                "Moderate": 19.47,
+                "High": 11.6
+            },
+            "total_evaluated": 15116
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.88,
+                "Moderate": 24.1,
+                "High": 16.02
+            },
+            "total_evaluated": 15116
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.08,
+                "Moderate": 20.09,
+                "High": 6.83
+            },
+            "total_evaluated": 15046
+        }
+    },
+    "Naguabo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.3,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 493
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.63,
+                "Moderate": 19.12,
+                "High": 10.25
+            },
+            "total_evaluated": 27056
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.28,
+                "Moderate": 23.29,
+                "High": 14.43
+            },
+            "total_evaluated": 27056
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.71,
+                "Moderate": 19.26,
+                "High": 6.04
+            },
+            "total_evaluated": 23962
+        }
+    },
+    "Barranquitas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.1,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 369
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 63.4,
+                "Moderate": 21.68,
+                "High": 14.93
+            },
+            "total_evaluated": 23750
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.36,
+                "Moderate": 24.78,
+                "High": 18.85
+            },
+            "total_evaluated": 23750
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.64,
+                "Moderate": 22.12,
+                "High": 7.25
+            },
+            "total_evaluated": 23547
+        }
+    },
+    "Adjuntas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.5,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 463
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 55.63,
+                "Moderate": 25.47,
+                "High": 18.9
+            },
+            "total_evaluated": 20002
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 51.91,
+                "Moderate": 26.11,
+                "High": 21.98
+            },
+            "total_evaluated": 20002
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 61.11,
+                "Moderate": 27.69,
+                "High": 11.19
+            },
+            "total_evaluated": 19947
+        }
+    },
+    "Florida": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.7,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 273
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.41,
+                "Moderate": 19.77,
+                "High": 12.82
+            },
+            "total_evaluated": 12515
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 54.57,
+                "Moderate": 25.67,
+                "High": 19.76
+            },
+            "total_evaluated": 12515
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.65,
+                "Moderate": 21.64,
+                "High": 7.71
+            },
+            "total_evaluated": 12488
+        }
+    },
+    "Rio Grande": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.5,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 241
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 72.87,
+                "Moderate": 18.19,
+                "High": 8.94
+            },
+            "total_evaluated": 2160
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.69,
+                "Moderate": 23.15,
+                "High": 16.16
+            },
+            "total_evaluated": 2160
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 76.57,
+                "Moderate": 17.84,
+                "High": 5.59
+            },
+            "total_evaluated": 2130
+        }
+    },
+    "Las Marías": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 2.2,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 412
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 66.54,
+                "Moderate": 21.79,
+                "High": 11.68
+            },
+            "total_evaluated": 2038
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 52.5,
+                "Moderate": 28.41,
+                "High": 19.09
+            },
+            "total_evaluated": 2038
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.17,
+                "Moderate": 22.58,
+                "High": 7.25
+            },
+            "total_evaluated": 2028
+        }
+    },
+    "Vega Baja": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 12.7,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 4356
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.27,
+                "Moderate": 20.46,
+                "High": 12.27
+            },
+            "total_evaluated": 73380
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.24,
+                "Moderate": 24.62,
+                "High": 18.14
+            },
+            "total_evaluated": 73380
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.82,
+                "Moderate": 21.53,
+                "High": 7.65
+            },
+            "total_evaluated": 71335
+        }
+    },
+    "Jayuya": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.0,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 2218
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.73,
+                "Moderate": 18.91,
+                "High": 11.36
+            },
+            "total_evaluated": 19378
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 55.69,
+                "Moderate": 24.59,
+                "High": 19.71
+            },
+            "total_evaluated": 19378
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.3,
+                "Moderate": 19.35,
+                "High": 6.35
+            },
+            "total_evaluated": 19294
+        }
+    },
+    "Coamo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.0,
+                "Toxicity": 1.1
+            },
+            "total_evaluated": 914
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.93,
+                "Moderate": 19.4,
+                "High": 10.67
+            },
+            "total_evaluated": 61764
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.23,
+                "Moderate": 23.9,
+                "High": 16.87
+            },
+            "total_evaluated": 61764
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.77,
+                "Moderate": 19.52,
+                "High": 5.72
+            },
+            "total_evaluated": 61329
         }
     }
 }
