@@ -7,14 +7,9 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = False
-ALLOWED_HOSTS = [
-    "rpi4.tail78a70.ts.net",
-    "localhost",
-    "127.0.0.1",
-    "192.168.8.62",
-    ".trycloudflare.com",
-]
+DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 'yes')
+ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS', 'localhost').split(',')]
+
 
 INSTALLED_APPS = [
     # No auth/contenttypes/sessions/admin/messages
