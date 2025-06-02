@@ -208,7 +208,7 @@ def sdoh_zip(request):
 
 
 def sdoh_municipality(request):
-    title = "Puerto Rico SDoH and Health Data by Municipality"
+    title = "Puerto Rico SDoH and Health Risk by Municipality"
     #Path to the GeoJSON file
     pr_municipalities = os.path.join(settings.BASE_DIR, 'static', 'maps', 'municipalities.geojson')
 

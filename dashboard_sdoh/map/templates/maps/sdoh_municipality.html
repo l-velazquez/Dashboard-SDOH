@@ -509,9 +509,11 @@
           </div>
         </div>
 
-        {% comment %} <div class="back-button-container">
+        {% comment %}
+        <div class="back-button-container">
           <a href="{% url 'sdoh' %}" class="back-button">Back to SDoH Page</a>
-        </div> {% endcomment %}
+        </div>
+        {% endcomment %}
       </div>
 
       <div class="map-container">
@@ -542,8 +544,8 @@
 
     <footer>
       <p>
-        Data Source: Cardiovascular Risk (Provided), US Census Municipalities,
-        ACS 5-Year Estimates (2020)
+        Data Source: Cardiovascular Risk & Vitamin D (Provided), US Census
+        Municipalities, ACS 5-Year Estimates (2020)
       </p>
       <p>Map created by Luis F. Velazquez Sosa © 2025</p>
     </footer>
@@ -561,11 +563,12 @@
       let healthStatsLookup = {};
       let sdohDataLookup = {};
       let sdohVariableMap = {};
-      let currentHealthMetricKey = "AO_High";
+      let currentHealthMetricKey = "AO_High"; // Default health metric
       let currentSDoHMetricKey = "POS_MIN_DIST_ED";
       let selectedFeatureId = null;
       let hoveredFeatureId = null;
 
+      // --- MODIFICATION START ---
       const riskCalculationDescriptions = {
         "Risk of Coronary Heart Disease":
           "Coronary Heart Disease risk is often assessed using ratios like TC/HDL (Total Cholesterol to HDL). <br> - TC/HDL < 4.0: Low Risk <br> - TC/HDL 4.0-5.0: Moderate Risk <br> - TC/HDL > 5.0: High Risk",
@@ -573,7 +576,10 @@
           "Arterial Obstruction risk can be indicated by LDL/HDL ratios. <br> - LDL/HDL < 2.5: Low Risk <br> - LDL/HDL 2.5-3.5: Moderate Risk <br> - LDL/HDL > 3.5: High Risk",
         "Risk of Heart Attack or Atherosclerosis":
           "Risk of Heart Attack or Atherosclerosis can be evaluated using Non-HDL Cholesterol levels. <br> - Non-HDL < 130 mg/dL: Low Risk <br> - Non-HDL 130-160 mg/dL: Moderate Risk <br> - Non-HDL > 160 mg/dL: High Risk",
+        "Vitamin D Risk":
+          "Vitamin D status is crucial for health. <br> - Deficiency: Can lead to bone problems, weakened immune system, and other health issues. <br> - Toxicity: Rare, but can cause hypercalcemia and other complications from excessive intake, usually through high-dose supplements.",
       };
+      // --- MODIFICATION END ---
 
       try {
         geojsonData = JSON.parse(geojsonDataString);
@@ -587,6 +593,10 @@
         geojsonData = { type: "FeatureCollection", features: [] };
       }
 
+      console.log(
+        "[DEBUG] Raw healthStatsDataString (first 1000 chars):",
+        healthStatsDataString.substring(0, 1000)
+      );
       try {
         if (
           healthStatsDataString &&
@@ -599,38 +609,60 @@
             !Array.isArray(parsedHealthData)
           ) {
             healthStatsLookup = parsedHealthData;
+            // --- ADD THIS LOG ---
+            if (healthStatsLookup["Las Piedras"]) {
+              console.log(
+                "[DEBUG] healthStatsLookup['Las Piedras'] after parsing:",
+                JSON.stringify(healthStatsLookup["Las Piedras"])
+              );
+            } else {
+              console.warn(
+                "[DEBUG] 'Las Piedras' not found in healthStatsLookup after parsing. Check your full health_stats_data JSON."
+              );
+            }
+            if (
+              Object.keys(healthStatsLookup).length === 0 &&
+              healthStatsDataString.length > 2
+            ) {
+              // healthStatsDataString is not "{}"
+              console.error(
+                "[DEBUG] CRITICAL: healthStatsLookup is empty but healthStatsDataString was not. JSON parsing likely failed to produce the expected object structure."
+              );
+            }
+            // --- END LOG ---
           } else {
             console.warn(
-              "Health Stats data is not a JSON object. Received:",
+              "[DEBUG] Health Stats data is not a JSON object. Received:",
               healthStatsDataString.substring(0, 200),
               "\nUsing empty lookup."
             );
             healthStatsLookup = {};
           }
         } else {
+          console.warn(
+            "[DEBUG] healthStatsDataString is empty or placeholder. Using empty healthStatsLookup."
+          );
           healthStatsLookup = {};
         }
       } catch (e) {
         console.error(
-          "Health Stats Parse Error:",
+          "[DEBUG] Health Stats Parse Error:",
           e,
           "\nString snippet:",
           healthStatsDataString.substring(0, 200)
         );
         healthStatsLookup = {};
       }
-      // console.log("DEBUG: Raw healthStatsDataString (first 500 chars):", healthStatsDataString.substring(0, 500));
+
       if (Object.keys(healthStatsLookup).length > 0) {
-        const firstKey = Object.keys(healthStatsLookup)[0];
-        // console.log("DEBUG: Sample healthStatsLookup entry for key '" + firstKey + "':", JSON.stringify(healthStatsLookup[firstKey]));
         console.log(
-          `DEBUG: healthStatsLookup contains ${
+          `[DEBUG] healthStatsLookup successfully populated with ${
             Object.keys(healthStatsLookup).length
           } entries.`
         );
       } else {
         console.warn(
-          "DEBUG: healthStatsLookup is EMPTY or not an object! Check health_stats_data from Django and JSON file format."
+          "[DEBUG] healthStatsLookup is EMPTY. Check health_stats_data from Django and JSON file format."
         );
       }
 
@@ -648,10 +680,9 @@
                 typeof item.COUNTY === "string" &&
                 item.YEAR === 2020
               ) {
-                // Ensure COUNTY is a string before trimming
                 sdohDataLookup[item.COUNTY.trim()] = item;
               } else if (item.COUNTY && item.YEAR === 2020) {
-                sdohDataLookup[item.COUNTY] = item; // Fallback if COUNTY is not a string (e.g. number)
+                sdohDataLookup[item.COUNTY] = item;
               }
             });
           } else {
@@ -671,14 +702,12 @@
       }
       if (Object.keys(sdohDataLookup).length > 0) {
         console.log(
-          `DEBUG: sdohDataLookup contains ${
+          `[DEBUG] sdohDataLookup contains ${
             Object.keys(sdohDataLookup).length
           } entries.`
         );
-        // if (sdohDataLookup["Yauco"]) { console.log("DEBUG: sdohDataLookup entry for Yauco:", sdohDataLookup["Yauco"]); }
-        // else { console.warn("DEBUG: No SDoH data found for Yauco in sdohDataLookup (after trim)."); }
       } else {
-        console.warn("DEBUG: sdohDataLookup is EMPTY!");
+        console.warn("[DEBUG] sdohDataLookup is EMPTY!");
       }
 
       try {
@@ -690,13 +719,14 @@
       }
 
       const GOOD_LOW_COLORS = [
-        "#ffffb2",
+        // Higher value is worse
+        "#ffffb2", // Lowest risk
         "#fed976",
         "#feb24c",
         "#fd8d3c",
         "#fc4e2a",
         "#e31a1c",
-        "#b10026",
+        "#b10026", // Highest risk
       ];
       const SDOH_COLORS = [
         "#e0ecf4",
@@ -711,20 +741,20 @@
 
       const filteredHealthMetricConfigs = {
         CHD_High: {
-          displayName: "Coronary Heart Disease",
+          displayName: "Coronary Heart Disease Risk",
           dataPath: ["Risk of Coronary Heart Disease", "percentages", "High"],
           type: "goodIsLow",
-          breaks: [10, 11.5, 13, 14.5, 16, 17.5],
+          breaks: [10, 11.5, 13, 14.5, 16, 17.5], // % values
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
             "Percentage of population at High Risk for Coronary Heart Disease. Higher percentage is worse.",
         },
         AO_High: {
-          displayName: "Arterial Obstruction",
+          displayName: "Arterial Obstruction Risk",
           dataPath: ["Risk of Arterial Obstruction", "percentages", "High"],
           type: "goodIsLow",
-          breaks: [15, 16, 17, 18, 19, 20],
+          breaks: [15, 16, 17, 18, 19, 20], // % values
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
@@ -738,11 +768,31 @@
             "High",
           ],
           type: "goodIsLow",
-          breaks: [5, 7, 9, 11, 12.5, 13.2],
+          breaks: [5, 7, 9, 11, 12.5, 13.2], // % values
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
             "Percentage of population at High Risk for Heart Attack or Atherosclerosis. Higher percentage is worse.",
+        },
+        VitD_Deficiency: {
+          displayName: "Vitamin D Deficiency Risk",
+          dataPath: ["Vitamin D Risk", "percentages", "Deficiency"],
+          type: "goodIsLow", // Higher % of deficiency is worse
+          breaks: [3, 6, 9, 12, 15, 17], // Adjusted breaks so 18 is the max value
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with Vitamin D Deficiency. Higher percentage indicates a greater prevalence of deficiency.",
+        },
+        VitD_Toxicity: {
+          displayName: "Vitamin D Toxicity Risk",
+          dataPath: ["Vitamin D Risk", "percentages", "Toxicity"],
+          type: "goodIsLow", // Higher % of toxicity is worse
+          breaks: [0.0, 0.25, 0.5, 0.75, 1, 1.25], // Example breaks for percentage (toxicity usually lower) - ADJUST AS NEEDED
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with Vitamin D Toxicity. Higher percentage indicates a greater prevalence of toxicity.",
         },
       };
 
@@ -891,52 +941,56 @@
 
       function getNestedHealthValue(healthData, dataPath) {
         if (
-          !healthData ||
-          typeof healthData !== "object" ||
-          Array.isArray(healthData) ||
-          !dataPath ||
-          !Array.isArray(dataPath)
-        )
+          !healthData || // Check if healthData is null or undefined
+          typeof healthData !== "object" || // Check if it's not an object
+          Array.isArray(healthData) || // Check if it's an array (should be an object)
+          !dataPath || // Check if dataPath is null or undefined
+          !Array.isArray(dataPath) // Check if dataPath is not an array
+        ) {
+          // console.warn("[getNestedHealthValue] Invalid input:", {healthData, dataPath});
           return null;
+        }
         let value = healthData;
         for (const key of dataPath) {
           if (value && typeof value === "object" && key in value) {
             value = value[key];
           } else {
-            return null;
+            // console.warn(`[getNestedHealthValue] Key "${key}" not found or invalid value in path:`, {currentValue: value, fullPath: dataPath});
+            return null; // Key not found or value is not an object to continue traversal
           }
         }
         return value;
       }
 
       function getHealthColor(value, metricKey) {
-        const config = filteredHealthMetricConfigs[metricKey]; // Assuming metricKey here is exact from config
+        const config = filteredHealthMetricConfigs[metricKey];
         if (
           !config ||
           value === null ||
           value === undefined ||
           isNaN(parseFloat(value))
         )
-          return "#E0E0E0";
+          return "#E0E0E0"; // Default grey for no data
         const { breaks, colors } = config;
         if (!breaks || !colors || breaks.length === 0 || colors.length === 0)
           return "#E0E0E0";
         if (colors.length < breaks.length + 1)
-          return colors[colors.length - 1] || "#E0E0E0";
+          return colors[colors.length - 1] || "#E0E0E0"; // Fallback if config error
+
         const numericValue = parseFloat(value);
         for (let i = 0; i < breaks.length; i++) {
           if (numericValue <= breaks[i]) return colors[i];
         }
-        return colors[breaks.length];
+        return colors[breaks.length]; // Value is greater than all breaks
       }
 
       function getSDoHColorExpression(metricKey) {
-        const trimmedMetricKey = metricKey.trim(); // Trim the key used for lookups and expressions
+        const trimmedMetricKey = metricKey.trim();
         const config = sdohMetricConfigs[trimmedMetricKey];
 
         if (!config || !config.breaks || !config.colors) {
           console.warn(`No config for SDoH metric: ${trimmedMetricKey}`);
-          return "rgba(200,200,200,0.3)";
+          return "rgba(200,200,200,0.3)"; // Default grey for missing config
         }
         const { breaks, colors } = config;
         if (colors.length !== breaks.length + 1) {
@@ -954,7 +1008,7 @@
           ["get", trimmedMetricKey, sdohObjectExpression],
         ];
 
-        const stepExpression = ["step", sDoHValueGetter, colors[0]];
+        const stepExpression = ["step", sDoHValueGetter, colors[0]]; // Default color if value < first break
         for (let i = 0; i < breaks.length; i++) {
           stepExpression.push(breaks[i]);
           stepExpression.push(colors[i + 1]);
@@ -963,14 +1017,15 @@
         return [
           "case",
           ["!", ["has", "sdoh"]],
-          "rgba(201,201,201,0.3)",
+          "rgba(201,201,201,0.3)", // No sdoh property
           ["!=", ["typeof", sdohObjectExpression], "object"],
-          "rgba(202,202,202,0.3)",
+          "rgba(202,202,202,0.3)", // sdoh is not an object
           ["==", sdohObjectExpression, null],
-          "rgba(203,203,203,0.3)",
+          "rgba(203,203,203,0.3)", // sdoh object is null
           ["!", ["has", trimmedMetricKey, sdohObjectExpression]],
-          "rgba(210,210,210,0.3)",
+          "rgba(210,210,210,0.3)", // Metric key missing in sdoh object
           [
+            // Value is null, undefined, or empty string
             "any",
             ["==", ["get", trimmedMetricKey, sdohObjectExpression], null],
             [
@@ -992,8 +1047,8 @@
               ],
             ],
           ],
-          "rgba(220,220,220,0.3)",
-          stepExpression,
+          "rgba(220,220,220,0.3)", // Grey for missing/invalid SDoH value
+          stepExpression, // Apply color scale
         ];
       }
 
@@ -1006,14 +1061,15 @@
           isNaN(parseFloat(value)) ||
           parseFloat(value) <= 0
         )
-          return minRadius / 2;
+          return minRadius / 2; // Smallest radius for no/zero data
+
         let numericValue = parseFloat(value);
         let radius =
           valueForMaxRadius <= 0
-            ? minRadius
+            ? minRadius // Avoid division by zero if max is 0
             : minRadius +
               (numericValue / valueForMaxRadius) * (maxRadius - minRadius);
-        return Math.max(minRadius / 2, Math.min(maxRadius, radius));
+        return Math.max(minRadius / 2, Math.min(maxRadius, radius)); // Clamp radius
       }
 
       function getFeatureLngLatBounds(feature) {
@@ -1037,12 +1093,12 @@
       function preprocessGeojsonData() {
         if (!geojsonData || !geojsonData.features) {
           console.warn(
-            "DEBUG: geojsonData is null or has no features during preprocessing."
+            "[DEBUG] geojsonData is null or has no features during preprocessing."
           );
           return;
         }
-        let healthDataFoundCount = 0;
-        let sdohDataFoundCount = 0;
+        let healthDataLinkedCount = 0;
+        let sdohDataLinkedCount = 0;
 
         geojsonData.features.forEach((feature, index) => {
           const originalName = feature.properties?.NAME;
@@ -1069,50 +1125,69 @@
             typeof muniHealthData === "object" &&
             !Array.isArray(muniHealthData)
           ) {
-            feature.properties.healthData = muniHealthData;
-            healthDataFoundCount++;
+            feature.properties.healthData = muniHealthData; // Assign the actual object
+            healthDataLinkedCount++;
           } else {
             feature.properties.healthData = null;
           }
+
+          // --- ADD THIS LOG FOR A SPECIFIC MUNICIPALITY ---
+          if (municipalityNameForLookup === "Las Piedras") {
+            console.log(
+              `[DEBUG PreProcess Las Piedras] Original GeoJSON Name: '${originalName}', Used Lookup Name: '${municipalityNameForLookup}'`
+            );
+            console.log(
+              `[DEBUG PreProcess Las Piedras] muniHealthData from healthStatsLookup:`,
+              JSON.stringify(muniHealthData)
+            );
+            console.log(
+              `[DEBUG PreProcess Las Piedras] feature.properties.healthData after assignment:`,
+              JSON.stringify(feature.properties.healthData)
+            );
+            if (muniHealthData && !muniHealthData["Vitamin D Risk"]) {
+              console.warn(
+                `[DEBUG PreProcess Las Piedras] 'Vitamin D Risk' key NOT FOUND in muniHealthData from lookup!`
+              );
+            }
+          }
+          // --- END LOG ---
 
           if (
             muniSDoHData &&
             typeof muniSDoHData === "object" &&
             !Array.isArray(muniSDoHData)
           ) {
-            feature.properties.sdoh = muniSDoHData;
-            sdohDataFoundCount++;
+            feature.properties.sdoh = muniSDoHData; // Assign the actual object
+            sdohDataLinkedCount++;
           } else {
             feature.properties.sdoh = {};
           }
-
-          // if (municipalityNameForLookup === "Yauco") {
-          //     console.log(`DEBUG (Yauco Preprocess): Original GeoJSON Name: '${originalName}', Used Lookup Name: '${municipalityNameForLookup}'`);
-          //     console.log(`DEBUG (Yauco Preprocess): Embedded healthData:`, JSON.parse(JSON.stringify(feature.properties.healthData)));
-          //     console.log(`DEBUG (Yauco Preprocess): Embedded sdohData:`, JSON.parse(JSON.stringify(feature.properties.sdoh)));
-          // }
         });
 
         console.log(
-          `DEBUG: Preprocessing complete. Health data linked for ${healthDataFoundCount}/${geojsonData.features.length} municipalities.`
+          `[DEBUG] Preprocessing complete. Health data linked for ${healthDataLinkedCount}/${geojsonData.features.length} features.`
         );
         console.log(
-          `DEBUG: Preprocessing complete. SDoH data linked for ${sdohDataFoundCount}/${geojsonData.features.length} municipalities.`
+          `[DEBUG] Preprocessing complete. SDoH data linked for ${sdohDataLinkedCount}/${geojsonData.features.length} features.`
         );
 
         if (
-          healthDataFoundCount === 0 &&
+          healthDataLinkedCount === 0 &&
           geojsonData.features.length > 0 &&
           Object.keys(healthStatsLookup).length > 0
         ) {
-          console.error("DEBUG: CRITICAL: No health data was linked.");
+          console.error(
+            "[DEBUG] CRITICAL: No health data was linked. Check municipality name matching (e.g. 'Adjuntas' vs 'Adjuntas Municipio') between GeoJSON NAME property and healthStatsLookup keys."
+          );
         }
         if (
-          sdohDataFoundCount === 0 &&
+          sdohDataLinkedCount === 0 &&
           geojsonData.features.length > 0 &&
           Object.keys(sdohDataLookup).length > 0
         ) {
-          console.error("DEBUG: CRITICAL: No SDoH data was linked.");
+          console.error(
+            "[DEBUG] CRITICAL: No SDoH data was linked. Check municipality name matching."
+          );
         }
       }
       preprocessGeojsonData();
@@ -1136,6 +1211,7 @@
               : String(b);
           return stringA.localeCompare(stringB);
         });
+
         sortedKeys.forEach((key) => {
           if (selectElement.id === "sdoh-select") {
             const nonNumericSDoHKeys = [
@@ -1146,7 +1222,6 @@
               "lon",
               "lat",
             ];
-            // Ensure key exists in sdohMetricConfigs before adding, sdohVariableMap might have more keys
             if (
               nonNumericSDoHKeys.includes(key) ||
               !sdohMetricConfigs[key.trim()]
@@ -1154,7 +1229,7 @@
               return;
           }
           const option = document.createElement("option");
-          option.value = key; // Value from dropdown should be the exact key for config lookup
+          option.value = key;
           const item = configObject[key];
           option.textContent =
             typeof item === "object" && item?.displayName
@@ -1181,10 +1256,15 @@
       ) {
         let description = "Description not available.";
         const lookupKey = key.trim();
-        if (configMap && configMap[lookupKey]?.description) {
+
+        if (configMap && configMap[key]?.description) {
+          description = configMap[key].description;
+        } else if (configMap && configMap[lookupKey]?.description) {
           description = configMap[lookupKey].description;
         } else if (variableMap && variableMap[lookupKey]) {
           description = variableMap[lookupKey];
+        } else if (configMap && configMap[key]?.displayName) {
+          description = configMap[key].displayName;
         } else if (configMap && configMap[lookupKey]?.displayName) {
           description = configMap[lookupKey].displayName;
         }
@@ -1230,25 +1310,25 @@
       map.addControl(
         new maplibregl.AttributionControl({
           customAttribution:
-            "Health Risk: Abartys Health | SDoH: ACS 2020 | Municipalities: US Census",
+            "Created by: Luis F. J. Velázquez Sosa | Health Risk: Abartys Health | SDoH: ACS 2020 | Municipalities: US Census",
         }),
         "bottom-right"
       );
 
       map.on("load", () => {
-        // console.log("Map style loaded.");
         if (
           !geojsonData ||
           !geojsonData.features ||
           geojsonData.features.length === 0
         ) {
           document.getElementById("map").innerHTML =
-            "<p>Could not load map boundary data.</p>";
+            "<p>Could not load map boundary data. Please check GeoJSON.</p>";
+          console.error("GeoJSON data is missing or empty after parsing.");
           return;
         }
         map.addSource("municipalities", {
           type: "geojson",
-          data: geojsonData,
+          data: geojsonData, // geojsonData.features[...].properties.healthData should be an object here
           promoteId: "NAME",
         });
         map.addLayer({
@@ -1322,7 +1402,7 @@
         });
         map.on("click", "municipalities-fill", (e) => {
           if (e.features.length > 0) {
-            const clickedFeature = e.features[0];
+            const clickedFeature = e.features[0]; // clickedFeature.properties.healthData should be an object
             if (selectedFeatureId) {
               map.setFeatureState(
                 { source: "municipalities", id: selectedFeatureId },
@@ -1339,7 +1419,7 @@
             if (bounds.getNorthEast() && bounds.getSouthWest()) {
               map.fitBounds(bounds, { padding: 60, maxZoom: 11 });
             }
-            updateInfoPanel(clickedFeature.properties);
+            updateInfoPanel(clickedFeature.properties); // Pass properties which include healthData as an object
           }
         });
 
@@ -1369,8 +1449,7 @@
           const coordinates = e.features[0].geometry.coordinates.slice();
           const props = e.features[0].properties;
           const healthConf =
-            filteredHealthMetricConfigs[currentHealthMetricKey]; // No trim for health, keys are exact in config
-
+            filteredHealthMetricConfigs[currentHealthMetricKey];
           let displayHealthValue;
           if (
             props.healthRiskValue !== null &&
@@ -1390,7 +1469,6 @@
             displayHealthValue = "N/A";
           }
           const description = `<b>${props.municipalityName}</b><br>${props.healthDisplayName}: ${displayHealthValue}`;
-
           while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
@@ -1410,104 +1488,117 @@
       });
 
       function updateInfoPanel(muniPropsFromEvent) {
-        // Renamed to clarify it's from the event
         if (!muniPropsFromEvent?.NAME) {
           infoPanel.innerHTML =
             '<p class="placeholder-text">Click on a municipality for details.</p>';
           return;
         }
 
-        // --- PARSE THE STRINGIFIED PROPERTIES ---
-        let healthData;
-        let sdohDataForMuni;
+        let healthData = muniPropsFromEvent.healthData;
+        let sdohDataForMuni = muniPropsFromEvent.sdoh;
+        const municipalityName = muniPropsFromEvent.NAME; // NAME is reliable from promoteId
 
-        try {
-          if (
-            muniPropsFromEvent.healthData &&
-            typeof muniPropsFromEvent.healthData === "string"
-          ) {
-            healthData = JSON.parse(muniPropsFromEvent.healthData);
-          } else {
-            healthData = muniPropsFromEvent.healthData; // Assume it's already an object or null
-          }
-        } catch (e) {
-          console.error(
-            "Error parsing healthData in updateInfoPanel for " +
-              muniPropsFromEvent.NAME,
-            e,
-            muniPropsFromEvent.healthData
+        // --- ADD THIS CHECK FOR STRINGIFIED DATA ---
+        if (typeof healthData === "string") {
+          console.warn(
+            `[INFO_PANEL ${municipalityName}] healthData is a STRING! Attempting to parse.`
           );
-          healthData = null; // Fallback
-        }
-
-        try {
-          if (
-            muniPropsFromEvent.sdoh &&
-            typeof muniPropsFromEvent.sdoh === "string"
-          ) {
-            sdohDataForMuni = JSON.parse(muniPropsFromEvent.sdoh);
-          } else {
-            sdohDataForMuni = muniPropsFromEvent.sdoh; // Assume it's already an object or {}
+          try {
+            healthData = JSON.parse(healthData);
+          } catch (e) {
+            console.error(
+              `[INFO_PANEL ${municipalityName}] Failed to parse healthData string:`,
+              e,
+              healthData
+            );
+            healthData = null;
           }
-        } catch (e) {
-          console.error(
-            "Error parsing sdohDataForMuni in updateInfoPanel for " +
-              muniPropsFromEvent.NAME,
-            e,
-            muniPropsFromEvent.sdoh
-          );
-          sdohDataForMuni = {}; // Fallback
         }
-        // --- END PARSING ---
+        if (typeof sdohDataForMuni === "string") {
+          console.warn(
+            `[INFO_PANEL ${municipalityName}] sdohDataForMuni is a STRING! Attempting to parse.`
+          );
+          try {
+            sdohDataForMuni = JSON.parse(sdohDataForMuni);
+          } catch (e) {
+            console.error(
+              `[INFO_PANEL ${municipalityName}] Failed to parse sdohDataForMuni string:`,
+              e,
+              sdohDataForMuni
+            );
+            sdohDataForMuni = {};
+          }
+        }
+        // --- END CHECK ---
 
-        // Now use healthData and sdohDataForMuni as they should be objects
-        const { NAME: municipalityName } = muniPropsFromEvent; // Get NAME from original props
         const currentSDoHMetricKeyTrimmed = currentSDoHMetricKey.trim();
         const currentHealthMetricKeyExact = currentHealthMetricKey;
+        const currentHealthConfig =
+          filteredHealthMetricConfigs[currentHealthMetricKeyExact];
 
-        // --- Log the state of variables AFTER potential parsing ---
-        if (municipalityName === "Yauco") {
+        // --- LOGGING FOR SPECIFIC MUNICIPALITY AND VITAMIN D ---
+        if (
+          municipalityName === "Las Piedras" &&
+          currentHealthConfig &&
+          (currentHealthMetricKeyExact === "VitD_Deficiency" ||
+            currentHealthMetricKeyExact === "VitD_Toxicity")
+        ) {
           console.log(
-            `[YAUCO INFOPANEL PARSED] muniPropsFromEvent.NAME: ${municipalityName}`
+            `[INFO_PANEL Las Piedras VitD] currentHealthMetricKeyExact: ${currentHealthMetricKeyExact}`
           );
           console.log(
-            `[YAUCO INFOPANEL PARSED] typeof healthData: ${typeof healthData}, healthData:`,
-            JSON.parse(JSON.stringify(healthData))
+            `[INFO_PANEL Las Piedras VitD] currentHealthConfig:`,
+            JSON.stringify(currentHealthConfig)
           );
           console.log(
-            `[YAUCO INFOPANEL PARSED] typeof sdohDataForMuni: ${typeof sdohDataForMuni}, sdohDataForMuni:`,
-            JSON.parse(JSON.stringify(sdohDataForMuni))
+            `[INFO_PANEL Las Piedras VitD] healthData object from props (after potential parse):`,
+            JSON.stringify(healthData)
           );
-        }
-        // ---
-
-        let content = `<h3>Municipality: ${municipalityName}</h3>`;
-
-        // --- SDoH Section ---
-        content += `<hr style="margin:10px 0;"><h4>SDoH Indicator (Outline)</h4>`; // Removed - Debug
-
-        // Conditional Check Logging for YAUCO (can be removed after fixing)
-        let sdohCheckPass = false;
-        if (municipalityName === "Yauco") {
-          console.log(
-            `[YAUCO SDoH CHECK AFTER PARSE] Evaluating SDoH condition...`
-          );
-          const c1 = sdohDataForMuni;
-          const c2 = typeof sdohDataForMuni === "object";
-          const c3 = !Array.isArray(sdohDataForMuni);
-          const c4 =
-            c1 && c2 && c3 ? Object.keys(sdohDataForMuni).length > 0 : false;
-          sdohCheckPass = c1 && c2 && c3 && c4;
-          console.log(
-            `[YAUCO SDoH CHECK AFTER PARSE] Overall condition result: ${sdohCheckPass}`
-          );
-          if (sdohCheckPass) {
-            console.log(
-              `[YAUCO SDoH CHECK AFTER PARSE] Accessing '${currentSDoHMetricKeyTrimmed}': ${sdohDataForMuni[currentSDoHMetricKeyTrimmed]}`
+          if (healthData && !healthData["Vitamin D Risk"]) {
+            console.error(
+              `[INFO_PANEL Las Piedras VitD] CRITICAL: 'Vitamin D Risk' key MISSING from healthData object!`
             );
           }
-        }
+          if (
+            healthData &&
+            currentHealthConfig &&
+            currentHealthConfig.dataPath
+          ) {
+            const healthValue = getNestedHealthValue(
+              healthData,
+              currentHealthConfig.dataPath
+            );
+            console.log(
+              `[INFO_PANEL Las Piedras VitD] Value from getNestedHealthValue for ${currentHealthConfig.displayName}: ${healthValue}`
+            );
 
+            if (currentHealthConfig.dataPath[0] === "Vitamin D Risk") {
+              const otherVitDKey =
+                currentHealthMetricKeyExact === "VitD_Deficiency"
+                  ? "Toxicity"
+                  : "Deficiency";
+              const otherVitDValue = getNestedHealthValue(healthData, [
+                "Vitamin D Risk",
+                "percentages",
+                otherVitDKey,
+              ]);
+              console.log(
+                `[INFO_PANEL Las Piedras VitD] Other VitD (${otherVitDKey}) value: ${otherVitDValue}`
+              );
+              const totalEvalVitD = getNestedHealthValue(healthData, [
+                "Vitamin D Risk",
+                "total_evaluated",
+              ]);
+              console.log(
+                `[INFO_PANEL Las Piedras VitD] Total Evaluated (VitD) value: ${totalEvalVitD}`
+              );
+            }
+          }
+        }
+        // --- END LOGGING ---
+
+        let content = `<h3>Municipality: ${municipalityName}</h3>`;
+        content += `<hr style="margin:10px 0;"><h4>SDoH Indicator (Outline)</h4>`;
         if (
           sdohDataForMuni &&
           typeof sdohDataForMuni === "object" &&
@@ -1531,40 +1622,13 @@
           content += `<p>No SDoH data object found for "${currentSDoHMetricKeyTrimmed}" in ${municipalityName}.</p>`;
         }
 
-        // --- Health Risk Section ---
-        content += `<h4 style="margin-top:15px;"> Health Risk (Circles)</h4>`; // Removed - Debug
-
-        // Conditional Check Logging for YAUCO (can be removed after fixing)
-        let healthCheckPass = false;
-        if (municipalityName === "Yauco") {
-          console.log(
-            `[YAUCO HEALTH CHECK AFTER PARSE] Evaluating Health condition...`
-          );
-          const hc1 = healthData;
-          const hc2 = typeof healthData === "object";
-          const hc3 = !Array.isArray(healthData);
-          healthCheckPass = hc1 && hc2 && hc3;
-          console.log(
-            `[YAUCO HEALTH CHECK AFTER PARSE] Overall condition result: ${healthCheckPass}`
-          );
-          if (healthCheckPass) {
-            const healthConfig =
-              filteredHealthMetricConfigs[currentHealthMetricKeyExact];
-            const dataPath = healthConfig ? healthConfig.dataPath : null;
-            const nestedVal = getNestedHealthValue(healthData, dataPath);
-            console.log(
-              `[YAUCO HEALTH CHECK AFTER PARSE] Value from getNestedHealthValue: ${nestedVal}`
-            );
-          }
-        }
-
+        content += `<h4 style="margin-top:15px;">Health Risk (Circles)</h4>`;
         if (
           healthData &&
           typeof healthData === "object" &&
           !Array.isArray(healthData)
         ) {
-          const currentHealthConfig =
-            filteredHealthMetricConfigs[currentHealthMetricKeyExact];
+          // Ensure healthData is a usable object
           if (currentHealthConfig && currentHealthConfig.dataPath) {
             const healthValue = getNestedHealthValue(
               healthData,
@@ -1579,49 +1643,97 @@
                   )} ${currentHealthConfig.unit || ""}`
                 : "N/A";
             content += `<p><span class="data-label">${currentHealthConfig.displayName}:</span> <strong class="data-value">${displayValue}</strong></p>`;
+
             const riskTypeKey = currentHealthConfig.dataPath[0];
             const calculationInfo = riskCalculationDescriptions[riskTypeKey];
             if (calculationInfo)
               content += `<p style="font-size:0.85em; margin-top:5px; color:#555;"><em><strong>Note:</strong> ${calculationInfo}</em></p>`;
-            content += `<p style="margin-top:10px;"><small><i>Other risk levels for ${riskTypeKey}:</i></small></p>`;
-            ["Low", "Moderate"].forEach((level) => {
-              const val = getNestedHealthValue(healthData, [
-                riskTypeKey,
+
+            if (riskTypeKey === "Vitamin D Risk") {
+              content += `<p style="margin-top:10px;"><small><i>Other Vitamin D status for ${municipalityName}:</i></small></p>`;
+              const otherVitDSubKey =
+                currentHealthMetricKeyExact === "VitD_Deficiency"
+                  ? "Toxicity"
+                  : "Deficiency";
+              const otherVitDPath = [
+                "Vitamin D Risk",
                 "percentages",
-                level,
-              ]);
-              const dispVal =
-                val !== null && val !== undefined && !isNaN(parseFloat(val))
-                  ? `${parseFloat(val).toFixed(2)}%`
+                otherVitDSubKey,
+              ];
+              const otherVitDValue = getNestedHealthValue(
+                healthData,
+                otherVitDPath
+              );
+              const otherVitDDisplayValue =
+                otherVitDValue !== null &&
+                otherVitDValue !== undefined &&
+                !isNaN(parseFloat(otherVitDValue))
+                  ? `${parseFloat(otherVitDValue).toFixed(2)}%`
                   : "N/A";
-              content += `<p style="font-size:0.9em;"><span class="data-label">% ${level} Risk:</span> <span class="data-value">${dispVal}</span></p>`;
-            });
-            const totalEval = getNestedHealthValue(healthData, [
-              riskTypeKey,
-              "total_evaluated",
-            ]);
-            const totalEvalDisp =
-              totalEval !== null &&
-              totalEval !== undefined &&
-              !isNaN(parseFloat(totalEval))
-                ? `${parseFloat(totalEval).toLocaleString()}`
-                : "N/A";
-            const riskShortName =
-              riskTypeKey.split(" ").length > 2
-                ? riskTypeKey.split(" ")[2]
-                : riskTypeKey.split(" ")[0];
-            content += `<p style="font-size:0.9em;"><span class="data-label">Total Evaluated (${riskShortName}):</span> <span class="data-value">${totalEvalDisp}</span></p>`;
+              content += `<p style="font-size:0.9em;"><span class="data-label">% ${otherVitDSubKey}:</span> <span class="data-value">${otherVitDDisplayValue}</span></p>`;
+
+              const totalEvalVitD = getNestedHealthValue(healthData, [
+                "Vitamin D Risk",
+                "total_evaluated",
+              ]);
+              const totalEvalVitDDisp =
+                totalEvalVitD !== null &&
+                totalEvalVitD !== undefined &&
+                !isNaN(parseFloat(totalEvalVitD))
+                  ? `${parseFloat(totalEvalVitD).toLocaleString()}`
+                  : "N/A";
+              content += `<p style="font-size:0.9em;"><span class="data-label">Total Evaluated (Vitamin D):</span> <span class="data-value">${totalEvalVitDDisp}</span></p>`;
+            } else {
+              const riskCategoryDetails = getNestedHealthValue(healthData, [
+                riskTypeKey,
+              ]);
+              if (
+                riskCategoryDetails &&
+                riskCategoryDetails.percentages &&
+                typeof riskCategoryDetails.percentages === "object"
+              ) {
+                content += `<p style="margin-top:10px;"><small><i>Other risk levels for ${riskTypeKey} in ${municipalityName}:</i></small></p>`;
+                const currentLevelDisplayed = currentHealthConfig.dataPath[2];
+                for (const level in riskCategoryDetails.percentages) {
+                  if (level !== currentLevelDisplayed) {
+                    const val = riskCategoryDetails.percentages[level];
+                    const dispVal =
+                      val !== null &&
+                      val !== undefined &&
+                      !isNaN(parseFloat(val))
+                        ? `${parseFloat(val).toFixed(2)}%`
+                        : "N/A";
+                    content += `<p style="font-size:0.9em;"><span class="data-label">% ${level} Risk:</span> <span class="data-value">${dispVal}</span></p>`;
+                  }
+                }
+              }
+              const totalEvalCardio = getNestedHealthValue(healthData, [
+                riskTypeKey,
+                "total_evaluated",
+              ]);
+              const totalEvalCardioDisp =
+                totalEvalCardio !== null &&
+                totalEvalCardio !== undefined &&
+                !isNaN(parseFloat(totalEvalCardio))
+                  ? `${parseFloat(totalEvalCardio).toLocaleString()}`
+                  : "N/A";
+              const riskShortName =
+                riskTypeKey.split(" ").length > 2
+                  ? riskTypeKey.split(" ")[2]
+                  : riskTypeKey.split(" ")[0];
+              content += `<p style="font-size:0.9em;"><span class="data-label">Total Evaluated (${riskShortName}):</span> <span class="data-value">${totalEvalCardioDisp}</span></p>`;
+            }
           } else {
-            content += `<p>Health config for ${currentHealthMetricKeyExact} incomplete.</p>`;
+            content += `<p>Health configuration for ${currentHealthMetricKeyExact} is incomplete.</p>`;
           }
         } else {
-          content += `<p>No cardiovascular health data object found for ${municipalityName}.</p>`;
+          content += `<p>No valid health data object found for ${municipalityName}.</p>`;
         }
         infoPanel.innerHTML = content;
       }
 
       function updateHealthLegend(metricKey, valueForMaxRadiusForLegend) {
-        const config = filteredHealthMetricConfigs[metricKey]; // No trim for health keys
+        const config = filteredHealthMetricConfigs[metricKey];
         healthLegendDiv.innerHTML = "";
         if (
           !config ||
@@ -1630,17 +1742,19 @@
           !config.breaks ||
           !config.breaks.length
         ) {
-          healthLegendDiv.innerHTML = `<p>Health Risk legend N/A.</p>`;
+          healthLegendDiv.innerHTML = `<p>Health Risk legend not available for ${
+            config?.displayName || metricKey
+          }.</p>`;
           return;
         }
         if (config.colors.length < config.breaks.length + 1) {
-          healthLegendDiv.innerHTML = `<p>Health legend config error.</p>`;
+          healthLegendDiv.innerHTML = `<p>Health legend configuration error for ${config.displayName}.</p>`;
           return;
         }
         const { colors, breaks, unit, displayName } = config;
         let barWidth = healthLegendDiv.offsetWidth || 300;
         barWidth = Math.max(160, Math.min(barWidth, 420));
-        let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18">`;
+        let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18" aria-hidden="true">`;
         const bandWidth = barWidth / colors.length;
         for (let i = 0; i < colors.length; i++) {
           barSvg += `<rect x="${
@@ -1648,11 +1762,11 @@
           }" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
         }
         barSvg += `</svg>`;
-        let min = breaks[0],
-          max = breaks[breaks.length - 1];
-        let minLabel = `${min}${unit}`,
-          maxLabel = `${max}${unit}`;
-        let labelsHtml = `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}+</span></div>`;
+        let minLabelVal = breaks[0],
+          maxLabelVal = breaks[breaks.length - 1];
+        let minLabel = `${minLabelVal}${unit}`,
+          maxLabel = `${maxLabelVal}${unit}+`;
+        let labelsHtml = `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}</span></div>`;
         healthLegendDiv.innerHTML = `<div class="legend-title">${displayName}</div>${barSvg}${labelsHtml}`;
       }
 
@@ -1668,17 +1782,17 @@
           !config.breaks ||
           !config.breaks.length
         ) {
-          sdohLegendDiv.innerHTML = `<p>SDoH Legend N/A for ${trimmedKey}.</p>`;
+          sdohLegendDiv.innerHTML = `<p>SDoH Legend not available for ${variableDesc}.</p>`;
           return;
         }
         if (config.colors.length < config.breaks.length + 1) {
-          sdohLegendDiv.innerHTML = `<p>SDoH legend config error for ${trimmedKey}.</p>`;
+          sdohLegendDiv.innerHTML = `<p>SDoH legend configuration error for ${variableDesc}.</p>`;
           return;
         }
         let barWidth = sdohLegendDiv.offsetWidth || 300;
         barWidth = Math.max(160, Math.min(barWidth, 420));
         const { colors, breaks, unit } = config;
-        let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18">`;
+        let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18" aria-hidden="true">`;
         const bandWidth = barWidth / colors.length;
         for (let i = 0; i < colors.length; i++) {
           barSvg += `<rect x="${
@@ -1686,16 +1800,16 @@
           }" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
         }
         barSvg += `</svg>`;
-        let min = breaks[0],
-          max = breaks[breaks.length - 1];
-        let minLabel = `${min}${unit}`,
-          maxLabel = `${max}${unit}`;
-        let labelsHtml = `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}+</span></div>`;
+        let minLabelVal = breaks[0],
+          maxLabelVal = breaks[breaks.length - 1];
+        let minLabel = `${minLabelVal}${unit}`,
+          maxLabel = `${maxLabelVal}${unit}+`;
+        let labelsHtml = `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}</span></div>`;
         sdohLegendDiv.innerHTML = `<div class="legend-title">${variableDesc}</div>${barSvg}${labelsHtml}`;
       }
 
       healthMetricSelect.addEventListener("change", function () {
-        currentHealthMetricKey = this.value; // No trim, keys in filteredHealthMetricConfigs are exact
+        currentHealthMetricKey = this.value;
         drawHealthRiskCircles();
         updateDescriptionPanel(
           healthMetricDescriptionPanel,
@@ -1714,12 +1828,11 @@
       });
 
       sdohSelect.addEventListener("change", function () {
-        currentSDoHMetricKey = this.value.trim(); // Trim value from dropdown
+        currentSDoHMetricKey = this.value.trim();
         const trimmedKey = currentSDoHMetricKey;
-
         if (!sdohMetricConfigs[trimmedKey]) {
           console.error(`Config missing for SDoH key: ${trimmedKey}`);
-          sdohLegendDiv.innerHTML = `<p>Viz config missing for ${trimmedKey}.</p>`;
+          sdohLegendDiv.innerHTML = `<p>Visualization configuration missing for ${trimmedKey}.</p>`;
         } else {
           if (map.getLayer("municipalities-fill")) {
             map.setPaintProperty(
@@ -1750,13 +1863,32 @@
           !map.getSource("health-points") ||
           !map.getLayer("health-circles")
         ) {
+          console.warn(
+            "Map or health-points source/layer not ready for drawing circles."
+          );
           return;
         }
         const healthConfig =
-          filteredHealthMetricConfigs[currentHealthMetricKey]; // No trim if config keys are exact
+          filteredHealthMetricConfigs[currentHealthMetricKey];
+        // --- LOGGING FOR VITAMIN D IN DRAW CIRCLES ---
+        if (
+          healthConfig &&
+          (currentHealthMetricKey === "VitD_Deficiency" ||
+            currentHealthMetricKey === "VitD_Toxicity")
+        ) {
+          console.log(
+            `[DRAW_CIRCLES VitD] currentHealthMetricKey: ${currentHealthMetricKey}`
+          );
+          console.log(
+            `[DRAW_CIRCLES VitD] healthConfig being used:`,
+            JSON.stringify(healthConfig)
+          );
+        }
+        // --- END LOGGING ---
+
         if (!healthConfig || !healthConfig.dataPath) {
           console.error(
-            "Health config/dataPath missing for key:",
+            "[DRAW_CIRCLES] Health config or dataPath missing for key:",
             currentHealthMetricKey
           );
           updateHealthLegend(currentHealthMetricKey, 30);
@@ -1769,7 +1901,7 @@
         let V_max_for_scaling = 0;
         let validValuesFound = false;
         geojsonData.features.forEach((feature) => {
-          const healthDataForMuni = feature.properties.healthData;
+          const healthDataForMuni = feature.properties.healthData; // Should be an object or null
           if (healthDataForMuni) {
             const val = getNestedHealthValue(
               healthDataForMuni,
@@ -1801,6 +1933,47 @@
             healthData: healthDataForMuni,
             sdoh: sdohMuniData,
           } = feature.properties;
+          // healthDataForMuni should be an object from preprocessGeojsonData
+
+          // --- LOGGING FOR SPECIFIC MUNICIPALITY IN DRAW CIRCLES ---
+          if (
+            municipalityName === "Las Piedras" &&
+            healthConfig &&
+            (currentHealthMetricKey === "VitD_Deficiency" ||
+              currentHealthMetricKey === "VitD_Toxicity")
+          ) {
+            console.log(
+              `[DRAW_CIRCLES Las Piedras VitD] healthDataForMuni:`,
+              JSON.stringify(healthDataForMuni)
+            );
+            if (healthDataForMuni && !healthDataForMuni["Vitamin D Risk"]) {
+              console.error(
+                `[DRAW_CIRCLES Las Piedras VitD] CRITICAL: 'Vitamin D Risk' key MISSING from healthDataForMuni object!`
+              );
+            }
+            if (healthDataForMuni && healthConfig && healthConfig.dataPath) {
+              const healthRiskValue = getNestedHealthValue(
+                healthDataForMuni,
+                healthConfig.dataPath
+              );
+              console.log(
+                `[DRAW_CIRCLES Las Piedras VitD] healthRiskValue for ${healthConfig.displayName}: ${healthRiskValue}`
+              );
+              const radius = getHealthRiskCircleRadius(
+                healthRiskValue,
+                V_max_for_scaling
+              );
+              const color = getHealthColor(
+                healthRiskValue,
+                currentHealthMetricKey
+              );
+              console.log(
+                `[DRAW_CIRCLES Las Piedras VitD] V_max_for_scaling: ${V_max_for_scaling}, Radius: ${radius}, Color: ${color}`
+              );
+            }
+          }
+          // --- END LOGGING ---
+
           if (
             municipalityName &&
             healthDataForMuni &&
@@ -1820,7 +1993,6 @@
               healthRiskValue,
               currentHealthMetricKey
             );
-
             circleFeatures.push({
               type: "Feature",
               geometry: {
@@ -1828,8 +2000,8 @@
                 coordinates: [sdohMuniData.lon, sdohMuniData.lat],
               },
               properties: {
-                municipalityName: municipalityName,
-                healthRiskValue: healthRiskValue,
+                municipalityName,
+                healthRiskValue,
                 healthDisplayName: healthConfig.displayName,
                 colorForCircle: color,
                 radiusForCircle: radius,
@@ -1841,7 +2013,7 @@
         map
           .getSource("health-points")
           .setData({ type: "FeatureCollection", features: circleFeatures });
-        updateHealthLegend(currentHealthMetricKey, V_max_for_scaling); // No trim for health keys
+        updateHealthLegend(currentHealthMetricKey, V_max_for_scaling);
       }
     </script>
   </body>
