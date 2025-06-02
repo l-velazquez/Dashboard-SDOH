@@ -1,0 +1,26 @@
+<div class="left-sidebar sidebar">
+  <h2>Controls</h2>
+  <div class="control-group">
+    <label for="metric-select">Select Health Risk Indicator:</label>
+    <select id="metric-select"></select>
+    <div id="metric-description" class="metric-description-panel">
+      <p class="placeholder-text">
+        Select a health risk indicator to see its description.
+      </p>
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="sdoh-select">Select SDoH Indicator (Municipality Outline):</label>
+    <select id="sdoh-select"></select>
+    <div id="sdoh-description" class="metric-description-panel">
+      <p class="placeholder-text">
+        Select an SDoH indicator to see its description.
+      </p>
+    </div>
+  </div>
+  {% comment %}
+  <div class="back-button-container">
+    <a href="{% url 'sdoh' %}" class="back-button">Back to SDoH Page</a>
+  </div>
+  {% endcomment %}
+</div>

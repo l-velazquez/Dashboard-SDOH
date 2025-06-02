@@ -484,62 +484,9 @@
   <body>
     {%include 'header.html'%}
     <div class="main-content">
-      <div class="left-sidebar sidebar">
-        <h2>Controls</h2>
+      {% include 'maps/includes/left_sidebar.html' %}
 
-        <div class="control-group">
-          <label for="metric-select">Select Health Risk Indicator:</label>
-          <select id="metric-select"></select>
-          <div id="metric-description" class="metric-description-panel">
-            <p class="placeholder-text">
-              Select a health risk indicator to see its description.
-            </p>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <label for="sdoh-select"
-            >Select SDoH Indicator (Municipality Outline):</label
-          >
-          <select id="sdoh-select"></select>
-          <div id="sdoh-description" class="metric-description-panel">
-            <p class="placeholder-text">
-              Select an SDoH indicator to see its description.
-            </p>
-          </div>
-        </div>
-
-        {% comment %}
-        <div class="back-button-container">
-          <a href="{% url 'sdoh' %}" class="back-button">Back to SDoH Page</a>
-        </div>
-        {% endcomment %}
-      </div>
-
-      <div class="map-container">
-        <div id="map"></div>
-
-        <div id="legend-container">
-          <label>Scale</label>
-          <div class="legends-content">
-            <div id="health-legend" class="legend">
-              <!-- Health Risk Legend will be rendered here -->
-            </div>
-            <div id="sdoh-legend" class="legend">
-              <!-- SDoH Legend will be rendered here -->
-            </div>
-          </div>
-        </div>
-
-        <div class="right-sidebar sidebar">
-          <h2>Area Information</h2>
-          <div id="info-panel" class="info-panel">
-            <p class="placeholder-text">
-              Click on a municipality on the map to see details.
-            </p>
-          </div>
-        </div>
-      </div>
+      {% include 'maps/includes/map_container.html' %}
     </div>
 
     <footer>
