@@ -1,0 +1,5716 @@
+{
+    "Naguabo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.3,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 493
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.63,
+                "Moderate": 19.12,
+                "High": 10.25
+            },
+            "total_evaluated": 27056
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.28,
+                "Moderate": 23.29,
+                "High": 14.43
+            },
+            "total_evaluated": 27056
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.71,
+                "Moderate": 19.26,
+                "High": 6.04
+            },
+            "total_evaluated": 23962
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 55.8,
+                "High": 41.7,
+                "Low": 2.5
+            },
+            "total_evaluated": 34175
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 63.4,
+                "Mild": 26.6,
+                "High": 8.6,
+                "Severe": 1.4
+            },
+            "total_evaluated": 33401
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 54.5,
+                "Suggests fibrosis/active hepatitis": 45.5
+            },
+            "total_evaluated": 101
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.1,
+                "Moderate risk": 5.9,
+                "High risk": 2.0
+            },
+            "total_evaluated": 101
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 69.3,
+                "Mild risk": 22.8,
+                "High risk": 7.9
+            },
+            "total_evaluated": 101
+        }
+    },
+    "Barranquitas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.1,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 369
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 63.4,
+                "Moderate": 21.68,
+                "High": 14.93
+            },
+            "total_evaluated": 23750
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.36,
+                "Moderate": 24.78,
+                "High": 18.85
+            },
+            "total_evaluated": 23750
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.64,
+                "Moderate": 22.12,
+                "High": 7.25
+            },
+            "total_evaluated": 23547
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 51.7,
+                "High": 47.0,
+                "Low": 1.3
+            },
+            "total_evaluated": 32096
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 73.4,
+                "Mild": 20.6,
+                "High": 4.8,
+                "Severe": 1.2
+            },
+            "total_evaluated": 31617
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 50.5,
+                "Suggests fibrosis/active hepatitis": 49.5
+            },
+            "total_evaluated": 309
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.5,
+                "Moderate risk": 5.2,
+                "High risk": 1.3
+            },
+            "total_evaluated": 309
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 82.8,
+                "Mild risk": 13.9,
+                "High risk": 3.2
+            },
+            "total_evaluated": 309
+        }
+    },
+    "Florida": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.7,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 273
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.41,
+                "Moderate": 19.77,
+                "High": 12.82
+            },
+            "total_evaluated": 12515
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 54.57,
+                "Moderate": 25.67,
+                "High": 19.76
+            },
+            "total_evaluated": 12515
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.65,
+                "Moderate": 21.64,
+                "High": 7.71
+            },
+            "total_evaluated": 12488
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 61.0,
+                "High": 36.1,
+                "Low": 2.9
+            },
+            "total_evaluated": 16811
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 63.7,
+                "Mild": 28.6,
+                "High": 6.6,
+                "Severe": 1.1
+            },
+            "total_evaluated": 16481
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 72.3,
+                "Suggests fibrosis/active hepatitis": 27.7
+            },
+            "total_evaluated": 155
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 94.8,
+                "Moderate risk": 3.9,
+                "High risk": 1.3
+            },
+            "total_evaluated": 155
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 78.1,
+                "Mild risk": 20.6,
+                "High risk": 1.3
+            },
+            "total_evaluated": 155
+        }
+    },
+    "Vieques": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.6,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 453
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.2,
+                "Moderate": 18.98,
+                "High": 11.81
+            },
+            "total_evaluated": 11021
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 54.24,
+                "Moderate": 24.31,
+                "High": 21.45
+            },
+            "total_evaluated": 11021
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.02,
+                "Moderate": 20.03,
+                "High": 6.94
+            },
+            "total_evaluated": 10976
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 54.0,
+                "High": 43.7,
+                "Low": 2.3
+            },
+            "total_evaluated": 14998
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 72.4,
+                "Mild": 20.4,
+                "High": 5.8,
+                "Severe": 1.3
+            },
+            "total_evaluated": 14785
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 66.9,
+                "Compatible with mild fatty liver": 33.1
+            },
+            "total_evaluated": 136
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 95.6,
+                "Moderate risk": 2.9,
+                "High risk": 1.5
+            },
+            "total_evaluated": 136
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 75.0,
+                "Mild risk": 22.8,
+                "High risk": 2.2
+            },
+            "total_evaluated": 136
+        }
+    },
+    "Quebradillas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 3.2,
+                "Toxicity": 0.8
+            },
+            "total_evaluated": 529
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.71,
+                "Moderate": 17.98,
+                "High": 11.32
+            },
+            "total_evaluated": 6114
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 61.19,
+                "Moderate": 22.0,
+                "High": 16.81
+            },
+            "total_evaluated": 6114
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.47,
+                "Moderate": 18.39,
+                "High": 7.14
+            },
+            "total_evaluated": 6064
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 56.5,
+                "High": 39.7,
+                "Low": 3.8
+            },
+            "total_evaluated": 18298
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 63.6,
+                "Mild": 24.1,
+                "High": 8.6,
+                "Severe": 3.7
+            },
+            "total_evaluated": 17971
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 53.5,
+                "Compatible with mild fatty liver": 46.5
+            },
+            "total_evaluated": 43
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.0,
+                "High risk": 4.7,
+                "Moderate risk": 2.3
+            },
+            "total_evaluated": 43
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 76.7,
+                "Mild risk": 16.3,
+                "High risk": 7.0
+            },
+            "total_evaluated": 43
+        }
+    },
+    "Lajas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.9,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 350
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 65.8,
+                "Moderate": 22.37,
+                "High": 11.82
+            },
+            "total_evaluated": 3053
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.32,
+                "Moderate": 23.52,
+                "High": 17.16
+            },
+            "total_evaluated": 3053
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.01,
+                "Moderate": 22.44,
+                "High": 7.55
+            },
+            "total_evaluated": 3061
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 59.4,
+                "High": 37.0,
+                "Low": 3.6
+            },
+            "total_evaluated": 5401
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 57.6,
+                "Mild": 30.1,
+                "High": 10.9,
+                "Severe": 1.4
+            },
+            "total_evaluated": 5290
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 61.4,
+                "Suggests fibrosis/active hepatitis": 38.6
+            },
+            "total_evaluated": 44
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 90.9,
+                "High risk": 6.8,
+                "Moderate risk": 2.3
+            },
+            "total_evaluated": 44
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 47.7,
+                "Mild risk": 38.6,
+                "High risk": 13.6
+            },
+            "total_evaluated": 44
+        }
+    },
+    "Caguas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.4,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 1341
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.32,
+                "Moderate": 20.67,
+                "High": 11.01
+            },
+            "total_evaluated": 146904
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.53,
+                "Moderate": 24.96,
+                "High": 16.51
+            },
+            "total_evaluated": 146904
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.64,
+                "Moderate": 20.8,
+                "High": 6.56
+            },
+            "total_evaluated": 144682
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 57.3,
+                "High": 40.6,
+                "Low": 2.1
+            },
+            "total_evaluated": 188963
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 56.4,
+                "Mild": 33.3,
+                "High": 8.8,
+                "Severe": 1.5
+            },
+            "total_evaluated": 184628
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 53.2,
+                "Compatible with mild fatty liver": 46.8
+            },
+            "total_evaluated": 301
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.4,
+                "Moderate risk": 4.3,
+                "High risk": 3.3
+            },
+            "total_evaluated": 301
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 65.4,
+                "Mild risk": 29.9,
+                "High risk": 4.7
+            },
+            "total_evaluated": 301
+        }
+    },
+    "Isabela": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.4,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 2589
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 73.72,
+                "Moderate": 16.89,
+                "High": 9.39
+            },
+            "total_evaluated": 53065
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.64,
+                "Moderate": 22.98,
+                "High": 16.39
+            },
+            "total_evaluated": 53065
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 77.11,
+                "Moderate": 17.59,
+                "High": 5.3
+            },
+            "total_evaluated": 52659
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 61.4,
+                "High": 35.1,
+                "Low": 3.5
+            },
+            "total_evaluated": 78895
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 56.6,
+                "Mild": 30.6,
+                "High": 10.9,
+                "Severe": 2.0
+            },
+            "total_evaluated": 77039
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 62.7,
+                "Suggests fibrosis/active hepatitis": 37.3
+            },
+            "total_evaluated": 824
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 94.3,
+                "Moderate risk": 4.5,
+                "High risk": 1.2
+            },
+            "total_evaluated": 824
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 72.2,
+                "Mild risk": 24.9,
+                "High risk": 2.9
+            },
+            "total_evaluated": 824
+        }
+    },
+    "Arecibo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.3,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 3427
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 66.21,
+                "Moderate": 20.44,
+                "High": 13.35
+            },
+            "total_evaluated": 122518
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.61,
+                "Moderate": 23.64,
+                "High": 17.75
+            },
+            "total_evaluated": 122518
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 69.74,
+                "Moderate": 21.58,
+                "High": 8.68
+            },
+            "total_evaluated": 121902
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 60.7,
+                "High": 35.3,
+                "Low": 4.0
+            },
+            "total_evaluated": 220419
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 58.2,
+                "Mild": 30.2,
+                "High": 9.4,
+                "Severe": 2.3
+            },
+            "total_evaluated": 215538
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 59.0,
+                "Compatible with mild fatty liver": 41.0
+            },
+            "total_evaluated": 1010
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.2,
+                "Moderate risk": 5.5,
+                "High risk": 2.3
+            },
+            "total_evaluated": 1010
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 62.2,
+                "Mild risk": 31.9,
+                "High risk": 5.9
+            },
+            "total_evaluated": 1010
+        }
+    },
+    "Cayey": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 13.4,
+                "Toxicity": 0.8
+            },
+            "total_evaluated": 11095
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 74.7,
+                "Moderate": 16.2,
+                "High": 9.1
+            },
+            "total_evaluated": 79256
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 64.46,
+                "Moderate": 21.29,
+                "High": 14.25
+            },
+            "total_evaluated": 79256
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 78.39,
+                "Moderate": 16.53,
+                "High": 5.08
+            },
+            "total_evaluated": 78308
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 55.4,
+                "High": 41.8,
+                "Low": 2.7
+            },
+            "total_evaluated": 97240
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 48.2,
+                "Mild": 37.2,
+                "High": 12.8,
+                "Severe": 1.9
+            },
+            "total_evaluated": 94667
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 61.5,
+                "Suggests fibrosis/active hepatitis": 38.5
+            },
+            "total_evaluated": 941
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 90.1,
+                "Moderate risk": 7.7,
+                "High risk": 2.2
+            },
+            "total_evaluated": 941
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 53.6,
+                "Mild risk": 38.3,
+                "High risk": 8.2
+            },
+            "total_evaluated": 941
+        }
+    },
+    "Lares": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 6.4,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 535
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.42,
+                "Moderate": 19.07,
+                "High": 11.51
+            },
+            "total_evaluated": 37279
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.13,
+                "Moderate": 23.54,
+                "High": 17.33
+            },
+            "total_evaluated": 37279
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.11,
+                "Moderate": 20.22,
+                "High": 6.68
+            },
+            "total_evaluated": 37222
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 58.3,
+                "High": 38.2,
+                "Low": 3.5
+            },
+            "total_evaluated": 61258
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 61.9,
+                "Mild": 27.2,
+                "High": 8.6,
+                "Severe": 2.3
+            },
+            "total_evaluated": 60018
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 70.2,
+                "Suggests fibrosis/active hepatitis": 29.8
+            },
+            "total_evaluated": 366
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.4,
+                "Moderate risk": 5.2,
+                "High risk": 1.4
+            },
+            "total_evaluated": 366
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 76.0,
+                "Mild risk": 21.0,
+                "High risk": 3.0
+            },
+            "total_evaluated": 366
+        }
+    },
+    "Bayamón": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.5,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 27236
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.21,
+                "Moderate": 18.45,
+                "High": 10.35
+            },
+            "total_evaluated": 337749
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 61.36,
+                "Moderate": 23.11,
+                "High": 15.53
+            },
+            "total_evaluated": 337749
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.97,
+                "Moderate": 18.75,
+                "High": 6.29
+            },
+            "total_evaluated": 335752
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 53.6,
+                "High": 44.3,
+                "Low": 2.1
+            },
+            "total_evaluated": 438689
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 60.1,
+                "Mild": 29.2,
+                "High": 9.0,
+                "Severe": 1.6
+            },
+            "total_evaluated": 429212
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 55.8,
+                "Compatible with mild fatty liver": 44.2
+            },
+            "total_evaluated": 3181
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.9,
+                "Moderate risk": 5.4,
+                "High risk": 1.7
+            },
+            "total_evaluated": 3181
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 61.8,
+                "Mild risk": 31.6,
+                "High risk": 6.6
+            },
+            "total_evaluated": 3181
+        }
+    },
+    "Vega Alta": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 13.0,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 2369
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 66.83,
+                "Moderate": 20.8,
+                "High": 12.37
+            },
+            "total_evaluated": 28212
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 55.86,
+                "Moderate": 24.88,
+                "High": 19.26
+            },
+            "total_evaluated": 28212
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 68.71,
+                "Moderate": 22.67,
+                "High": 8.62
+            },
+            "total_evaluated": 28779
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 62.0,
+                "High": 34.4,
+                "Low": 3.7
+            },
+            "total_evaluated": 38584
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 66.7,
+                "Mild": 26.3,
+                "High": 5.9,
+                "Severe": 1.1
+            },
+            "total_evaluated": 37852
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 50.8,
+                "Compatible with mild fatty liver": 49.2
+            },
+            "total_evaluated": 185
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 91.4,
+                "Moderate risk": 7.6,
+                "High risk": 1.1
+            },
+            "total_evaluated": 185
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 72.4,
+                "Mild risk": 23.2,
+                "High risk": 4.3
+            },
+            "total_evaluated": 185
+        }
+    },
+    "San Sebastián": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.0,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 987
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 64.03,
+                "Moderate": 21.65,
+                "High": 14.32
+            },
+            "total_evaluated": 20450
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.09,
+                "Moderate": 24.29,
+                "High": 19.61
+            },
+            "total_evaluated": 20450
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 67.75,
+                "Moderate": 23.25,
+                "High": 9.0
+            },
+            "total_evaluated": 20399
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 58.1,
+                "High": 38.9,
+                "Low": 3.0
+            },
+            "total_evaluated": 32662
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 61.0,
+                "Mild": 28.0,
+                "High": 9.1,
+                "Severe": 1.9
+            },
+            "total_evaluated": 32002
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 53.9,
+                "Compatible with mild fatty liver": 46.1
+            },
+            "total_evaluated": 141
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 95.0,
+                "Moderate risk": 5.0
+            },
+            "total_evaluated": 141
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 66.7,
+                "Mild risk": 27.7,
+                "High risk": 5.7
+            },
+            "total_evaluated": 141
+        }
+    },
+    "Loíza": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 14.4,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 1490
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.09,
+                "Moderate": 18.43,
+                "High": 10.49
+            },
+            "total_evaluated": 9823
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.48,
+                "Moderate": 23.92,
+                "High": 17.6
+            },
+            "total_evaluated": 9823
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.33,
+                "Moderate": 19.85,
+                "High": 6.82
+            },
+            "total_evaluated": 9762
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 59.9,
+                "High": 37.0,
+                "Low": 3.0
+            },
+            "total_evaluated": 13353
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 64.1,
+                "Mild": 27.1,
+                "High": 7.3,
+                "Severe": 1.4
+            },
+            "total_evaluated": 13071
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 54.2,
+                "Suggests fibrosis/active hepatitis": 45.8
+            },
+            "total_evaluated": 120
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 88.3,
+                "Moderate risk": 8.3,
+                "High risk": 3.3
+            },
+            "total_evaluated": 120
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 60.8,
+                "Mild risk": 30.8,
+                "High risk": 8.3
+            },
+            "total_evaluated": 120
+        }
+    },
+    "Hatillo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.1,
+                "Toxicity": 0.6
+            },
+            "total_evaluated": 3121
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 64.27,
+                "Moderate": 22.23,
+                "High": 13.5
+            },
+            "total_evaluated": 34480
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.72,
+                "Moderate": 24.66,
+                "High": 18.62
+            },
+            "total_evaluated": 34480
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 68.18,
+                "Moderate": 23.43,
+                "High": 8.38
+            },
+            "total_evaluated": 34353
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 56.5,
+                "High": 39.8,
+                "Low": 3.7
+            },
+            "total_evaluated": 67202
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 60.1,
+                "Mild": 28.3,
+                "High": 9.2,
+                "Severe": 2.4
+            },
+            "total_evaluated": 65807
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 61.6,
+                "Compatible with mild fatty liver": 38.4
+            },
+            "total_evaluated": 211
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.4,
+                "Moderate risk": 4.7,
+                "High risk": 1.9
+            },
+            "total_evaluated": 211
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 65.9,
+                "Mild risk": 27.5,
+                "High risk": 6.6
+            },
+            "total_evaluated": 211
+        }
+    },
+    "Ponce": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.5,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 7574
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.35,
+                "Moderate": 19.41,
+                "High": 11.24
+            },
+            "total_evaluated": 172176
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.5,
+                "Moderate": 23.41,
+                "High": 16.08
+            },
+            "total_evaluated": 172176
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.62,
+                "Moderate": 19.85,
+                "High": 6.53
+            },
+            "total_evaluated": 170931
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 54.5,
+                "High": 43.0,
+                "Low": 2.6
+            },
+            "total_evaluated": 271493
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 59.0,
+                "Mild": 28.8,
+                "High": 10.0,
+                "Severe": 2.1
+            },
+            "total_evaluated": 265709
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 51.7,
+                "Suggests fibrosis/active hepatitis": 48.3
+            },
+            "total_evaluated": 1527
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 90.8,
+                "Moderate risk": 6.2,
+                "High risk": 2.9
+            },
+            "total_evaluated": 1527
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 60.6,
+                "Mild risk": 32.4,
+                "High risk": 7.0
+            },
+            "total_evaluated": 1527
+        }
+    },
+    "Guaynabo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.8,
+                "Toxicity": 1.2
+            },
+            "total_evaluated": 7043
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 73.46,
+                "Moderate": 17.61,
+                "High": 8.93
+            },
+            "total_evaluated": 152619
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.85,
+                "Moderate": 24.84,
+                "High": 16.3
+            },
+            "total_evaluated": 152619
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 76.19,
+                "Moderate": 18.31,
+                "High": 5.5
+            },
+            "total_evaluated": 152125
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 54.3,
+                "High": 43.5,
+                "Low": 2.2
+            },
+            "total_evaluated": 210938
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 59.9,
+                "Mild": 30.9,
+                "High": 7.7,
+                "Severe": 1.5
+            },
+            "total_evaluated": 206204
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 53.5,
+                "Suggests fibrosis/active hepatitis": 46.5
+            },
+            "total_evaluated": 600
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.7,
+                "Moderate risk": 4.0,
+                "High risk": 3.3
+            },
+            "total_evaluated": 600
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 70.2,
+                "Mild risk": 22.8,
+                "High risk": 7.0
+            },
+            "total_evaluated": 600
+        }
+    },
+    "Morovis": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.5,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 763
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.48,
+                "Moderate": 19.42,
+                "High": 12.11
+            },
+            "total_evaluated": 28330
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.39,
+                "Moderate": 23.74,
+                "High": 17.87
+            },
+            "total_evaluated": 28330
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.09,
+                "Moderate": 21.08,
+                "High": 7.82
+            },
+            "total_evaluated": 25134
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 58.1,
+                "High": 38.6,
+                "Low": 3.3
+            },
+            "total_evaluated": 36218
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 73.0,
+                "Mild": 21.6,
+                "High": 4.4,
+                "Severe": 1.0
+            },
+            "total_evaluated": 35621
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 57.8,
+                "Suggests fibrosis/active hepatitis": 42.2
+            },
+            "total_evaluated": 180
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.9,
+                "Moderate risk": 5.6,
+                "High risk": 0.6
+            },
+            "total_evaluated": 180
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 81.1,
+                "Mild risk": 17.8,
+                "High risk": 1.1
+            },
+            "total_evaluated": 180
+        }
+    },
+    "Mayagüez": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.9,
+                "Toxicity": 1.1
+            },
+            "total_evaluated": 5083
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.43,
+                "Moderate": 20.38,
+                "High": 12.19
+            },
+            "total_evaluated": 37895
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.01,
+                "Moderate": 24.66,
+                "High": 18.33
+            },
+            "total_evaluated": 37895
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.68,
+                "Moderate": 21.16,
+                "High": 7.16
+            },
+            "total_evaluated": 37483
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 56.6,
+                "High": 40.1,
+                "Low": 3.3
+            },
+            "total_evaluated": 63398
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 58.5,
+                "Mild": 29.9,
+                "High": 9.6,
+                "Severe": 2.0
+            },
+            "total_evaluated": 62062
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 57.4,
+                "Compatible with mild fatty liver": 42.6
+            },
+            "total_evaluated": 477
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.5,
+                "Moderate risk": 5.9,
+                "High risk": 1.7
+            },
+            "total_evaluated": 477
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 60.4,
+                "Mild risk": 31.9,
+                "High risk": 7.8
+            },
+            "total_evaluated": 477
+        }
+    },
+    "Santa Isabel": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.4,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 1332
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.67,
+                "Moderate": 19.39,
+                "High": 9.93
+            },
+            "total_evaluated": 37568
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 61.0,
+                "Moderate": 24.03,
+                "High": 14.96
+            },
+            "total_evaluated": 37568
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.24,
+                "Moderate": 19.4,
+                "High": 5.36
+            },
+            "total_evaluated": 37099
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 55.9,
+                "High": 41.9,
+                "Low": 2.2
+            },
+            "total_evaluated": 49751
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 65.9,
+                "Mild": 24.7,
+                "High": 7.8,
+                "Severe": 1.6
+            },
+            "total_evaluated": 48867
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 59.0,
+                "Suggests fibrosis/active hepatitis": 41.0
+            },
+            "total_evaluated": 1009
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.6,
+                "Moderate risk": 5.0,
+                "High risk": 2.5
+            },
+            "total_evaluated": 1009
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 76.8,
+                "Mild risk": 19.4,
+                "High risk": 3.8
+            },
+            "total_evaluated": 1009
+        }
+    },
+    "Utuado": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.7,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 298
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 60.33,
+                "Moderate": 23.75,
+                "High": 15.92
+            },
+            "total_evaluated": 26618
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 55.32,
+                "Moderate": 25.51,
+                "High": 19.17
+            },
+            "total_evaluated": 26618
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 64.46,
+                "Moderate": 25.45,
+                "High": 10.09
+            },
+            "total_evaluated": 26523
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 60.4,
+                "High": 34.9,
+                "Low": 4.7
+            },
+            "total_evaluated": 46462
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 54.9,
+                "Mild": 31.7,
+                "High": 10.8,
+                "Severe": 2.6
+            },
+            "total_evaluated": 45399
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 56.9,
+                "Suggests fibrosis/active hepatitis": 43.1
+            },
+            "total_evaluated": 367
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 90.2,
+                "Moderate risk": 8.4,
+                "High risk": 1.4
+            },
+            "total_evaluated": 367
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 64.9,
+                "Mild risk": 29.4,
+                "High risk": 5.7
+            },
+            "total_evaluated": 367
+        }
+    },
+    "Coamo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.0,
+                "Toxicity": 1.1
+            },
+            "total_evaluated": 914
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.93,
+                "Moderate": 19.4,
+                "High": 10.67
+            },
+            "total_evaluated": 61764
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.23,
+                "Moderate": 23.9,
+                "High": 16.87
+            },
+            "total_evaluated": 61764
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.77,
+                "Moderate": 19.52,
+                "High": 5.72
+            },
+            "total_evaluated": 61329
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 56.9,
+                "High": 40.7,
+                "Low": 2.4
+            },
+            "total_evaluated": 82911
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 62.4,
+                "Mild": 26.5,
+                "High": 9.6,
+                "Severe": 1.5
+            },
+            "total_evaluated": 81287
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 72.2,
+                "Suggests fibrosis/active hepatitis": 27.8
+            },
+            "total_evaluated": 1062
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 94.5,
+                "Moderate risk": 4.2,
+                "High risk": 1.2
+            },
+            "total_evaluated": 1062
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 78.4,
+                "Mild risk": 18.6,
+                "High risk": 2.9
+            },
+            "total_evaluated": 1062
+        }
+    },
+    "San Juan": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 6.4,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 15480
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.73,
+                "Moderate": 18.41,
+                "High": 9.86
+            },
+            "total_evaluated": 414798
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.13,
+                "Moderate": 24.42,
+                "High": 16.45
+            },
+            "total_evaluated": 414798
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.66,
+                "Moderate": 19.2,
+                "High": 6.14
+            },
+            "total_evaluated": 414586
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 57.0,
+                "High": 40.3,
+                "Low": 2.7
+            },
+            "total_evaluated": 555613
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 58.9,
+                "Mild": 31.1,
+                "High": 8.5,
+                "Severe": 1.5
+            },
+            "total_evaluated": 543096
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 59.5,
+                "Compatible with mild fatty liver": 40.5
+            },
+            "total_evaluated": 3077
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 90.9,
+                "Moderate risk": 6.8,
+                "High risk": 2.4
+            },
+            "total_evaluated": 3077
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 59.9,
+                "Mild risk": 30.5,
+                "High risk": 9.6
+            },
+            "total_evaluated": 3077
+        }
+    },
+    "Rio Grande": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.5,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 241
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 72.87,
+                "Moderate": 18.19,
+                "High": 8.94
+            },
+            "total_evaluated": 2160
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.69,
+                "Moderate": 23.15,
+                "High": 16.16
+            },
+            "total_evaluated": 2160
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 76.57,
+                "Moderate": 17.84,
+                "High": 5.59
+            },
+            "total_evaluated": 2130
+        }
+    },
+    "Ceiba": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.8,
+                "Toxicity": 0.8
+            },
+            "total_evaluated": 1264
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.78,
+                "Moderate": 19.26,
+                "High": 12.96
+            },
+            "total_evaluated": 22434
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.13,
+                "Moderate": 22.83,
+                "High": 17.04
+            },
+            "total_evaluated": 22434
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.2,
+                "Moderate": 19.85,
+                "High": 7.95
+            },
+            "total_evaluated": 22045
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 55.8,
+                "High": 41.8,
+                "Low": 2.4
+            },
+            "total_evaluated": 29307
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 63.3,
+                "Mild": 25.9,
+                "High": 8.8,
+                "Severe": 2.0
+            },
+            "total_evaluated": 28657
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 66.9,
+                "Compatible with mild fatty liver": 33.1
+            },
+            "total_evaluated": 625
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 95.5,
+                "Moderate risk": 2.6,
+                "High risk": 1.9
+            },
+            "total_evaluated": 625
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 68.3,
+                "Mild risk": 25.8,
+                "High risk": 5.9
+            },
+            "total_evaluated": 625
+        }
+    },
+    "Culebra": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.3,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 47
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.9,
+                "Moderate": 19.35,
+                "High": 9.75
+            },
+            "total_evaluated": 708
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 54.1,
+                "Moderate": 24.86,
+                "High": 21.05
+            },
+            "total_evaluated": 708
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.61,
+                "Moderate": 21.06,
+                "High": 6.33
+            },
+            "total_evaluated": 679
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 55.3,
+                "High": 41.3,
+                "Low": 3.4
+            },
+            "total_evaluated": 999
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 67.7,
+                "Mild": 25.6,
+                "High": 6.8,
+                "Severe": 0.0
+            },
+            "total_evaluated": 990
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 50.0,
+                "Compatible with mild fatty liver": 50.0
+            },
+            "total_evaluated": 6
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 100.0
+            },
+            "total_evaluated": 6
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 66.7,
+                "Mild risk": 33.3
+            },
+            "total_evaluated": 6
+        }
+    },
+    "San Germán": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.2,
+                "Toxicity": 1.0
+            },
+            "total_evaluated": 1131
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.46,
+                "Moderate": 20.65,
+                "High": 10.88
+            },
+            "total_evaluated": 8682
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.97,
+                "Moderate": 24.45,
+                "High": 16.57
+            },
+            "total_evaluated": 8682
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.48,
+                "Moderate": 20.91,
+                "High": 6.6
+            },
+            "total_evaluated": 9660
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 60.1,
+                "High": 36.8,
+                "Low": 3.1
+            },
+            "total_evaluated": 13260
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 53.4,
+                "Mild": 33.4,
+                "High": 11.1,
+                "Severe": 2.1
+            },
+            "total_evaluated": 12938
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 55.4,
+                "Compatible with mild fatty liver": 44.6
+            },
+            "total_evaluated": 74
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 91.9,
+                "Moderate risk": 8.1
+            },
+            "total_evaluated": 74
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 67.6,
+                "Mild risk": 29.7,
+                "High risk": 2.7
+            },
+            "total_evaluated": 74
+        }
+    },
+    "San Lorenzo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 8.9,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 416
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.55,
+                "Moderate": 18.99,
+                "High": 10.46
+            },
+            "total_evaluated": 38201
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.73,
+                "Moderate": 23.84,
+                "High": 15.43
+            },
+            "total_evaluated": 38201
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.03,
+                "Moderate": 19.01,
+                "High": 5.97
+            },
+            "total_evaluated": 37590
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 57.5,
+                "High": 40.5,
+                "Low": 2.0
+            },
+            "total_evaluated": 51070
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 58.7,
+                "Mild": 31.2,
+                "High": 8.5,
+                "Severe": 1.6
+            },
+            "total_evaluated": 49972
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 59.6,
+                "Compatible with mild fatty liver": 40.4
+            },
+            "total_evaluated": 109
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 95.4,
+                "Moderate risk": 3.7,
+                "High risk": 0.9
+            },
+            "total_evaluated": 109
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 60.6,
+                "Mild risk": 35.8,
+                "High risk": 3.7
+            },
+            "total_evaluated": 109
+        }
+    },
+    "Aguas Buenas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.1,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 241
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 64.45,
+                "Moderate": 22.35,
+                "High": 13.2
+            },
+            "total_evaluated": 22007
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.23,
+                "Moderate": 25.57,
+                "High": 18.2
+            },
+            "total_evaluated": 22007
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.1,
+                "Moderate": 22.71,
+                "High": 7.19
+            },
+            "total_evaluated": 14548
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 60.0,
+                "High": 37.4,
+                "Low": 2.7
+            },
+            "total_evaluated": 28461
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 58.2,
+                "Mild": 31.8,
+                "High": 8.0,
+                "Severe": 2.0
+            },
+            "total_evaluated": 27870
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 55.9,
+                "Suggests fibrosis/active hepatitis": 44.1
+            },
+            "total_evaluated": 102
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 87.3,
+                "Moderate risk": 9.8,
+                "High risk": 2.9
+            },
+            "total_evaluated": 102
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 65.7,
+                "Mild risk": 27.5,
+                "High risk": 6.9
+            },
+            "total_evaluated": 102
+        }
+    },
+    "Dorado": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.4,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 2048
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.01,
+                "Moderate": 20.84,
+                "High": 11.15
+            },
+            "total_evaluated": 44858
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.11,
+                "Moderate": 25.39,
+                "High": 18.5
+            },
+            "total_evaluated": 44858
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.32,
+                "Moderate": 21.62,
+                "High": 7.06
+            },
+            "total_evaluated": 42146
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 59.4,
+                "High": 38.1,
+                "Low": 2.5
+            },
+            "total_evaluated": 60695
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 65.1,
+                "Mild": 27.9,
+                "High": 6.1,
+                "Severe": 1.0
+            },
+            "total_evaluated": 59493
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 55.7,
+                "Suggests fibrosis/active hepatitis": 44.3
+            },
+            "total_evaluated": 210
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 96.2,
+                "Moderate risk": 2.9,
+                "High risk": 1.0
+            },
+            "total_evaluated": 210
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 74.3,
+                "Mild risk": 22.9,
+                "High risk": 2.9
+            },
+            "total_evaluated": 210
+        }
+    },
+    "Guayanilla": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 16.8,
+                "Toxicity": 0.6
+            },
+            "total_evaluated": 2289
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 66.27,
+                "Moderate": 21.36,
+                "High": 12.37
+            },
+            "total_evaluated": 36675
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.57,
+                "Moderate": 25.31,
+                "High": 17.13
+            },
+            "total_evaluated": 36675
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.92,
+                "Moderate": 21.42,
+                "High": 6.66
+            },
+            "total_evaluated": 36396
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 55.7,
+                "High": 41.7,
+                "Low": 2.6
+            },
+            "total_evaluated": 54587
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 60.3,
+                "Mild": 27.7,
+                "High": 9.6,
+                "Severe": 2.4
+            },
+            "total_evaluated": 53522
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 55.2,
+                "Compatible with mild fatty liver": 44.8
+            },
+            "total_evaluated": 366
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.4,
+                "Moderate risk": 4.9,
+                "High risk": 1.6
+            },
+            "total_evaluated": 366
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 59.8,
+                "Mild risk": 34.7,
+                "High risk": 5.5
+            },
+            "total_evaluated": 366
+        }
+    },
+    "Moca": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.3,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 1529
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 60.38,
+                "Moderate": 21.45,
+                "High": 18.17
+            },
+            "total_evaluated": 50889
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 52.68,
+                "Moderate": 25.69,
+                "High": 21.63
+            },
+            "total_evaluated": 50889
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 62.99,
+                "Moderate": 23.65,
+                "High": 13.36
+            },
+            "total_evaluated": 50782
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 59.8,
+                "High": 37.0,
+                "Low": 3.2
+            },
+            "total_evaluated": 66379
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 59.2,
+                "Mild": 29.7,
+                "High": 9.2,
+                "Severe": 2.0
+            },
+            "total_evaluated": 64920
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 50.4,
+                "Suggests fibrosis/active hepatitis": 49.6
+            },
+            "total_evaluated": 369
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.2,
+                "Moderate risk": 4.9,
+                "High risk": 1.9
+            },
+            "total_evaluated": 369
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 64.5,
+                "Mild risk": 29.8,
+                "High risk": 5.7
+            },
+            "total_evaluated": 369
+        }
+    },
+    "Juncos": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.2,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 596
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.95,
+                "Moderate": 19.19,
+                "High": 10.86
+            },
+            "total_evaluated": 44809
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.56,
+                "Moderate": 23.58,
+                "High": 16.86
+            },
+            "total_evaluated": 44809
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.5,
+                "Moderate": 19.93,
+                "High": 6.58
+            },
+            "total_evaluated": 43412
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 57.9,
+                "High": 39.3,
+                "Low": 2.8
+            },
+            "total_evaluated": 55526
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 58.3,
+                "Mild": 30.2,
+                "High": 9.6,
+                "Severe": 1.9
+            },
+            "total_evaluated": 54344
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 80.7,
+                "Suggests fibrosis/active hepatitis": 19.3
+            },
+            "total_evaluated": 218
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 94.5,
+                "Moderate risk": 3.2,
+                "High risk": 2.3
+            },
+            "total_evaluated": 218
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 72.5,
+                "Mild risk": 23.9,
+                "High risk": 3.7
+            },
+            "total_evaluated": 218
+        }
+    },
+    "Toa Alta": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.7,
+                "Toxicity": 0.3
+            },
+            "total_evaluated": 4968
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.5,
+                "Moderate": 19.87,
+                "High": 11.63
+            },
+            "total_evaluated": 80742
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.1,
+                "Moderate": 24.57,
+                "High": 17.33
+            },
+            "total_evaluated": 80742
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.46,
+                "Moderate": 21.17,
+                "High": 7.36
+            },
+            "total_evaluated": 80417
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 57.4,
+                "High": 40.2,
+                "Low": 2.4
+            },
+            "total_evaluated": 106421
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 69.1,
+                "Mild": 25.0,
+                "High": 5.0,
+                "Severe": 0.9
+            },
+            "total_evaluated": 104491
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 55.7,
+                "Compatible with mild fatty liver": 44.3
+            },
+            "total_evaluated": 680
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.6,
+                "Moderate risk": 5.9,
+                "High risk": 1.5
+            },
+            "total_evaluated": 680
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 73.7,
+                "Mild risk": 22.8,
+                "High risk": 3.5
+            },
+            "total_evaluated": 680
+        }
+    },
+    "Trujillo Alto": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 8.7,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 2009
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.64,
+                "Moderate": 18.81,
+                "High": 10.55
+            },
+            "total_evaluated": 58163
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.1,
+                "Moderate": 24.3,
+                "High": 16.6
+            },
+            "total_evaluated": 58163
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.73,
+                "Moderate": 19.78,
+                "High": 6.49
+            },
+            "total_evaluated": 58001
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 59.8,
+                "High": 36.9,
+                "Low": 3.3
+            },
+            "total_evaluated": 78744
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 61.3,
+                "Mild": 29.6,
+                "High": 7.6,
+                "Severe": 1.6
+            },
+            "total_evaluated": 76955
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 60.8,
+                "Compatible with mild fatty liver": 39.2
+            },
+            "total_evaluated": 857
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 94.4,
+                "Moderate risk": 4.4,
+                "High risk": 1.2
+            },
+            "total_evaluated": 857
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 66.5,
+                "Mild risk": 28.2,
+                "High risk": 5.3
+            },
+            "total_evaluated": 857
+        }
+    },
+    "Canóvanas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 12.3,
+                "Toxicity": 0.3
+            },
+            "total_evaluated": 5410
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.35,
+                "Moderate": 19.63,
+                "High": 11.02
+            },
+            "total_evaluated": 50565
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.57,
+                "Moderate": 24.42,
+                "High": 17.0
+            },
+            "total_evaluated": 50565
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.06,
+                "Moderate": 20.32,
+                "High": 6.62
+            },
+            "total_evaluated": 50072
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 55.7,
+                "High": 41.8,
+                "Low": 2.5
+            },
+            "total_evaluated": 66578
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 64.4,
+                "Mild": 27.2,
+                "High": 7.0,
+                "Severe": 1.4
+            },
+            "total_evaluated": 65121
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 55.1,
+                "Suggests fibrosis/active hepatitis": 44.9
+            },
+            "total_evaluated": 835
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.0,
+                "Moderate risk": 6.5,
+                "High risk": 1.6
+            },
+            "total_evaluated": 835
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 65.0,
+                "Mild risk": 28.3,
+                "High risk": 6.7
+            },
+            "total_evaluated": 835
+        }
+    },
+    "Peñuelas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.7,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 643
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.85,
+                "Moderate": 20.38,
+                "High": 10.77
+            },
+            "total_evaluated": 49447
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.66,
+                "Moderate": 23.83,
+                "High": 17.51
+            },
+            "total_evaluated": 49447
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.53,
+                "Moderate": 20.93,
+                "High": 6.55
+            },
+            "total_evaluated": 48968
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 61.8,
+                "High": 35.3,
+                "Low": 2.9
+            },
+            "total_evaluated": 69827
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 48.6,
+                "Mild": 35.7,
+                "High": 13.2,
+                "Severe": 2.4
+            },
+            "total_evaluated": 68159
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 77.2,
+                "Suggests fibrosis/active hepatitis": 22.8
+            },
+            "total_evaluated": 526
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 90.3,
+                "Moderate risk": 7.8,
+                "High risk": 1.9
+            },
+            "total_evaluated": 526
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 61.6,
+                "Mild risk": 32.9,
+                "High risk": 5.5
+            },
+            "total_evaluated": 526
+        }
+    },
+    "Salinas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 12.1,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 7182
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.34,
+                "Moderate": 20.32,
+                "High": 12.34
+            },
+            "total_evaluated": 59311
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.31,
+                "Moderate": 23.21,
+                "High": 16.48
+            },
+            "total_evaluated": 59311
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.86,
+                "Moderate": 20.52,
+                "High": 6.62
+            },
+            "total_evaluated": 57818
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 57.0,
+                "High": 40.3,
+                "Low": 2.7
+            },
+            "total_evaluated": 93742
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 57.2,
+                "Mild": 29.1,
+                "High": 11.8,
+                "Severe": 1.9
+            },
+            "total_evaluated": 91695
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 52.2,
+                "Compatible with mild fatty liver": 47.8
+            },
+            "total_evaluated": 1142
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 94.8,
+                "Moderate risk": 3.6,
+                "High risk": 1.6
+            },
+            "total_evaluated": 1142
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 66.1,
+                "Mild risk": 29.2,
+                "High risk": 4.6
+            },
+            "total_evaluated": 1142
+        }
+    },
+    "Guayama": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.8,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 421
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.71,
+                "Moderate": 18.3,
+                "High": 9.99
+            },
+            "total_evaluated": 40997
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.32,
+                "Moderate": 22.93,
+                "High": 14.75
+            },
+            "total_evaluated": 40997
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.96,
+                "Moderate": 18.55,
+                "High": 5.49
+            },
+            "total_evaluated": 40775
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 55.4,
+                "High": 42.3,
+                "Low": 2.3
+            },
+            "total_evaluated": 59569
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 66.5,
+                "Mild": 24.3,
+                "High": 7.7,
+                "Severe": 1.6
+            },
+            "total_evaluated": 58512
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 51.9,
+                "Compatible with mild fatty liver": 48.1
+            },
+            "total_evaluated": 453
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.5,
+                "Moderate risk": 5.7,
+                "High risk": 1.8
+            },
+            "total_evaluated": 453
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 67.1,
+                "Mild risk": 27.6,
+                "High risk": 5.3
+            },
+            "total_evaluated": 453
+        }
+    },
+    "Río Grande": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 12.7,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 13869
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.91,
+                "Moderate": 18.45,
+                "High": 10.64
+            },
+            "total_evaluated": 111811
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.23,
+                "Moderate": 22.3,
+                "High": 15.47
+            },
+            "total_evaluated": 111811
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.65,
+                "Moderate": 18.92,
+                "High": 6.43
+            },
+            "total_evaluated": 110579
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 54.3,
+                "High": 43.3,
+                "Low": 2.4
+            },
+            "total_evaluated": 150733
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 56.7,
+                "Mild": 30.8,
+                "High": 10.2,
+                "Severe": 2.3
+            },
+            "total_evaluated": 147198
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 59.3,
+                "Suggests fibrosis/active hepatitis": 40.7
+            },
+            "total_evaluated": 2375
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 91.2,
+                "Moderate risk": 7.1,
+                "High risk": 1.6
+            },
+            "total_evaluated": 2375
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 64.1,
+                "Mild risk": 28.9,
+                "High risk": 7.0
+            },
+            "total_evaluated": 2375
+        }
+    },
+    "Patillas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.7,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 145
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 72.72,
+                "Moderate": 18.07,
+                "High": 9.2
+            },
+            "total_evaluated": 25273
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.75,
+                "Moderate": 23.25,
+                "High": 14.0
+            },
+            "total_evaluated": 25273
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 76.81,
+                "Moderate": 18.47,
+                "High": 4.72
+            },
+            "total_evaluated": 25208
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 53.8,
+                "High": 44.1,
+                "Low": 2.1
+            },
+            "total_evaluated": 33153
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 71.4,
+                "Mild": 20.6,
+                "High": 6.3,
+                "Severe": 1.7
+            },
+            "total_evaluated": 32642
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 67.6,
+                "Suggests fibrosis/active hepatitis": 32.4
+            },
+            "total_evaluated": 37
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 94.6,
+                "Moderate risk": 5.4
+            },
+            "total_evaluated": 37
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 83.8,
+                "Mild risk": 16.2
+            },
+            "total_evaluated": 37
+        }
+    },
+    "Hormigueros": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.5,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 786
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.61,
+                "Moderate": 19.82,
+                "High": 10.57
+            },
+            "total_evaluated": 11266
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.21,
+                "Moderate": 23.21,
+                "High": 16.58
+            },
+            "total_evaluated": 11266
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.97,
+                "Moderate": 19.79,
+                "High": 6.24
+            },
+            "total_evaluated": 11145
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 58.5,
+                "High": 38.7,
+                "Low": 2.8
+            },
+            "total_evaluated": 16490
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 63.8,
+                "Mild": 26.1,
+                "High": 8.4,
+                "Severe": 1.7
+            },
+            "total_evaluated": 16196
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 59.4,
+                "Compatible with mild fatty liver": 40.6
+            },
+            "total_evaluated": 101
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.1,
+                "Moderate risk": 6.9,
+                "High risk": 1.0
+            },
+            "total_evaluated": 101
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 66.3,
+                "Mild risk": 25.7,
+                "High risk": 7.9
+            },
+            "total_evaluated": 101
+        }
+    },
+    "Ciales": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.1,
+                "Toxicity": 1.0
+            },
+            "total_evaluated": 393
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.52,
+                "Moderate": 20.28,
+                "High": 12.2
+            },
+            "total_evaluated": 19946
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.67,
+                "Moderate": 23.87,
+                "High": 17.46
+            },
+            "total_evaluated": 19946
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.38,
+                "Moderate": 21.24,
+                "High": 7.38
+            },
+            "total_evaluated": 19837
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 57.2,
+                "High": 40.4,
+                "Low": 2.4
+            },
+            "total_evaluated": 25348
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 60.8,
+                "Mild": 29.5,
+                "High": 8.4,
+                "Severe": 1.3
+            },
+            "total_evaluated": 24830
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 66.5,
+                "Suggests fibrosis/active hepatitis": 33.5
+            },
+            "total_evaluated": 218
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 96.3,
+                "Moderate risk": 2.3,
+                "High risk": 1.4
+            },
+            "total_evaluated": 218
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 62.8,
+                "Mild risk": 33.0,
+                "High risk": 4.1
+            },
+            "total_evaluated": 218
+        }
+    },
+    "Humacao": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.5,
+                "Toxicity": 0.8
+            },
+            "total_evaluated": 2959
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 72.08,
+                "Moderate": 18.21,
+                "High": 9.71
+            },
+            "total_evaluated": 72050
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 61.59,
+                "Moderate": 23.24,
+                "High": 15.17
+            },
+            "total_evaluated": 72050
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.2,
+                "Moderate": 18.89,
+                "High": 5.92
+            },
+            "total_evaluated": 71116
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 56.8,
+                "High": 40.6,
+                "Low": 2.5
+            },
+            "total_evaluated": 89914
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 55.9,
+                "Mild": 32.1,
+                "High": 10.3,
+                "Severe": 1.6
+            },
+            "total_evaluated": 87774
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 68.0,
+                "Suggests fibrosis/active hepatitis": 32.0
+            },
+            "total_evaluated": 394
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.9,
+                "Moderate risk": 5.6,
+                "High risk": 1.5
+            },
+            "total_evaluated": 394
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 68.3,
+                "Mild risk": 26.1,
+                "High risk": 5.6
+            },
+            "total_evaluated": 394
+        }
+    },
+    "Las Marías": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 2.2,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 412
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 66.54,
+                "Moderate": 21.79,
+                "High": 11.68
+            },
+            "total_evaluated": 2038
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 52.5,
+                "Moderate": 28.41,
+                "High": 19.09
+            },
+            "total_evaluated": 2038
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.17,
+                "Moderate": 22.58,
+                "High": 7.25
+            },
+            "total_evaluated": 2028
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 54.4,
+                "High": 43.3,
+                "Low": 2.3
+            },
+            "total_evaluated": 3432
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 70.7,
+                "Mild": 23.0,
+                "High": 4.8,
+                "Severe": 1.4
+            },
+            "total_evaluated": 3377
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 59.0,
+                "Compatible with mild fatty liver": 41.0
+            },
+            "total_evaluated": 39
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.3,
+                "Moderate risk": 7.7
+            },
+            "total_evaluated": 39
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 71.8,
+                "Mild risk": 23.1,
+                "High risk": 5.1
+            },
+            "total_evaluated": 39
+        }
+    },
+    "Naranjito": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 3.5,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 883
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.82,
+                "Moderate": 20.42,
+                "High": 11.76
+            },
+            "total_evaluated": 34893
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.81,
+                "Moderate": 23.12,
+                "High": 16.07
+            },
+            "total_evaluated": 34893
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.11,
+                "Moderate": 21.01,
+                "High": 6.88
+            },
+            "total_evaluated": 34755
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 52.6,
+                "High": 45.4,
+                "Low": 2.0
+            },
+            "total_evaluated": 47026
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 68.5,
+                "Mild": 23.0,
+                "High": 6.8,
+                "Severe": 1.7
+            },
+            "total_evaluated": 46208
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 62.1,
+                "Compatible with mild fatty liver": 37.9
+            },
+            "total_evaluated": 364
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.9,
+                "Moderate risk": 4.4,
+                "High risk": 2.7
+            },
+            "total_evaluated": 364
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 68.1,
+                "Mild risk": 27.2,
+                "High risk": 4.7
+            },
+            "total_evaluated": 364
+        }
+    },
+    "Fajardo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 8.0,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 3884
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 73.74,
+                "Moderate": 17.05,
+                "High": 9.22
+            },
+            "total_evaluated": 60139
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.75,
+                "Moderate": 21.97,
+                "High": 15.29
+            },
+            "total_evaluated": 60139
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 77.25,
+                "Moderate": 17.39,
+                "High": 5.36
+            },
+            "total_evaluated": 58083
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 54.8,
+                "High": 43.1,
+                "Low": 2.1
+            },
+            "total_evaluated": 81613
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 62.6,
+                "Mild": 25.6,
+                "High": 9.7,
+                "Severe": 2.1
+            },
+            "total_evaluated": 79945
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 64.2,
+                "Compatible with mild fatty liver": 35.8
+            },
+            "total_evaluated": 999
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 95.9,
+                "Moderate risk": 2.6,
+                "High risk": 1.5
+            },
+            "total_evaluated": 999
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 76.3,
+                "Mild risk": 20.1,
+                "High risk": 3.6
+            },
+            "total_evaluated": 999
+        }
+    },
+    "Jayuya": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.0,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 2218
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.73,
+                "Moderate": 18.91,
+                "High": 11.36
+            },
+            "total_evaluated": 19378
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 55.69,
+                "Moderate": 24.59,
+                "High": 19.71
+            },
+            "total_evaluated": 19378
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.3,
+                "Moderate": 19.35,
+                "High": 6.35
+            },
+            "total_evaluated": 19294
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 59.5,
+                "High": 37.5,
+                "Low": 3.0
+            },
+            "total_evaluated": 29354
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 59.3,
+                "Mild": 29.8,
+                "High": 9.3,
+                "Severe": 1.5
+            },
+            "total_evaluated": 28752
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 55.6,
+                "Suggests fibrosis/active hepatitis": 44.4
+            },
+            "total_evaluated": 9
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 88.9,
+                "High risk": 11.1
+            },
+            "total_evaluated": 9
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Mild risk": 44.4,
+                "Low risk": 44.4,
+                "High risk": 11.1
+            },
+            "total_evaluated": 9
+        }
+    },
+    "Maunabo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.6,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 119
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.55,
+                "Moderate": 18.69,
+                "High": 9.77
+            },
+            "total_evaluated": 15504
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 63.16,
+                "Moderate": 22.87,
+                "High": 13.98
+            },
+            "total_evaluated": 15504
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.07,
+                "Moderate": 19.19,
+                "High": 5.74
+            },
+            "total_evaluated": 15459
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 55.2,
+                "High": 42.6,
+                "Low": 2.2
+            },
+            "total_evaluated": 18337
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 70.8,
+                "Mild": 21.4,
+                "High": 6.4,
+                "Severe": 1.4
+            },
+            "total_evaluated": 18043
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 66.7,
+                "Suggests fibrosis/active hepatitis": 33.3
+            },
+            "total_evaluated": 12
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 83.3,
+                "Moderate risk": 16.7
+            },
+            "total_evaluated": 12
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 75.0,
+                "Mild risk": 16.7,
+                "High risk": 8.3
+            },
+            "total_evaluated": 12
+        }
+    },
+    "Aibonito": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.0,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 218
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.24,
+                "Moderate": 18.91,
+                "High": 10.85
+            },
+            "total_evaluated": 38999
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.56,
+                "Moderate": 23.41,
+                "High": 17.02
+            },
+            "total_evaluated": 38999
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 78.38,
+                "Moderate": 17.23,
+                "High": 4.39
+            },
+            "total_evaluated": 38120
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "High": 49.8,
+                "Normal": 48.9,
+                "Low": 1.3
+            },
+            "total_evaluated": 46399
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 56.6,
+                "Mild": 30.8,
+                "High": 10.6,
+                "Severe": 2.0
+            },
+            "total_evaluated": 45414
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 86.2,
+                "Suggests fibrosis/active hepatitis": 13.8
+            },
+            "total_evaluated": 806
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 90.4,
+                "Moderate risk": 6.9,
+                "High risk": 2.6
+            },
+            "total_evaluated": 806
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 68.1,
+                "Mild risk": 26.9,
+                "High risk": 5.0
+            },
+            "total_evaluated": 806
+        }
+    },
+    "Sabana Grande": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 13.3,
+                "Toxicity": 1.0
+            },
+            "total_evaluated": 3717
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.24,
+                "Moderate": 20.56,
+                "High": 12.19
+            },
+            "total_evaluated": 32678
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.29,
+                "Moderate": 23.8,
+                "High": 16.91
+            },
+            "total_evaluated": 32678
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.8,
+                "Moderate": 21.16,
+                "High": 7.04
+            },
+            "total_evaluated": 32585
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 57.1,
+                "High": 40.0,
+                "Low": 2.9
+            },
+            "total_evaluated": 42726
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 54.6,
+                "Mild": 30.9,
+                "High": 12.1,
+                "Severe": 2.4
+            },
+            "total_evaluated": 41701
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 66.8,
+                "Suggests fibrosis/active hepatitis": 33.2
+            },
+            "total_evaluated": 385
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.5,
+                "Moderate risk": 5.2,
+                "High risk": 2.3
+            },
+            "total_evaluated": 385
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 49.4,
+                "Mild risk": 43.1,
+                "High risk": 7.5
+            },
+            "total_evaluated": 385
+        }
+    },
+    "Orocovis": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.7,
+                "Toxicity": 0.6
+            },
+            "total_evaluated": 509
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 64.97,
+                "Moderate": 21.49,
+                "High": 13.53
+            },
+            "total_evaluated": 16294
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.81,
+                "Moderate": 24.4,
+                "High": 18.79
+            },
+            "total_evaluated": 16294
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 69.67,
+                "Moderate": 22.15,
+                "High": 8.18
+            },
+            "total_evaluated": 16140
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 54.1,
+                "High": 44.0,
+                "Low": 1.9
+            },
+            "total_evaluated": 18691
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 60.4,
+                "Mild": 30.8,
+                "High": 7.6,
+                "Severe": 1.2
+            },
+            "total_evaluated": 18265
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 72.6,
+                "Suggests fibrosis/active hepatitis": 27.4
+            },
+            "total_evaluated": 285
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 94.0,
+                "Moderate risk": 4.6,
+                "High risk": 1.4
+            },
+            "total_evaluated": 285
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 69.1,
+                "Mild risk": 27.4,
+                "High risk": 3.5
+            },
+            "total_evaluated": 285
+        }
+    },
+    "Manatí": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.1,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 1166
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.33,
+                "Moderate": 19.46,
+                "High": 10.21
+            },
+            "total_evaluated": 45693
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.88,
+                "Moderate": 23.52,
+                "High": 15.6
+            },
+            "total_evaluated": 45693
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.73,
+                "Moderate": 20.2,
+                "High": 6.06
+            },
+            "total_evaluated": 45488
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 60.1,
+                "High": 36.5,
+                "Low": 3.4
+            },
+            "total_evaluated": 59465
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 63.7,
+                "Mild": 28.2,
+                "High": 6.9,
+                "Severe": 1.3
+            },
+            "total_evaluated": 58319
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 50.7,
+                "Suggests fibrosis/active hepatitis": 49.3
+            },
+            "total_evaluated": 365
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.9,
+                "Moderate risk": 5.2,
+                "High risk": 1.9
+            },
+            "total_evaluated": 365
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 72.1,
+                "Mild risk": 24.1,
+                "High risk": 3.8
+            },
+            "total_evaluated": 365
+        }
+    },
+    "Luquillo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 6.9,
+                "Toxicity": 0.6
+            },
+            "total_evaluated": 1601
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.2,
+                "Moderate": 18.24,
+                "High": 10.56
+            },
+            "total_evaluated": 20170
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.55,
+                "Moderate": 23.72,
+                "High": 16.73
+            },
+            "total_evaluated": 20170
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.99,
+                "Moderate": 19.53,
+                "High": 6.48
+            },
+            "total_evaluated": 19868
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 56.8,
+                "High": 40.7,
+                "Low": 2.4
+            },
+            "total_evaluated": 27636
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 64.4,
+                "Mild": 25.2,
+                "High": 8.2,
+                "Severe": 2.2
+            },
+            "total_evaluated": 27107
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 60.9,
+                "Compatible with mild fatty liver": 39.1
+            },
+            "total_evaluated": 427
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.9,
+                "Moderate risk": 4.9,
+                "High risk": 1.2
+            },
+            "total_evaluated": 427
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 81.3,
+                "Mild risk": 16.4,
+                "High risk": 2.3
+            },
+            "total_evaluated": 427
+        }
+    },
+    "Corozal": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.6,
+                "Toxicity": 0.3
+            },
+            "total_evaluated": 693
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.26,
+                "Moderate": 20.14,
+                "High": 12.6
+            },
+            "total_evaluated": 27128
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.53,
+                "Moderate": 24.57,
+                "High": 17.9
+            },
+            "total_evaluated": 27128
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.9,
+                "Moderate": 21.37,
+                "High": 7.72
+            },
+            "total_evaluated": 27006
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 58.2,
+                "High": 38.9,
+                "Low": 2.9
+            },
+            "total_evaluated": 37368
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 70.7,
+                "Mild": 21.8,
+                "High": 6.1,
+                "Severe": 1.4
+            },
+            "total_evaluated": 36703
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 51.6,
+                "Compatible with mild fatty liver": 48.4
+            },
+            "total_evaluated": 186
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.5,
+                "Moderate risk": 4.8,
+                "High risk": 2.7
+            },
+            "total_evaluated": 186
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 76.3,
+                "Mild risk": 17.2,
+                "High risk": 6.5
+            },
+            "total_evaluated": 186
+        }
+    },
+    "Camuy": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.9,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 861
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.39,
+                "Moderate": 19.33,
+                "High": 11.28
+            },
+            "total_evaluated": 22354
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.16,
+                "Moderate": 24.16,
+                "High": 17.68
+            },
+            "total_evaluated": 22354
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.69,
+                "Moderate": 19.88,
+                "High": 6.43
+            },
+            "total_evaluated": 22226
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 58.3,
+                "High": 37.4,
+                "Low": 4.3
+            },
+            "total_evaluated": 46276
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 60.3,
+                "Mild": 28.1,
+                "High": 8.8,
+                "Severe": 2.9
+            },
+            "total_evaluated": 45334
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 68.1,
+                "Compatible with mild fatty liver": 31.9
+            },
+            "total_evaluated": 160
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 94.4,
+                "Moderate risk": 5.0,
+                "High risk": 0.6
+            },
+            "total_evaluated": 160
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 62.5,
+                "Mild risk": 32.5,
+                "High risk": 5.0
+            },
+            "total_evaluated": 160
+        }
+    },
+    "Toa Baja": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 17.6,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 10551
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.91,
+                "Moderate": 18.73,
+                "High": 10.36
+            },
+            "total_evaluated": 106497
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.41,
+                "Moderate": 23.53,
+                "High": 16.06
+            },
+            "total_evaluated": 106497
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 74.28,
+                "Moderate": 19.41,
+                "High": 6.32
+            },
+            "total_evaluated": 106039
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 52.4,
+                "High": 45.5,
+                "Low": 2.1
+            },
+            "total_evaluated": 141875
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 63.2,
+                "Mild": 27.1,
+                "High": 8.0,
+                "Severe": 1.8
+            },
+            "total_evaluated": 138775
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 62.0,
+                "Compatible with mild fatty liver": 38.0
+            },
+            "total_evaluated": 1121
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.1,
+                "Moderate risk": 6.2,
+                "High risk": 1.7
+            },
+            "total_evaluated": 1121
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 56.0,
+                "Mild risk": 35.6,
+                "High risk": 8.4
+            },
+            "total_evaluated": 1121
+        }
+    },
+    "Maricao": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 7.7,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 247
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 65.83,
+                "Moderate": 22.4,
+                "High": 11.77
+            },
+            "total_evaluated": 2022
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.78,
+                "Moderate": 26.76,
+                "High": 16.47
+            },
+            "total_evaluated": 2022
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.5,
+                "Moderate": 23.22,
+                "High": 6.29
+            },
+            "total_evaluated": 2020
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 59.8,
+                "High": 37.3,
+                "Low": 2.9
+            },
+            "total_evaluated": 2969
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 62.1,
+                "Mild": 27.8,
+                "High": 7.9,
+                "Severe": 2.2
+            },
+            "total_evaluated": 2902
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 56.0,
+                "Compatible with mild fatty liver": 44.0
+            },
+            "total_evaluated": 25
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.0,
+                "Moderate risk": 4.0,
+                "High risk": 4.0
+            },
+            "total_evaluated": 25
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 48.0,
+                "Mild risk": 48.0,
+                "High risk": 4.0
+            },
+            "total_evaluated": 25
+        }
+    },
+    "Juana Díaz": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.4,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 5930
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 63.12,
+                "Moderate": 22.96,
+                "High": 13.91
+            },
+            "total_evaluated": 64111
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.86,
+                "Moderate": 25.58,
+                "High": 17.57
+            },
+            "total_evaluated": 64111
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 68.4,
+                "Moderate": 23.75,
+                "High": 7.85
+            },
+            "total_evaluated": 59341
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 58.2,
+                "High": 39.6,
+                "Low": 2.2
+            },
+            "total_evaluated": 94718
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 58.4,
+                "Mild": 29.9,
+                "High": 10.1,
+                "Severe": 1.5
+            },
+            "total_evaluated": 92618
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 72.5,
+                "Suggests fibrosis/active hepatitis": 27.5
+            },
+            "total_evaluated": 1220
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.5,
+                "Moderate risk": 4.8,
+                "High risk": 1.7
+            },
+            "total_evaluated": 1220
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 75.1,
+                "Mild risk": 21.7,
+                "High risk": 3.2
+            },
+            "total_evaluated": 1220
+        }
+    },
+    "Las Piedras": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.4,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 571
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.26,
+                "Moderate": 18.96,
+                "High": 11.78
+            },
+            "total_evaluated": 29725
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 60.01,
+                "Moderate": 23.51,
+                "High": 16.49
+            },
+            "total_evaluated": 29725
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.64,
+                "Moderate": 20.62,
+                "High": 7.74
+            },
+            "total_evaluated": 29371
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 60.5,
+                "High": 37.0,
+                "Low": 2.5
+            },
+            "total_evaluated": 37311
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 63.3,
+                "Mild": 28.0,
+                "High": 7.2,
+                "Severe": 1.4
+            },
+            "total_evaluated": 36528
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 83.4,
+                "Suggests fibrosis/active hepatitis": 16.6
+            },
+            "total_evaluated": 235
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 91.9,
+                "Moderate risk": 7.2,
+                "High risk": 0.9
+            },
+            "total_evaluated": 235
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 74.9,
+                "Mild risk": 21.7,
+                "High risk": 3.4
+            },
+            "total_evaluated": 235
+        }
+    },
+    "Añasco": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.3,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 2685
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 65.42,
+                "Moderate": 21.15,
+                "High": 13.43
+            },
+            "total_evaluated": 25571
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 52.54,
+                "Moderate": 25.74,
+                "High": 21.72
+            },
+            "total_evaluated": 25571
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 68.3,
+                "Moderate": 23.03,
+                "High": 8.66
+            },
+            "total_evaluated": 25461
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 61.6,
+                "High": 34.9,
+                "Low": 3.5
+            },
+            "total_evaluated": 35774
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 62.5,
+                "Mild": 27.8,
+                "High": 8.3,
+                "Severe": 1.3
+            },
+            "total_evaluated": 35057
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 53.8,
+                "Compatible with mild fatty liver": 46.2
+            },
+            "total_evaluated": 160
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.8,
+                "Moderate risk": 5.0,
+                "High risk": 1.2
+            },
+            "total_evaluated": 160
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 60.0,
+                "Mild risk": 36.2,
+                "High risk": 3.8
+            },
+            "total_evaluated": 160
+        }
+    },
+    "Yabucoa": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 18.0,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 4153
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.66,
+                "Moderate": 18.98,
+                "High": 10.36
+            },
+            "total_evaluated": 67396
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.52,
+                "Moderate": 22.76,
+                "High": 14.73
+            },
+            "total_evaluated": 67396
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.97,
+                "Moderate": 18.36,
+                "High": 5.68
+            },
+            "total_evaluated": 66781
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 50.5,
+                "High": 47.7,
+                "Low": 1.8
+            },
+            "total_evaluated": 79622
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 64.1,
+                "Mild": 26.6,
+                "High": 7.8,
+                "Severe": 1.5
+            },
+            "total_evaluated": 78055
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 69.0,
+                "Compatible with mild fatty liver": 31.0
+            },
+            "total_evaluated": 329
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 86.3,
+                "Moderate risk": 10.0,
+                "High risk": 3.6
+            },
+            "total_evaluated": 329
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 55.6,
+                "Mild risk": 31.6,
+                "High risk": 12.8
+            },
+            "total_evaluated": 329
+        }
+    },
+    "Villalba": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.0,
+                "Toxicity": 0.6
+            },
+            "total_evaluated": 5625
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 63.32,
+                "Moderate": 22.54,
+                "High": 14.15
+            },
+            "total_evaluated": 56790
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.87,
+                "Moderate": 23.81,
+                "High": 17.32
+            },
+            "total_evaluated": 56790
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 69.58,
+                "Moderate": 22.79,
+                "High": 7.63
+            },
+            "total_evaluated": 54329
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 58.5,
+                "High": 39.0,
+                "Low": 2.5
+            },
+            "total_evaluated": 80833
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 56.0,
+                "Mild": 31.7,
+                "High": 10.3,
+                "Severe": 2.0
+            },
+            "total_evaluated": 79048
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 59.3,
+                "Suggests fibrosis/active hepatitis": 40.7
+            },
+            "total_evaluated": 1495
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 94.9,
+                "Moderate risk": 4.0,
+                "High risk": 1.1
+            },
+            "total_evaluated": 1495
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 74.4,
+                "Mild risk": 22.4,
+                "High risk": 3.1
+            },
+            "total_evaluated": 1495
+        }
+    },
+    "Aguadilla": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 9.5,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 6292
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.25,
+                "Moderate": 18.76,
+                "High": 10.99
+            },
+            "total_evaluated": 102804
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.48,
+                "Moderate": 23.87,
+                "High": 16.65
+            },
+            "total_evaluated": 102804
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.58,
+                "Moderate": 19.69,
+                "High": 6.73
+            },
+            "total_evaluated": 102017
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 56.8,
+                "High": 40.2,
+                "Low": 3.0
+            },
+            "total_evaluated": 139955
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 55.0,
+                "Mild": 32.1,
+                "High": 10.6,
+                "Severe": 2.2
+            },
+            "total_evaluated": 136639
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 53.1,
+                "Suggests fibrosis/active hepatitis": 46.9
+            },
+            "total_evaluated": 1066
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.6,
+                "Moderate risk": 5.4,
+                "High risk": 0.9
+            },
+            "total_evaluated": 1066
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 58.5,
+                "Mild risk": 35.6,
+                "High risk": 5.9
+            },
+            "total_evaluated": 1066
+        }
+    },
+    "Arroyo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.6,
+                "Toxicity": 0.0
+            },
+            "total_evaluated": 162
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.93,
+                "Moderate": 19.47,
+                "High": 11.6
+            },
+            "total_evaluated": 15116
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.88,
+                "Moderate": 24.1,
+                "High": 16.02
+            },
+            "total_evaluated": 15116
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.08,
+                "Moderate": 20.09,
+                "High": 6.83
+            },
+            "total_evaluated": 15046
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 60.4,
+                "High": 36.2,
+                "Low": 3.4
+            },
+            "total_evaluated": 21285
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 65.6,
+                "Mild": 25.0,
+                "High": 7.4,
+                "Severe": 2.0
+            },
+            "total_evaluated": 20902
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 63.8,
+                "Suggests fibrosis/active hepatitis": 36.2
+            },
+            "total_evaluated": 307
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.8,
+                "Moderate risk": 4.9,
+                "High risk": 2.3
+            },
+            "total_evaluated": 307
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 83.1,
+                "Mild risk": 14.3,
+                "High risk": 2.6
+            },
+            "total_evaluated": 307
+        }
+    },
+    "Rincón": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.3,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 674
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 71.1,
+                "Moderate": 18.53,
+                "High": 10.37
+            },
+            "total_evaluated": 13736
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.23,
+                "Moderate": 24.69,
+                "High": 17.08
+            },
+            "total_evaluated": 13736
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.23,
+                "Moderate": 18.87,
+                "High": 5.89
+            },
+            "total_evaluated": 13696
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "High": 50.1,
+                "Normal": 48.4,
+                "Low": 1.5
+            },
+            "total_evaluated": 17668
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 56.9,
+                "Mild": 31.5,
+                "High": 10.0,
+                "Severe": 1.6
+            },
+            "total_evaluated": 17207
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 55.6,
+                "Suggests fibrosis/active hepatitis": 44.4
+            },
+            "total_evaluated": 72
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 90.3,
+                "Moderate risk": 5.6,
+                "High risk": 4.2
+            },
+            "total_evaluated": 72
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 63.9,
+                "Mild risk": 29.2,
+                "High risk": 6.9
+            },
+            "total_evaluated": 72
+        }
+    },
+    "Barceloneta": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 12.4,
+                "Toxicity": 1.3
+            },
+            "total_evaluated": 2663
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.5,
+                "Moderate": 19.49,
+                "High": 11.01
+            },
+            "total_evaluated": 27903
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.8,
+                "Moderate": 24.26,
+                "High": 17.95
+            },
+            "total_evaluated": 27903
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.38,
+                "Moderate": 20.58,
+                "High": 7.04
+            },
+            "total_evaluated": 27836
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 62.0,
+                "High": 34.6,
+                "Low": 3.5
+            },
+            "total_evaluated": 37038
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 62.0,
+                "Mild": 29.1,
+                "High": 7.5,
+                "Severe": 1.4
+            },
+            "total_evaluated": 36281
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 60.6,
+                "Suggests fibrosis/active hepatitis": 39.4
+            },
+            "total_evaluated": 360
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.3,
+                "Moderate risk": 4.7,
+                "High risk": 1.9
+            },
+            "total_evaluated": 360
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 73.6,
+                "Mild risk": 23.6,
+                "High risk": 2.8
+            },
+            "total_evaluated": 360
+        }
+    },
+    "Aguada": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 5.2,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 2036
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 69.16,
+                "Moderate": 19.62,
+                "High": 11.22
+            },
+            "total_evaluated": 52527
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 56.42,
+                "Moderate": 24.67,
+                "High": 18.91
+            },
+            "total_evaluated": 52527
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.43,
+                "Moderate": 20.06,
+                "High": 6.5
+            },
+            "total_evaluated": 52347
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 54.0,
+                "High": 43.7,
+                "Low": 2.3
+            },
+            "total_evaluated": 69881
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 63.0,
+                "Mild": 26.4,
+                "High": 8.8,
+                "Severe": 1.9
+            },
+            "total_evaluated": 68471
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 57.6,
+                "Compatible with mild fatty liver": 42.4
+            },
+            "total_evaluated": 413
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 91.0,
+                "Moderate risk": 7.0,
+                "High risk": 1.9
+            },
+            "total_evaluated": 413
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 59.8,
+                "Mild risk": 30.8,
+                "High risk": 9.4
+            },
+            "total_evaluated": 413
+        }
+    },
+    "Comerío": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.4,
+                "Toxicity": 0.4
+            },
+            "total_evaluated": 270
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 64.62,
+                "Moderate": 21.7,
+                "High": 13.68
+            },
+            "total_evaluated": 5286
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 55.79,
+                "Moderate": 23.91,
+                "High": 20.3
+            },
+            "total_evaluated": 5286
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 69.99,
+                "Moderate": 22.2,
+                "High": 7.81
+            },
+            "total_evaluated": 5225
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 54.7,
+                "High": 43.5,
+                "Low": 1.8
+            },
+            "total_evaluated": 6942
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 74.2,
+                "Mild": 20.5,
+                "High": 3.9,
+                "Severe": 1.4
+            },
+            "total_evaluated": 6842
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 64.6,
+                "Compatible with mild fatty liver": 35.4
+            },
+            "total_evaluated": 48
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 89.6,
+                "Moderate risk": 8.3,
+                "High risk": 2.1
+            },
+            "total_evaluated": 48
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 70.8,
+                "Mild risk": 27.1,
+                "High risk": 2.1
+            },
+            "total_evaluated": 48
+        }
+    },
+    "Guánica": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 13.3,
+                "Toxicity": 1.1
+            },
+            "total_evaluated": 888
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.93,
+                "Moderate": 19.4,
+                "High": 11.67
+            },
+            "total_evaluated": 12545
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.91,
+                "Moderate": 24.18,
+                "High": 16.92
+            },
+            "total_evaluated": 12545
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.43,
+                "Moderate": 20.5,
+                "High": 6.07
+            },
+            "total_evaluated": 12465
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 57.6,
+                "High": 38.6,
+                "Low": 3.9
+            },
+            "total_evaluated": 21051
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 59.5,
+                "Mild": 27.7,
+                "High": 9.9,
+                "Severe": 2.8
+            },
+            "total_evaluated": 20666
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 54.3,
+                "Compatible with mild fatty liver": 45.7
+            },
+            "total_evaluated": 81
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 88.9,
+                "Moderate risk": 6.2,
+                "High risk": 4.9
+            },
+            "total_evaluated": 81
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 63.0,
+                "Mild risk": 25.9,
+                "High risk": 11.1
+            },
+            "total_evaluated": 81
+        }
+    },
+    "Adjuntas": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 4.5,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 463
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 55.63,
+                "Moderate": 25.47,
+                "High": 18.9
+            },
+            "total_evaluated": 20002
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 51.91,
+                "Moderate": 26.11,
+                "High": 21.98
+            },
+            "total_evaluated": 20002
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 61.11,
+                "Moderate": 27.69,
+                "High": 11.19
+            },
+            "total_evaluated": 19947
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 62.2,
+                "High": 33.9,
+                "Low": 3.9
+            },
+            "total_evaluated": 30443
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 56.5,
+                "Mild": 32.8,
+                "High": 9.0,
+                "Severe": 1.7
+            },
+            "total_evaluated": 29798
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 60.0,
+                "Suggests fibrosis/active hepatitis": 40.0
+            },
+            "total_evaluated": 15
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 86.7,
+                "Moderate risk": 13.3
+            },
+            "total_evaluated": 15
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 66.7,
+                "Mild risk": 33.3
+            },
+            "total_evaluated": 15
+        }
+    },
+    "Gurabo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 8.5,
+                "Toxicity": 0.2
+            },
+            "total_evaluated": 457
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.71,
+                "Moderate": 20.41,
+                "High": 10.89
+            },
+            "total_evaluated": 39304
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.61,
+                "Moderate": 25.01,
+                "High": 17.37
+            },
+            "total_evaluated": 39304
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.25,
+                "Moderate": 21.03,
+                "High": 6.72
+            },
+            "total_evaluated": 36034
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 58.5,
+                "High": 39.5,
+                "Low": 2.0
+            },
+            "total_evaluated": 51050
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 62.7,
+                "Mild": 29.4,
+                "High": 6.8,
+                "Severe": 1.1
+            },
+            "total_evaluated": 49986
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 59.3,
+                "Compatible with mild fatty liver": 40.7
+            },
+            "total_evaluated": 86
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 97.7,
+                "Moderate risk": 2.3
+            },
+            "total_evaluated": 86
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 68.6,
+                "Mild risk": 27.9,
+                "High risk": 3.5
+            },
+            "total_evaluated": 86
+        }
+    },
+    "Yauco": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 17.3,
+                "Toxicity": 1.0
+            },
+            "total_evaluated": 6301
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 68.3,
+                "Moderate": 19.6,
+                "High": 12.1
+            },
+            "total_evaluated": 62784
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 58.01,
+                "Moderate": 24.12,
+                "High": 17.87
+            },
+            "total_evaluated": 62784
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 72.92,
+                "Moderate": 20.16,
+                "High": 6.92
+            },
+            "total_evaluated": 62271
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 57.3,
+                "High": 39.7,
+                "Low": 3.0
+            },
+            "total_evaluated": 98443
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 55.6,
+                "Mild": 30.5,
+                "High": 11.3,
+                "Severe": 2.6
+            },
+            "total_evaluated": 96277
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 50.6,
+                "Compatible with mild fatty liver": 49.4
+            },
+            "total_evaluated": 508
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 90.9,
+                "Moderate risk": 7.5,
+                "High risk": 1.6
+            },
+            "total_evaluated": 508
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 55.7,
+                "Mild risk": 36.6,
+                "High risk": 7.7
+            },
+            "total_evaluated": 508
+        }
+    },
+    "Cidra": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.0,
+                "Toxicity": 0.9
+            },
+            "total_evaluated": 1631
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.43,
+                "Moderate": 19.23,
+                "High": 10.34
+            },
+            "total_evaluated": 43802
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 61.01,
+                "Moderate": 23.39,
+                "High": 15.6
+            },
+            "total_evaluated": 43802
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.05,
+                "Moderate": 19.07,
+                "High": 5.88
+            },
+            "total_evaluated": 43368
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 57.3,
+                "High": 40.8,
+                "Low": 1.9
+            },
+            "total_evaluated": 44784
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 57.6,
+                "Mild": 32.5,
+                "High": 8.8,
+                "Severe": 1.1
+            },
+            "total_evaluated": 43702
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Compatible with mild fatty liver": 58.6,
+                "Suggests fibrosis/active hepatitis": 41.4
+            },
+            "total_evaluated": 157
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 88.5,
+                "Moderate risk": 7.0,
+                "High risk": 4.5
+            },
+            "total_evaluated": 157
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 61.1,
+                "Mild risk": 31.2,
+                "High risk": 7.6
+            },
+            "total_evaluated": 157
+        }
+    },
+    "Carolina": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.7,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 9412
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.11,
+                "Moderate": 19.15,
+                "High": 10.75
+            },
+            "total_evaluated": 202213
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.44,
+                "Moderate": 23.97,
+                "High": 16.59
+            },
+            "total_evaluated": 202213
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 73.1,
+                "Moderate": 20.18,
+                "High": 6.73
+            },
+            "total_evaluated": 201400
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 58.9,
+                "High": 38.1,
+                "Low": 3.0
+            },
+            "total_evaluated": 264697
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 62.1,
+                "Mild": 29.1,
+                "High": 7.4,
+                "Severe": 1.3
+            },
+            "total_evaluated": 258980
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 59.8,
+                "Compatible with mild fatty liver": 40.2
+            },
+            "total_evaluated": 2542
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.8,
+                "Moderate risk": 4.6,
+                "High risk": 1.6
+            },
+            "total_evaluated": 2542
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 68.5,
+                "Mild risk": 26.3,
+                "High risk": 5.2
+            },
+            "total_evaluated": 2542
+        }
+    },
+    "Cataño": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 11.0,
+                "Toxicity": 0.7
+            },
+            "total_evaluated": 1067
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.11,
+                "Moderate": 20.53,
+                "High": 12.36
+            },
+            "total_evaluated": 21515
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 59.46,
+                "Moderate": 23.7,
+                "High": 16.84
+            },
+            "total_evaluated": 21515
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 71.33,
+                "Moderate": 21.02,
+                "High": 7.66
+            },
+            "total_evaluated": 21445
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 54.9,
+                "High": 42.3,
+                "Low": 2.8
+            },
+            "total_evaluated": 29423
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 65.5,
+                "Mild": 24.7,
+                "High": 7.8,
+                "Severe": 2.1
+            },
+            "total_evaluated": 28859
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 66.4,
+                "Compatible with mild fatty liver": 33.6
+            },
+            "total_evaluated": 149
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 92.6,
+                "Moderate risk": 6.0,
+                "High risk": 1.3
+            },
+            "total_evaluated": 149
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 59.7,
+                "Mild risk": 33.6,
+                "High risk": 6.7
+            },
+            "total_evaluated": 149
+        }
+    },
+    "Cabo Rojo": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 10.4,
+                "Toxicity": 1.0
+            },
+            "total_evaluated": 5398
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 70.73,
+                "Moderate": 19.38,
+                "High": 9.89
+            },
+            "total_evaluated": 51723
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 62.28,
+                "Moderate": 23.09,
+                "High": 14.63
+            },
+            "total_evaluated": 51723
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 75.08,
+                "Moderate": 19.44,
+                "High": 5.49
+            },
+            "total_evaluated": 51499
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 53.6,
+                "High": 44.5,
+                "Low": 1.9
+            },
+            "total_evaluated": 72238
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 54.3,
+                "Mild": 31.6,
+                "High": 12.1,
+                "Severe": 2.0
+            },
+            "total_evaluated": 70492
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 67.3,
+                "Compatible with mild fatty liver": 32.7
+            },
+            "total_evaluated": 333
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 95.5,
+                "Moderate risk": 3.0,
+                "High risk": 1.5
+            },
+            "total_evaluated": 333
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 57.1,
+                "Mild risk": 35.4,
+                "High risk": 7.5
+            },
+            "total_evaluated": 333
+        }
+    },
+    "Vega Baja": {
+        "Vitamin D Risk": {
+            "percentages": {
+                "Deficiency": 12.7,
+                "Toxicity": 0.5
+            },
+            "total_evaluated": 4356
+        },
+        "Risk of Coronary Heart Disease": {
+            "percentages": {
+                "Low": 67.27,
+                "Moderate": 20.46,
+                "High": 12.27
+            },
+            "total_evaluated": 73380
+        },
+        "Risk of Arterial Obstruction": {
+            "percentages": {
+                "Low": 57.24,
+                "Moderate": 24.62,
+                "High": 18.14
+            },
+            "total_evaluated": 73380
+        },
+        "Risk of Heart Attack or Atherosclerosis": {
+            "percentages": {
+                "Low": 70.82,
+                "Moderate": 21.53,
+                "High": 7.65
+            },
+            "total_evaluated": 71335
+        },
+        "BUN/Creatinine Ratio Risk": {
+            "percentages": {
+                "Normal": 60.0,
+                "High": 36.7,
+                "Low": 3.3
+            },
+            "total_evaluated": 96370
+        },
+        "eGFR CKD-EPI Risk": {
+            "percentages": {
+                "Normal": 64.3,
+                "Mild": 26.9,
+                "High": 7.4,
+                "Severe": 1.4
+            },
+            "total_evaluated": 94473
+        },
+        "AST/ALT Ratio Risk": {
+            "percentages": {
+                "Suggests fibrosis/active hepatitis": 56.4,
+                "Compatible with mild fatty liver": 43.6
+            },
+            "total_evaluated": 750
+        },
+        "APRI Score Risk": {
+            "percentages": {
+                "No significant fibrosis": 93.3,
+                "Moderate risk": 5.1,
+                "High risk": 1.6
+            },
+            "total_evaluated": 750
+        },
+        "FIB-4 Index Risk": {
+            "percentages": {
+                "Low risk": 71.2,
+                "Mild risk": 22.4,
+                "High risk": 6.4
+            },
+            "total_evaluated": 750
+        }
+    }
+}
