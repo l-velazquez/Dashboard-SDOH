@@ -77,7 +77,7 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Puerto Rico Health Indicators Map</title>
+    <title>Puerto Rico Health Risk Map</title>
     <!-- MapLibre GL JS -->
     <link
       href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css"
@@ -568,7 +568,6 @@
       let selectedFeatureId = null;
       let hoveredFeatureId = null;
 
-      // --- MODIFICATION START ---
       const riskCalculationDescriptions = {
         "Risk of Coronary Heart Disease":
           "Coronary Heart Disease risk is often assessed using ratios like TC/HDL (Total Cholesterol to HDL). <br> - TC/HDL < 4.0: Low Risk <br> - TC/HDL 4.0-5.0: Moderate Risk <br> - TC/HDL > 5.0: High Risk",
@@ -578,8 +577,17 @@
           "Risk of Heart Attack or Atherosclerosis can be evaluated using Non-HDL Cholesterol levels. <br> - Non-HDL < 130 mg/dL: Low Risk <br> - Non-HDL 130-160 mg/dL: Moderate Risk <br> - Non-HDL > 160 mg/dL: High Risk",
         "Vitamin D Risk":
           "Vitamin D status is crucial for health. <br> - Deficiency: Can lead to bone problems, weakened immune system, and other health issues. <br> - Toxicity: Rare, but can cause hypercalcemia and other complications from excessive intake, usually through high-dose supplements.",
+        "eGFR CKD-EPI Risk":
+          "Estimated Glomerular Filtration Rate (eGFR) assesses kidney function. Percentages reflect population distribution in these categories. <br> - Normal: Generally eGFR >90 mL/min/1.73m² <br> - Mild: eGFR 60-89 <br> - High (Moderate decline in your data): eGFR 30-59 <br> - Severe: eGFR 15-29",
+        "BUN/Creatinine Ratio Risk":
+          "The BUN/Creatinine ratio helps assess kidney function and hydration. Percentages reflect population distribution. <br> - Normal: Ratio typically 10:1 to 20:1. <br> - High: Can suggest dehydration, decreased kidney perfusion. <br> - Low: Can suggest liver disease, malnutrition.",
+        "AST/ALT Ratio Risk":
+          "Aspartate Aminotransferase (AST) to Alanine Aminotransferase (ALT) ratio can indicate liver health. Percentages reflect population distribution. <br> - Compatible with mild fatty liver: Suggests potential non-alcoholic fatty liver disease. <br> - Suggests fibrosis/active hepatitis: May indicate more significant liver issues.",
+        "APRI Score Risk":
+          "AST to Platelet Ratio Index (APRI) estimates liver fibrosis. Percentages reflect population distribution. <br> - No significant fibrosis: Lower likelihood. <br> - Moderate risk: Intermediate likelihood. <br> - High risk: Higher likelihood of significant fibrosis.",
+        "FIB-4 Index Risk":
+          "Fibrosis-4 (FIB-4) Index is another marker for liver fibrosis. Percentages reflect population distribution. <br> - Low risk: Lower likelihood. <br> - Mild risk: Intermediate likelihood. <br> - High risk: Higher likelihood of advanced fibrosis.",
       };
-      // --- MODIFICATION END ---
 
       try {
         geojsonData = JSON.parse(geojsonDataString);
@@ -609,7 +617,6 @@
             !Array.isArray(parsedHealthData)
           ) {
             healthStatsLookup = parsedHealthData;
-            // --- ADD THIS LOG ---
             if (healthStatsLookup["Las Piedras"]) {
               console.log(
                 "[DEBUG] healthStatsLookup['Las Piedras'] after parsing:",
@@ -624,12 +631,10 @@
               Object.keys(healthStatsLookup).length === 0 &&
               healthStatsDataString.length > 2
             ) {
-              // healthStatsDataString is not "{}"
               console.error(
                 "[DEBUG] CRITICAL: healthStatsLookup is empty but healthStatsDataString was not. JSON parsing likely failed to produce the expected object structure."
               );
             }
-            // --- END LOG ---
           } else {
             console.warn(
               "[DEBUG] Health Stats data is not a JSON object. Received:",
@@ -728,6 +733,16 @@
         "#e31a1c",
         "#b10026", // Highest risk
       ];
+      const GOOD_HIGH_COLORS = [
+        // Higher value is better (e.g. % Normal) - reversed GOOD_LOW_COLORS
+        "#b10026", // Lowest percentage (bad)
+        "#e31a1c",
+        "#fc4e2a",
+        "#fd8d3c",
+        "#feb24c",
+        "#fed976",
+        "#ffffb2", // Highest percentage (good)
+      ];
       const SDOH_COLORS = [
         "#e0ecf4",
         "#bfd3e6",
@@ -740,25 +755,27 @@
       ];
 
       const filteredHealthMetricConfigs = {
+        // Existing Cardio Risks
         CHD_High: {
           displayName: "Coronary Heart Disease Risk",
           dataPath: ["Risk of Coronary Heart Disease", "percentages", "High"],
           type: "goodIsLow",
-          breaks: [10, 11.5, 13, 14.5, 16, 17.5], // % values
+          breaks: [10, 11.5, 13, 14.5, 16, 17.5],
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "Percentage of population at High Risk for Coronary Heart Disease. Higher percentage is worse.",
+            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Coronary Heart Disease. Higher percentage is worse.",
         },
         AO_High: {
+          // This is your default selected metric
           displayName: "Arterial Obstruction Risk",
           dataPath: ["Risk of Arterial Obstruction", "percentages", "High"],
           type: "goodIsLow",
-          breaks: [15, 16, 17, 18, 19, 20], // % values
+          breaks: [15, 16, 17, 18, 19, 20],
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "Percentage of population at High Risk for Arterial Obstruction. Higher percentage is worse.",
+            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Arterial Obstruction. Higher percentage is worse.",
         },
         HA_High: {
           displayName: "Heart Attack Risk",
@@ -768,34 +785,209 @@
             "High",
           ],
           type: "goodIsLow",
-          breaks: [5, 7, 9, 11, 12.5, 13.2], // % values
+          breaks: [5, 7, 9, 11, 12.5, 13.2],
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "Percentage of population at High Risk for Heart Attack or Atherosclerosis. Higher percentage is worse.",
+            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Heart Attack or Atherosclerosis. Higher percentage is worse.",
         },
+        // Vitamin D Risks
         VitD_Deficiency: {
-          displayName: "Vitamin D Deficiency Risk",
+          displayName: "Vitamin D Deficiency",
           dataPath: ["Vitamin D Risk", "percentages", "Deficiency"],
-          type: "goodIsLow", // Higher % of deficiency is worse
-          breaks: [3, 6, 9, 12, 15, 17], // Adjusted breaks so 18 is the max value
+          type: "goodIsLow",
+          breaks: [3, 6, 9, 12, 15, 17],
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "Percentage of population with Vitamin D Deficiency. Higher percentage indicates a greater prevalence of deficiency.",
+            "<strong>Vitamin D Risk:</strong> \nPercentage of population with Vitamin D Deficiency. Higher percentage indicates greater prevalence.",
         },
         VitD_Toxicity: {
-          displayName: "Vitamin D Toxicity Risk",
+          displayName: "Vitamin D Toxicity",
           dataPath: ["Vitamin D Risk", "percentages", "Toxicity"],
-          type: "goodIsLow", // Higher % of toxicity is worse
-          breaks: [0.0, 0.25, 0.5, 0.75, 1, 1.25], // Example breaks for percentage (toxicity usually lower) - ADJUST AS NEEDED
+          type: "goodIsLow",
+          breaks: [0.0, 0.25, 0.5, 0.75, 1, 1.25],
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "Percentage of population with Vitamin D Toxicity. Higher percentage indicates a greater prevalence of toxicity.",
+            "<strong>Vitamin D Risk:</strong> \nPercentage of population with Vitamin D Toxicity. Higher percentage indicates greater prevalence.",
         },
-      };
 
+        // --- NEW HEALTH METRICS START ---
+        // eGFR CKD-EPI Risk
+        eGFR_Severe: {
+          displayName: "eGFR Severe Risk ",
+          dataPath: ["eGFR CKD-EPI Risk", "percentages", "Severe"],
+          type: "goodIsLow",
+          breaks: [0.5, 1.0, 1.5, 2.0, 2.5, 3.0], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Liver Risk:</strong>\nPercentage of population with Severe kidney function decline (eGFR). Higher is worse.",
+        },
+        /*eGFR_High: {
+          displayName: "eGFR Risk (High/Moderate Decline %)",
+          dataPath: ["eGFR CKD-EPI Risk", "percentages", "High"], // 'High' in your JSON means moderate decline
+          type: "goodIsLow",
+          breaks: [3, 5, 7, 9, 11, 13], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with High risk/Moderate kidney function decline (eGFR). Higher is worse.",
+        },
+        eGFR_Mild: {
+          displayName: "eGFR Risk (Mild Decline %)",
+          dataPath: ["eGFR CKD-EPI Risk", "percentages", "Mild"],
+          type: "goodIsLow",
+          breaks: [15, 20, 25, 30, 35, 40], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with Mild kidney function decline (eGFR). Higher is worse.",
+        },
+        eGFR_Normal: {
+          displayName: "eGFR (Normal %)",
+          dataPath: ["eGFR CKD-EPI Risk", "percentages", "Normal"],
+          type: "goodIsHigh",
+          breaks: [50, 55, 60, 65, 70, 75], // ADJUST BREAKS
+          colors: GOOD_HIGH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with Normal kidney function (eGFR). Higher is better.",
+        }, 
+        */
+        // BUN/Creatinine Ratio Risk
+        BCR_High: {
+          displayName: "BUN/Creatinine Ratio High Risk",
+          dataPath: ["BUN/Creatinine Ratio Risk", "percentages", "High"],
+          type: "goodIsLow",
+          breaks: [30, 35, 40, 45, 50, 55], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Kidney Risk:</strong>\nPercentage of population with a High BUN/Creatinine Ratio. Higher is generally worse.",
+        },
+        /*BCR_Low: {
+          displayName: "BUN/Creatinine Ratio (Low %)",
+          dataPath: ["BUN/Creatinine Ratio Risk", "percentages", "Low"],
+          type: "goodIsLow",
+          breaks: [1, 1.5, 2, 2.5, 3, 3.5], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with a Low BUN/Creatinine Ratio. Higher percentage of 'low' is worse.",
+        },
+        BCR_Normal: {
+          displayName: "BUN/Creatinine Ratio (Normal %)",
+          dataPath: ["BUN/Creatinine Ratio Risk", "percentages", "Normal"],
+          type: "goodIsHigh",
+          breaks: [40, 45, 50, 55, 60, 65], // ADJUST BREAKS
+          colors: GOOD_HIGH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with a Normal BUN/Creatinine Ratio. Higher is better.",
+        },*/
+
+        // AST/ALT Ratio Risk
+        AAR_FibrosisHepatitis: {
+          displayName: "AST/ALT Ratio (Suggests Fibrosis/Hepatitis %)",
+          dataPath: [
+            "AST/ALT Ratio Risk",
+            "percentages",
+            "Suggests fibrosis/active hepatitis",
+          ],
+          type: "goodIsLow",
+          breaks: [30, 35, 40, 45, 50, 55], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Liver Risk:</strong>\nPercentage of population whose AST/ALT ratio suggests fibrosis or active hepatitis. Higher is worse.",
+        },
+        /*AAR_MildFattyLiver: {
+          displayName: "AST/ALT Ratio (Mild Fatty Liver %)",
+          dataPath: [
+            "AST/ALT Ratio Risk",
+            "percentages",
+            "Compatible with mild fatty liver",
+          ],
+          type: "goodIsLow",
+          breaks: [40, 45, 50, 55, 60, 65], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Liver Risk:</strong>\nPercentage of population whose AST/ALT ratio is compatible with mild fatty liver. Higher is worse.",
+        },*/
+
+        // APRI Score Risk
+        APRI_High: {
+          displayName: "APRI Score Risk)",
+          dataPath: ["APRI Score Risk", "percentages", "High risk"],
+          type: "goodIsLow",
+          breaks: [1, 2, 3, 4, 5, 6], // ADJUST BREAKS (likely low percentages)
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Liver Risk:</strong>\nPercentage of population at High Risk for liver fibrosis based on APRI score. Higher is worse.",
+        },
+        /*APRI_Moderate: {
+          displayName: "APRI Score (Moderate Risk %)",
+          dataPath: ["APRI Score Risk", "percentages", "Moderate risk"],
+          type: "goodIsLow",
+          breaks: [2, 3, 4, 5, 6, 7], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population at Moderate Risk for liver fibrosis based on APRI score. Higher is worse.",
+        },
+        APRI_NoSigFibrosis: {
+          displayName: "APRI Score (No Significant Fibrosis %)",
+          dataPath: [
+            "APRI Score Risk",
+            "percentages",
+            "No significant fibrosis",
+          ],
+          type: "goodIsHigh",
+          breaks: [80, 85, 90, 92, 94, 96], // ADJUST BREAKS
+          colors: GOOD_HIGH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with no significant liver fibrosis based on APRI score. Higher is better.",
+        },*/
+
+        // FIB-4 Index Risk
+        FIB4_High: {
+          displayName: "FIB-4 Index High Risk",
+          dataPath: ["FIB-4 Index Risk", "percentages", "High risk"],
+          type: "goodIsLow",
+          breaks: [2, 4, 6, 8, 10, 12], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Liver Risk:</strong>\nPercentage of population at High Risk for liver fibrosis based on FIB-4 Index. Higher is worse.",
+        },
+        /*FIB4_Mild: {
+          displayName: "FIB-4 Index (Mild Risk %)",
+          dataPath: ["FIB-4 Index Risk", "percentages", "Mild risk"],
+          type: "goodIsLow",
+          breaks: [10, 13, 16, 19, 22, 25], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population at Mild Risk for liver fibrosis based on FIB-4 Index. Higher is worse.",
+        },
+        FIB4_LowRisk: {
+          displayName: "FIB-4 Index (Low Risk %)",
+          dataPath: ["FIB-4 Index Risk", "percentages", "Low risk"],
+          type: "goodIsHigh",
+          breaks: [50, 55, 60, 65, 70, 75], // ADJUST BREAKS
+          colors: GOOD_HIGH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population at Low Risk for liver fibrosis based on FIB-4 Index. Higher is better.",
+        },*/
+        // --- NEW HEALTH METRICS END ---
+      };
+      
       const sdohMetricConfigs = {
         ACS_PCT_UNINSURED: {
           type: "percentage",
@@ -941,13 +1133,12 @@
 
       function getNestedHealthValue(healthData, dataPath) {
         if (
-          !healthData || // Check if healthData is null or undefined
-          typeof healthData !== "object" || // Check if it's not an object
-          Array.isArray(healthData) || // Check if it's an array (should be an object)
-          !dataPath || // Check if dataPath is null or undefined
-          !Array.isArray(dataPath) // Check if dataPath is not an array
+          !healthData ||
+          typeof healthData !== "object" ||
+          Array.isArray(healthData) ||
+          !dataPath ||
+          !Array.isArray(dataPath)
         ) {
-          // console.warn("[getNestedHealthValue] Invalid input:", {healthData, dataPath});
           return null;
         }
         let value = healthData;
@@ -955,8 +1146,7 @@
           if (value && typeof value === "object" && key in value) {
             value = value[key];
           } else {
-            // console.warn(`[getNestedHealthValue] Key "${key}" not found or invalid value in path:`, {currentValue: value, fullPath: dataPath});
-            return null; // Key not found or value is not an object to continue traversal
+            return null;
           }
         }
         return value;
@@ -975,13 +1165,13 @@
         if (!breaks || !colors || breaks.length === 0 || colors.length === 0)
           return "#E0E0E0";
         if (colors.length < breaks.length + 1)
-          return colors[colors.length - 1] || "#E0E0E0"; // Fallback if config error
+          return colors[colors.length - 1] || "#E0E0E0";
 
         const numericValue = parseFloat(value);
         for (let i = 0; i < breaks.length; i++) {
           if (numericValue <= breaks[i]) return colors[i];
         }
-        return colors[breaks.length]; // Value is greater than all breaks
+        return colors[breaks.length];
       }
 
       function getSDoHColorExpression(metricKey) {
@@ -990,7 +1180,7 @@
 
         if (!config || !config.breaks || !config.colors) {
           console.warn(`No config for SDoH metric: ${trimmedMetricKey}`);
-          return "rgba(200,200,200,0.3)"; // Default grey for missing config
+          return "rgba(200,200,200,0.3)";
         }
         const { breaks, colors } = config;
         if (colors.length !== breaks.length + 1) {
@@ -1008,7 +1198,7 @@
           ["get", trimmedMetricKey, sdohObjectExpression],
         ];
 
-        const stepExpression = ["step", sDoHValueGetter, colors[0]]; // Default color if value < first break
+        const stepExpression = ["step", sDoHValueGetter, colors[0]];
         for (let i = 0; i < breaks.length; i++) {
           stepExpression.push(breaks[i]);
           stepExpression.push(colors[i + 1]);
@@ -1017,15 +1207,14 @@
         return [
           "case",
           ["!", ["has", "sdoh"]],
-          "rgba(201,201,201,0.3)", // No sdoh property
+          "rgba(201,201,201,0.3)",
           ["!=", ["typeof", sdohObjectExpression], "object"],
-          "rgba(202,202,202,0.3)", // sdoh is not an object
+          "rgba(202,202,202,0.3)",
           ["==", sdohObjectExpression, null],
-          "rgba(203,203,203,0.3)", // sdoh object is null
+          "rgba(203,203,203,0.3)",
           ["!", ["has", trimmedMetricKey, sdohObjectExpression]],
-          "rgba(210,210,210,0.3)", // Metric key missing in sdoh object
+          "rgba(210,210,210,0.3)",
           [
-            // Value is null, undefined, or empty string
             "any",
             ["==", ["get", trimmedMetricKey, sdohObjectExpression], null],
             [
@@ -1047,8 +1236,8 @@
               ],
             ],
           ],
-          "rgba(220,220,220,0.3)", // Grey for missing/invalid SDoH value
-          stepExpression, // Apply color scale
+          "rgba(220,220,220,0.3)",
+          stepExpression,
         ];
       }
 
@@ -1061,15 +1250,15 @@
           isNaN(parseFloat(value)) ||
           parseFloat(value) <= 0
         )
-          return minRadius / 2; // Smallest radius for no/zero data
+          return minRadius / 2;
 
         let numericValue = parseFloat(value);
         let radius =
           valueForMaxRadius <= 0
-            ? minRadius // Avoid division by zero if max is 0
+            ? minRadius
             : minRadius +
               (numericValue / valueForMaxRadius) * (maxRadius - minRadius);
-        return Math.max(minRadius / 2, Math.min(maxRadius, radius)); // Clamp radius
+        return Math.max(minRadius / 2, Math.min(maxRadius, radius));
       }
 
       function getFeatureLngLatBounds(feature) {
@@ -1108,10 +1297,10 @@
               : `Unnamed Area ${index}`;
 
           if (feature.properties && originalName) {
-            feature.id = originalName;
-            feature.properties.NAME = municipalityNameForLookup;
+            feature.id = originalName; // Use original NAME for ID
+            feature.properties.NAME = municipalityNameForLookup; // Store trimmed name
           } else {
-            feature.id = index;
+            feature.id = index; // Fallback ID
             if (feature.properties)
               feature.properties.NAME = municipalityNameForLookup;
             else feature.properties = { NAME: municipalityNameForLookup };
@@ -1125,13 +1314,12 @@
             typeof muniHealthData === "object" &&
             !Array.isArray(muniHealthData)
           ) {
-            feature.properties.healthData = muniHealthData; // Assign the actual object
+            feature.properties.healthData = muniHealthData;
             healthDataLinkedCount++;
           } else {
             feature.properties.healthData = null;
           }
 
-          // --- ADD THIS LOG FOR A SPECIFIC MUNICIPALITY ---
           if (municipalityNameForLookup === "Las Piedras") {
             console.log(
               `[DEBUG PreProcess Las Piedras] Original GeoJSON Name: '${originalName}', Used Lookup Name: '${municipalityNameForLookup}'`
@@ -1144,23 +1332,17 @@
               `[DEBUG PreProcess Las Piedras] feature.properties.healthData after assignment:`,
               JSON.stringify(feature.properties.healthData)
             );
-            if (muniHealthData && !muniHealthData["Vitamin D Risk"]) {
-              console.warn(
-                `[DEBUG PreProcess Las Piedras] 'Vitamin D Risk' key NOT FOUND in muniHealthData from lookup!`
-              );
-            }
           }
-          // --- END LOG ---
 
           if (
             muniSDoHData &&
             typeof muniSDoHData === "object" &&
             !Array.isArray(muniSDoHData)
           ) {
-            feature.properties.sdoh = muniSDoHData; // Assign the actual object
+            feature.properties.sdoh = muniSDoHData;
             sdohDataLinkedCount++;
           } else {
-            feature.properties.sdoh = {};
+            feature.properties.sdoh = {}; // Ensure sdoh property exists
           }
         });
 
@@ -1328,8 +1510,8 @@
         }
         map.addSource("municipalities", {
           type: "geojson",
-          data: geojsonData, // geojsonData.features[...].properties.healthData should be an object here
-          promoteId: "NAME",
+          data: geojsonData,
+          promoteId: "NAME", // NAME is now the ID
         });
         map.addLayer({
           id: "municipalities-fill",
@@ -1374,7 +1556,7 @@
         map.on("mousemove", "municipalities-fill", (e) => {
           map.getCanvas().style.cursor = "pointer";
           if (e.features.length > 0) {
-            const currentFeatureId = e.features[0].id;
+            const currentFeatureId = e.features[0].id; // id is NAME
             if (hoveredFeatureId && hoveredFeatureId !== currentFeatureId) {
               map.setFeatureState(
                 { source: "municipalities", id: hoveredFeatureId },
@@ -1402,14 +1584,14 @@
         });
         map.on("click", "municipalities-fill", (e) => {
           if (e.features.length > 0) {
-            const clickedFeature = e.features[0]; // clickedFeature.properties.healthData should be an object
+            const clickedFeature = e.features[0];
             if (selectedFeatureId) {
               map.setFeatureState(
                 { source: "municipalities", id: selectedFeatureId },
                 { select: false }
               );
             }
-            selectedFeatureId = clickedFeature.id;
+            selectedFeatureId = clickedFeature.id; // id is NAME
             map.setFeatureState(
               { source: "municipalities", id: selectedFeatureId },
               { select: true, hover: false }
@@ -1419,7 +1601,7 @@
             if (bounds.getNorthEast() && bounds.getSouthWest()) {
               map.fitBounds(bounds, { padding: 60, maxZoom: 11 });
             }
-            updateInfoPanel(clickedFeature.properties); // Pass properties which include healthData as an object
+            updateInfoPanel(clickedFeature.properties);
           }
         });
 
@@ -1496,13 +1678,9 @@
 
         let healthData = muniPropsFromEvent.healthData;
         let sdohDataForMuni = muniPropsFromEvent.sdoh;
-        const municipalityName = muniPropsFromEvent.NAME; // NAME is reliable from promoteId
+        const municipalityName = muniPropsFromEvent.NAME;
 
-        // --- ADD THIS CHECK FOR STRINGIFIED DATA ---
         if (typeof healthData === "string") {
-          console.warn(
-            `[INFO_PANEL ${municipalityName}] healthData is a STRING! Attempting to parse.`
-          );
           try {
             healthData = JSON.parse(healthData);
           } catch (e) {
@@ -1515,9 +1693,6 @@
           }
         }
         if (typeof sdohDataForMuni === "string") {
-          console.warn(
-            `[INFO_PANEL ${municipalityName}] sdohDataForMuni is a STRING! Attempting to parse.`
-          );
           try {
             sdohDataForMuni = JSON.parse(sdohDataForMuni);
           } catch (e) {
@@ -1529,73 +1704,11 @@
             sdohDataForMuni = {};
           }
         }
-        // --- END CHECK ---
 
         const currentSDoHMetricKeyTrimmed = currentSDoHMetricKey.trim();
         const currentHealthMetricKeyExact = currentHealthMetricKey;
         const currentHealthConfig =
           filteredHealthMetricConfigs[currentHealthMetricKeyExact];
-
-        // --- LOGGING FOR SPECIFIC MUNICIPALITY AND VITAMIN D ---
-        if (
-          municipalityName === "Las Piedras" &&
-          currentHealthConfig &&
-          (currentHealthMetricKeyExact === "VitD_Deficiency" ||
-            currentHealthMetricKeyExact === "VitD_Toxicity")
-        ) {
-          console.log(
-            `[INFO_PANEL Las Piedras VitD] currentHealthMetricKeyExact: ${currentHealthMetricKeyExact}`
-          );
-          console.log(
-            `[INFO_PANEL Las Piedras VitD] currentHealthConfig:`,
-            JSON.stringify(currentHealthConfig)
-          );
-          console.log(
-            `[INFO_PANEL Las Piedras VitD] healthData object from props (after potential parse):`,
-            JSON.stringify(healthData)
-          );
-          if (healthData && !healthData["Vitamin D Risk"]) {
-            console.error(
-              `[INFO_PANEL Las Piedras VitD] CRITICAL: 'Vitamin D Risk' key MISSING from healthData object!`
-            );
-          }
-          if (
-            healthData &&
-            currentHealthConfig &&
-            currentHealthConfig.dataPath
-          ) {
-            const healthValue = getNestedHealthValue(
-              healthData,
-              currentHealthConfig.dataPath
-            );
-            console.log(
-              `[INFO_PANEL Las Piedras VitD] Value from getNestedHealthValue for ${currentHealthConfig.displayName}: ${healthValue}`
-            );
-
-            if (currentHealthConfig.dataPath[0] === "Vitamin D Risk") {
-              const otherVitDKey =
-                currentHealthMetricKeyExact === "VitD_Deficiency"
-                  ? "Toxicity"
-                  : "Deficiency";
-              const otherVitDValue = getNestedHealthValue(healthData, [
-                "Vitamin D Risk",
-                "percentages",
-                otherVitDKey,
-              ]);
-              console.log(
-                `[INFO_PANEL Las Piedras VitD] Other VitD (${otherVitDKey}) value: ${otherVitDValue}`
-              );
-              const totalEvalVitD = getNestedHealthValue(healthData, [
-                "Vitamin D Risk",
-                "total_evaluated",
-              ]);
-              console.log(
-                `[INFO_PANEL Las Piedras VitD] Total Evaluated (VitD) value: ${totalEvalVitD}`
-              );
-            }
-          }
-        }
-        // --- END LOGGING ---
 
         let content = `<h3>Municipality: ${municipalityName}</h3>`;
         content += `<hr style="margin:10px 0;"><h4>SDoH Indicator (Outline)</h4>`;
@@ -1628,7 +1741,6 @@
           typeof healthData === "object" &&
           !Array.isArray(healthData)
         ) {
-          // Ensure healthData is a usable object
           if (currentHealthConfig && currentHealthConfig.dataPath) {
             const healthValue = getNestedHealthValue(
               healthData,
@@ -1642,86 +1754,76 @@
                     currentHealthConfig.unit === "%" ? 2 : 0
                   )} ${currentHealthConfig.unit || ""}`
                 : "N/A";
-            content += `<p><span class="data-label">${currentHealthConfig.displayName}:</span> <strong class="data-value">${displayValue}</strong></p>`;
+            content += `<p><span class="data-label">${currentHealthConfig.displayName}:</span> <strong class="data-value">${displayValue}</strong> (This value is represented by the circle on the map)</p>`;
 
             const riskTypeKey = currentHealthConfig.dataPath[0];
             const calculationInfo = riskCalculationDescriptions[riskTypeKey];
-            if (calculationInfo)
+            if (calculationInfo) {
               content += `<p style="font-size:0.85em; margin-top:5px; color:#555;"><em><strong>Note:</strong> ${calculationInfo}</em></p>`;
+            }
 
-            if (riskTypeKey === "Vitamin D Risk") {
-              content += `<p style="margin-top:10px;"><small><i>Other Vitamin D status for ${municipalityName}:</i></small></p>`;
-              const otherVitDSubKey =
-                currentHealthMetricKeyExact === "VitD_Deficiency"
-                  ? "Toxicity"
-                  : "Deficiency";
-              const otherVitDPath = [
-                "Vitamin D Risk",
-                "percentages",
-                otherVitDSubKey,
-              ];
-              const otherVitDValue = getNestedHealthValue(
-                healthData,
-                otherVitDPath
-              );
-              const otherVitDDisplayValue =
-                otherVitDValue !== null &&
-                otherVitDValue !== undefined &&
-                !isNaN(parseFloat(otherVitDValue))
-                  ? `${parseFloat(otherVitDValue).toFixed(2)}%`
-                  : "N/A";
-              content += `<p style="font-size:0.9em;"><span class="data-label">% ${otherVitDSubKey}:</span> <span class="data-value">${otherVitDDisplayValue}</span></p>`;
+            const riskDetailsObject = getNestedHealthValue(healthData, [
+              riskTypeKey,
+            ]);
 
-              const totalEvalVitD = getNestedHealthValue(healthData, [
-                "Vitamin D Risk",
-                "total_evaluated",
-              ]);
-              const totalEvalVitDDisp =
-                totalEvalVitD !== null &&
-                totalEvalVitD !== undefined &&
-                !isNaN(parseFloat(totalEvalVitD))
-                  ? `${parseFloat(totalEvalVitD).toLocaleString()}`
-                  : "N/A";
-              content += `<p style="font-size:0.9em;"><span class="data-label">Total Evaluated (Vitamin D):</span> <span class="data-value">${totalEvalVitDDisp}</span></p>`;
-            } else {
-              const riskCategoryDetails = getNestedHealthValue(healthData, [
-                riskTypeKey,
-              ]);
-              if (
-                riskCategoryDetails &&
-                riskCategoryDetails.percentages &&
-                typeof riskCategoryDetails.percentages === "object"
+            if (
+              riskDetailsObject &&
+              riskDetailsObject.percentages &&
+              typeof riskDetailsObject.percentages === "object"
+            ) {
+              content += `<p style="margin-top:10px;"><small><i>Full breakdown for ${riskTypeKey} in ${municipalityName}:</i></small></p>`;
+
+              let categoryOrder = Object.keys(riskDetailsObject.percentages);
+              if (riskTypeKey === "eGFR CKD-EPI Risk") {
+                categoryOrder = ["Normal", "Mild", "High", "Severe"];
+              } else if (riskTypeKey === "BUN/Creatinine Ratio Risk") {
+                categoryOrder = ["Low", "Normal", "High"];
+              } else if (riskTypeKey === "AST/ALT Ratio Risk") {
+                categoryOrder = [
+                  "Compatible with mild fatty liver",
+                  "Suggests fibrosis/active hepatitis",
+                ];
+              } else if (riskTypeKey === "APRI Score Risk") {
+                categoryOrder = [
+                  "No significant fibrosis",
+                  "Moderate risk",
+                  "High risk",
+                ];
+              } else if (riskTypeKey === "FIB-4 Index Risk") {
+                categoryOrder = ["Low risk", "Mild risk", "High risk"];
+              } else if (riskTypeKey === "Vitamin D Risk") {
+                categoryOrder = ["Deficiency", "Toxicity"];
+              } else if (
+                [
+                  "Risk of Coronary Heart Disease",
+                  "Risk of Arterial Obstruction",
+                  "Risk of Heart Attack or Atherosclerosis",
+                ].includes(riskTypeKey)
               ) {
-                content += `<p style="margin-top:10px;"><small><i>Other risk levels for ${riskTypeKey} in ${municipalityName}:</i></small></p>`;
-                const currentLevelDisplayed = currentHealthConfig.dataPath[2];
-                for (const level in riskCategoryDetails.percentages) {
-                  if (level !== currentLevelDisplayed) {
-                    const val = riskCategoryDetails.percentages[level];
-                    const dispVal =
-                      val !== null &&
-                      val !== undefined &&
-                      !isNaN(parseFloat(val))
-                        ? `${parseFloat(val).toFixed(2)}%`
-                        : "N/A";
-                    content += `<p style="font-size:0.9em;"><span class="data-label">% ${level} Risk:</span> <span class="data-value">${dispVal}</span></p>`;
-                  }
-                }
+                categoryOrder = ["Low", "Moderate", "High"];
               }
-              const totalEvalCardio = getNestedHealthValue(healthData, [
-                riskTypeKey,
-                "total_evaluated",
-              ]);
-              const totalEvalCardioDisp =
-                totalEvalCardio !== null &&
-                totalEvalCardio !== undefined &&
-                !isNaN(parseFloat(totalEvalCardio))
-                  ? `${parseFloat(totalEvalCardio).toLocaleString()}`
-                  : "N/A";
-              const riskShortName =
-                riskTypeKey.split(" ").length > 2
-                  ? riskTypeKey.split(" ")[2]
-                  : riskTypeKey.split(" ")[0];
-              content += `<p style="font-size:0.9em;"><span class="data-label">Total Evaluated (${riskShortName}):</span> <span class="data-value">${totalEvalCardioDisp}</span></p>`;
+
+              categoryOrder.forEach((level) => {
+                if (riskDetailsObject.percentages.hasOwnProperty(level)) {
+                  const val = riskDetailsObject.percentages[level];
+                  const dispVal =
+                    val !== null && val !== undefined && !isNaN(parseFloat(val))
+                      ? `${parseFloat(val).toFixed(2)}%`
+                      : "N/A";
+                  content += `<p style="font-size:0.9em;"><span class="data-label">${level}:</span> <span class="data-value">${dispVal}</span></p>`;
+                }
+              });
+
+              if (riskDetailsObject.total_evaluated !== undefined) {
+                const totalEval = riskDetailsObject.total_evaluated;
+                const totalEvalDisp =
+                  totalEval !== null &&
+                  totalEval !== undefined &&
+                  !isNaN(parseFloat(totalEval))
+                    ? `${parseFloat(totalEval).toLocaleString()}`
+                    : "N/A";
+                content += `<p style="font-size:0.9em;"><span class="data-label">Total Evaluated:</span> <span class="data-value">${totalEvalDisp}</span></p>`;
+              }
             }
           } else {
             content += `<p>Health configuration for ${currentHealthMetricKeyExact} is incomplete.</p>`;
@@ -1751,7 +1853,7 @@
           healthLegendDiv.innerHTML = `<p>Health legend configuration error for ${config.displayName}.</p>`;
           return;
         }
-        const { colors, breaks, unit, displayName } = config;
+        const { colors, breaks, unit, displayName, type } = config;
         let barWidth = healthLegendDiv.offsetWidth || 300;
         barWidth = Math.max(160, Math.min(barWidth, 420));
         let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18" aria-hidden="true">`;
@@ -1762,12 +1864,17 @@
           }" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
         }
         barSvg += `</svg>`;
-        let minLabelVal = breaks[0],
-          maxLabelVal = breaks[breaks.length - 1];
-        let minLabel = `${minLabelVal}${unit}`,
-          maxLabel = `${maxLabelVal}${unit}+`;
-        let labelsHtml = `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}</span></div>`;
-        healthLegendDiv.innerHTML = `<div class="legend-title">${displayName}</div>${barSvg}${labelsHtml}`;
+
+        let minLabelText = `≤ ${breaks[0]}${unit}`;
+        let maxLabelText = `> ${breaks[breaks.length - 1]}${unit}`;
+        let legendTitleSuffix = "(Circle Color - Higher % is Worse)";
+
+        if (type === "goodIsHigh") {
+          legendTitleSuffix = "(Circle Color - Higher % is Better)";
+        }
+        let labelsHtml = `<div class="legend-labels"><span>${minLabelText}</span><span>${maxLabelText}</span></div>`;
+
+        healthLegendDiv.innerHTML = `<div class="legend-title">${displayName} ${legendTitleSuffix}</div>${barSvg}${labelsHtml}`;
       }
 
       function updateSDoHLegend(metricKey) {
@@ -1823,7 +1930,7 @@
           });
           if (features.length > 0) updateInfoPanel(features[0].properties);
         } else {
-          updateInfoPanel(null);
+          updateInfoPanel(null); // Clear panel if no selection or data
         }
       });
 
@@ -1870,28 +1977,13 @@
         }
         const healthConfig =
           filteredHealthMetricConfigs[currentHealthMetricKey];
-        // --- LOGGING FOR VITAMIN D IN DRAW CIRCLES ---
-        if (
-          healthConfig &&
-          (currentHealthMetricKey === "VitD_Deficiency" ||
-            currentHealthMetricKey === "VitD_Toxicity")
-        ) {
-          console.log(
-            `[DRAW_CIRCLES VitD] currentHealthMetricKey: ${currentHealthMetricKey}`
-          );
-          console.log(
-            `[DRAW_CIRCLES VitD] healthConfig being used:`,
-            JSON.stringify(healthConfig)
-          );
-        }
-        // --- END LOGGING ---
 
         if (!healthConfig || !healthConfig.dataPath) {
           console.error(
             "[DRAW_CIRCLES] Health config or dataPath missing for key:",
             currentHealthMetricKey
           );
-          updateHealthLegend(currentHealthMetricKey, 30);
+          updateHealthLegend(currentHealthMetricKey, 30); // Default max value for legend if no data
           map
             .getSource("health-points")
             .setData({ type: "FeatureCollection", features: [] });
@@ -1901,7 +1993,7 @@
         let V_max_for_scaling = 0;
         let validValuesFound = false;
         geojsonData.features.forEach((feature) => {
-          const healthDataForMuni = feature.properties.healthData; // Should be an object or null
+          const healthDataForMuni = feature.properties.healthData;
           if (healthDataForMuni) {
             const val = getNestedHealthValue(
               healthDataForMuni,
@@ -1921,8 +2013,8 @@
         if (!validValuesFound || V_max_for_scaling <= 0) {
           V_max_for_scaling =
             healthConfig.breaks && healthConfig.breaks.length > 0
-              ? healthConfig.breaks[healthConfig.breaks.length - 1] * 1.2
-              : 30;
+              ? healthConfig.breaks[healthConfig.breaks.length - 1] * 1.2 // Use last break * 1.2 as a fallback
+              : 30; // Absolute fallback
           if (V_max_for_scaling <= 0) V_max_for_scaling = 30;
         }
 
@@ -1933,50 +2025,10 @@
             healthData: healthDataForMuni,
             sdoh: sdohMuniData,
           } = feature.properties;
-          // healthDataForMuni should be an object from preprocessGeojsonData
-
-          // --- LOGGING FOR SPECIFIC MUNICIPALITY IN DRAW CIRCLES ---
-          if (
-            municipalityName === "Las Piedras" &&
-            healthConfig &&
-            (currentHealthMetricKey === "VitD_Deficiency" ||
-              currentHealthMetricKey === "VitD_Toxicity")
-          ) {
-            console.log(
-              `[DRAW_CIRCLES Las Piedras VitD] healthDataForMuni:`,
-              JSON.stringify(healthDataForMuni)
-            );
-            if (healthDataForMuni && !healthDataForMuni["Vitamin D Risk"]) {
-              console.error(
-                `[DRAW_CIRCLES Las Piedras VitD] CRITICAL: 'Vitamin D Risk' key MISSING from healthDataForMuni object!`
-              );
-            }
-            if (healthDataForMuni && healthConfig && healthConfig.dataPath) {
-              const healthRiskValue = getNestedHealthValue(
-                healthDataForMuni,
-                healthConfig.dataPath
-              );
-              console.log(
-                `[DRAW_CIRCLES Las Piedras VitD] healthRiskValue for ${healthConfig.displayName}: ${healthRiskValue}`
-              );
-              const radius = getHealthRiskCircleRadius(
-                healthRiskValue,
-                V_max_for_scaling
-              );
-              const color = getHealthColor(
-                healthRiskValue,
-                currentHealthMetricKey
-              );
-              console.log(
-                `[DRAW_CIRCLES Las Piedras VitD] V_max_for_scaling: ${V_max_for_scaling}, Radius: ${radius}, Color: ${color}`
-              );
-            }
-          }
-          // --- END LOGGING ---
 
           if (
             municipalityName &&
-            healthDataForMuni &&
+            healthDataForMuni && // Ensure healthDataForMuni is an object
             sdohMuniData &&
             typeof sdohMuniData.lat === "number" &&
             typeof sdohMuniData.lon === "number"

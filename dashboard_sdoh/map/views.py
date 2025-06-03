@@ -213,7 +213,7 @@ def sdoh_municipality(request):
     pr_municipalities = os.path.join(settings.BASE_DIR, 'static', 'maps', 'municipalities.geojson')
 
     #Path to the cardio health data file
-    health_data_file_path = os.path.join(settings.BASE_DIR, 'static', 'data', 'cardiovascular_risk_by_municipality.json')
+    health_data_file_path = os.path.join(settings.BASE_DIR, 'static', 'data', 'cardio_vitd_hepatic_kidney.json')
 
     #Path to the SDoH data file
     sdoh_data_file_path = os.path.join(settings.BASE_DIR, 'static', 'data', 'sdoh_by_municipality.json')
