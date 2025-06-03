@@ -1,7 +1,9 @@
-Cardiovascular and Liver Disease Laboratory Data Visualisation
+# Dashboard-SDOH
+![Django](https://img.shields.io/badge/Django-5.1.7-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.11-blue.svg)
 ---
-
-This project is a Django web application that visualises data from the Cardiovascular and Liver Disease Laboratory. It provides a dashboard to view and analyse the data, as well as an admin interface to manage the data.
+![image of a map dashboard](<images/Screenshot 2025-06-03 at 4.59.21 PM.png>)
+This project is a Django web application that visualises data from the Cardiovascular , Hepatic, Renal and Vitamin D Risk from Abartys Health Laboratory Data. It provides a dashboard to view and analyse the data.
 
 Table of Contents
 
