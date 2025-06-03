@@ -757,7 +757,7 @@
       const filteredHealthMetricConfigs = {
         // Existing Cardio Risks
         CHD_High: {
-          displayName: "Coronary Heart Disease Risk",
+          displayName: "Risk of Coronary Heart Disease",
           dataPath: ["Risk of Coronary Heart Disease", "percentages", "High"],
           type: "goodIsLow",
           breaks: [10, 11.5, 13, 14.5, 16, 17.5],
@@ -768,7 +768,7 @@
         },
         AO_High: {
           // This is your default selected metric
-          displayName: "Arterial Obstruction Risk",
+          displayName: "Risk of Arterial Obstruction",
           dataPath: ["Risk of Arterial Obstruction", "percentages", "High"],
           type: "goodIsLow",
           breaks: [15, 16, 17, 18, 19, 20],
@@ -778,7 +778,7 @@
             "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Arterial Obstruction. Higher percentage is worse.",
         },
         HA_High: {
-          displayName: "Heart Attack Risk",
+          displayName: "Risk of Heart Attack",
           dataPath: [
             "Risk of Heart Attack or Atherosclerosis",
             "percentages",
@@ -793,7 +793,7 @@
         },
         // Vitamin D Risks
         VitD_Deficiency: {
-          displayName: "Vitamin D Deficiency",
+          displayName: "Risk of Vitamin D Deficiency",
           dataPath: ["Vitamin D Risk", "percentages", "Deficiency"],
           type: "goodIsLow",
           breaks: [3, 6, 9, 12, 15, 17],
@@ -803,7 +803,7 @@
             "<strong>Vitamin D Risk:</strong> \nPercentage of population with Vitamin D Deficiency. Higher percentage indicates greater prevalence.",
         },
         VitD_Toxicity: {
-          displayName: "Vitamin D Toxicity",
+          displayName: "Risk of Vitamin D Toxicity",
           dataPath: ["Vitamin D Risk", "percentages", "Toxicity"],
           type: "goodIsLow",
           breaks: [0.0, 0.25, 0.5, 0.75, 1, 1.25],
@@ -816,7 +816,7 @@
         // --- NEW HEALTH METRICS START ---
         // eGFR CKD-EPI Risk
         eGFR_Severe: {
-          displayName: "eGFR Severe Risk ",
+          displayName: "Risk of Chronic Kidney Disease (CKD) Risk",
           dataPath: ["eGFR CKD-EPI Risk", "percentages", "Severe"],
           type: "goodIsLow",
           breaks: [0.5, 1.0, 1.5, 2.0, 2.5, 3.0], // ADJUST BREAKS
@@ -858,7 +858,7 @@
         */
         // BUN/Creatinine Ratio Risk
         BCR_High: {
-          displayName: "BUN/Creatinine Ratio High Risk",
+          displayName: "Evaluation of Prerenal Cause or Tubular Damage",
           dataPath: ["BUN/Creatinine Ratio Risk", "percentages", "High"],
           type: "goodIsLow",
           breaks: [30, 35, 40, 45, 50, 55], // ADJUST BREAKS
@@ -890,7 +890,7 @@
 
         // AST/ALT Ratio Risk
         AAR_FibrosisHepatitis: {
-          displayName: "AST/ALT Ratio (Suggests Fibrosis/Hepatitis %)",
+          displayName: "Risk of Liver Fibrosis",
           dataPath: [
             "AST/ALT Ratio Risk",
             "percentages",
@@ -920,7 +920,7 @@
 
         // APRI Score Risk
         APRI_High: {
-          displayName: "APRI Score Risk)",
+          displayName: "Risk of Fibrosis or Cirrhosis",
           dataPath: ["APRI Score Risk", "percentages", "High risk"],
           type: "goodIsLow",
           breaks: [1, 2, 3, 4, 5, 6], // ADJUST BREAKS (likely low percentages)
@@ -956,7 +956,7 @@
 
         // FIB-4 Index Risk
         FIB4_High: {
-          displayName: "FIB-4 Index High Risk",
+          displayName: "Risk of Advanced Fibrosis",
           dataPath: ["FIB-4 Index Risk", "percentages", "High risk"],
           type: "goodIsLow",
           breaks: [2, 4, 6, 8, 10, 12], // ADJUST BREAKS
