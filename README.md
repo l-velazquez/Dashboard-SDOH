@@ -73,6 +73,4 @@ python manage.py runserver
 
 ### License
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
-Let me know if you’d like any additional sections or specific instructions tailored to your setup!
+Copyright (c) [2025] Luis Fernando Javier Velázquez Sosa. All Rights Reserved.
