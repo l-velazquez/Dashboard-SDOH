@@ -3,6 +3,9 @@
 ![Python](https://img.shields.io/badge/Python-3.11-blue.svg)
 ---
 ![image of a map dashboard](<images/Screenshot 2025-06-03 at 4.59.21 PM.png>)
+
+Live Page: [https://sdoh-rcmi.rcm.upr.edu](https://sdoh-rcmi.rcm.upr.edu)
+
 This project is a Django web application that visualises data from the Cardiovascular , Hepatic, Renal and Vitamin D Risk from Abartys Health Laboratory Data. It provides a dashboard to view and analyse the data.
 
 Table of Contents
