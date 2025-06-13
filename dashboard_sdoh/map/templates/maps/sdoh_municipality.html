@@ -987,7 +987,7 @@
         },*/
         // --- NEW HEALTH METRICS END ---
       };
-      
+
       const sdohMetricConfigs = {
         ACS_PCT_UNINSURED: {
           type: "percentage",
@@ -1553,34 +1553,78 @@
           },
         });
 
+        // Place this after your map.on('load', …) setup
+
+        // Reusable popup
+        const muniPopup = new maplibregl.Popup({
+          closeButton: false,
+          closeOnClick: false,
+          anchor: "top",
+        });
+
         map.on("mousemove", "municipalities-fill", (e) => {
           map.getCanvas().style.cursor = "pointer";
-          if (e.features.length > 0) {
-            const currentFeatureId = e.features[0].id; // id is NAME
-            if (hoveredFeatureId && hoveredFeatureId !== currentFeatureId) {
-              map.setFeatureState(
-                { source: "municipalities", id: hoveredFeatureId },
-                { hover: false }
-              );
-            }
-            hoveredFeatureId = currentFeatureId;
-            if (hoveredFeatureId !== selectedFeatureId) {
-              map.setFeatureState(
-                { source: "municipalities", id: hoveredFeatureId },
-                { hover: true }
-              );
+          if (!e.features || !e.features.length) return;
+
+          const feature = e.features[0];
+          const props = feature.properties;
+
+          // Parse healthData if it was serialized to a string
+          let healthData = props.healthData;
+          if (typeof healthData === "string") {
+            try {
+              healthData = JSON.parse(healthData);
+            } catch (err) {
+              healthData = null;
             }
           }
+
+          // Parse sdoh if needed
+          let sdohData = props.sdoh;
+          if (typeof sdohData === "string") {
+            try {
+              sdohData = JSON.parse(sdohData);
+            } catch (err) {
+              sdohData = null;
+            }
+          }
+
+          // HEALTH RISK
+          const hc = filteredHealthMetricConfigs[currentHealthMetricKey];
+          const rawH = getNestedHealthValue(healthData, hc.dataPath);
+          let healthDisplay = "N/A";
+          if (rawH != null && !isNaN(+rawH)) {
+            const decimals = hc.unit === "%" ? 2 : 0;
+            healthDisplay = `${parseFloat(rawH).toFixed(decimals)}${
+              hc.unit || ""
+            }`;
+          }
+
+          // SDoH
+          const sdKey = currentSDoHMetricKey.trim();
+          const sc = sdohMetricConfigs[sdKey];
+          const rawS = sdohData && sdohData[sdKey];
+          let sdDisplay = "N/A";
+          if (rawS != null && !isNaN(+rawS)) {
+            const decimals =
+              sc.type === "percentage" ? 1 : sc.type === "count" ? 0 : 2;
+            sdDisplay = `${parseFloat(rawS).toFixed(decimals)}${sc.unit || ""}`;
+          }
+          const sdLabel = sdohVariableMap[sdKey] || sdKey;
+
+          // Build popup HTML
+          const html = `
+    <strong>${props.NAME}</strong><br>
+    ${hc.displayName}: ${healthDisplay}<br>
+    ${sdLabel}: ${sdDisplay}
+  `.trim();
+
+          muniPopup.setLngLat(e.lngLat).setHTML(html).addTo(map);
         });
+
         map.on("mouseleave", "municipalities-fill", () => {
           map.getCanvas().style.cursor = "";
-          if (hoveredFeatureId) {
-            map.setFeatureState(
-              { source: "municipalities", id: hoveredFeatureId },
-              { hover: false }
-            );
-          }
-          hoveredFeatureId = null;
+          muniPopup.remove();
         });
         map.on("click", "municipalities-fill", (e) => {
           if (e.features.length > 0) {
