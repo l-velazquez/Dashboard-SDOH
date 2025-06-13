@@ -1553,8 +1553,6 @@
           },
         });
 
-        // Place this after your map.on('load', …) setup
-
         // Reusable popup
         const muniPopup = new maplibregl.Popup({
           closeButton: false,
@@ -1615,8 +1613,8 @@
           // Build popup HTML
           const html = `
     <strong>${props.NAME}</strong><br>
-    ${hc.displayName}: ${healthDisplay}<br>
-    ${sdLabel}: ${sdDisplay}
+    ${hc.displayName}: <strong>${healthDisplay}</strong><br>
+    ${sdLabel}: <strong>${sdDisplay}</strong>
   `.trim();
 
           muniPopup.setLngLat(e.lngLat).setHTML(html).addTo(map);
@@ -1665,11 +1663,15 @@
             "circle-opacity": 0.85,
           },
         });
+
+        /* --- MODIFICATION START: Circle hover functionality removed --- */
+        /*
         const healthCirclePopup = new maplibregl.Popup({
           closeButton: false,
           closeOnClick: false,
           anchor: "bottom",
         });
+
         map.on("mouseenter", "health-circles", (e) => {
           map.getCanvas().style.cursor = "pointer";
           const coordinates = e.features[0].geometry.coordinates.slice();
@@ -1703,10 +1705,13 @@
             .setHTML(description)
             .addTo(map);
         });
+
         map.on("mouseleave", "health-circles", () => {
           map.getCanvas().style.cursor = "";
           healthCirclePopup.remove();
         });
+        */
+        /* --- MODIFICATION END --- */
 
         updateSDoHLegend(currentSDoHMetricKey);
         drawHealthRiskCircles();
