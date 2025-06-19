@@ -208,7 +208,7 @@ def sdoh_zip(request):
 
 
 def sdoh_municipality(request):
-    title = "Social Determinants of Health (SDoH) and Health Risk in Puerto Rico"
+    title = "Cardiometabolic Risk Factors and Social Determinants of Health (SDoH) in Puerto Rico"
     #Path to the GeoJSON file
     pr_municipalities = os.path.join(settings.BASE_DIR, 'static', 'maps', 'municipalities.geojson')
 
