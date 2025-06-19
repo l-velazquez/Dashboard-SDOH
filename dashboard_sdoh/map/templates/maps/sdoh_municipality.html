@@ -994,7 +994,8 @@
           breaks: [4.0, 5.0, 6.3, 8.0, 10.1, 12.7, 16.0],
           colors: SDOH_COLORS,
           unit: "%",
-          description: "Percentage of the population without health insurance.",
+          description:
+            "Percentage of population with no health insurance coverage.",
         },
         ACS_PCT_LT_HS: {
           type: "percentage",
@@ -1002,14 +1003,15 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of the population aged 25 and over with less than a high school education.",
+            "Percentage of population with less than high school education (ages 25 and over).",
         },
         POS_MIN_DIST_ED: {
           type: "distance",
           breaks: [1.0, 1.6, 2.7, 4.5, 7.4, 12.1, 20.0],
           colors: SDOH_COLORS,
           unit: " mi",
-          description: "Minimum distance to an emergency department.",
+          description:
+            "Minimum distance in miles to the nearest emergency department, calculated using population weighted tract centroids in the county.",
         },
         ACS_PCT_HH_PUB_ASSIST: {
           type: "percentage",
@@ -1017,7 +1019,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of households receiving public assistance income.",
+            "Percentage of households with public assistance income or food stamps/SNAP.",
         },
         ACS_PCT_INC50_BELOW17: {
           type: "percentage",
@@ -1025,7 +1027,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of individuals under 17 years of age in households with income below 50% of the poverty line.",
+            "Percentage of children with income to poverty ratio under 0.50 (ages 17 and below).",
         },
         ACS_PCT_INC50_ABOVE65: {
           type: "percentage",
@@ -1033,15 +1035,14 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of individuals aged 65 and over in households with income below 50% of the poverty line.",
+            "Percentage of population with income to poverty ratio under 0.50 (ages 65 and over).",
         },
         ACS_PCT_DISABLE: {
           type: "percentage",
           breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
           colors: SDOH_COLORS,
           unit: "%",
-          description:
-            "Percentage of the civilian noninstitutionalized population with a disability.",
+          description: "Percentage of population with a disability.",
         },
         ACS_PCT_NONVET_DISABLE_18_64: {
           type: "percentage",
@@ -1049,7 +1050,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of non-veterans aged 18 to 64 with a disability.",
+            "Percentage of nonveterans with a disability (between ages 18 and 64).",
         },
         ACS_PCT_VET_DISABLE_18_64: {
           type: "percentage",
@@ -1057,28 +1058,30 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of veterans aged 18 to 64 with a disability.",
+            "Percentage of civilian veterans with a disability (between ages 18 and 64).",
         },
         HIFLD_MIN_DIST_UC: {
           type: "distance",
           breaks: [2.0, 3.0, 4.6, 7.1, 10.8, 16.4, 25.0],
           colors: SDOH_COLORS,
           unit: " mi",
-          description: "Minimum distance to an urgent care facility.",
+          description:
+            "Minimum distance in miles to the nearest urgent care, calculated using population weighted tract centroids in the county.",
         },
         POS_MIN_DIST_ALC: {
           type: "distance",
           breaks: [5.0, 7.1, 10.0, 14.1, 20.0, 28.3, 40.0],
           colors: SDOH_COLORS,
           unit: " mi",
-          description: "Minimum distance to an adult living care facility.",
+          description:
+            "Minimum distance in miles to the nearest hospital with alcohol and drug abuse inpatient care, calculated using population weighted tract centroids in the county.",
         },
         ACS_TOT_CIVIL_EMPLOY_POP: {
           type: "count",
           breaks: [2500, 4754, 9040, 17192, 32692, 62167, 120000],
           colors: SDOH_COLORS,
           unit: "",
-          description: "Total civilian employed population aged 16 and over.",
+          description: "Total civilian employed population (ages 16 and over).",
         },
         ACS_PCT_COLLEGE_ASSOCIATE_DGR: {
           type: "percentage",
@@ -1086,7 +1089,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of the population aged 25 and over with an associate's degree.",
+            "Percentage of population with some college or associate's degree (ages 25 and over).",
         },
         ACS_PCT_BACHELOR_DGR: {
           type: "percentage",
@@ -1094,7 +1097,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of the population aged 25 and over with a bachelor's degree.",
+            "Percentage of population with a bachelor's degree (ages 25 and over).",
         },
         ACS_PCT_GRADUATE_DGR: {
           type: "percentage",
@@ -1102,7 +1105,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of the population aged 25 and over with a graduate or professional degree.",
+            "Percentage of population with a master's or professional school degree or doctorate (ages 25 and over).",
         },
         ACS_PCT_HS_GRADUATE: {
           type: "percentage",
@@ -1110,7 +1113,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of the population aged 25 and over who are high school graduates (includes equivalency).",
+            "Percentage of population with only high school diploma (ages 25 and over).",
         },
         ACS_PCT_POSTHS_ED: {
           type: "percentage",
@@ -1118,7 +1121,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of the population aged 25 and over with some college or associate's degree.",
+            "Percentage of population with any postsecondary education (ages 25 and over).",
         },
         ACS_PCT_HEALTH_INC_BELOW137: {
           type: "percentage",
@@ -1126,7 +1129,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of the population with income below 137% of the federal poverty level.",
+            "Percentage of population under 1.37 of the poverty threshold (relevant for health insurance coverage).",
         },
         ACS_PCT_HEALTH_INC_138_199: {
           type: "percentage",
@@ -1134,7 +1137,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of the population with income between 138% and 199% of the federal poverty level.",
+            "Percentage of population between 1.38 and 1.99 of the poverty threshold (relevant for health insurance coverage).",
         },
         ACS_PCT_HEALTH_INC_200_399: {
           type: "percentage",
@@ -1142,7 +1145,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of the population with income between 200% and 399% of the federal poverty level.",
+            "Percentage of population between 2.00 and 3.99 of the poverty threshold (relevant for health insurance coverage).",
         },
         ACS_PCT_HEALTH_INC_ABOVE400: {
           type: "percentage",
@@ -1150,7 +1153,7 @@
           colors: SDOH_COLORS,
           unit: "%",
           description:
-            "Percentage of the population with income above 400% of the federal poverty level.",
+            "Percentage of population over 4.00 of the poverty threshold (relevant for health insurance coverage).",
         },
       };
 
