@@ -26,9 +26,9 @@ sdoh_json_variable_map = {
     "ACS_PCT_POSTHS_ED": "Pct. population with any post-high school education ",
     "ACS_TOT_CIVIL_EMPLOY_POP": "Total civilian employed population",
     "ACS_PCT_UNINSURED": "Pct. population with no health insurance",
-    "HIFLD_MIN_DIST_UC": "Min. distance (miles) to nearest urgent care ",
-    "POS_MIN_DIST_ED": "Min. distance (miles) to nearest emergency department",
-    "POS_MIN_DIST_ALC": "Min. distance (miles) to nearest inpatient alcohol/drug abuse care",
+    "HIFLD_MIN_DIST_UC": "Min. distance to nearest urgent care ",
+    "POS_MIN_DIST_ED": "Min. distance to nearest emergency department",
+    "POS_MIN_DIST_ALC": "Min. distance to nearest inpatient alcohol/drug abuse care",
     "ACS_PCT_DISABLE": "Pct. population with a disability",
     "ACS_PCT_NONVET_DISABLE_18_64": "Pct. nonveterans with a disability",
     "ACS_PCT_VET_DISABLE_18_64": "Pct. civilian veterans with a disability",
@@ -208,7 +208,7 @@ def sdoh_zip(request):
 
 
 def sdoh_municipality(request):
-    title = "Cardiometabolic Risk Factors and Social Determinants of Health (SDoH) in Puerto Rico"
+    title = "Puerto Rico Cardiometabolic Risk Factors"
     #Path to the GeoJSON file
     pr_municipalities = os.path.join(settings.BASE_DIR, 'static', 'maps', 'municipalities.geojson')
 

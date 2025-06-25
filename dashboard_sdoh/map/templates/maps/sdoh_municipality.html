@@ -113,13 +113,17 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 24px; /* Increased gap for more space between title and images */
       }
       header h1 {
         margin: 0;
         font-size: 1.5em;
         text-align: center;
         order: 1;
+        max-width: 90vw; /* Prevents title from being too long */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .header-logos-container {
         display: flex;
@@ -488,7 +492,7 @@
         <h2>Selection</h2>
 
         <div class="control-group">
-          <label for="metric-select">Select Health Risk Indicator:</label>
+          <label for="metric-select">Cardiometabolic Risk Factor:</label>
           <select id="metric-select"></select>
           <div id="metric-description" class="metric-description-panel">
             <p class="placeholder-text">
@@ -499,7 +503,7 @@
 
         <div class="control-group">
           <label for="sdoh-select"
-            >Select SDoH Indicator (Municipality Outline):</label
+            >Demographic Factor:</label
           >
           <select id="sdoh-select"></select>
           <div id="sdoh-description" class="metric-description-panel">
@@ -850,10 +854,6 @@
           dataPath: ["eGFR CKD-EPI Risk", "percentages", "Normal"],
           type: "goodIsHigh",
           breaks: [50, 55, 60, 65, 70, 75], // ADJUST BREAKS
-          colors: GOOD_HIGH_COLORS,
-          unit: "%",
-          description:
-            "Percentage of population with Normal kidney function (eGFR). Higher is better.",
         }, 
         */
         // BUN/Creatinine Ratio Risk
@@ -1792,7 +1792,7 @@
           filteredHealthMetricConfigs[currentHealthMetricKeyExact];
 
         let content = `<h3>Municipality: ${municipalityName}</h3>`;
-        content += `<hr style="margin:10px 0;"><h4>SDoH Indicator (Outline)</h4>`;
+        content += `<hr style="margin:10px 0;"><h4>Demographic Factor (Purple)</h4>`;
         if (
           sdohDataForMuni &&
           typeof sdohDataForMuni === "object" &&
@@ -1816,7 +1816,7 @@
           content += `<p>No SDoH data object found for "${currentSDoHMetricKeyTrimmed}" in ${municipalityName}.</p>`;
         }
 
-        content += `<h4 style="margin-top:15px;">Health Risk (Circles)</h4>`;
+        content += `<h4 style="margin-top:15px;">Cardiometabolic Risk Factor (Red)</h4>`;
         if (
           healthData &&
           typeof healthData === "object" &&
