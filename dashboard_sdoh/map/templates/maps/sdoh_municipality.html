@@ -77,7 +77,7 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Puerto Rico Health Risk Map</title>
+    <title>Puerto Rico Cardiometabolic Risk Factor</title>
     <!-- MapLibre GL JS -->
     <link
       href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css"
@@ -113,13 +113,17 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 24px; /* Increased gap for more space between title and images */
       }
       header h1 {
         margin: 0;
         font-size: 1.5em;
         text-align: center;
         order: 1;
+        max-width: 90vw; /* Prevents title from being too long */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .header-logos-container {
         display: flex;
@@ -129,8 +133,8 @@
         order: 2;
       }
       .header-logo {
-        height: 40px;
-        max-width: 120px;
+        height: 70px;
+        max-width: 200px;
         object-fit: contain;
       }
 
@@ -401,8 +405,8 @@
           display: contents;
         }
         .header-logo {
-          height: 50px;
-          max-width: none;
+          height: 90px;
+          max-width: 260px;
         }
         img[alt="AIM AHEAD Logo"] {
           order: 1;
@@ -485,10 +489,10 @@
     {%include 'header.html'%}
     <div class="main-content">
       <div class="left-sidebar sidebar">
-        <h2>Controls</h2>
+        <h2>Selection</h2>
 
         <div class="control-group">
-          <label for="metric-select">Select Health Risk Indicator:</label>
+          <label for="metric-select">Cardiometabolic Risk Factor:</label>
           <select id="metric-select"></select>
           <div id="metric-description" class="metric-description-panel">
             <p class="placeholder-text">
@@ -499,7 +503,7 @@
 
         <div class="control-group">
           <label for="sdoh-select"
-            >Select SDoH Indicator (Municipality Outline):</label
+            >Demographic Factor:</label
           >
           <select id="sdoh-select"></select>
           <div id="sdoh-description" class="metric-description-panel">
@@ -764,7 +768,7 @@
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Coronary Heart Disease. Higher percentage is worse.",
+            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Coronary Heart Disease.",
         },
         AO_High: {
           // This is your default selected metric
@@ -775,7 +779,7 @@
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Arterial Obstruction. Higher percentage is worse.",
+            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Arterial Obstruction.",
         },
         HA_High: {
           displayName: "Risk of Heart Attack",
@@ -789,7 +793,7 @@
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Heart Attack or Atherosclerosis. Higher percentage is worse.",
+            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Heart Attack or Atherosclerosis.",
         },
         // Vitamin D Risks
         VitD_Deficiency: {
@@ -800,7 +804,7 @@
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "<strong>Vitamin D Risk:</strong> \nPercentage of population with Vitamin D Deficiency. Higher percentage indicates greater prevalence.",
+            "<strong>Vitamin D Risk:</strong> \nPercentage of population with Vitamin D Deficiency.",
         },
         VitD_Toxicity: {
           displayName: "Risk of Vitamin D Toxicity",
@@ -810,7 +814,7 @@
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "<strong>Vitamin D Risk:</strong> \nPercentage of population with Vitamin D Toxicity. Higher percentage indicates greater prevalence.",
+            "<strong>Vitamin D Risk:</strong> \nPercentage of population with Vitamin D Toxicity.",
         },
 
         // --- NEW HEALTH METRICS START ---
@@ -823,7 +827,7 @@
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "<strong>Liver Risk:</strong>\nPercentage of population with Severe kidney function decline (eGFR). Higher is worse.",
+            "<strong>Liver Risk:</strong>\nPercentage of population with Severe kidney function decline (eGFR).",
         },
         /*eGFR_High: {
           displayName: "eGFR Risk (High/Moderate Decline %)",
@@ -850,10 +854,6 @@
           dataPath: ["eGFR CKD-EPI Risk", "percentages", "Normal"],
           type: "goodIsHigh",
           breaks: [50, 55, 60, 65, 70, 75], // ADJUST BREAKS
-          colors: GOOD_HIGH_COLORS,
-          unit: "%",
-          description:
-            "Percentage of population with Normal kidney function (eGFR). Higher is better.",
         }, 
         */
         // BUN/Creatinine Ratio Risk
@@ -865,7 +865,7 @@
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "<strong>Kidney Risk:</strong>\nPercentage of population with a High BUN/Creatinine Ratio. Higher is generally worse.",
+            "<strong>Kidney Risk:</strong>\nPercentage of population with a High BUN/Creatinine Ratio.",
         },
         /*BCR_Low: {
           displayName: "BUN/Creatinine Ratio (Low %)",
@@ -901,7 +901,7 @@
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "<strong>Liver Risk:</strong>\nPercentage of population whose AST/ALT ratio suggests fibrosis or active hepatitis. Higher is worse.",
+            "<strong>Liver Risk:</strong>\nPercentage of population whose AST/ALT ratio suggests fibrosis or active hepatitis.",
         },
         /*AAR_MildFattyLiver: {
           displayName: "AST/ALT Ratio (Mild Fatty Liver %)",
@@ -927,7 +927,7 @@
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "<strong>Liver Risk:</strong>\nPercentage of population at High Risk for liver fibrosis based on APRI score. Higher is worse.",
+            "<strong>Liver Risk:</strong>\nPercentage of population at High Risk for liver fibrosis based on APRI score.",
         },
         /*APRI_Moderate: {
           displayName: "APRI Score (Moderate Risk %)",
@@ -963,7 +963,7 @@
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "<strong>Liver Risk:</strong>\nPercentage of population at High Risk for liver fibrosis based on FIB-4 Index. Higher is worse.",
+            "<strong>Liver Risk:</strong>\nPercentage of population at High Risk for liver fibrosis based on FIB-4 Index.",
         },
         /*FIB4_Mild: {
           displayName: "FIB-4 Index (Mild Risk %)",
@@ -987,133 +987,173 @@
         },*/
         // --- NEW HEALTH METRICS END ---
       };
-      
+
       const sdohMetricConfigs = {
         ACS_PCT_UNINSURED: {
           type: "percentage",
           breaks: [4.0, 5.0, 6.3, 8.0, 10.1, 12.7, 16.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population with no health insurance coverage.",
         },
         ACS_PCT_LT_HS: {
           type: "percentage",
           breaks: [15.0, 18.0, 21.6, 26.0, 31.2, 37.5, 45.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population with less than high school education (ages 25 and over).",
         },
         POS_MIN_DIST_ED: {
           type: "distance",
           breaks: [1.0, 1.6, 2.7, 4.5, 7.4, 12.1, 20.0],
           colors: SDOH_COLORS,
           unit: " mi",
+          description:
+            "Minimum distance in miles to the nearest emergency department, calculated using population weighted tract centroids in the county.",
         },
         ACS_PCT_HH_PUB_ASSIST: {
           type: "percentage",
           breaks: [25.0, 29.3, 34.4, 40.3, 47.3, 55.4, 65.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of households with public assistance income or food stamps/SNAP.",
         },
         ACS_PCT_INC50_BELOW17: {
           type: "percentage",
           breaks: [25.0, 29.3, 34.4, 40.3, 47.3, 55.4, 65.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of children with income to poverty ratio under 0.50 (ages 17 and below).",
         },
         ACS_PCT_INC50_ABOVE65: {
           type: "percentage",
           breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population with income to poverty ratio under 0.50 (ages 65 and over).",
         },
         ACS_PCT_DISABLE: {
           type: "percentage",
           breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description: "Percentage of population with a disability.",
         },
         ACS_PCT_NONVET_DISABLE_18_64: {
           type: "percentage",
           breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of nonveterans with a disability (between ages 18 and 64).",
         },
         ACS_PCT_VET_DISABLE_18_64: {
           type: "percentage",
           breaks: [10.0, 13.8, 19.1, 26.5, 36.6, 50.6, 70.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of civilian veterans with a disability (between ages 18 and 64).",
         },
         HIFLD_MIN_DIST_UC: {
           type: "distance",
           breaks: [2.0, 3.0, 4.6, 7.1, 10.8, 16.4, 25.0],
           colors: SDOH_COLORS,
           unit: " mi",
+          description:
+            "Minimum distance in miles to the nearest urgent care, calculated using population weighted tract centroids in the county.",
         },
         POS_MIN_DIST_ALC: {
           type: "distance",
           breaks: [5.0, 7.1, 10.0, 14.1, 20.0, 28.3, 40.0],
           colors: SDOH_COLORS,
           unit: " mi",
+          description:
+            "Minimum distance in miles to the nearest hospital with alcohol and drug abuse inpatient care, calculated using population weighted tract centroids in the county.",
         },
         ACS_TOT_CIVIL_EMPLOY_POP: {
           type: "count",
           breaks: [2500, 4754, 9040, 17192, 32692, 62167, 120000],
           colors: SDOH_COLORS,
           unit: "",
+          description: "Total civilian employed population (ages 16 and over).",
         },
         ACS_PCT_COLLEGE_ASSOCIATE_DGR: {
           type: "percentage",
           breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population with some college or associate's degree (ages 25 and over).",
         },
         ACS_PCT_BACHELOR_DGR: {
           type: "percentage",
           breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population with a bachelor's degree (ages 25 and over).",
         },
         ACS_PCT_GRADUATE_DGR: {
           type: "percentage",
           breaks: [1.0, 1.6, 2.5, 4.0, 6.3, 10.1, 16.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population with a master's or professional school degree or doctorate (ages 25 and over).",
         },
         ACS_PCT_HS_GRADUATE: {
           type: "percentage",
           breaks: [20.0, 23.3, 27.1, 31.6, 36.8, 42.9, 50.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population with only high school diploma (ages 25 and over).",
         },
         ACS_PCT_POSTHS_ED: {
           type: "percentage",
           breaks: [20.0, 24.0, 28.8, 34.6, 41.6, 50.0, 60.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population with any postsecondary education (ages 25 and over).",
         },
         ACS_PCT_HEALTH_INC_BELOW137: {
           type: "percentage",
           breaks: [30.0, 36.0, 43.3, 52.0, 62.4, 74.9, 90.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population under 1.37 of the poverty threshold (relevant for health insurance coverage).",
         },
         ACS_PCT_HEALTH_INC_138_199: {
           type: "percentage",
           breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population between 1.38 and 1.99 of the poverty threshold (relevant for health insurance coverage).",
         },
         ACS_PCT_HEALTH_INC_200_399: {
           type: "percentage",
           breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population between 2.00 and 3.99 of the poverty threshold (relevant for health insurance coverage).",
         },
         ACS_PCT_HEALTH_INC_ABOVE400: {
           type: "percentage",
           breaks: [1.0, 1.6, 2.7, 4.5, 7.4, 12.1, 20.0],
           colors: SDOH_COLORS,
           unit: "%",
+          description:
+            "Percentage of population over 4.00 of the poverty threshold (relevant for health insurance coverage).",
         },
       };
 
@@ -1430,12 +1470,7 @@
       );
       populateSelect(sdohSelect, sdohVariableMap, currentSDoHMetricKey);
 
-      function updateDescriptionPanel(
-        panelElement,
-        key,
-        configMap,
-        variableMap = null
-      ) {
+      function updateDescriptionPanel(panelElement, key, configMap) {
         let description = "Description not available.";
         const lookupKey = key.trim();
 
@@ -1443,8 +1478,6 @@
           description = configMap[key].description;
         } else if (configMap && configMap[lookupKey]?.description) {
           description = configMap[lookupKey].description;
-        } else if (variableMap && variableMap[lookupKey]) {
-          description = variableMap[lookupKey];
         } else if (configMap && configMap[key]?.displayName) {
           description = configMap[key].displayName;
         } else if (configMap && configMap[lookupKey]?.displayName) {
@@ -1462,8 +1495,7 @@
       updateDescriptionPanel(
         sdohDescriptionPanel,
         currentSDoHMetricKey,
-        sdohMetricConfigs,
-        sdohVariableMap
+        sdohMetricConfigs
       );
 
       map = new maplibregl.Map({
@@ -1489,13 +1521,13 @@
 
       map.addControl(new maplibregl.NavigationControl(), "top-right");
       map.addControl(new maplibregl.FullscreenControl(), "top-right");
-      map.addControl(
-        new maplibregl.AttributionControl({
-          customAttribution:
-            "Created by: Luis F. J. Velázquez Sosa | Health Risk: Abartys Health | SDoH: ACS 2020 | Municipalities: US Census",
-        }),
-        "bottom-right"
-      );
+      // map.addControl(
+      //   new maplibregl.AttributionControl({
+      //     customAttribution:
+      //       "Created by: Luis F. J. Velázquez Sosa | Health Risk: Abartys Health | SDoH: ACS 2020 | Municipalities: US Census",
+      //   }),
+      //   "bottom-right"
+      // );
 
       map.on("load", () => {
         if (
@@ -1553,34 +1585,76 @@
           },
         });
 
+        // Reusable popup
+        const muniPopup = new maplibregl.Popup({
+          closeButton: false,
+          closeOnClick: false,
+          anchor: "top",
+        });
+
         map.on("mousemove", "municipalities-fill", (e) => {
           map.getCanvas().style.cursor = "pointer";
-          if (e.features.length > 0) {
-            const currentFeatureId = e.features[0].id; // id is NAME
-            if (hoveredFeatureId && hoveredFeatureId !== currentFeatureId) {
-              map.setFeatureState(
-                { source: "municipalities", id: hoveredFeatureId },
-                { hover: false }
-              );
-            }
-            hoveredFeatureId = currentFeatureId;
-            if (hoveredFeatureId !== selectedFeatureId) {
-              map.setFeatureState(
-                { source: "municipalities", id: hoveredFeatureId },
-                { hover: true }
-              );
+          if (!e.features || !e.features.length) return;
+
+          const feature = e.features[0];
+          const props = feature.properties;
+
+          // Parse healthData if it was serialized to a string
+          let healthData = props.healthData;
+          if (typeof healthData === "string") {
+            try {
+              healthData = JSON.parse(healthData);
+            } catch (err) {
+              healthData = null;
             }
           }
+
+          // Parse sdoh if needed
+          let sdohData = props.sdoh;
+          if (typeof sdohData === "string") {
+            try {
+              sdohData = JSON.parse(sdohData);
+            } catch (err) {
+              sdohData = null;
+            }
+          }
+
+          // HEALTH RISK
+          const hc = filteredHealthMetricConfigs[currentHealthMetricKey];
+          const rawH = getNestedHealthValue(healthData, hc.dataPath);
+          let healthDisplay = "N/A";
+          if (rawH != null && !isNaN(+rawH)) {
+            const decimals = hc.unit === "%" ? 2 : 0;
+            healthDisplay = `${parseFloat(rawH).toFixed(decimals)}${
+              hc.unit || ""
+            }`;
+          }
+
+          // SDoH
+          const sdKey = currentSDoHMetricKey.trim();
+          const sc = sdohMetricConfigs[sdKey];
+          const rawS = sdohData && sdohData[sdKey];
+          let sdDisplay = "N/A";
+          if (rawS != null && !isNaN(+rawS)) {
+            const decimals =
+              sc.type === "percentage" ? 1 : sc.type === "count" ? 0 : 2;
+            sdDisplay = `${parseFloat(rawS).toFixed(decimals)}${sc.unit || ""}`;
+          }
+          const sdLabel = sdohVariableMap[sdKey] || sdKey;
+
+          // Build popup HTML
+          const html = `
+    <strong>${props.NAME}</strong><br>
+    ${hc.displayName}: <strong>${healthDisplay}</strong><br>
+    ${sdLabel}: <strong>${sdDisplay}</strong>
+  `.trim();
+
+          muniPopup.setLngLat(e.lngLat).setHTML(html).addTo(map);
         });
+
         map.on("mouseleave", "municipalities-fill", () => {
           map.getCanvas().style.cursor = "";
-          if (hoveredFeatureId) {
-            map.setFeatureState(
-              { source: "municipalities", id: hoveredFeatureId },
-              { hover: false }
-            );
-          }
-          hoveredFeatureId = null;
+          muniPopup.remove();
         });
         map.on("click", "municipalities-fill", (e) => {
           if (e.features.length > 0) {
@@ -1621,11 +1695,15 @@
             "circle-opacity": 0.85,
           },
         });
+
+        /* --- MODIFICATION START: Circle hover functionality removed --- */
+        /*
         const healthCirclePopup = new maplibregl.Popup({
           closeButton: false,
           closeOnClick: false,
           anchor: "bottom",
         });
+
         map.on("mouseenter", "health-circles", (e) => {
           map.getCanvas().style.cursor = "pointer";
           const coordinates = e.features[0].geometry.coordinates.slice();
@@ -1659,10 +1737,13 @@
             .setHTML(description)
             .addTo(map);
         });
+
         map.on("mouseleave", "health-circles", () => {
           map.getCanvas().style.cursor = "";
           healthCirclePopup.remove();
         });
+        */
+        /* --- MODIFICATION END --- */
 
         updateSDoHLegend(currentSDoHMetricKey);
         drawHealthRiskCircles();
@@ -1711,7 +1792,7 @@
           filteredHealthMetricConfigs[currentHealthMetricKeyExact];
 
         let content = `<h3>Municipality: ${municipalityName}</h3>`;
-        content += `<hr style="margin:10px 0;"><h4>SDoH Indicator (Outline)</h4>`;
+        content += `<hr style="margin:10px 0;"><h4>Demographic Factor (Purple)</h4>`;
         if (
           sdohDataForMuni &&
           typeof sdohDataForMuni === "object" &&
@@ -1735,7 +1816,7 @@
           content += `<p>No SDoH data object found for "${currentSDoHMetricKeyTrimmed}" in ${municipalityName}.</p>`;
         }
 
-        content += `<h4 style="margin-top:15px;">Health Risk (Circles)</h4>`;
+        content += `<h4 style="margin-top:15px;">Cardiometabolic Risk Factor (Red)</h4>`;
         if (
           healthData &&
           typeof healthData === "object" &&

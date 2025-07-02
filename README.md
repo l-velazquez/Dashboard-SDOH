@@ -1,6 +1,9 @@
 # Dashboard-SDOH
+
 ![Django](https://img.shields.io/badge/Django-5.1.7-blue.svg)
-![Python](https://img.shields.io/badge/Python-3.11-blue.svg)
+
+![Python](https://img.shields.io/badge/Python-3.13-blue.svg) <!-- Adjusted to 3.13 based on Dockerfile -->
+
 ---
 ![image of a map dashboard](<images/Screenshot 2025-06-03 at 4.59.21 PM.png>)
 
@@ -14,6 +17,7 @@ Table of Contents
 - Installation
 - Environment Variables
 - Running the Project
+- Docker Setup
 - Testing
 - License
 
@@ -21,8 +25,8 @@ Table of Contents
 
 Make sure you have the following installed:
 
-- Python 3.11 (or your preferred version)
-- Django 5.1.7 (or your project’s version)
+- Python 3.13 (as used in the Dockerfile)
+- Django 5.1.10 (or your project’s version)
 - Virtualenv (optional but recommended)
 - Other dependencies are listed in requirements.txt
 
@@ -58,15 +62,58 @@ cp .env.example .env
 
 5. Update the .env file with your environment-specific variables, such as database credentials, secret key, etc.
 
-### Running the Project
+### Running the Project (Local Development)
 
-6. Run the development server:
+6. Run Django migrations (if applicable):
+
+   ```sh
+   python manage.py migrate
+   ```
+
+7. Run the development server:
 
 ```sh
 python manage.py runserver 0.0.0.0:8000
 ```
 
-7. Open a browser and go to http://localhost:8000 to view the project.
+8. Open a browser and go to `http://localhost:8000` to view the project.
+
+--
+
+### Docker Setup
+
+This project includes a `Dockerfile` for containerization.
+
+#### 1. Prerequisites
+
+Ensure you have Docker installed and running on your system (e.g., Docker Desktop, OrbStack).
+
+#### 2. Build the Docker Image
+
+Navigate to the root directory of the project where the `Dockerfile` is located.
+Then, build the Docker image:
+
+```sh
+docker build -t sdoh-dashboard .
+```
+
+This command builds the image and tags it as `sdoh-dashboard`.
+
+#### 3. Run the Docker Container
+
+Once the image is built, you can run a container from it:
+
+```sh
+docker run -p 8000:8000 sdoh-dashboard
+```
+
+This command maps port `8000` on your host machine to port `8000` inside the container, making the Django application accessible.
+
+#### 4. Access the Application
+
+Open a web browser and navigate to `http://localhost:8000`.
+
+---
 
 ### License
 
