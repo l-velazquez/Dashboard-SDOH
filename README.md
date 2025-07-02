@@ -1,8 +1,10 @@
 # Dashboard-SDOH
 
 ![Django](https://img.shields.io/badge/Django-5.1.10-blue.svg)
-
-![Python](https://img.shields.io/badge/Python-3.13-blue.svg) <!-- Adjusted to 3.13 based on Dockerfile -->
+![Python](https://img.shields.io/badge/Python-3.13-blue.svg)
+![Docker](https://img.shields.io/badge/Docker-ready-blue.svg)
+![Issues](https://img.shields.io/github/issues/l-velazquez/Dashboard-SDOH)
+![Last Commit](https://img.shields.io/github/last-commit/l-velazquez/Dashboard-SDOH)
 
 ---
 ![image of a map dashboard](<images/Screenshot 2025-07-02 at 1.31.54 PM.png>)
