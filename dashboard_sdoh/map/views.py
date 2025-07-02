@@ -19,7 +19,7 @@ sdoh_json_variable_map = {
     "ACS_PCT_HEALTH_INC_ABOVE400": "Pct. population >= 400% of poverty threshold",
     "ACS_PCT_HH_PUB_ASSIST": "Pct. households with public assistance/SNAP",
     "ACS_PCT_COLLEGE_ASSOCIATE_DGR": "Pct. population with some college or associate's degree",
-    "ACS_PCT_BACHELOR_DGR": "Pct. population with bachelor's degree ",
+    "ACS_PCT_BACHELOR_DGR": "Pct. population with bachelor's degree",
     "ACS_PCT_GRADUATE_DGR": "Pct. population with graduate/professional degree",
     "ACS_PCT_HS_GRADUATE": "Pct. population with high school diploma only",
     "ACS_PCT_LT_HS": "Pct. population with less than high school education",

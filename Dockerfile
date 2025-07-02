@@ -3,7 +3,7 @@ FROM public.ecr.aws/docker/library/python:3.13
 WORKDIR /app
 
 # Install dependencies for psycopg2 and other build tools if needed
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
