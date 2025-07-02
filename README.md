@@ -21,8 +21,8 @@ Table of Contents
 
 Make sure you have the following installed:
 
-- Python 3.11 (or your preferred version)
-- Django 5.1.7 (or your project’s version)
+- Python 3.13 (or your preferred version)
+- Django 5.1.10 (or your project’s version)
 - Virtualenv (optional but recommended)
 - Other dependencies are listed in requirements.txt
 
