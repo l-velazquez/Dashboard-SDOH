@@ -1,11 +1,11 @@
 # Dashboard-SDOH
 
-![Django](https://img.shields.io/badge/Django-5.1.7-blue.svg)
+![Django](https://img.shields.io/badge/Django-5.1.10-blue.svg)
 
 ![Python](https://img.shields.io/badge/Python-3.13-blue.svg) <!-- Adjusted to 3.13 based on Dockerfile -->
 
 ---
-![image of a map dashboard](<images/Screenshot 2025-06-03 at 4.59.21 PM.png>)
+![image of a map dashboard](<images/Screenshot 2025-07-02 at 1.31.54 PM.png>)
 
 Live Page: [https://sdoh-rcmi.rcm.upr.edu](https://sdoh-rcmi.rcm.upr.edu)
 
