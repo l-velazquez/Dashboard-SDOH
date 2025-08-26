@@ -80,7 +80,7 @@ python manage.py runserver 0.0.0.0:8000
 
 8. Open a browser and go to `http://localhost:8000` to view the project.
 
---
+---
 
 ### Docker Setup
 
