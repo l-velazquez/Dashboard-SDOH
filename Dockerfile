@@ -2,7 +2,7 @@
 FROM nginx:alpine
 
 # Copy the static website files to the nginx default public folder
-COPY public/ /usr/share/nginx/html
+COPY . /usr/share/nginx/html
 
 # Expose port 80 for normal web traffic
 EXPOSE 80
