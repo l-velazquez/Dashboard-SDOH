@@ -439,255 +439,57 @@
         margin-top: auto;
       }
 
-      /* --- CORRELATION SECTION --- */
-      .correlation-section {
-        padding: 30px 20px;
-        background: linear-gradient(135deg, #0f0c29 0%, #1a1140 40%, #24243e 100%);
-        position: relative;
-        overflow: hidden;
+      /* --- Analytics CTA Banner --- */
+      .analytics-cta-banner {
+        background: linear-gradient(135deg, #1a0030 0%, #2d1060 50%, #1a0030 100%);
+        border-top: 1px solid rgba(167,139,250,0.2);
+        padding: 32px 24px;
       }
-      .correlation-section::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(ellipse at 30% 20%, rgba(108, 56, 172, 0.08) 0%, transparent 60%),
-                    radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.06) 0%, transparent 60%);
-        pointer-events: none;
-      }
-      .correlation-section-title {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.6em;
-        font-weight: 800;
-        color: #ffffff;
-        text-align: center;
-        margin-bottom: 6px;
-        letter-spacing: -0.02em;
-      }
-      .correlation-section-subtitle {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.95em;
-        color: rgba(255,255,255,0.55);
-        text-align: center;
-        margin-bottom: 28px;
-        font-weight: 400;
-      }
-      .correlation-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-        max-width: 1300px;
+      .cta-content {
+        max-width: 900px;
         margin: 0 auto;
-        position: relative;
-        z-index: 1;
-      }
-      @media (min-width: 992px) {
-        .correlation-grid {
-          grid-template-columns: 1.4fr 1fr;
-          gap: 24px;
-        }
-      }
-      .corr-card {
-        background: rgba(255, 255, 255, 0.06);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 24px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .corr-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-      }
-      .corr-card-title {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.8em;
-        font-weight: 700;
-        color: rgba(255,255,255,0.45);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin-bottom: 16px;
-      }
-      /* Scatter plot card */
-      .scatter-card {
-        grid-row: span 2;
-      }
-      .scatter-card canvas {
-        width: 100% !important;
-        max-height: 420px;
-      }
-      /* Stats card */
-      .stats-card {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-      .r-value-display {
         display: flex;
         align-items: center;
-        gap: 20px;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
       }
-      .r-number {
-        font-family: 'Inter', sans-serif;
-        font-size: 3.2em;
-        font-weight: 800;
-        line-height: 1;
-        background: linear-gradient(135deg, #60a5fa, #b2dfdb);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      .r-meta {
+      .cta-text {
         display: flex;
         flex-direction: column;
         gap: 4px;
+        font-family: 'Inter', -apple-system, sans-serif;
       }
-      .r-strength {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.05em;
+      .cta-text strong {
+        font-size: 1.15em;
         font-weight: 700;
         color: #e2e8f0;
       }
-      .r-direction {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.85em;
-        color: rgba(255,255,255,0.5);
-        font-weight: 500;
+      .cta-text span {
+        font-size: 0.9em;
+        color: rgba(255,255,255,0.55);
+        max-width: 520px;
       }
-      .r-gauge-container {
-        width: 100%;
-        margin: 4px 0 8px 0;
-      }
-      .r-gauge-track {
-        width: 100%;
-        height: 8px;
-        border-radius: 4px;
-        background: linear-gradient(90deg, #ef4444 0%, #facc15 25%, #a3e635 50%, #facc15 75%, #ef4444 100%);
-        position: relative;
-      }
-      .r-gauge-marker {
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background: #ffffff;
-        border: 3px solid #a78bfa;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-      }
-      .r-gauge-labels {
-        display: flex;
-        justify-content: space-between;
-        font-family: 'Inter', sans-serif;
-        font-size: 0.7em;
-        color: rgba(255,255,255,0.35);
-        margin-top: 4px;
-        font-weight: 500;
-      }
-      .r-narrative {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.92em;
-        line-height: 1.65;
-        color: rgba(255,255,255,0.72);
-        padding: 14px 16px;
-        background: rgba(255,255,255,0.04);
-        border-radius: 10px;
-        border-left: 3px solid rgba(167, 139, 250, 0.5);
-      }
-      .r-narrative strong {
-        color: #e2e8f0;
-      }
-      .r-sample-size {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.8em;
-        color: rgba(255,255,255,0.35);
-        text-align: right;
-      }
-      /* Extremes tables card */
-      .extremes-card {
-        grid-column: 1 / -1;
-      }
-      .extremes-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      @media (min-width: 700px) {
-        .extremes-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-      .extremes-table-wrapper {
-        background: rgba(255,255,255,0.03);
-        border-radius: 12px;
-        padding: 16px;
-        border: 1px solid rgba(255,255,255,0.06);
-      }
-      .extremes-table-label {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.82em;
-        font-weight: 700;
-        margin-bottom: 10px;
-        display: flex;
+      .cta-button {
+        display: inline-flex;
         align-items: center;
         gap: 8px;
-      }
-      .label-high { color: #f87171; }
-      .label-low { color: #b2dfdb; }
-      .extremes-table-label .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        display: inline-block;
-      }
-      .dot-high { background: #f87171; }
-      .dot-low { background: #b2dfdb; }
-      .extremes-table {
-        width: 100%;
-        border-collapse: collapse;
+        padding: 13px 24px;
+        background: linear-gradient(135deg, #7c3aed, #4f46e5);
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
         font-family: 'Inter', sans-serif;
+        font-size: 0.95em;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+        transition: filter 0.2s, transform 0.2s;
+        box-shadow: 0 4px 20px rgba(124,58,237,0.35);
       }
-      .extremes-table th {
-        font-size: 0.7em;
-        font-weight: 600;
-        color: rgba(255,255,255,0.4);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        padding: 6px 8px;
-        text-align: left;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-      }
-      .extremes-table td {
-        font-size: 0.85em;
-        color: rgba(255,255,255,0.75);
-        padding: 8px 8px;
-        border-bottom: 1px solid rgba(255,255,255,0.04);
-      }
-      .extremes-table tr:last-child td {
-        border-bottom: none;
-      }
-      .extremes-table tr:hover td {
-        background: rgba(255,255,255,0.04);
-      }
-      .extremes-table .muni-name {
-        font-weight: 600;
-        color: rgba(255,255,255,0.9);
-      }
-      .extremes-table .val-cell {
-        font-variant-numeric: tabular-nums;
-      }
-      @media (max-width: 991px) {
-        .scatter-card {
-          grid-row: span 1;
-        }
-        .correlation-section-title {
-          font-size: 1.3em;
-        }
+      .cta-button:hover {
+        filter: brightness(1.15);
+        transform: translateY(-1px);
       }
 
       /* --- START: New Back Button Styles --- */
@@ -834,7 +636,7 @@
           class="header-logo"
         />
       </div>
-      <a href="./analytics.html" class="analytics-nav-link">&#9654; Analytics &amp; Insights</a>
+      
     </header>
     <div class="main-content">
       <div class="left-sidebar sidebar">
@@ -891,52 +693,16 @@
       </div>
     </div>
 
-    <!-- Correlation Analysis Section -->
-    <section class="correlation-section" id="correlation-section">
-      <div class="correlation-section-title">Correlation Analysis</div>
-      <div class="correlation-section-subtitle" id="corr-subtitle">Select a Cardiometabolic Risk Factor and Demographic Factor to explore their relationship</div>
-      <div class="correlation-grid">
-        <div class="corr-card scatter-card">
-          <div class="corr-card-title">Scatter Plot</div>
-          <canvas id="scatter-chart"></canvas>
+    <!-- Analytics CTA Banner -->
+    <div class="analytics-cta-banner">
+      <div class="cta-content">
+        <div class="cta-text">
+          <strong>Want deeper insights?</strong>
+          <span>Explore correlations between health outcomes and social determinants, island-wide statistics, and full municipality profiles.</span>
         </div>
-        <div class="corr-card stats-card" id="stats-card">
-          <div class="corr-card-title">Pearson Correlation</div>
-          <div class="r-value-display">
-            <div class="r-number" id="r-number">—</div>
-            <div class="r-meta">
-              <div class="r-strength" id="r-strength">Select metrics</div>
-              <div class="r-direction" id="r-direction"></div>
-            </div>
-          </div>
-          <div class="r-gauge-container">
-            <div class="r-gauge-track">
-              <div class="r-gauge-marker" id="r-gauge-marker" style="left:50%"></div>
-            </div>
-            <div class="r-gauge-labels">
-              <span>−1 (Strong Negative)</span>
-              <span>0</span>
-              <span>+1 (Strong Positive)</span>
-            </div>
-          </div>
-          <div class="r-narrative" id="r-narrative">Choose a cardiometabolic risk factor and a demographic factor from the dropdowns above, then scroll here to see whether they are correlated across Puerto Rico's municipalities.</div>
-          <div class="r-sample-size" id="r-sample-size"></div>
-        </div>
-        <div class="corr-card extremes-card">
-          <div class="corr-card-title">Municipality Extremes</div>
-          <div class="extremes-grid" id="extremes-grid">
-            <div class="extremes-table-wrapper">
-              <div class="extremes-table-label label-high"><span class="dot dot-high"></span> Highest Health Risk</div>
-              <table class="extremes-table" id="extremes-high"><tbody><tr><td style="color:rgba(255,255,255,0.4); font-style:italic;">Select metrics to see data</td></tr></tbody></table>
-            </div>
-            <div class="extremes-table-wrapper">
-              <div class="extremes-table-label label-low"><span class="dot dot-low"></span> Lowest Health Risk</div>
-              <table class="extremes-table" id="extremes-low"><tbody><tr><td style="color:rgba(255,255,255,0.4); font-style:italic;">Select metrics to see data</td></tr></tbody></table>
-            </div>
-          </div>
-        </div>
+        <a href="./analytics.html" class="cta-button">View Analytics &amp; Insights &#8594;</a>
       </div>
-    </section>
+    </div>
 
     <footer>
       <p>
@@ -2716,351 +2482,6 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
         updateHealthLegend(currentHealthMetricKey, V_max_for_scaling);
       }
 
-      // ================================================================
-      // CORRELATION ANALYSIS SECTION
-      // ================================================================
-      let scatterChartInstance = null;
-
-      function getCorrelationPairs() {
-        const healthConfig = filteredHealthMetricConfigs[currentHealthMetricKey];
-        const sdohKey = currentSDoHMetricKey.trim();
-        if (!healthConfig || !healthConfig.dataPath) return [];
-
-        const pairs = [];
-        geojsonData.features.forEach(feature => {
-          const name = feature.properties.NAME;
-          const healthData = feature.properties.healthData;
-          const sdohData = feature.properties.sdoh;
-          if (!healthData || !sdohData) return;
-
-          const healthVal = getNestedHealthValue(healthData, healthConfig.dataPath);
-          const sdohVal = sdohData[sdohKey];
-
-          if (healthVal != null && !isNaN(parseFloat(healthVal)) &&
-              sdohVal != null && !isNaN(parseFloat(sdohVal))) {
-            pairs.push({
-              name: name,
-              health: parseFloat(healthVal),
-              sdoh: parseFloat(sdohVal)
-            });
-          }
-        });
-        return pairs;
-      }
-
-      function computePearsonR(pairs) {
-        const n = pairs.length;
-        if (n < 3) return { r: null, slope: null, intercept: null, n: n };
-
-        let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
-        for (const p of pairs) {
-          sumX += p.sdoh;
-          sumY += p.health;
-          sumXY += p.sdoh * p.health;
-          sumX2 += p.sdoh * p.sdoh;
-          sumY2 += p.health * p.health;
-        }
-        const numerator = n * sumXY - sumX * sumY;
-        const denominator = Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
-        const r = denominator === 0 ? 0 : numerator / denominator;
-
-        const meanX = sumX / n;
-        const meanY = sumY / n;
-        const slopeNum = sumXY - n * meanX * meanY;
-        const slopeDen = sumX2 - n * meanX * meanX;
-        const slope = slopeDen === 0 ? 0 : slopeNum / slopeDen;
-        const intercept = meanY - slope * meanX;
-
-        return { r, slope, intercept, n, meanX, meanY };
-      }
-
-      function getRStrength(r) {
-        const abs = Math.abs(r);
-        if (abs >= 0.7) return 'Strong';
-        if (abs >= 0.4) return 'Moderate';
-        if (abs >= 0.2) return 'Weak';
-        return 'Very Weak / Negligible';
-      }
-
-      function getRColor(r) {
-        const abs = Math.abs(r);
-        if (abs >= 0.7) return r > 0 ? '#f87171' : '#60a5fa';
-        if (abs >= 0.4) return r > 0 ? '#fb923c' : '#818cf8';
-        if (abs >= 0.2) return '#fbbf24';
-        return '#a1a1aa';
-      }
-
-      function renderScatterPlot(pairs, stats) {
-        const canvas = document.getElementById('scatter-chart');
-        if (!canvas) return;
-
-        if (scatterChartInstance) {
-          scatterChartInstance.destroy();
-          scatterChartInstance = null;
-        }
-
-        const healthConfig = filteredHealthMetricConfigs[currentHealthMetricKey];
-        const sdohKey = currentSDoHMetricKey.trim();
-        const sdohLabel = sdohVariableMap[sdohKey] || sdohKey;
-        const healthLabel = healthConfig?.displayName || currentHealthMetricKey;
-        const sdohConfig = sdohMetricConfigs[sdohKey];
-
-        const dataPoints = pairs.map(p => ({ x: p.sdoh, y: p.health, label: p.name }));
-
-        // Trendline data
-        const trendData = [];
-        if (stats.slope !== null && pairs.length >= 3) {
-          const xVals = pairs.map(p => p.sdoh);
-          const xMin = Math.min(...xVals);
-          const xMax = Math.max(...xVals);
-          const pad = (xMax - xMin) * 0.05;
-          trendData.push({ x: xMin - pad, y: stats.slope * (xMin - pad) + stats.intercept });
-          trendData.push({ x: xMax + pad, y: stats.slope * (xMax + pad) + stats.intercept });
-        }
-
-        const pointColor = stats.r !== null ? getRColor(stats.r) : 'rgba(167, 139, 250, 0.7)';
-
-        scatterChartInstance = new Chart(canvas, {
-          type: 'scatter',
-          data: {
-            datasets: [
-              {
-                label: 'Municipalities',
-                data: dataPoints,
-                backgroundColor: pointColor,
-                borderColor: 'rgba(255,255,255,0.3)',
-                borderWidth: 1,
-                pointRadius: 6,
-                pointHoverRadius: 10,
-                pointHoverBackgroundColor: '#ffffff',
-                pointHoverBorderColor: pointColor,
-                pointHoverBorderWidth: 3,
-              },
-              {
-                label: 'Trendline',
-                data: trendData,
-                type: 'line',
-                borderColor: 'rgba(255,255,255,0.35)',
-                borderWidth: 2,
-                borderDash: [8, 4],
-                pointRadius: 0,
-                fill: false,
-                tension: 0,
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            animation: { duration: 600, easing: 'easeOutQuart' },
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                backgroundColor: 'rgba(15, 12, 41, 0.95)',
-                titleFont: { family: 'Inter', weight: '700', size: 13 },
-                bodyFont: { family: 'Inter', size: 12 },
-                borderColor: 'rgba(167, 139, 250, 0.4)',
-                borderWidth: 1,
-                cornerRadius: 8,
-                padding: 12,
-                callbacks: {
-                  title: function(items) {
-                    if (items[0]?.raw?.label) return items[0].raw.label;
-                    return '';
-                  },
-                  label: function(item) {
-                    if (!item.raw.label) return '';
-                    const xUnit = sdohConfig?.unit || '';
-                    const yUnit = healthConfig?.unit || '';
-                    return [
-                      `${sdohLabel}: ${item.raw.x.toFixed(1)}${xUnit}`,
-                      `${healthLabel}: ${item.raw.y.toFixed(2)}${yUnit}`
-                    ];
-                  }
-                }
-              }
-            },
-            scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: sdohLabel + (sdohConfig?.unit ? ` (${sdohConfig.unit.trim()})` : ''),
-                  color: 'rgba(255,255,255,0.55)',
-                  font: { family: 'Inter', size: 12, weight: '600' }
-                },
-                ticks: { color: 'rgba(255,255,255,0.4)', font: { family: 'Inter', size: 10 } },
-                grid: { color: 'rgba(255,255,255,0.06)' },
-                border: { color: 'rgba(255,255,255,0.1)' }
-              },
-              y: {
-                title: {
-                  display: true,
-                  text: healthLabel + (healthConfig?.unit ? ` (${healthConfig.unit.trim()})` : ''),
-                  color: 'rgba(255,255,255,0.55)',
-                  font: { family: 'Inter', size: 12, weight: '600' }
-                },
-                ticks: { color: 'rgba(255,255,255,0.4)', font: { family: 'Inter', size: 10 } },
-                grid: { color: 'rgba(255,255,255,0.06)' },
-                border: { color: 'rgba(255,255,255,0.1)' }
-              }
-            },
-            onClick: function(evt, elements) {
-              if (elements.length > 0) {
-                const idx = elements[0].index;
-                const muniName = pairs[idx]?.name;
-                if (muniName && map && map.getSource('municipalities')) {
-                  if (selectedFeatureId) {
-                    map.setFeatureState({ source: 'municipalities', id: selectedFeatureId }, { select: false });
-                  }
-                  selectedFeatureId = muniName;
-                  map.setFeatureState({ source: 'municipalities', id: muniName }, { select: true });
-
-                  const features = map.querySourceFeatures('municipalities', { filter: ['==', ['id'], muniName] });
-                  if (features.length > 0) {
-                    const bounds = getFeatureLngLatBounds(features[0]);
-                    if (bounds.getNorthEast() && bounds.getSouthWest()) {
-                      map.fitBounds(bounds, { padding: 60, maxZoom: 11 });
-                    }
-                    updateInfoPanel(features[0].properties);
-                  }
-                  document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-              }
-            }
-          }
-        });
-      }
-
-      function renderCorrelationStats(stats, pairs) {
-        const rNumber = document.getElementById('r-number');
-        const rStrength = document.getElementById('r-strength');
-        const rDirection = document.getElementById('r-direction');
-        const rMarker = document.getElementById('r-gauge-marker');
-        const rNarrative = document.getElementById('r-narrative');
-        const rSampleSize = document.getElementById('r-sample-size');
-
-        if (stats.r === null || pairs.length < 3) {
-          rNumber.textContent = '—';
-          rNumber.style.background = 'linear-gradient(135deg, #60a5fa, #b2dfdb)';
-          rNumber.style.webkitBackgroundClip = 'text';
-          rStrength.textContent = 'Insufficient Data';
-          rDirection.textContent = `Only ${pairs.length} municipalities with paired data`;
-          rMarker.style.left = '50%';
-          rNarrative.innerHTML = 'Not enough municipalities have both metrics available to compute a meaningful correlation. At least 3 paired data points are needed.';
-          rSampleSize.textContent = '';
-          return;
-        }
-
-        const r = stats.r;
-        const absR = Math.abs(r);
-        const strength = getRStrength(r);
-        const direction = r > 0 ? 'Positive' : r < 0 ? 'Negative' : 'No';
-        const color = getRColor(r);
-
-        rNumber.textContent = r.toFixed(3);
-        rNumber.style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
-        rNumber.style.webkitBackgroundClip = 'text';
-        rNumber.style.backgroundClip = 'text';
-        rStrength.textContent = `${strength} ${direction} Correlation`;
-        rDirection.textContent = `r = ${r.toFixed(3)} | r² = ${(r*r).toFixed(3)}`;
-
-        // Position gauge marker: r ranges from -1 to +1, map to 0%–100%
-        const pct = ((r + 1) / 2) * 100;
-        rMarker.style.left = `${pct}%`;
-
-        // Build narrative
-        const healthConfig = filteredHealthMetricConfigs[currentHealthMetricKey];
-        const sdohKey = currentSDoHMetricKey.trim();
-        const sdohLabel = sdohVariableMap[sdohKey] || sdohKey;
-        const healthLabel = healthConfig?.displayName || currentHealthMetricKey;
-
-        let narrative = '';
-        if (absR < 0.2) {
-          narrative = `There is <strong>virtually no linear relationship</strong> (r = ${r.toFixed(3)}) between <strong>${sdohLabel}</strong> and <strong>${healthLabel}</strong> across Puerto Rico's municipalities. Changes in one metric do not appear to predict changes in the other.`;
-        } else {
-          const strengthWord = strength.toLowerCase();
-          const dirWord = direction.toLowerCase();
-          const trend = r > 0
-            ? `municipalities with <strong>higher</strong> ${sdohLabel} values tend to also have <strong>higher</strong> ${healthLabel}`
-            : `municipalities with <strong>higher</strong> ${sdohLabel} values tend to have <strong>lower</strong> ${healthLabel}`;
-          narrative = `There is a <strong>${strengthWord} ${dirWord} correlation</strong> (r = ${r.toFixed(3)}) between <strong>${sdohLabel}</strong> and <strong>${healthLabel}</strong>. This suggests that ${trend}. About <strong>${(r*r*100).toFixed(1)}%</strong> of the variation in ${healthLabel} can be statistically associated with ${sdohLabel}.`;
-        }
-        rNarrative.innerHTML = narrative;
-        rSampleSize.textContent = `Based on n = ${stats.n} municipalities with paired data`;
-      }
-
-      function renderExtremesTables(pairs) {
-        const highTable = document.getElementById('extremes-high');
-        const lowTable = document.getElementById('extremes-low');
-
-        const healthConfig = filteredHealthMetricConfigs[currentHealthMetricKey];
-        const sdohKey = currentSDoHMetricKey.trim();
-        const sdohLabel = sdohVariableMap[sdohKey] || sdohKey;
-        const healthLabel = healthConfig?.displayName || currentHealthMetricKey;
-        const sdohConfig = sdohMetricConfigs[sdohKey];
-        const hUnit = healthConfig?.unit || '';
-        const sUnit = sdohConfig?.unit || '';
-
-        if (pairs.length === 0) {
-          const emptyRow = `<tbody><tr><td style="color:rgba(255,255,255,0.4); font-style:italic;">No paired data available</td></tr></tbody>`;
-          highTable.innerHTML = emptyRow;
-          lowTable.innerHTML = emptyRow;
-          return;
-        }
-
-        const sorted = [...pairs].sort((a, b) => b.health - a.health);
-        const top5 = sorted.slice(0, 5);
-        const bottom5 = sorted.slice(-5).reverse();
-
-        function buildTable(items) {
-          let html = `<thead><tr><th>#</th><th>Municipality</th><th>${healthLabel}</th><th>${sdohLabel}</th></tr></thead><tbody>`;
-          items.forEach((item, i) => {
-            html += `<tr>
-              <td>${i + 1}</td>
-              <td class="muni-name">${item.name}</td>
-              <td class="val-cell">${item.health.toFixed(2)}${hUnit}</td>
-              <td class="val-cell">${item.sdoh.toFixed(1)}${sUnit}</td>
-            </tr>`;
-          });
-          html += '</tbody>';
-          return html;
-        }
-
-        highTable.innerHTML = buildTable(top5);
-        lowTable.innerHTML = buildTable(bottom5);
-      }
-
-      function updateCorrelationSection() {
-        const pairs = getCorrelationPairs();
-        const stats = computePearsonR(pairs);
-
-        const healthConfig = filteredHealthMetricConfigs[currentHealthMetricKey];
-        const sdohKey = currentSDoHMetricKey.trim();
-        const sdohLabel = sdohVariableMap[sdohKey] || sdohKey;
-        const healthLabel = healthConfig?.displayName || currentHealthMetricKey;
-        document.getElementById('corr-subtitle').textContent =
-          `${healthLabel}  vs.  ${sdohLabel}`;
-
-        renderScatterPlot(pairs, stats);
-        renderCorrelationStats(stats, pairs);
-        renderExtremesTables(pairs);
-      }
-
-      // Initial render after map loads
-      if (map) {
-        map.on('load', () => {
-          setTimeout(updateCorrelationSection, 300);
-        });
-      }
-
-      // Update on metric changes (hook into existing listeners)
-      const origHealthHandler = healthMetricSelect.onchange;
-      healthMetricSelect.addEventListener('change', () => {
-        setTimeout(updateCorrelationSection, 50);
-      });
-      sdohSelect.addEventListener('change', () => {
-        setTimeout(updateCorrelationSection, 50);
-      });
     }
 </script>
   </body>
