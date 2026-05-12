@@ -44,6 +44,9 @@ header h1 {
   height: 40px;
   max-width: 120px;
   object-fit: contain;
+  background: white;
+  border-radius: 8px;
+  padding: 6px 12px;
 }
 
 /* --- 3. Main Content Area (Mobile First) --- */

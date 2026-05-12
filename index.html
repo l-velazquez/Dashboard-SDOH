@@ -6,75 +6,75 @@
     <link
       rel="apple-touch-icon"
       sizes="57x57"
-      href="./apple-icon-57x57.png"
+      href="./icons/apple/apple-icon-57x57.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="60x60"
-      href="./apple-icon-60x60.png"
+      href="./icons/apple/apple-icon-60x60.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="72x72"
-      href="./apple-icon-72x72.png"
+      href="./icons/apple/apple-icon-72x72.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="76x76"
-      href="./apple-icon-76x76.png"
+      href="./icons/apple/apple-icon-76x76.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="114x114"
-      href="./apple-icon-114x114.png"
+      href="./icons/apple/apple-icon-114x114.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="120x120"
-      href="./apple-icon-120x120.png"
+      href="./icons/apple/apple-icon-120x120.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="144x144"
-      href="./apple-icon-144x144.png"
+      href="./icons/apple/apple-icon-144x144.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="152x152"
-      href="./apple-icon-152x152.png"
+      href="./icons/apple/apple-icon-152x152.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="./apple-icon-180x180.png"
+      href="./icons/apple/apple-icon-180x180.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="192x192"
-      href="./android-icon-192x192.png"
+      href="./icons/android/android-icon-192x192.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="./favicon-32x32.png"
+      href="./icons/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="96x96"
-      href="./favicon-96x96.png"
+      href="./icons/favicon-96x96.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="./favicon-16x16.png"
+      href="./icons/favicon-16x16.png"
     />
     <link rel="manifest" href="./manifest.json" />
     <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+    <meta name="msapplication-TileImage" content="/icons/windows/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Puerto Rico Cardiometabolic Risk Factor</title>
@@ -140,6 +140,9 @@
         height: 70px;
         max-width: 200px;
         object-fit: contain;
+        background: white;
+        border-radius: 8px;
+        padding: 6px 12px;
       }
 
       /* --- 3. Main Content Area (Mobile First) --- */
@@ -457,7 +460,7 @@
         font-size: 3.2em;
         font-weight: 800;
         line-height: 1;
-        background: linear-gradient(135deg, #a78bfa, #60a5fa);
+        background: linear-gradient(135deg, #60a5fa, #b2dfdb);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -560,7 +563,7 @@
         gap: 8px;
       }
       .label-high { color: #f87171; }
-      .label-low { color: #4ade80; }
+      .label-low { color: #b2dfdb; }
       .extremes-table-label .dot {
         width: 8px;
         height: 8px;
@@ -568,7 +571,7 @@
         display: inline-block;
       }
       .dot-high { background: #f87171; }
-      .dot-low { background: #4ade80; }
+      .dot-low { background: #b2dfdb; }
       .extremes-table {
         width: 100%;
         border-collapse: collapse;
@@ -2706,7 +2709,7 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
 
         if (stats.r === null || pairs.length < 3) {
           rNumber.textContent = '—';
-          rNumber.style.background = 'linear-gradient(135deg, #a78bfa, #60a5fa)';
+          rNumber.style.background = 'linear-gradient(135deg, #60a5fa, #b2dfdb)';
           rNumber.style.webkitBackgroundClip = 'text';
           rStrength.textContent = 'Insufficient Data';
           rDirection.textContent = `Only ${pairs.length} municipalities with paired data`;
