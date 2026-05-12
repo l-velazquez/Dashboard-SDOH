@@ -354,6 +354,81 @@
         font-style: italic;
       }
 
+      /* --- Analytics nav link --- */
+      .analytics-nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: rgba(255,255,255,0.8);
+        text-decoration: none;
+        font-size: 0.85em;
+        font-weight: 600;
+        padding: 6px 16px;
+        border: 1px solid rgba(255,255,255,0.25);
+        border-radius: 20px;
+        background: rgba(255,255,255,0.08);
+        transition: background 0.2s, color 0.2s;
+        letter-spacing: 0.01em;
+      }
+      .analytics-nav-link:hover {
+        background: rgba(255,255,255,0.18);
+        color: white;
+      }
+
+      /* --- Info panel extras --- */
+      .info-rank-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.82em;
+        font-weight: 700;
+        background: linear-gradient(135deg, #3c0058 0%, #1a1140 100%);
+        color: #c4b5fd;
+        border-radius: 20px;
+        padding: 4px 12px;
+        margin: 8px 0 4px 0;
+        border: 1px solid rgba(167,139,250,0.3);
+      }
+      .info-donut-section {
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid #eee;
+      }
+      .info-donut-section h4 {
+        font-size: 0.95em;
+        color: #004d40;
+        margin-bottom: 8px;
+        border-top: none;
+        padding-top: 0;
+      }
+      .info-donut-section canvas {
+        max-height: 180px;
+        width: 100% !important;
+      }
+      .info-outliers-section {
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid #eee;
+      }
+      .info-outliers-section h4 {
+        font-size: 0.95em;
+        color: #004d40;
+        margin-bottom: 8px;
+        border-top: none;
+        padding-top: 0;
+      }
+      .outlier-row {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        margin: 4px 0;
+        font-size: 0.88em;
+      }
+      .outlier-label { color: #444; font-weight: 600; flex: 1; }
+      .outlier-val   { color: #111; font-weight: 700; white-space: nowrap; }
+      .outlier-arrow-up   { color: #c0392b; font-size: 1.1em; }
+      .outlier-arrow-down { color: #27ae60; font-size: 1.1em; }
+
       /* --- 6. Footer --- */
       footer {
         text-align: center;
@@ -759,6 +834,7 @@
           class="header-logo"
         />
       </div>
+      <a href="./analytics.html" class="analytics-nav-link">&#9654; Analytics &amp; Insights</a>
     </header>
     <div class="main-content">
       <div class="left-sidebar sidebar">
@@ -906,6 +982,8 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
       let currentSDoHMetricKey = "POS_MIN_DIST_ED";
       let selectedFeatureId = null;
       let hoveredFeatureId = null;
+      let infoPanelChartInstance = null;
+      let sdohIslandStats = {}; // { sdohKey: { mean, std } }
 
       const riskCalculationDescriptions = {
         "Risk of Coronary Heart Disease":
@@ -1491,6 +1569,23 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
             "Percentage of population over 4.00 of the poverty threshold (relevant for health insurance coverage).",
         },
       };
+
+      // Pre-compute island-wide mean & std for every SDoH key (used in info panel outlier badges)
+      function buildSdohIslandStats() {
+        const stats = {};
+        for (const key of Object.keys(sdohMetricConfigs)) {
+          const vals = Object.values(sdohDataLookup)
+            .map(d => parseFloat(d[key]))
+            .filter(v => !isNaN(v));
+          if (!vals.length) continue;
+          const mean = vals.reduce((s, x) => s + x, 0) / vals.length;
+          const std  = Math.sqrt(vals.reduce((s, x) => s + (x - mean) ** 2, 0) / vals.length);
+          stats[key] = { mean, std };
+        }
+        return stats;
+      }
+      // Called after data is loaded (inside runApp, so sdohDataLookup is populated)
+      sdohIslandStats = buildSdohIslandStats();
 
       const healthMetricSelect = document.getElementById("metric-select");
       const healthMetricDescriptionPanel =
@@ -2247,7 +2342,144 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
         } else {
           content += `<p>No valid health data object found for ${municipalityName}.</p>`;
         }
+        // ── Island rank badge ──────────────────────────────────────────────
+        if (currentHealthConfig?.dataPath) {
+          const allVals = [];
+          geojsonData.features.forEach(f => {
+            const hd = typeof f.properties.healthData === 'string'
+              ? (() => { try { return JSON.parse(f.properties.healthData); } catch(e) { return null; } })()
+              : f.properties.healthData;
+            if (!hd) return;
+            const v = getNestedHealthValue(hd, currentHealthConfig.dataPath);
+            if (v != null && !isNaN(parseFloat(v))) {
+              allVals.push({ muni: f.properties.NAME, v: parseFloat(v) });
+            }
+          });
+          if (allVals.length > 1) {
+            allVals.sort((a, b) => a.v - b.v); // ascending: rank 1 = lowest (best for "bad is high")
+            const pos = allVals.findIndex(x => x.muni === municipalityName);
+            if (pos !== -1) {
+              const rank = pos + 1;
+              const total = allVals.length;
+              const rankLabel = currentHealthConfig.type === 'goodIsHigh'
+                ? `#${rank} of ${total} — higher is better`
+                : `#${rank} of ${total} — lower is better`;
+              content = `<h3>Municipality: ${municipalityName}</h3><div class="info-rank-badge">&#9733; Ranks ${rankLabel}</div>` +
+                content.replace(`<h3>Municipality: ${municipalityName}</h3>`, '');
+            }
+          }
+        }
+
+        // ── Donut chart for risk distribution ─────────────────────────────
+        const riskTypeKeyForDonut = currentHealthConfig?.dataPath?.[0];
+        let riskDetailsForDonut = null;
+        if (healthData && riskTypeKeyForDonut) {
+          riskDetailsForDonut = getNestedHealthValue(healthData, [riskTypeKeyForDonut]);
+        }
+        if (riskDetailsForDonut?.percentages && Object.keys(riskDetailsForDonut.percentages).length > 1) {
+          content += `<div class="info-donut-section">
+            <h4>Risk Distribution</h4>
+            <canvas id="info-risk-donut"></canvas>
+          </div>`;
+        }
+
+        // ── SDoH outlier highlights ────────────────────────────────────────
+        const outlierHTML = buildSdohOutlierHTML(sdohDataForMuni);
+        if (outlierHTML) {
+          content += `<div class="info-outliers-section">
+            <h4>Notable SDoH Factors vs Island Average</h4>
+            ${outlierHTML}
+          </div>`;
+        }
+
         infoPanel.innerHTML = content;
+
+        // ── Render donut after DOM update ──────────────────────────────────
+        if (riskDetailsForDonut?.percentages) {
+          renderInfoPanelDonut(riskDetailsForDonut.percentages);
+        }
+      }
+
+      function renderInfoPanelDonut(percentages) {
+        const canvas = document.getElementById('info-risk-donut');
+        if (!canvas) return;
+        if (infoPanelChartInstance) {
+          infoPanelChartInstance.destroy();
+          infoPanelChartInstance = null;
+        }
+        const labels = Object.keys(percentages);
+        const data   = labels.map(k => parseFloat(percentages[k]) || 0);
+        const DONUT_COLORS = {
+          Low:  '#4ade80', Normal: '#4ade80', 'Low risk': '#4ade80', 'No significant fibrosis': '#4ade80',
+          Moderate: '#fbbf24', 'Mild': '#fbbf24', 'Moderate risk': '#fbbf24', 'Mild risk': '#fbbf24',
+          High: '#f87171', Severe: '#f87171', 'High risk': '#f87171', 'High (Moderate)': '#f87171',
+          Deficiency: '#fb923c', Toxicity: '#a78bfa',
+          'Compatible with mild fatty liver': '#fbbf24',
+          'Suggests fibrosis/active hepatitis': '#f87171',
+        };
+        const bgColors = labels.map(l => DONUT_COLORS[l] || '#94a3b8');
+        infoPanelChartInstance = new Chart(canvas, {
+          type: 'doughnut',
+          data: {
+            labels,
+            datasets: [{ data, backgroundColor: bgColors, borderWidth: 1, borderColor: '#fff' }],
+          },
+          options: {
+            responsive: true,
+            animation: { duration: 300 },
+            plugins: {
+              legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 8 } },
+              tooltip: {
+                callbacks: {
+                  label: ctx => ` ${ctx.label}: ${ctx.parsed.toFixed(1)}%`,
+                },
+              },
+            },
+          },
+        });
+      }
+
+      function buildSdohOutlierHTML(sdohDataForMuni) {
+        if (!sdohDataForMuni || !Object.keys(sdohIslandStats).length) return '';
+        const SDOH_DISPLAY_KEYS = [
+          'ACS_PCT_UNINSURED', 'ACS_PCT_LT_HS', 'ACS_PCT_HH_PUB_ASSIST',
+          'ACS_PCT_INC50_BELOW17', 'ACS_PCT_INC50_ABOVE65', 'ACS_PCT_DISABLE',
+          'HIFLD_MIN_DIST_UC', 'POS_MIN_DIST_ED', 'ACS_PCT_POSTHS_ED', 'ACS_PCT_BACHELOR_DGR',
+        ];
+        const above = [], below = [];
+        for (const key of SDOH_DISPLAY_KEYS) {
+          const ist = sdohIslandStats[key];
+          if (!ist || ist.std === 0) continue;
+          const val = parseFloat(sdohDataForMuni[key]);
+          if (isNaN(val)) continue;
+          const z = (val - ist.mean) / ist.std;
+          const label = sdohVariableMap[key] || key;
+          const sc = sdohMetricConfigs[key];
+          const unit = sc?.unit || '';
+          const valFmt = `${parseFloat(val).toFixed(unit === ' mi' ? 1 : 1)}${unit}`;
+          const avgFmt = `${parseFloat(ist.mean).toFixed(unit === ' mi' ? 1 : 1)}${unit}`;
+          if (z > 0.8) above.push({ label, valFmt, avgFmt, z });
+          else if (z < -0.8) below.push({ label, valFmt, avgFmt, z });
+        }
+        above.sort((a, b) => b.z - a.z);
+        below.sort((a, b) => a.z - b.z);
+        if (!above.length && !below.length) return '';
+        let html = '';
+        above.slice(0, 3).forEach(({ label, valFmt, avgFmt }) => {
+          html += `<div class="outlier-row">
+            <span class="outlier-arrow-up">&#8679;</span>
+            <span class="outlier-label">${label}</span>
+            <span class="outlier-val">${valFmt} <small style="font-weight:400;color:#888;">(avg ${avgFmt})</small></span>
+          </div>`;
+        });
+        below.slice(0, 3).forEach(({ label, valFmt, avgFmt }) => {
+          html += `<div class="outlier-row">
+            <span class="outlier-arrow-down">&#8681;</span>
+            <span class="outlier-label">${label}</span>
+            <span class="outlier-val">${valFmt} <small style="font-weight:400;color:#888;">(avg ${avgFmt})</small></span>
+          </div>`;
+        });
+        return html;
       }
 
       function updateHealthLegend(metricKey, valueForMaxRadiusForLegend) {
