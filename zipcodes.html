@@ -22,12 +22,8 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puerto Rico Health Indicators Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
+    <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet"/>
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
@@ -594,98 +590,34 @@
         });
         
 
-// --- Global Variables ---
-let geojsonData;
-
 function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSdohVariableMap, fetchedZipToMuniMap) {
-    const geojsonDataString = JSON.stringify(fetchedGeoData);
-    const healthStatsDataString = JSON.stringify(fetchedHealthData);
-    const sdohDataString = JSON.stringify(fetchedSdohDataObj);
-    const sdohVariableMapString = JSON.stringify(fetchedSdohVariableMap);
-    const zipToMuniMapString = JSON.stringify(fetchedZipToMuniMap);
-
-  let healthStatsRawData;
   let healthStatsLookup = {};
-  let sdohRawData;
   let sdohDataLookup = {};
-  let sdohVariableMap = {};
-  let zipToMuniMap = {};
+  let sdohVariableMap = fetchedSdohVariableMap || {};
+  let zipToMuniMap = fetchedZipToMuniMap || {};
   let currentHealthMetricKey = "composite_risk_score_mean";
   let currentSDoHMetricKey = "ACS_PCT_UNINSURED";
-  let geojsonLayer;
-  let sdohLayerGroup = L.layerGroup(); // Initialize LayerGroup
-  let selectedLayer = null;
+  let selectedZip = null;
+  let selectedZipProps = null;
   let infoPanelChartInstance = null;
   let sdohIslandStats = {};
+  const currentBreaks = {};
 
-  // --- Parse Data (Keep as is) ---
-  try {
-    geojsonData = JSON.parse(geojsonDataString);
-  } catch (e) {
-    console.error("GeoJSON Parse Error:", e);
-    geojsonData = { type: "FeatureCollection", features: [] };
+  // --- Parse Data ---
+  if (Array.isArray(fetchedHealthData)) {
+    fetchedHealthData.forEach(item => { if (item.postal) healthStatsLookup[item.postal] = item; });
   }
-  try {
-    healthStatsRawData = JSON.parse(healthStatsDataString);
-    if (Array.isArray(healthStatsRawData)) {
-      healthStatsRawData.forEach((item) => {
-        if (item.postal) healthStatsLookup[item.postal] = item;
-      });
-    } else {
-      console.error("Health stats not array");
-    }
-  } catch (e) {
-    console.error("Health Stats Parse Error:", e);
+  if (Array.isArray(fetchedSdohDataObj)) {
+    fetchedSdohDataObj.forEach(item => { if (item.COUNTY && item.YEAR === 2020) sdohDataLookup[item.COUNTY] = item; });
   }
-  try {
-    sdohRawData = JSON.parse(sdohDataString);
-    if (Array.isArray(sdohRawData)) {
-      sdohRawData.forEach((item) => {
-        if (item.COUNTY && item.YEAR === 2020)
-          sdohDataLookup[item.COUNTY] = item;
-      });
-    } else {
-      console.error("SDoH data not array");
-    }
-  } catch (e) {
-    console.error("SDoH Data Parse Error:", e);
-  }
-  try {
-    sdohVariableMap = JSON.parse(sdohVariableMapString);
-  } catch (e) {
-    console.error("SDoH Map Parse Error:", e);
-  }
-  try {
-    zipToMuniMap = JSON.parse(zipToMuniMapString);
-  } catch (e) {
-    console.error("Zip Map Parse Error:", e);
-  }
+  const geojsonData = fetchedGeoData || { type: "FeatureCollection", features: [] };
 
-  // --- Color Palettes & Configs (Keep as is) ---
-  const GOOD_HIGH_COLORS = [
-    "#4c1d95",
-    "#7c3aed",
-    "#a855f7",
-    "#d8b4fe",
-    "#f3e8ff",
-  ];
-  const GOOD_LOW_COLORS = [
-    "#f3e8ff",
-    "#d8b4fe",
-    "#a855f7",
-    "#7c3aed",
-    "#4c1d95",
-  ];
-  const NEUTRAL_COLORS = [
-    "#f7fcfd",
-    "#e0ecf4",
-    "#bfd3e6",
-    "#9ebcda",
-    "#8c96c6",
-    "#8c6bb1",
-    "#88419d",
-    "#6e016b",
-  ];
+  // --- Color Palettes ---
+  const GOOD_HIGH_COLORS = ["#b10026","#fc4e2a","#fd8d3c","#feb24c","#ffffb2"];
+  const GOOD_LOW_COLORS  = ["#ffffb2","#feb24c","#fd8d3c","#fc4e2a","#b10026"];
+  const NEUTRAL_COLORS   = ["#e0ecf4","#9ebcda","#8c96c6","#88419d","#4d0042"];
+  const SDOH_5_COLORS    = ["#e0ecf4","#9ebcda","#8c6bb1","#88419d","#4d0042"];
+  // (kept for sdohMetricConfigs reference, unused in rendering)
   const SDOH_COLORS = [
     "#feedde",
     "#fdd0a2",
@@ -991,31 +923,9 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
     composite_risk_score_median: { '2+ Risk Factors': 'has_2_plus_risk_factors_percentage' },
   };
 
-  // --- Map Initialization ---
-  const map = L.map("map").setView([18.08, -66.255167], 9);
-  L.tileLayer(
-    "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
-    {
-      attribution:
-        "© OpenStreetMap contributors © CARTO | Health: Abartys | SDoH: ACS 2020", // Slightly shorter
-      subdomains: "abcd",
-      minZoom: 8,
-      maxZoom: 14,
-    }
-  ).addTo(map);
-
-  // --- *** CREATE CUSTOM PANE FOR SDoH CIRCLES *** ---
-  map.createPane("sdohPane");
-  map.getPane("sdohPane").style.zIndex = 650; // Higher than default overlay (400) and shadow (500), but below markers/popups (600/700/800)
-  map.getPane("sdohPane").style.pointerEvents = "none"; // Allow clicks to pass through to the layers below (like ZIP codes)
-
-  // Add the layer group (it will inherit pane settings from its children)
-  sdohLayerGroup.addTo(map);
-
-  // --- Get DOM Elements (Keep as is) ---
+  // --- DOM Elements ---
   const healthMetricSelect = document.getElementById("metric-select");
-  const healthMetricDescriptionPanel =
-    document.getElementById("metric-description");
+  const healthMetricDescriptionPanel = document.getElementById("metric-description");
   const sdohSelect = document.getElementById("sdoh-select");
   const sdohDescriptionPanel = document.getElementById("sdoh-description");
   const healthLegendDiv = document.getElementById("health-legend");
@@ -1105,147 +1015,91 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
     sdohVariableMap
   );
 
-  // --- Merge Health Data into GeoJSON (Keep as is) ---
-  if (geojsonData?.features && Object.keys(healthStatsLookup).length > 0) {
-    geojsonData.features.forEach((feature) => {
-      const zipCode = feature.properties.ZCTA5CE10;
-      feature.properties.healthData = healthStatsLookup[zipCode] || null;
+  // --- Flat-merge health data into GeoJSON features ---
+  if (geojsonData?.features) {
+    geojsonData.features.forEach(f => {
+      const zip = f.properties.ZCTA5CE10;
+      const health = healthStatsLookup[zip];
+      if (health) Object.assign(f.properties, health);
     });
-  } else {
-    console.warn("GeoJSON/health stats missing.");
   }
 
-  // --- Styling Functions (Keep getHealthColor, styleHealthLayer, getSDoHColor, getSDoHRadius as is) ---
-  function getHealthColor(value, metricKey) {
-    /* ... keep existing ... */
+  // --- Build municipality GeoJSON point FeatureCollection ---
+  const muniGeoJSON = {
+    type: "FeatureCollection",
+    features: Object.values(sdohDataLookup)
+      .filter(d => d.lat != null && d.lon != null && !isNaN(parseFloat(d.lat)))
+      .map(d => ({
+        type: "Feature",
+        geometry: { type: "Point", coordinates: [parseFloat(d.lon), parseFloat(d.lat)] },
+        properties: { ...d }
+      }))
+  };
+
+  // --- Data-Driven Color Scale Helpers ---
+  function computeQuantileBreaks(values, n) {
+    const sorted = values.filter(v => v != null && !isNaN(v)).sort((a, b) => a - b);
+    if (sorted.length < n + 1) return [];
+    const raw = Array.from({length: n}, (_, i) =>
+      sorted[Math.floor(((i + 1) / (n + 1)) * sorted.length)]
+    );
+    // ensure strictly increasing (MapLibre step requires it)
+    const uniq = [raw[0]];
+    for (let i = 1; i < raw.length; i++) {
+      if (raw[i] > uniq[uniq.length - 1]) uniq.push(raw[i]);
+    }
+    return uniq;
+  }
+
+  function buildStepExpr(inputExpr, breaks, colors) {
+    const expr = ["step", inputExpr, colors[0]];
+    for (let i = 0; i < breaks.length; i++) {
+      expr.push(breaks[i]);
+      expr.push(colors[Math.min(i + 1, colors.length - 1)]);
+    }
+    return expr;
+  }
+
+  function buildHealthColorExpr(metricKey) {
     const config = healthMetricConfigs[metricKey];
-    if (!config || value === null || value === undefined || isNaN(value))
-      return "#E0E0E0";
-    const { breaks, colors } = config;
-    if (!breaks || !colors || breaks.length === 0 || colors.length === 0)
-      return "#E0E0E0";
-    if (colors.length < breaks.length + 1)
-      console.warn(`Health colors array short for ${metricKey}.`);
-    for (let i = 0; i < breaks.length; i++) {
-      if (value <= breaks[i]) return colors[i] || "#E0E0E0";
-    }
-    return colors[colors.length - 1] || "#E0E0E0";
-  }
-  function styleHealthLayer(feature) {
-    /* ... keep existing ... */
-    const value = feature.properties.healthData
-      ? feature.properties.healthData[currentHealthMetricKey]
-      : null;
-    return {
-      fillColor: getHealthColor(value, currentHealthMetricKey),
-      weight: 1,
-      opacity: 1,
-      color: "#666",
-      fillOpacity: 0.7,
-    };
-  }
-  function getSDoHColor(value, metricKey) {
-    /* ... keep existing ... */
-    const config = sdohMetricConfigs[metricKey];
-    if (!config || value === null || value === undefined || isNaN(value))
-      return "#999999";
-    const { breaks, colors } = config;
-    if (!breaks || !colors || breaks.length === 0 || colors.length === 0) {
-      console.error(`Invalid breaks/colors for SDoH: ${metricKey}`);
-      return "#999999";
-    }
-    if (colors.length < breaks.length + 1)
-      console.warn(`SDoH colors array short for ${metricKey}.`);
-    for (let i = 0; i < breaks.length; i++) {
-      if (value <= breaks[i]) return colors[i] || "#999999";
-    }
-    return colors[colors.length - 1] || "#999999";
-  }
-  function getSDoHRadius(value, metricKey) {
-    /* ... keep existing ... */
-    const config = sdohMetricConfigs[metricKey];
-    const minRadius = 4;
-    const maxRadius = 20;
-    if (
-      !config ||
-      value === null ||
-      value === undefined ||
-      isNaN(value) ||
-      value <= 0
-    )
-      return minRadius;
-    let radius;
-    let minVal = Infinity;
-    let maxVal = -Infinity;
-    Object.values(sdohDataLookup).forEach((m) => {
-      const v = m[metricKey];
-      if (v !== null && !isNaN(v)) {
-        if (v < minVal) minVal = v;
-        if (v > maxVal) maxVal = v;
-      }
-    });
-    if (minVal === Infinity || maxVal === -Infinity || minVal === maxVal) {
-      radius =
-        config.type === "count"
-          ? minRadius + Math.log1p(value) * 2
-          : (minRadius + maxRadius) / 2;
-    } else {
-      const range = maxVal - minVal;
-      radius = minRadius + ((value - minVal) / range) * (maxRadius - minRadius);
-    }
-    return Math.max(minRadius, Math.min(maxRadius, radius));
+    if (!config) return "#e0e0e0";
+    const values = Object.values(healthStatsLookup)
+      .map(d => parseFloat(d[metricKey])).filter(v => !isNaN(v));
+    const breaks = computeQuantileBreaks(values, 4);
+    currentBreaks[metricKey] = breaks;
+    const colors = config.type === "goodIsHigh" ? GOOD_HIGH_COLORS :
+                   config.type === "neutral" ? NEUTRAL_COLORS : GOOD_LOW_COLORS;
+    if (!breaks.length) return "#e0e0e0";
+    return [
+      "case",
+      ["!", ["has", metricKey]], "#e0e0e0",
+      buildStepExpr(["to-number", ["get", metricKey]], breaks, colors)
+    ];
   }
 
-  // --- Interaction Functions ---
-  function highlightFeature(e) {
-    // For ZIP Layer
-    const layer = e.target;
-    if (layer !== selectedLayer) {
-      layer.setStyle({ weight: 3, color: "#051B35", fillOpacity: 0.8 });
-    }
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-      if (layer !== selectedLayer) layer.bringToFront();
-    }
-    // NO need to bring SDoH pane forward here, it stays on top via zIndex
+  function buildSDoHCircleColorExpr(metricKey) {
+    const values = Object.values(sdohDataLookup)
+      .map(d => parseFloat(d[metricKey])).filter(v => !isNaN(v));
+    const breaks = computeQuantileBreaks(values, 4);
+    if (!breaks.length) return "#999999";
+    return [
+      "case",
+      ["!", ["has", metricKey]], "#999999",
+      buildStepExpr(["to-number", ["get", metricKey]], breaks, SDOH_5_COLORS)
+    ];
   }
 
-  function resetHighlight(e) {
-    // For ZIP Layer
-    if (e.target !== selectedLayer) {
-      geojsonLayer.resetStyle(e.target);
-    }
-  }
-
-  function selectFeature(e) {
-    // For ZIP Layer
-    const layer = e.target;
-    if (selectedLayer && selectedLayer !== layer) {
-      try {
-        geojsonLayer.resetStyle(selectedLayer);
-      } catch (error) {
-        console.warn("Reset style error:", error);
-      }
-    }
-    map.fitBounds(layer.getBounds().pad(0.1));
-    layer.setStyle({
-      weight: 4,
-      color: "#041427",
-      dashArray: "",
-      fillOpacity: 0.85,
-    });
-    layer.bringToFront(); // Bring selected ZIP polygon forward
-    // NO need to bring SDoH pane forward here
-    selectedLayer = layer;
-    updateInfoPanel(layer.feature.properties);
-  }
-
-  function onEachFeature(feature, layer) {
-    // Attaches interactions to ZIP Layer
-    layer.on({
-      mouseover: highlightFeature,
-      mouseout: resetHighlight,
-      click: selectFeature,
-    });
+  function buildSDoHCircleRadiusExpr(metricKey) {
+    const values = Object.values(sdohDataLookup)
+      .map(d => parseFloat(d[metricKey])).filter(v => !isNaN(v));
+    if (!values.length) return 6;
+    const minVal = Math.min(...values);
+    const maxVal = Math.max(...values);
+    if (minVal === maxVal) return 8;
+    return ["interpolate", ["linear"],
+      ["coalesce", ["to-number", ["get", metricKey]], minVal],
+      minVal, 4, maxVal, 18
+    ];
   }
 
   // --- Rank Badge ---
@@ -1341,15 +1195,13 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
     return html;
   }
 
-  // --- Update Info Panel (Keep as is) ---
+  // --- Update Info Panel ---
   function updateInfoPanel(zipProps) {
-    /* ... keep existing logic ... */
     if (!zipProps?.ZCTA5CE10) {
-      infoPanel.innerHTML = "<p>Click ZIP area for details.</p>";
+      infoPanel.innerHTML = '<p class="placeholder-text">Click on a ZIP code area on the map to see details.</p>';
       return;
     }
     const zipCode = zipProps.ZCTA5CE10;
-    const healthData = zipProps.healthData;
     const municipalityName = zipToMuniMap[zipCode];
     const sdohData = municipalityName ? sdohDataLookup[municipalityName] : null;
 
@@ -1358,7 +1210,6 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
       ? `<p style="margin:2px 0 4px 0; font-size:0.9em; color:#555;">Municipality: <strong>${municipalityName}</strong></p>`
       : `<p><small>(Muni N/A)</small></p>`;
 
-    // Rank badge
     const rankInfo = getZipRank(zipCode, currentHealthMetricKey);
     if (rankInfo) {
       content += `<div class="rank-badge">Ranks #${rankInfo.rank} of ${rankInfo.total} ZIPs &mdash; ${rankInfo.lowerBetter ? 'lower' : 'higher'} is better</div>`;
@@ -1367,22 +1218,19 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
     content += `<hr style="margin:10px 0;"><h4>Health (ZIP)</h4>`;
 
     let donutSlices = null;
-    if (healthData) {
+    const hv = zipProps[currentHealthMetricKey];
+    const hasHealth = hv !== undefined && hv !== null && !isNaN(parseFloat(hv));
+    if (hasHealth) {
       const hc = healthMetricConfigs[currentHealthMetricKey];
-      const hv = healthData[currentHealthMetricKey];
-      const hd =
-        hv !== null && !isNaN(hv)
-          ? `${parseFloat(hv).toFixed(2)} ${hc.unit || ""}`
-          : "N/A";
+      const hd = `${parseFloat(hv).toFixed(2)} ${hc.unit || ""}`;
       content += `<p><span class="data-label">${hc.displayName}:</span> <strong class="data-value">${hd}</strong></p>`;
 
-      // Build donut data if breakdown exists
       const breakdownMap = metricRiskBreakdownMap[currentHealthMetricKey];
       if (breakdownMap) {
         const slices = {};
         let usedPct = 0;
         for (const [label, field] of Object.entries(breakdownMap)) {
-          const v = parseFloat(healthData[field]);
+          const v = parseFloat(zipProps[field]);
           if (!isNaN(v)) { slices[label] = v; usedPct += v; }
         }
         if (usedPct > 0) {
@@ -1399,23 +1247,14 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
     if (sdohData) {
       const sc = sdohMetricConfigs[currentSDoHMetricKey];
       const sv = sdohData[currentSDoHMetricKey];
-      const sd =
-        sdohVariableMap[currentSDoHMetricKey] ||
-        sc?.displayName ||
-        currentSDoHMetricKey;
-      const sdv =
-        sv !== null && !isNaN(sv)
-          ? `${parseFloat(sv).toFixed(sc?.type === "percentage" ? 1 : 2)}${sc?.unit || ""}`
-          : "N/A";
+      const sd = sdohVariableMap[currentSDoHMetricKey] || sc?.displayName || currentSDoHMetricKey;
+      const sdv = sv !== null && !isNaN(sv)
+        ? `${parseFloat(sv).toFixed(sc?.type === "percentage" ? 1 : 2)}${sc?.unit || ""}`
+        : "N/A";
       content += `<p><span class="data-label">${sd}:</span> <strong class="data-value">${sdv}</strong></p>`;
-
-      // SDoH outlier analysis
       const outlierHTML = buildSdohOutlierHTML(sdohData);
       if (outlierHTML) {
-        content += `<div class="info-outliers-section">
-          <h4>Notable SDoH Factors vs Island Average</h4>
-          ${outlierHTML}
-        </div>`;
+        content += `<div class="info-outliers-section"><h4>Notable SDoH Factors vs Island Average</h4>${outlierHTML}</div>`;
       }
     } else if (municipalityName) {
       content += `<p>No SDoH data for ${municipalityName}.</p>`;
@@ -1427,19 +1266,18 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
     if (donutSlices) renderInfoPanelDonut(donutSlices);
   }
 
-  // --- Update Legends (Keep as is) ---
+  // --- Legends (data-driven quantile labels) ---
   function updateHealthLegend(metricKey) {
     const config = healthMetricConfigs[metricKey];
+    const breaks = currentBreaks[metricKey];
     healthLegendDiv.innerHTML = "";
-    if (!config?.breaks?.length || !config?.colors?.length) {
+    if (!breaks || !breaks.length || !config) {
       healthLegendDiv.innerHTML = "<p>Health legend N/A.</p>";
       return;
     }
-    if (config.colors.length < config.breaks.length + 1) {
-      healthLegendDiv.innerHTML = `<p>Legend config error.</p>`;
-      return;
-    }
-    const { colors, breaks, unit, displayName, type } = config;
+    const colors = config.type === "goodIsHigh" ? GOOD_HIGH_COLORS :
+                   config.type === "neutral" ? NEUTRAL_COLORS : GOOD_LOW_COLORS;
+    const { unit, displayName, type } = config;
     let barWidth = healthLegendDiv.offsetWidth || 300;
     barWidth = Math.max(160, Math.min(barWidth, 420));
     let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18" aria-hidden="true">`;
@@ -1448,164 +1286,165 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
       barSvg += `<rect x="${i * bandWidth}" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
     }
     barSvg += `</svg>`;
-    const suffix = type === 'goodIsHigh' ? '(Higher is Better)' : '(Lower is Better)';
-    const minLabel = `≤ ${breaks[0]}${unit || ''}`;
-    const maxLabel = `> ${breaks[breaks.length - 1]}${unit || ''}`;
+    const suffix = type === 'goodIsHigh' ? '(Higher is Better)' : type === 'neutral' ? '' : '(Lower is Better)';
+    const fmt = v => unit === "%" ? `${v.toFixed(1)}%` : unit === " mi" ? `${v.toFixed(1)} mi` : unit ? `${v.toFixed(2)} ${unit}` : v.toFixed(2);
+    const minLabel = `≤ ${fmt(breaks[0])}`;
+    const maxLabel = `> ${fmt(breaks[breaks.length - 1])}`;
     healthLegendDiv.innerHTML =
-      `<div class="legend-title">${displayName} ${suffix}</div>` +
-      barSvg +
+      `<div class="legend-title">${displayName} ${suffix}</div>` + barSvg +
       `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}</span></div>`;
   }
 
   function updateSDoHLegend(metricKey) {
-    const config = sdohMetricConfigs[metricKey];
     const variableDesc = sdohVariableMap[metricKey] || metricKey;
+    const values = Object.values(sdohDataLookup).map(d => parseFloat(d[metricKey])).filter(v => !isNaN(v));
+    const breaks = computeQuantileBreaks(values, 4);
+    const sc = sdohMetricConfigs[metricKey];
+    const unit = sc?.unit || '';
     sdohLegendDiv.innerHTML = "";
-    if (!config?.breaks?.length || !config?.colors?.length) {
-      sdohLegendDiv.innerHTML = `<p>SDoH legend N/A.</p>`;
-      return;
-    }
-    if (config.colors.length < config.breaks.length + 1) {
-      sdohLegendDiv.innerHTML = `<p>Legend config error.</p>`;
-      return;
-    }
-    const { colors, breaks, unit } = config;
+    if (!breaks.length) { sdohLegendDiv.innerHTML = `<p>SDoH legend N/A.</p>`; return; }
     let barWidth = sdohLegendDiv.offsetWidth || 300;
     barWidth = Math.max(160, Math.min(barWidth, 420));
     let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18" aria-hidden="true">`;
-    const bandWidth = barWidth / colors.length;
-    for (let i = 0; i < colors.length; i++) {
-      barSvg += `<rect x="${i * bandWidth}" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
+    const bandWidth = barWidth / SDOH_5_COLORS.length;
+    for (let i = 0; i < SDOH_5_COLORS.length; i++) {
+      barSvg += `<rect x="${i * bandWidth}" y="0" width="${bandWidth}" height="18" fill="${SDOH_5_COLORS[i]}" />`;
     }
     barSvg += `</svg>`;
-    const minLabel = `${breaks[0]}${unit || ''}`;
-    const maxLabel = `${breaks[breaks.length - 1]}${unit || ''}+`;
+    const fmt = v => `${v.toFixed(1)}${unit}`;
     sdohLegendDiv.innerHTML =
-      `<div class="legend-title">${variableDesc} (Municipality)</div>` +
-      barSvg +
-      `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}</span></div>`;
+      `<div class="legend-title">${variableDesc} (Municipality)</div>` + barSvg +
+      `<div class="legend-labels"><span>${fmt(breaks[0])}</span><span>${fmt(breaks[breaks.length - 1])}+</span></div>`;
   }
 
-  // --- Event Listeners (Keep as is) ---
-  healthMetricSelect.addEventListener("change", function () {
-    currentHealthMetricKey = this.value;
-    if (geojsonLayer) {
-      geojsonLayer.setStyle(styleHealthLayer);
-    }
-    updateHealthLegend(currentHealthMetricKey);
-    updateDescriptionPanel(
-      healthMetricDescriptionPanel,
-      currentHealthMetricKey,
-      healthMetricConfigs
-    );
-    if (selectedLayer) {
-      updateInfoPanel(selectedLayer.feature.properties);
-    } else {
-      updateInfoPanel(null);
-    }
-  });
-
-  sdohSelect.addEventListener("change", function () {
-    currentSDoHMetricKey = this.value;
-    if (!sdohMetricConfigs[currentSDoHMetricKey]) {
-      console.error(`Config missing for SDoH key: ${currentSDoHMetricKey}`);
-      sdohLegendDiv.innerHTML = `<p>Viz config missing.</p>`;
-      if (sdohLayerGroup) sdohLayerGroup.clearLayers();
-      updateDescriptionPanel(
-        sdohDescriptionPanel,
-        currentSDoHMetricKey,
-        null,
-        sdohVariableMap
-      );
-      return;
-    }
-    drawSDoHLayer(); // Redraw circles (pane ensures they are on top)
-    updateSDoHLegend(currentSDoHMetricKey);
-    updateDescriptionPanel(
-      sdohDescriptionPanel,
-      currentSDoHMetricKey,
-      sdohMetricConfigs,
-      sdohVariableMap
-    );
-    if (selectedLayer) {
-      updateInfoPanel(selectedLayer.feature.properties);
-    }
-  });
-
-  // --- Drawing Layers ---
-
-  // Draw ZIP Code Layer (into default pane)
-  if (geojsonData?.features?.length > 0) {
-    geojsonLayer = L.geoJson(geojsonData, {
-      style: styleHealthLayer,
-      onEachFeature: onEachFeature,
-      // No pane specified, defaults to overlayPane (zIndex 400)
-    }).addTo(map);
-    updateHealthLegend(currentHealthMetricKey);
-  } else {
-    document.getElementById("map").innerHTML =
-      "<p>Could not load map boundary data.</p>";
-    updateHealthLegend(currentHealthMetricKey);
-  }
-
-  // --- Function to Draw SDoH Circle Layer ---
-  function drawSDoHLayer() {
-    // console.log(`--- Redrawing SDoH Layer for Metric: ${currentSDoHMetricKey} ---`);
-    sdohLayerGroup.clearLayers(); // Clear existing circles from the group
-    let circlesAddedCount = 0;
-    let dataErrors = 0;
-
-    Object.values(sdohDataLookup).forEach((muniData) => {
-      if (
-        muniData?.COUNTY &&
-        typeof muniData.lat === "number" &&
-        typeof muniData.lon === "number"
-      ) {
-        const value = muniData[currentSDoHMetricKey];
-        if (value === undefined) {
-          dataErrors++;
+  // --- Map Initialization (MapLibre GL JS) ---
+  const map = new maplibregl.Map({
+    container: "map",
+    style: {
+      version: 8,
+      sources: {
+        "carto-basemap": {
+          type: "raster",
+          tiles: [
+            "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+            "https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+          ],
+          tileSize: 256,
+          attribution: "© OpenStreetMap contributors © CARTO",
         }
-        const radius = getSDoHRadius(value, currentSDoHMetricKey);
-        const color = getSDoHColor(value, currentSDoHMetricKey);
-        const sdohConfig = sdohMetricConfigs[currentSDoHMetricKey];
-        const displayValue =
-          value !== null && !isNaN(value)
-            ? `${parseFloat(value).toFixed(
-                sdohConfig?.type === "percentage" ? 1 : 2
-              )}${sdohConfig?.unit || ""}`
-            : "N/A";
-        const sdohDescription =
-          sdohVariableMap[currentSDoHMetricKey] || currentSDoHMetricKey;
+      },
+      layers: [{ id: "carto-layer", type: "raster", source: "carto-basemap" }]
+    },
+    center: [-66.255, 18.08],
+    zoom: 9,
+    minZoom: 8,
+    maxZoom: 14,
+    attributionControl: false,
+  });
 
-        const circle = L.circleMarker([muniData.lat, muniData.lon], {
-          radius: radius,
-          fillColor: color,
-          color: "#444444", // Fixed border
-          weight: 1,
-          opacity: 0.9,
-          fillOpacity: 0.8,
-          pane: "sdohPane", // *** Assign marker to the custom pane ***
-        });
-
-        circle.bindTooltip(
-          `<b>${muniData.COUNTY}</b><br>${sdohDescription}: ${displayValue}`,
-          { sticky: true }
-        );
-        sdohLayerGroup.addLayer(circle); // Add circle to the group
-        circlesAddedCount++;
-      } else {
-        dataErrors++;
+  map.on("load", () => {
+    // ZIP shapes fill + outline
+    map.addSource("zip-shapes", { type: "geojson", data: geojsonData, promoteId: "ZCTA5CE10" });
+    map.addLayer({
+      id: "zip-fill", type: "fill", source: "zip-shapes",
+      paint: {
+        "fill-color": buildHealthColorExpr(currentHealthMetricKey),
+        "fill-opacity": ["case", ["boolean", ["feature-state", "select"], false], 0.92, 0.75]
       }
     });
-    // The layer group itself is already on the map and pane setting is inherited
-    // No need to call bringToFront here for basic stacking
-    // console.log(`Finished SDoH layer: ${circlesAddedCount} circles, ${dataErrors} errors.`);
-  }
+    map.addLayer({
+      id: "zip-outline", type: "line", source: "zip-shapes",
+      paint: {
+        "line-color": ["case", ["boolean", ["feature-state", "select"], false], "#a78bfa", "#888888"],
+        "line-width": ["case", ["boolean", ["feature-state", "select"], false], 2.5, 0.5]
+      }
+    });
 
-  // --- Initial Draws ---
-  drawSDoHLayer(); // Draw initial SDoH circles into the sdohPane
-  updateSDoHLegend(currentSDoHMetricKey);
-  updateInfoPanel(null);
+    // Municipality circles
+    map.addSource("muni-points", { type: "geojson", data: muniGeoJSON });
+    map.addLayer({
+      id: "muni-circles", type: "circle", source: "muni-points",
+      paint: {
+        "circle-color": buildSDoHCircleColorExpr(currentSDoHMetricKey),
+        "circle-radius": buildSDoHCircleRadiusExpr(currentSDoHMetricKey),
+        "circle-stroke-color": "#333333",
+        "circle-stroke-width": 0.8,
+        "circle-opacity": 0.85,
+      }
+    });
+
+    updateHealthLegend(currentHealthMetricKey);
+    updateSDoHLegend(currentSDoHMetricKey);
+    updateInfoPanel(null);
+
+    // --- Hover popups ---
+    const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, maxWidth: "260px" });
+    map.on("mousemove", "zip-fill", e => {
+      map.getCanvas().style.cursor = "pointer";
+      const props = e.features[0].properties;
+      const hc = healthMetricConfigs[currentHealthMetricKey];
+      const hv = props[currentHealthMetricKey];
+      const healthDisplay = hv != null && !isNaN(parseFloat(hv))
+        ? `${parseFloat(hv).toFixed(2)} ${hc.unit || ""}` : "N/A";
+      const muniName = zipToMuniMap[props.ZCTA5CE10] || "–";
+      popup.setLngLat(e.lngLat)
+           .setHTML(`<strong>ZIP ${props.ZCTA5CE10}</strong><br><span style="color:#666;font-size:0.9em">${muniName}</span><br>${hc.displayName}: <strong>${healthDisplay}</strong>`)
+           .addTo(map);
+    });
+    map.on("mouseleave", "zip-fill", () => { map.getCanvas().style.cursor = ""; popup.remove(); });
+
+    const muniPopup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, maxWidth: "220px" });
+    map.on("mousemove", "muni-circles", e => {
+      map.getCanvas().style.cursor = "pointer";
+      const props = e.features[0].properties;
+      const sc = sdohMetricConfigs[currentSDoHMetricKey];
+      const sv = props[currentSDoHMetricKey];
+      const sdLabel = sdohVariableMap[currentSDoHMetricKey] || currentSDoHMetricKey;
+      const sdDisplay = sv != null && !isNaN(parseFloat(sv))
+        ? `${parseFloat(sv).toFixed(1)}${sc?.unit || ""}` : "N/A";
+      muniPopup.setLngLat(e.lngLat)
+               .setHTML(`<strong>${props.COUNTY}</strong><br>${sdLabel}: <strong>${sdDisplay}</strong>`)
+               .addTo(map);
+    });
+    map.on("mouseleave", "muni-circles", () => { map.getCanvas().style.cursor = ""; muniPopup.remove(); });
+
+    // --- Click ZIP → highlight + info panel ---
+    map.on("click", "zip-fill", e => {
+      if (selectedZip) map.setFeatureState({ source: "zip-shapes", id: selectedZip }, { select: false });
+      selectedZip = e.features[0].id;
+      selectedZipProps = e.features[0].properties;
+      map.setFeatureState({ source: "zip-shapes", id: selectedZip }, { select: true });
+      updateInfoPanel(selectedZipProps);
+    });
+  });
+
+  // --- Event Listeners ---
+  healthMetricSelect.addEventListener("change", function() {
+    currentHealthMetricKey = this.value;
+    if (map.getLayer("zip-fill")) {
+      map.setPaintProperty("zip-fill", "fill-color", buildHealthColorExpr(currentHealthMetricKey));
+    }
+    updateHealthLegend(currentHealthMetricKey);
+    updateDescriptionPanel(healthMetricDescriptionPanel, currentHealthMetricKey, healthMetricConfigs);
+    if (selectedZipProps) updateInfoPanel(selectedZipProps);
+    else updateInfoPanel(null);
+  });
+
+  sdohSelect.addEventListener("change", function() {
+    currentSDoHMetricKey = this.value;
+    if (!sdohMetricConfigs[currentSDoHMetricKey]) {
+      sdohLegendDiv.innerHTML = `<p>Viz config missing.</p>`;
+      updateDescriptionPanel(sdohDescriptionPanel, currentSDoHMetricKey, null, sdohVariableMap);
+      return;
+    }
+    if (map.getLayer("muni-circles")) {
+      map.setPaintProperty("muni-circles", "circle-color", buildSDoHCircleColorExpr(currentSDoHMetricKey));
+      map.setPaintProperty("muni-circles", "circle-radius", buildSDoHCircleRadiusExpr(currentSDoHMetricKey));
+    }
+    updateSDoHLegend(currentSDoHMetricKey);
+    updateDescriptionPanel(sdohDescriptionPanel, currentSDoHMetricKey, sdohMetricConfigs, sdohVariableMap);
+    if (selectedZipProps) updateInfoPanel(selectedZipProps);
+  });
 
 }
 </script>
