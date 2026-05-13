@@ -1,24 +1,11 @@
-FROM public.ecr.aws/docker/library/python:3.13
+FROM nginx:1.27-alpine
 
-WORKDIR /app
+RUN rm /etc/nginx/conf.d/default.conf
 
-# Install dependencies for psycopg2 and other build tools if needed
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY . /usr/share/nginx/html
 
-# Install Python dependencies
-COPY requirements.txt /app/
-RUN pip install --upgrade pip && pip install -r requirements.txt
+EXPOSE 80
 
-# Copy Django project code
-COPY dashboard_sdoh /app/dashboard_sdoh
-
-# Collect static files
-RUN python /app/dashboard_sdoh/manage.py collectstatic --noinput
-
-# Expose port 8000
-EXPOSE 8000
-
-CMD ["python", "dashboard_sdoh/manage.py", "runserver", "0.0.0.0:8000"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD wget -qO- http://localhost/health || exit 1

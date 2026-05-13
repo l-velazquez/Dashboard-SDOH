@@ -1,0 +1,2489 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="./icons/apple/apple-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="./icons/apple/apple-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="./icons/apple/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="./icons/apple/apple-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="./icons/apple/apple-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="./icons/apple/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="./icons/apple/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="./icons/apple/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./icons/apple/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="./icons/android/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="./icons/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./icons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="/icons/windows/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Puerto Rico Cardiometabolic Risk Factor</title>
+    <!-- MapLibre GL JS -->
+    <link
+      href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <!-- Chart.js for scatter plot -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+      /* --- 1. Global & Basic Resets --- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        background-color: #f4f7f6;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        line-height: 1.6;
+      }
+
+      /* --- 2. Header --- */
+      header {
+        background-color: rgb(60, 0, 88);
+        color: white;
+        padding: 15px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px; /* Increased gap for more space between title and images */
+      }
+      header h1 {
+        margin: 0;
+        font-size: 1.5em;
+        text-align: center;
+        order: 1;
+        max-width: 90vw; /* Prevents title from being too long */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .header-logos-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        order: 2;
+      }
+      .header-logo {
+        height: 70px;
+        max-width: 200px;
+        object-fit: contain;
+        background: white;
+        border-radius: 8px;
+        padding: 6px 12px;
+      }
+
+      /* --- 3. Main Content Area (Mobile First) --- */
+      .main-content {
+        flex-grow: 1;
+        padding: 15px;
+      }
+
+      .sidebar,
+      .map-container {
+        background-color: #ffffff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .main-content > *:last-child {
+        margin-bottom: 0;
+      }
+      .sidebar {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .map-container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #map {
+        width: 100%;
+        height: 400px; /* Mobile height */
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        flex-shrink: 0;
+      }
+      /* MapLibre specific: ensure cursor changes work */
+      .maplibregl-canvas-container.maplibregl-interactive,
+      .maplibregl-ctrl-group button.maplibregl-ctrl-compass {
+        cursor: grab;
+      }
+      .maplibregl-canvas-container.maplibregl-interactive.maplibregl-grabbing {
+        cursor: grabbing;
+      }
+
+      .sidebar h2 {
+        margin-top: 0;
+        font-size: 1.3em;
+        color: #004d40;
+        border-bottom: 2px solid #b2dfdb;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+      }
+      .control-group {
+        margin-bottom: 20px;
+      }
+      .control-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #555;
+      }
+      .control-group select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        font-size: 0.95em;
+      }
+      .metric-description-panel {
+        padding: 10px;
+        background-color: #f9f9f9;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        font-size: 0.9em;
+        color: #333;
+        min-height: 60px;
+        margin-top: 5px;
+      }
+      .metric-description-panel p {
+        margin: 0 0 5px 0;
+      }
+      .metric-description-panel strong {
+        color: #004d40;
+      }
+
+      /* --- 4. Legend Styles (Redesigned) --- */
+      #legend-container {
+        margin-top: 15px;
+        padding: 16px 0 8px 0;
+        border-top: 1px solid #e0e0e0;
+        width: 100%;
+        background: #fafbfc;
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      }
+      #legend-container > label {
+        display: block;
+        text-align: center;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 1.08em;
+        letter-spacing: 0.03em;
+      }
+      .legends-content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 24px;
+        align-items: flex-end;
+      }
+      .legend {
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        min-width: 220px;
+        flex: 1 1 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .legend-title {
+        font-size: 0.7em;
+        font-weight: 600;
+        color: #222;
+        margin-bottom: 6px;
+        text-align: center;
+        letter-spacing: 0.01em;
+      }
+      .legend-bar {
+        width: 100%;
+        max-width: 420px;
+        min-width: 160px;
+        height: 18px;
+        border-radius: 0;
+        margin-bottom: 6px;
+        position: relative;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        border: none;
+        overflow: hidden;
+        transition: max-width 0.2s;
+        background: none;
+      }
+      .legend-labels {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 420px;
+        min-width: 160px;
+        font-size: 0.85em;
+        color: #444;
+        margin-top: 0;
+        margin-bottom: 2px;
+      }
+      @media (max-width: 600px) {
+        .legend-bar,
+        .legend-labels {
+          max-width: 180px;
+        }
+      }
+      @media (min-width: 601px) and (max-width: 991px) {
+        .legend-bar,
+        .legend-labels {
+          max-width: 300px;
+        }
+      }
+      @media (min-width: 992px) {
+        .legend-bar,
+        .legend-labels {
+          max-width: 420px;
+        }
+      }
+
+      /* --- 5. Info Panel Styles --- */
+      .info-panel h3,
+      .info-panel h4 {
+        font-size: 1.1em;
+        color: #004d40;
+        margin: 0 0 5px 0;
+      }
+      .info-panel h4 {
+        font-size: 1em;
+        color: #333;
+        margin-top: 15px;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+      }
+      .info-panel p {
+        margin: 5px 0;
+        line-height: 1.5;
+      }
+      .info-panel .data-item {
+        margin-bottom: 8px;
+      }
+      .info-panel .data-label {
+        font-weight: 600;
+        color: #444;
+      }
+      .info-panel .data-value {
+        color: #111;
+      }
+      .placeholder-text {
+        color: #777;
+        font-style: italic;
+      }
+
+      /* --- Analytics nav link --- */
+      .analytics-nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: rgba(255,255,255,0.8);
+        text-decoration: none;
+        font-size: 0.85em;
+        font-weight: 600;
+        padding: 6px 16px;
+        border: 1px solid rgba(255,255,255,0.25);
+        border-radius: 20px;
+        background: rgba(255,255,255,0.08);
+        transition: background 0.2s, color 0.2s;
+        letter-spacing: 0.01em;
+      }
+      .analytics-nav-link:hover {
+        background: rgba(255,255,255,0.18);
+        color: white;
+      }
+
+      /* --- Info panel extras --- */
+      .info-rank-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.82em;
+        font-weight: 700;
+        background: linear-gradient(135deg, #3c0058 0%, #1a1140 100%);
+        color: #c4b5fd;
+        border-radius: 20px;
+        padding: 4px 12px;
+        margin: 8px 0 4px 0;
+        border: 1px solid rgba(167,139,250,0.3);
+      }
+      .info-donut-section {
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid #eee;
+      }
+      .info-donut-section h4 {
+        font-size: 0.95em;
+        color: #004d40;
+        margin-bottom: 8px;
+        border-top: none;
+        padding-top: 0;
+      }
+      .info-donut-section canvas {
+        max-height: 180px;
+        width: 100% !important;
+      }
+      .info-outliers-section {
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid #eee;
+      }
+      .info-outliers-section h4 {
+        font-size: 0.95em;
+        color: #004d40;
+        margin-bottom: 8px;
+        border-top: none;
+        padding-top: 0;
+      }
+      .outlier-row {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        margin: 4px 0;
+        font-size: 0.88em;
+      }
+      .outlier-label { color: #444; font-weight: 600; flex: 1; }
+      .outlier-val   { color: #111; font-weight: 700; white-space: nowrap; }
+      .outlier-arrow-up   { color: #c0392b; font-size: 1.1em; }
+      .outlier-arrow-down { color: #27ae60; font-size: 1.1em; }
+
+      /* --- 6. Footer --- */
+      footer {
+        text-align: center;
+        padding: 15px;
+        background-color: #e0e0e0;
+        color: #555;
+        font-size: 0.9em;
+        margin-top: auto;
+      }
+
+      /* --- Analytics CTA Banner --- */
+      .analytics-cta-banner {
+        background: linear-gradient(135deg, #1a0030 0%, #2d1060 50%, #1a0030 100%);
+        border-top: 1px solid rgba(167,139,250,0.2);
+        padding: 32px 24px;
+      }
+      .cta-content {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .cta-text {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-family: 'Inter', -apple-system, sans-serif;
+      }
+      .cta-text strong {
+        font-size: 1.15em;
+        font-weight: 700;
+        color: #e2e8f0;
+      }
+      .cta-text span {
+        font-size: 0.9em;
+        color: rgba(255,255,255,0.55);
+        max-width: 520px;
+      }
+      .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 24px;
+        background: linear-gradient(135deg, #7c3aed, #4f46e5);
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.95em;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+        transition: filter 0.2s, transform 0.2s;
+        box-shadow: 0 4px 20px rgba(124,58,237,0.35);
+      }
+      .cta-button:hover {
+        filter: brightness(1.15);
+        transform: translateY(-1px);
+      }
+
+      /* --- START: New Back Button Styles --- */
+      .back-button-container {
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+      }
+
+      .back-button {
+        display: block;
+        width: 100%;
+        padding: 12px 15px;
+        background-color: #004d40;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 1em;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+      }
+
+      .back-button:hover,
+      .back-button:focus {
+        background-color: #00392e;
+        color: white;
+        text-decoration: none;
+      }
+      /* --- END: New Back Button Styles --- */
+
+      /* --- 7. Media Queries for Larger Screens (Tablets & Desktops) --- */
+      @media (min-width: 992px) {
+        header {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+        header h1 {
+          font-size: 1.8em;
+          order: 2;
+          flex-grow: 1;
+          text-align: center;
+        }
+        .header-logos-container {
+          display: contents;
+        }
+        .header-logo {
+          height: 90px;
+          max-width: 260px;
+        }
+        img[alt="AIM AHEAD Logo"] {
+          order: 1;
+        }
+        img[alt="RCMI Logo"] {
+          order: 3;
+        }
+
+        .main-content {
+          display: flex;
+          padding: 20px;
+          gap: 20px;
+          align-items: stretch;
+        }
+
+        .sidebar {
+          padding: 20px;
+          margin-bottom: 0;
+        }
+
+        .left-sidebar.sidebar {
+          flex: 0 0 300px;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .map-container {
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+        }
+        #map {
+          flex-grow: 1;
+          height: auto;
+          min-height: 600px;
+        }
+
+        #legend-container {
+          padding: 15px 0;
+          width: 100%;
+          flex-shrink: 0;
+        }
+        #legend-container > label {
+          display: none;
+        }
+        .legends-content {
+          justify-content: space-between;
+          gap: 20px;
+        }
+        .legend {
+          flex-grow: 1;
+          flex-shrink: 1;
+          flex-basis: 0;
+          min-width: 250px;
+          margin-bottom: 0;
+        }
+
+        .map-container .right-sidebar.sidebar {
+          width: 100%;
+          margin-top: 20px;
+        }
+
+        .sidebar h2 {
+          font-size: 1.4em;
+        }
+        .info-panel h3 {
+          font-size: 1.2em;
+        }
+        .info-panel h4 {
+          font-size: 1.1em;
+        }
+
+        .left-sidebar.sidebar .back-button-container {
+          margin-top: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+     
+ <header>
+      <h1>Puerto Rico Cardiometabolic Risk Factor</h1>
+      <div class="header-logos-container">
+        <img
+          src="./images/aim_ahead_600x474.webp"
+          alt="AIM AHEAD Logo"
+          class="header-logo"
+        />
+        <img
+          src="./images/rcmi.webp"
+          alt="RCMI Logo"
+          class="header-logo"
+        />
+      </div>
+      
+    </header>
+    <div class="main-content">
+      <div class="left-sidebar sidebar">
+        <h2>Selection</h2>
+
+        <div class="control-group">
+          <label for="metric-select">Cardiometabolic Risk Factor:</label>
+          <select id="metric-select"></select>
+          <div id="metric-description" class="metric-description-panel">
+            <p class="placeholder-text">
+              Select a health risk indicator to see its description.
+            </p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="sdoh-select"
+            >Demographic Factor:</label
+          >
+          <select id="sdoh-select"></select>
+          <div id="sdoh-description" class="metric-description-panel">
+            <p class="placeholder-text">
+              Select an SDoH indicator to see its description.
+            </p>
+          </div>
+        </div>
+
+        
+      </div>
+
+      <div class="map-container">
+        <div id="map"></div>
+
+        <div id="legend-container">
+          <label>Scale</label>
+          <div class="legends-content">
+            <div id="health-legend" class="legend">
+              <!-- Health Risk Legend will be rendered here -->
+            </div>
+            <div id="sdoh-legend" class="legend">
+              <!-- SDoH Legend will be rendered here -->
+            </div>
+          </div>
+        </div>
+
+        <div class="right-sidebar sidebar">
+          <h2>Area Information</h2>
+          <div id="info-panel" class="info-panel">
+            <p class="placeholder-text">
+              Click on a municipality on the map to see details.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics CTA Banner -->
+    <div class="analytics-cta-banner">
+      <div class="cta-content">
+        <div class="cta-text">
+          <strong>Want deeper insights?</strong>
+          <span>Explore correlations between health outcomes and social determinants, island-wide statistics, and full municipality profiles.</span>
+        </div>
+        <a href="./analytics.html" class="cta-button">View Analytics &amp; Insights &#8594;</a>
+        <a href="./zipcodes.html" class="cta-button" style="background: linear-gradient(135deg,#0d7377,#14a085);">ZIP Code Map &#8594;</a>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        Data Source: Cardiovascular Risk & Vitamin D (Provided), US Census
+        Municipalities, ACS 5-Year Estimates (2020)
+      </p>
+      <p>Map created by Luis F. J. Velázquez Sosa © 2025</p>
+    </footer>
+
+    <script>
+      // --- Data from Django context ---
+      
+
+      
+
+        const staticSdohVariableMap = {"YEAR": "SDOH file year", "COUNTYFIPS": "State-county FIPS Code (5-digit)", "COUNTY": "County name", "STATE": "State name", "lon": "Longitude", "lat": "Latitude", "ACS_PCT_INC50_ABOVE65": "Pct. population with income-to-poverty ratio < 0.50", "ACS_PCT_INC50_BELOW17": "Pct. children with income-to-poverty ratio < 0.50", "ACS_PCT_HEALTH_INC_BELOW137": "Pct. population < 138% of poverty threshold", "ACS_PCT_HEALTH_INC_138_199": "Pct. population 138-199% of poverty threshold", "ACS_PCT_HEALTH_INC_200_399": "Pct. population 200-399% of poverty threshold", "ACS_PCT_HEALTH_INC_ABOVE400": "Pct. population >= 400% of poverty threshold", "ACS_PCT_HH_PUB_ASSIST": "Pct. households with public assistance/SNAP", "ACS_PCT_COLLEGE_ASSOCIATE_DGR": "Pct. population with some college or associate's degree", "ACS_PCT_BACHELOR_DGR": "Pct. population with bachelor's degree", "ACS_PCT_GRADUATE_DGR": "Pct. population with graduate/professional degree", "ACS_PCT_HS_GRADUATE": "Pct. population with high school diploma only", "ACS_PCT_LT_HS": "Pct. population with less than high school education", "ACS_PCT_POSTHS_ED": "Pct. population with any post-high school education ", "ACS_TOT_CIVIL_EMPLOY_POP": "Total civilian employed population", "ACS_PCT_UNINSURED": "Pct. population with no health insurance", "HIFLD_MIN_DIST_UC": "Min. distance to nearest urgent care ", "POS_MIN_DIST_ED": "Min. distance to nearest emergency department", "POS_MIN_DIST_ALC": "Min. distance to nearest inpatient alcohol/drug abuse care", "ACS_PCT_DISABLE": "Pct. population with a disability", "ACS_PCT_NONVET_DISABLE_18_64": "Pct. nonveterans with a disability", "ACS_PCT_VET_DISABLE_18_64": "Pct. civilian veterans with a disability"};
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            Promise.all([
+                fetch('./maps/municipalities.geojson').then(r => r.json()),
+                fetch('./data/cardio_vitd_hepatic_kidney.json').then(r => r.json()),
+                fetch('./data/sdoh_by_municipality.json').then(r => r.json())
+            ]).then(([geoData, healthData, sdohDataObj]) => {
+                runApp(geoData, healthData, sdohDataObj, staticSdohVariableMap);
+            }).catch(err => console.error("Failed to load map data:", err));
+        });
+        
+
+// --- Global Variables ---
+let map;
+
+function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSdohVariableMap) {
+    const geojsonDataString = JSON.stringify(fetchedGeoData);
+    const healthStatsDataString = JSON.stringify(fetchedHealthData);
+    const sdohDataString = JSON.stringify(fetchedSdohDataObj);
+    const sdohVariableMapString = JSON.stringify(fetchedSdohVariableMap);
+
+      let geojsonData;
+      let healthStatsLookup = {};
+      let sdohDataLookup = {};
+      let sdohVariableMap = {};
+      let currentHealthMetricKey = "AO_High"; // Default health metric
+      let currentSDoHMetricKey = "POS_MIN_DIST_ED";
+      let selectedFeatureId = null;
+      let hoveredFeatureId = null;
+      let infoPanelChartInstance = null;
+      let sdohIslandStats = {}; // { sdohKey: { mean, std } }
+
+      const riskCalculationDescriptions = {
+        "Risk of Coronary Heart Disease":
+          "Coronary Heart Disease risk is often assessed using ratios like TC/HDL (Total Cholesterol to HDL). <br> - TC/HDL < 4.0: Low Risk <br> - TC/HDL 4.0-5.0: Moderate Risk <br> - TC/HDL > 5.0: High Risk",
+        "Risk of Arterial Obstruction":
+          "Arterial Obstruction risk can be indicated by LDL/HDL ratios. <br> - LDL/HDL < 2.5: Low Risk <br> - LDL/HDL 2.5-3.5: Moderate Risk <br> - LDL/HDL > 3.5: High Risk",
+        "Risk of Heart Attack or Atherosclerosis":
+          "Risk of Heart Attack or Atherosclerosis can be evaluated using Non-HDL Cholesterol levels. <br> - Non-HDL < 130 mg/dL: Low Risk <br> - Non-HDL 130-160 mg/dL: Moderate Risk <br> - Non-HDL > 160 mg/dL: High Risk",
+        "Vitamin D Risk":
+          "Vitamin D status is crucial for health. <br> - Deficiency: Can lead to bone problems, weakened immune system, and other health issues. <br> - Toxicity: Rare, but can cause hypercalcemia and other complications from excessive intake, usually through high-dose supplements.",
+        "eGFR CKD-EPI Risk":
+          "Estimated Glomerular Filtration Rate (eGFR) assesses kidney function. Percentages reflect population distribution in these categories. <br> - Normal: Generally eGFR >90 mL/min/1.73m² <br> - Mild: eGFR 60-89 <br> - High (Moderate decline in your data): eGFR 30-59 <br> - Severe: eGFR 15-29",
+        "BUN/Creatinine Ratio Risk":
+          "The BUN/Creatinine ratio helps assess kidney function and hydration. Percentages reflect population distribution. <br> - Normal: Ratio typically 10:1 to 20:1. <br> - High: Can suggest dehydration, decreased kidney perfusion. <br> - Low: Can suggest liver disease, malnutrition.",
+        "AST/ALT Ratio Risk":
+          "Aspartate Aminotransferase (AST) to Alanine Aminotransferase (ALT) ratio can indicate liver health. Percentages reflect population distribution. <br> - Compatible with mild fatty liver: Suggests potential non-alcoholic fatty liver disease. <br> - Suggests fibrosis/active hepatitis: May indicate more significant liver issues.",
+        "APRI Score Risk":
+          "AST to Platelet Ratio Index (APRI) estimates liver fibrosis. Percentages reflect population distribution. <br> - No significant fibrosis: Lower likelihood. <br> - Moderate risk: Intermediate likelihood. <br> - High risk: Higher likelihood of significant fibrosis.",
+        "FIB-4 Index Risk":
+          "Fibrosis-4 (FIB-4) Index is another marker for liver fibrosis. Percentages reflect population distribution. <br> - Low risk: Lower likelihood. <br> - Mild risk: Intermediate likelihood. <br> - High risk: Higher likelihood of advanced fibrosis.",
+      };
+
+      try {
+        geojsonData = JSON.parse(geojsonDataString);
+      } catch (e) {
+        console.error(
+          "GeoJSON Parse Error:",
+          e,
+          "\nString snippet:",
+          geojsonDataString.substring(0, 200)
+        );
+        geojsonData = { type: "FeatureCollection", features: [] };
+      }
+
+      console.log(
+        "[DEBUG] Raw healthStatsDataString (first 1000 chars):",
+        healthStatsDataString.substring(0, 1000)
+      );
+      try {
+        if (
+          healthStatsDataString &&
+          healthStatsDataString.trim() !== "" &&
+          healthStatsDataString.trim() !== "{}"
+        ) {
+          const parsedHealthData = JSON.parse(healthStatsDataString);
+          if (
+            typeof parsedHealthData === "object" &&
+            !Array.isArray(parsedHealthData)
+          ) {
+            healthStatsLookup = parsedHealthData;
+            if (healthStatsLookup["Las Piedras"]) {
+              console.log(
+                "[DEBUG] healthStatsLookup['Las Piedras'] after parsing:",
+                JSON.stringify(healthStatsLookup["Las Piedras"])
+              );
+            } else {
+              console.warn(
+                "[DEBUG] 'Las Piedras' not found in healthStatsLookup after parsing. Check your full health_stats_data JSON."
+              );
+            }
+            if (
+              Object.keys(healthStatsLookup).length === 0 &&
+              healthStatsDataString.length > 2
+            ) {
+              console.error(
+                "[DEBUG] CRITICAL: healthStatsLookup is empty but healthStatsDataString was not. JSON parsing likely failed to produce the expected object structure."
+              );
+            }
+          } else {
+            console.warn(
+              "[DEBUG] Health Stats data is not a JSON object. Received:",
+              healthStatsDataString.substring(0, 200),
+              "\nUsing empty lookup."
+            );
+            healthStatsLookup = {};
+          }
+        } else {
+          console.warn(
+            "[DEBUG] healthStatsDataString is empty or placeholder. Using empty healthStatsLookup."
+          );
+          healthStatsLookup = {};
+        }
+      } catch (e) {
+        console.error(
+          "[DEBUG] Health Stats Parse Error:",
+          e,
+          "\nString snippet:",
+          healthStatsDataString.substring(0, 200)
+        );
+        healthStatsLookup = {};
+      }
+
+      if (Object.keys(healthStatsLookup).length > 0) {
+        console.log(
+          `[DEBUG] healthStatsLookup successfully populated with ${
+            Object.keys(healthStatsLookup).length
+          } entries.`
+        );
+      } else {
+        console.warn(
+          "[DEBUG] healthStatsLookup is EMPTY. Check health_stats_data from Django and JSON file format."
+        );
+      }
+
+      try {
+        if (
+          sdohDataString &&
+          sdohDataString.trim() !== "" &&
+          sdohDataString.trim() !== "[]"
+        ) {
+          const sdohRawData = JSON.parse(sdohDataString);
+          if (Array.isArray(sdohRawData)) {
+            sdohRawData.forEach((item) => {
+              if (
+                item.COUNTY &&
+                typeof item.COUNTY === "string" &&
+                item.YEAR === 2020
+              ) {
+                sdohDataLookup[item.COUNTY.trim()] = item;
+              } else if (item.COUNTY && item.YEAR === 2020) {
+                sdohDataLookup[item.COUNTY] = item;
+              }
+            });
+          } else {
+            console.warn(
+              "SDoH data is not a JSON array. Received:",
+              sdohDataString.substring(0, 200)
+            );
+          }
+        }
+      } catch (e) {
+        console.error(
+          "SDoH Data Parse Error:",
+          e,
+          "\nString snippet:",
+          sdohDataString.substring(0, 200)
+        );
+      }
+      if (Object.keys(sdohDataLookup).length > 0) {
+        console.log(
+          `[DEBUG] sdohDataLookup contains ${
+            Object.keys(sdohDataLookup).length
+          } entries.`
+        );
+      } else {
+        console.warn("[DEBUG] sdohDataLookup is EMPTY!");
+      }
+
+      try {
+        if (sdohVariableMapString && sdohVariableMapString.trim() !== "") {
+          sdohVariableMap = JSON.parse(sdohVariableMapString);
+        }
+      } catch (e) {
+        console.error("SDoH Variable Map Parse Error:", e);
+      }
+
+      const GOOD_LOW_COLORS = [
+        // Higher value is worse
+        "#ffffb2", // Lowest risk
+        "#fed976",
+        "#feb24c",
+        "#fd8d3c",
+        "#fc4e2a",
+        "#e31a1c",
+        "#b10026", // Highest risk
+      ];
+      const GOOD_HIGH_COLORS = [
+        // Higher value is better (e.g. % Normal) - reversed GOOD_LOW_COLORS
+        "#b10026", // Lowest percentage (bad)
+        "#e31a1c",
+        "#fc4e2a",
+        "#fd8d3c",
+        "#feb24c",
+        "#fed976",
+        "#ffffb2", // Highest percentage (good)
+      ];
+      const SDOH_COLORS = [
+        "#e0ecf4",
+        "#bfd3e6",
+        "#9ebcda",
+        "#8c96c6",
+        "#8c6bb1",
+        "#88419d",
+        "#6e016b",
+        "#4d0042",
+      ];
+
+      const filteredHealthMetricConfigs = {
+        // Existing Cardio Risks
+        CHD_High: {
+          displayName: "Risk of Coronary Heart Disease",
+          dataPath: ["Risk of Coronary Heart Disease", "percentages", "High"],
+          type: "goodIsLow",
+          breaks: [10, 11.5, 13, 14.5, 16, 17.5],
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Coronary Heart Disease.",
+        },
+        AO_High: {
+          // This is your default selected metric
+          displayName: "Risk of Arterial Obstruction",
+          dataPath: ["Risk of Arterial Obstruction", "percentages", "High"],
+          type: "goodIsLow",
+          breaks: [15, 16, 17, 18, 19, 20],
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Arterial Obstruction.",
+        },
+        HA_High: {
+          displayName: "Risk of Heart Attack",
+          dataPath: [
+            "Risk of Heart Attack or Atherosclerosis",
+            "percentages",
+            "High",
+          ],
+          type: "goodIsLow",
+          breaks: [5, 7, 9, 11, 12.5, 13.2],
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Cardiovascular Risk:</strong> \nPercentage of population at High Risk for Heart Attack or Atherosclerosis.",
+        },
+        // Vitamin D Risks
+        VitD_Deficiency: {
+          displayName: "Risk of Vitamin D Deficiency",
+          dataPath: ["Vitamin D Risk", "percentages", "Deficiency"],
+          type: "goodIsLow",
+          breaks: [3, 6, 9, 12, 15, 17],
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Vitamin D Risk:</strong> \nPercentage of population with Vitamin D Deficiency.",
+        },
+        VitD_Toxicity: {
+          displayName: "Risk of Vitamin D Toxicity",
+          dataPath: ["Vitamin D Risk", "percentages", "Toxicity"],
+          type: "goodIsLow",
+          breaks: [0.0, 0.25, 0.5, 0.75, 1, 1.25],
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Vitamin D Risk:</strong> \nPercentage of population with Vitamin D Toxicity.",
+        },
+
+        // --- NEW HEALTH METRICS START ---
+        // eGFR CKD-EPI Risk
+        eGFR_Severe: {
+          displayName: "Risk of Chronic Kidney Disease (CKD) Risk",
+          dataPath: ["eGFR CKD-EPI Risk", "percentages", "Severe"],
+          type: "goodIsLow",
+          breaks: [0.5, 1.0, 1.5, 2.0, 2.5, 3.0], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Liver Risk:</strong>\nPercentage of population with Severe kidney function decline (eGFR).",
+        },
+        /*eGFR_High: {
+          displayName: "eGFR Risk (High/Moderate Decline %)",
+          dataPath: ["eGFR CKD-EPI Risk", "percentages", "High"], // 'High' in your JSON means moderate decline
+          type: "goodIsLow",
+          breaks: [3, 5, 7, 9, 11, 13], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with High risk/Moderate kidney function decline (eGFR). Higher is worse.",
+        },
+        eGFR_Mild: {
+          displayName: "eGFR Risk (Mild Decline %)",
+          dataPath: ["eGFR CKD-EPI Risk", "percentages", "Mild"],
+          type: "goodIsLow",
+          breaks: [15, 20, 25, 30, 35, 40], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with Mild kidney function decline (eGFR). Higher is worse.",
+        },
+        eGFR_Normal: {
+          displayName: "eGFR (Normal %)",
+          dataPath: ["eGFR CKD-EPI Risk", "percentages", "Normal"],
+          type: "goodIsHigh",
+          breaks: [50, 55, 60, 65, 70, 75], // ADJUST BREAKS
+        }, 
+        */
+        // BUN/Creatinine Ratio Risk
+        BCR_High: {
+          displayName: "Evaluation of Prerenal Cause or Tubular Damage",
+          dataPath: ["BUN/Creatinine Ratio Risk", "percentages", "High"],
+          type: "goodIsLow",
+          breaks: [30, 35, 40, 45, 50, 55], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Kidney Risk:</strong>\nPercentage of population with a High BUN/Creatinine Ratio.",
+        },
+        /*BCR_Low: {
+          displayName: "BUN/Creatinine Ratio (Low %)",
+          dataPath: ["BUN/Creatinine Ratio Risk", "percentages", "Low"],
+          type: "goodIsLow",
+          breaks: [1, 1.5, 2, 2.5, 3, 3.5], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with a Low BUN/Creatinine Ratio. Higher percentage of 'low' is worse.",
+        },
+        BCR_Normal: {
+          displayName: "BUN/Creatinine Ratio (Normal %)",
+          dataPath: ["BUN/Creatinine Ratio Risk", "percentages", "Normal"],
+          type: "goodIsHigh",
+          breaks: [40, 45, 50, 55, 60, 65], // ADJUST BREAKS
+          colors: GOOD_HIGH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with a Normal BUN/Creatinine Ratio. Higher is better.",
+        },*/
+
+        // AST/ALT Ratio Risk
+        AAR_FibrosisHepatitis: {
+          displayName: "Risk of Liver Fibrosis",
+          dataPath: [
+            "AST/ALT Ratio Risk",
+            "percentages",
+            "Suggests fibrosis/active hepatitis",
+          ],
+          type: "goodIsLow",
+          breaks: [30, 35, 40, 45, 50, 55], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Liver Risk:</strong>\nPercentage of population whose AST/ALT ratio suggests fibrosis or active hepatitis.",
+        },
+        /*AAR_MildFattyLiver: {
+          displayName: "AST/ALT Ratio (Mild Fatty Liver %)",
+          dataPath: [
+            "AST/ALT Ratio Risk",
+            "percentages",
+            "Compatible with mild fatty liver",
+          ],
+          type: "goodIsLow",
+          breaks: [40, 45, 50, 55, 60, 65], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Liver Risk:</strong>\nPercentage of population whose AST/ALT ratio is compatible with mild fatty liver. Higher is worse.",
+        },*/
+
+        // APRI Score Risk
+        APRI_High: {
+          displayName: "Risk of Fibrosis or Cirrhosis",
+          dataPath: ["APRI Score Risk", "percentages", "High risk"],
+          type: "goodIsLow",
+          breaks: [1, 2, 3, 4, 5, 6], // ADJUST BREAKS (likely low percentages)
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Liver Risk:</strong>\nPercentage of population at High Risk for liver fibrosis based on APRI score.",
+        },
+        /*APRI_Moderate: {
+          displayName: "APRI Score (Moderate Risk %)",
+          dataPath: ["APRI Score Risk", "percentages", "Moderate risk"],
+          type: "goodIsLow",
+          breaks: [2, 3, 4, 5, 6, 7], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population at Moderate Risk for liver fibrosis based on APRI score. Higher is worse.",
+        },
+        APRI_NoSigFibrosis: {
+          displayName: "APRI Score (No Significant Fibrosis %)",
+          dataPath: [
+            "APRI Score Risk",
+            "percentages",
+            "No significant fibrosis",
+          ],
+          type: "goodIsHigh",
+          breaks: [80, 85, 90, 92, 94, 96], // ADJUST BREAKS
+          colors: GOOD_HIGH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with no significant liver fibrosis based on APRI score. Higher is better.",
+        },*/
+
+        // FIB-4 Index Risk
+        FIB4_High: {
+          displayName: "Risk of Advanced Fibrosis",
+          dataPath: ["FIB-4 Index Risk", "percentages", "High risk"],
+          type: "goodIsLow",
+          breaks: [2, 4, 6, 8, 10, 12], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "<strong>Liver Risk:</strong>\nPercentage of population at High Risk for liver fibrosis based on FIB-4 Index.",
+        },
+        /*FIB4_Mild: {
+          displayName: "FIB-4 Index (Mild Risk %)",
+          dataPath: ["FIB-4 Index Risk", "percentages", "Mild risk"],
+          type: "goodIsLow",
+          breaks: [10, 13, 16, 19, 22, 25], // ADJUST BREAKS
+          colors: GOOD_LOW_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population at Mild Risk for liver fibrosis based on FIB-4 Index. Higher is worse.",
+        },
+        FIB4_LowRisk: {
+          displayName: "FIB-4 Index (Low Risk %)",
+          dataPath: ["FIB-4 Index Risk", "percentages", "Low risk"],
+          type: "goodIsHigh",
+          breaks: [50, 55, 60, 65, 70, 75], // ADJUST BREAKS
+          colors: GOOD_HIGH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population at Low Risk for liver fibrosis based on FIB-4 Index. Higher is better.",
+        },*/
+        // --- NEW HEALTH METRICS END ---
+      };
+
+      const sdohMetricConfigs = {
+        ACS_PCT_UNINSURED: {
+          type: "percentage",
+          breaks: [4.0, 5.0, 6.3, 8.0, 10.1, 12.7, 16.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with no health insurance coverage.",
+        },
+        ACS_PCT_LT_HS: {
+          type: "percentage",
+          breaks: [15.0, 18.0, 21.6, 26.0, 31.2, 37.5, 45.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with less than high school education (ages 25 and over).",
+        },
+        POS_MIN_DIST_ED: {
+          type: "distance",
+          breaks: [1.0, 1.6, 2.7, 4.5, 7.4, 12.1, 20.0],
+          colors: SDOH_COLORS,
+          unit: " mi",
+          description:
+            "Minimum distance in miles to the nearest emergency department, calculated using population weighted tract centroids in the county.",
+        },
+        ACS_PCT_HH_PUB_ASSIST: {
+          type: "percentage",
+          breaks: [25.0, 29.3, 34.4, 40.3, 47.3, 55.4, 65.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of households with public assistance income or food stamps/SNAP.",
+        },
+        ACS_PCT_INC50_BELOW17: {
+          type: "percentage",
+          breaks: [25.0, 29.3, 34.4, 40.3, 47.3, 55.4, 65.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of children with income to poverty ratio under 0.50 (ages 17 and below).",
+        },
+        ACS_PCT_INC50_ABOVE65: {
+          type: "percentage",
+          breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with income to poverty ratio under 0.50 (ages 65 and over).",
+        },
+        ACS_PCT_DISABLE: {
+          type: "percentage",
+          breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description: "Percentage of population with a disability.",
+        },
+        ACS_PCT_NONVET_DISABLE_18_64: {
+          type: "percentage",
+          breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of nonveterans with a disability (between ages 18 and 64).",
+        },
+        ACS_PCT_VET_DISABLE_18_64: {
+          type: "percentage",
+          breaks: [10.0, 13.8, 19.1, 26.5, 36.6, 50.6, 70.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of civilian veterans with a disability (between ages 18 and 64).",
+        },
+        HIFLD_MIN_DIST_UC: {
+          type: "distance",
+          breaks: [2.0, 3.0, 4.6, 7.1, 10.8, 16.4, 25.0],
+          colors: SDOH_COLORS,
+          unit: " mi",
+          description:
+            "Minimum distance in miles to the nearest urgent care, calculated using population weighted tract centroids in the county.",
+        },
+        POS_MIN_DIST_ALC: {
+          type: "distance",
+          breaks: [5.0, 7.1, 10.0, 14.1, 20.0, 28.3, 40.0],
+          colors: SDOH_COLORS,
+          unit: " mi",
+          description:
+            "Minimum distance in miles to the nearest hospital with alcohol and drug abuse inpatient care, calculated using population weighted tract centroids in the county.",
+        },
+        ACS_TOT_CIVIL_EMPLOY_POP: {
+          type: "count",
+          breaks: [2500, 4754, 9040, 17192, 32692, 62167, 120000],
+          colors: SDOH_COLORS,
+          unit: "",
+          description: "Total civilian employed population (ages 16 and over).",
+        },
+        ACS_PCT_COLLEGE_ASSOCIATE_DGR: {
+          type: "percentage",
+          breaks: [10.0, 12.6, 15.9, 20.0, 25.2, 31.7, 40.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with some college or associate's degree (ages 25 and over).",
+        },
+        ACS_PCT_BACHELOR_DGR: {
+          type: "percentage",
+          breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with a bachelor's degree (ages 25 and over).",
+        },
+        ACS_PCT_GRADUATE_DGR: {
+          type: "percentage",
+          breaks: [1.0, 1.6, 2.5, 4.0, 6.3, 10.1, 16.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with a master's or professional school degree or doctorate (ages 25 and over).",
+        },
+        ACS_PCT_HS_GRADUATE: {
+          type: "percentage",
+          breaks: [20.0, 23.3, 27.1, 31.6, 36.8, 42.9, 50.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with only high school diploma (ages 25 and over).",
+        },
+        ACS_PCT_POSTHS_ED: {
+          type: "percentage",
+          breaks: [20.0, 24.0, 28.8, 34.6, 41.6, 50.0, 60.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population with any postsecondary education (ages 25 and over).",
+        },
+        ACS_PCT_HEALTH_INC_BELOW137: {
+          type: "percentage",
+          breaks: [30.0, 36.0, 43.3, 52.0, 62.4, 74.9, 90.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population under 1.37 of the poverty threshold (relevant for health insurance coverage).",
+        },
+        ACS_PCT_HEALTH_INC_138_199: {
+          type: "percentage",
+          breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population between 1.38 and 1.99 of the poverty threshold (relevant for health insurance coverage).",
+        },
+        ACS_PCT_HEALTH_INC_200_399: {
+          type: "percentage",
+          breaks: [5.0, 6.9, 9.6, 13.2, 18.3, 25.3, 35.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population between 2.00 and 3.99 of the poverty threshold (relevant for health insurance coverage).",
+        },
+        ACS_PCT_HEALTH_INC_ABOVE400: {
+          type: "percentage",
+          breaks: [1.0, 1.6, 2.7, 4.5, 7.4, 12.1, 20.0],
+          colors: SDOH_COLORS,
+          unit: "%",
+          description:
+            "Percentage of population over 4.00 of the poverty threshold (relevant for health insurance coverage).",
+        },
+      };
+
+      // Pre-compute island-wide mean & std for every SDoH key (used in info panel outlier badges)
+      function buildSdohIslandStats() {
+        const stats = {};
+        for (const key of Object.keys(sdohMetricConfigs)) {
+          const vals = Object.values(sdohDataLookup)
+            .map(d => parseFloat(d[key]))
+            .filter(v => !isNaN(v));
+          if (!vals.length) continue;
+          const mean = vals.reduce((s, x) => s + x, 0) / vals.length;
+          const std  = Math.sqrt(vals.reduce((s, x) => s + (x - mean) ** 2, 0) / vals.length);
+          stats[key] = { mean, std };
+        }
+        return stats;
+      }
+      // Called after data is loaded (inside runApp, so sdohDataLookup is populated)
+      sdohIslandStats = buildSdohIslandStats();
+
+      const healthMetricSelect = document.getElementById("metric-select");
+      const healthMetricDescriptionPanel =
+        document.getElementById("metric-description");
+      const sdohSelect = document.getElementById("sdoh-select");
+      const sdohDescriptionPanel = document.getElementById("sdoh-description");
+      const healthLegendDiv = document.getElementById("health-legend");
+      const sdohLegendDiv = document.getElementById("sdoh-legend");
+      const infoPanel = document.getElementById("info-panel");
+
+      function getInitialMapZoom() {
+        if (window.innerWidth <= 600) return 7.5;
+        return 8.5;
+      }
+
+      function getNestedHealthValue(healthData, dataPath) {
+        if (
+          !healthData ||
+          typeof healthData !== "object" ||
+          Array.isArray(healthData) ||
+          !dataPath ||
+          !Array.isArray(dataPath)
+        ) {
+          return null;
+        }
+        let value = healthData;
+        for (const key of dataPath) {
+          if (value && typeof value === "object" && key in value) {
+            value = value[key];
+          } else {
+            return null;
+          }
+        }
+        return value;
+      }
+
+      function getHealthColor(value, metricKey) {
+        const config = filteredHealthMetricConfigs[metricKey];
+        if (
+          !config ||
+          value === null ||
+          value === undefined ||
+          isNaN(parseFloat(value))
+        )
+          return "#E0E0E0"; // Default grey for no data
+        const { breaks, colors } = config;
+        if (!breaks || !colors || breaks.length === 0 || colors.length === 0)
+          return "#E0E0E0";
+        if (colors.length < breaks.length + 1)
+          return colors[colors.length - 1] || "#E0E0E0";
+
+        const numericValue = parseFloat(value);
+        for (let i = 0; i < breaks.length; i++) {
+          if (numericValue <= breaks[i]) return colors[i];
+        }
+        return colors[breaks.length];
+      }
+
+      function getSDoHColorExpression(metricKey) {
+        const trimmedMetricKey = metricKey.trim();
+        const config = sdohMetricConfigs[trimmedMetricKey];
+
+        if (!config || !config.breaks || !config.colors) {
+          console.warn(`No config for SDoH metric: ${trimmedMetricKey}`);
+          return "rgba(200,200,200,0.3)";
+        }
+        const { breaks, colors } = config;
+        if (colors.length !== breaks.length + 1) {
+          console.error(
+            `SDoH Color/breaks mismatch for key: ${trimmedMetricKey}. Colors: ${colors.length}, Breaks: ${breaks.length}`
+          );
+          return colors.length > 0
+            ? colors[colors.length - 1]
+            : "rgba(200,200,200,0.3)";
+        }
+
+        const sdohObjectExpression = ["get", "sdoh"];
+        const sDoHValueGetter = [
+          "to-number",
+          ["get", trimmedMetricKey, sdohObjectExpression],
+        ];
+
+        const stepExpression = ["step", sDoHValueGetter, colors[0]];
+        for (let i = 0; i < breaks.length; i++) {
+          stepExpression.push(breaks[i]);
+          stepExpression.push(colors[i + 1]);
+        }
+
+        return [
+          "case",
+          ["!", ["has", "sdoh"]],
+          "rgba(201,201,201,0.3)",
+          ["!=", ["typeof", sdohObjectExpression], "object"],
+          "rgba(202,202,202,0.3)",
+          ["==", sdohObjectExpression, null],
+          "rgba(203,203,203,0.3)",
+          ["!", ["has", trimmedMetricKey, sdohObjectExpression]],
+          "rgba(210,210,210,0.3)",
+          [
+            "any",
+            ["==", ["get", trimmedMetricKey, sdohObjectExpression], null],
+            [
+              "==",
+              ["typeof", ["get", trimmedMetricKey, sdohObjectExpression]],
+              "undefined",
+            ],
+            [
+              "all",
+              [
+                "==",
+                ["typeof", ["get", trimmedMetricKey, sdohObjectExpression]],
+                "string",
+              ],
+              [
+                "==",
+                ["length", ["get", trimmedMetricKey, sdohObjectExpression]],
+                0,
+              ],
+            ],
+          ],
+          "rgba(220,220,220,0.3)",
+          stepExpression,
+        ];
+      }
+
+      function getHealthRiskCircleRadius(value, valueForMaxRadius) {
+        const minRadius = 2,
+          maxRadius = 12;
+        if (
+          value === null ||
+          value === undefined ||
+          isNaN(parseFloat(value)) ||
+          parseFloat(value) <= 0
+        )
+          return minRadius / 2;
+
+        let numericValue = parseFloat(value);
+        let radius =
+          valueForMaxRadius <= 0
+            ? minRadius
+            : minRadius +
+              (numericValue / valueForMaxRadius) * (maxRadius - minRadius);
+        return Math.max(minRadius / 2, Math.min(maxRadius, radius));
+      }
+
+      function getFeatureLngLatBounds(feature) {
+        const bounds = new maplibregl.LngLatBounds();
+        const geom = feature.geometry;
+        function processCoordinates(coords) {
+          if (
+            typeof coords[0] === "number" &&
+            typeof coords[1] === "number" &&
+            coords.length === 2
+          ) {
+            bounds.extend(coords);
+          } else if (Array.isArray(coords)) {
+            coords.forEach((c) => processCoordinates(c));
+          }
+        }
+        processCoordinates(geom.coordinates);
+        return bounds;
+      }
+
+      function preprocessGeojsonData() {
+        if (!geojsonData || !geojsonData.features) {
+          console.warn(
+            "[DEBUG] geojsonData is null or has no features during preprocessing."
+          );
+          return;
+        }
+        let healthDataLinkedCount = 0;
+        let sdohDataLinkedCount = 0;
+
+        geojsonData.features.forEach((feature, index) => {
+          const originalName = feature.properties?.NAME;
+          let municipalityNameForLookup =
+            originalName && typeof originalName === "string"
+              ? originalName.trim()
+              : `Unnamed Area ${index}`;
+
+          if (feature.properties && originalName) {
+            feature.id = originalName; // Use original NAME for ID
+            feature.properties.NAME = municipalityNameForLookup; // Store trimmed name
+          } else {
+            feature.id = index; // Fallback ID
+            if (feature.properties)
+              feature.properties.NAME = municipalityNameForLookup;
+            else feature.properties = { NAME: municipalityNameForLookup };
+          }
+
+          const muniHealthData = healthStatsLookup[municipalityNameForLookup];
+          const muniSDoHData = sdohDataLookup[municipalityNameForLookup];
+
+          if (
+            muniHealthData &&
+            typeof muniHealthData === "object" &&
+            !Array.isArray(muniHealthData)
+          ) {
+            feature.properties.healthData = muniHealthData;
+            healthDataLinkedCount++;
+          } else {
+            feature.properties.healthData = null;
+          }
+
+          if (municipalityNameForLookup === "Las Piedras") {
+            console.log(
+              `[DEBUG PreProcess Las Piedras] Original GeoJSON Name: '${originalName}', Used Lookup Name: '${municipalityNameForLookup}'`
+            );
+            console.log(
+              `[DEBUG PreProcess Las Piedras] muniHealthData from healthStatsLookup:`,
+              JSON.stringify(muniHealthData)
+            );
+            console.log(
+              `[DEBUG PreProcess Las Piedras] feature.properties.healthData after assignment:`,
+              JSON.stringify(feature.properties.healthData)
+            );
+          }
+
+          if (
+            muniSDoHData &&
+            typeof muniSDoHData === "object" &&
+            !Array.isArray(muniSDoHData)
+          ) {
+            feature.properties.sdoh = muniSDoHData;
+            sdohDataLinkedCount++;
+          } else {
+            feature.properties.sdoh = {}; // Ensure sdoh property exists
+          }
+        });
+
+        console.log(
+          `[DEBUG] Preprocessing complete. Health data linked for ${healthDataLinkedCount}/${geojsonData.features.length} features.`
+        );
+        console.log(
+          `[DEBUG] Preprocessing complete. SDoH data linked for ${sdohDataLinkedCount}/${geojsonData.features.length} features.`
+        );
+
+        if (
+          healthDataLinkedCount === 0 &&
+          geojsonData.features.length > 0 &&
+          Object.keys(healthStatsLookup).length > 0
+        ) {
+          console.error(
+            "[DEBUG] CRITICAL: No health data was linked. Check municipality name matching (e.g. 'Adjuntas' vs 'Adjuntas Municipio') between GeoJSON NAME property and healthStatsLookup keys."
+          );
+        }
+        if (
+          sdohDataLinkedCount === 0 &&
+          geojsonData.features.length > 0 &&
+          Object.keys(sdohDataLookup).length > 0
+        ) {
+          console.error(
+            "[DEBUG] CRITICAL: No SDoH data was linked. Check municipality name matching."
+          );
+        }
+      }
+      preprocessGeojsonData();
+
+      function populateSelect(selectElement, configObject, defaultKey) {
+        selectElement.innerHTML = "";
+        const sortedKeys = Object.keys(configObject).sort((a, b) => {
+          const itemA = configObject[a];
+          const itemB = configObject[b];
+          const stringA =
+            typeof itemA === "object" && itemA?.displayName
+              ? itemA.displayName
+              : typeof itemA === "string"
+              ? itemA
+              : String(a);
+          const stringB =
+            typeof itemB === "object" && itemB?.displayName
+              ? itemB.displayName
+              : typeof itemB === "string"
+              ? itemB
+              : String(b);
+          return stringA.localeCompare(stringB);
+        });
+
+        sortedKeys.forEach((key) => {
+          if (selectElement.id === "sdoh-select") {
+            const nonNumericSDoHKeys = [
+              "YEAR",
+              "COUNTYFIPS",
+              "COUNTY",
+              "STATE",
+              "lon",
+              "lat",
+            ];
+            if (
+              nonNumericSDoHKeys.includes(key) ||
+              !sdohMetricConfigs[key.trim()]
+            )
+              return;
+          }
+          const option = document.createElement("option");
+          option.value = key;
+          const item = configObject[key];
+          option.textContent =
+            typeof item === "object" && item?.displayName
+              ? item.displayName
+              : typeof item === "string"
+              ? item
+              : key;
+          if (key === defaultKey) option.selected = true;
+          selectElement.appendChild(option);
+        });
+      }
+      populateSelect(
+        healthMetricSelect,
+        filteredHealthMetricConfigs,
+        currentHealthMetricKey
+      );
+      populateSelect(sdohSelect, sdohVariableMap, currentSDoHMetricKey);
+
+      function updateDescriptionPanel(panelElement, key, configMap) {
+        let description = "Description not available.";
+        const lookupKey = key.trim();
+
+        if (configMap && configMap[key]?.description) {
+          description = configMap[key].description;
+        } else if (configMap && configMap[lookupKey]?.description) {
+          description = configMap[lookupKey].description;
+        } else if (configMap && configMap[key]?.displayName) {
+          description = configMap[key].displayName;
+        } else if (configMap && configMap[lookupKey]?.displayName) {
+          description = configMap[lookupKey].displayName;
+        }
+        panelElement.innerHTML = description
+          ? `<p>${description.replace(/\n/g, "<br>")}</p>`
+          : '<p class="placeholder-text">Select an indicator.</p>';
+      }
+      updateDescriptionPanel(
+        healthMetricDescriptionPanel,
+        currentHealthMetricKey,
+        filteredHealthMetricConfigs
+      );
+      updateDescriptionPanel(
+        sdohDescriptionPanel,
+        currentSDoHMetricKey,
+        sdohMetricConfigs
+      );
+
+      map = new maplibregl.Map({
+        container: "map",
+        style: {
+          version: 8,
+          name: "Blank Light Background",
+          sources: {},
+          layers: [
+            {
+              id: "background",
+              type: "background",
+              paint: { "background-color": "#e3f2fd" },
+            },
+          ],
+        },
+        center: [-66.25, 18.18],
+        zoom: getInitialMapZoom(),
+        minZoom: 7,
+        maxZoom: 11,
+        attributionControl: false,
+      });
+
+      map.addControl(new maplibregl.NavigationControl(), "top-right");
+      map.addControl(new maplibregl.FullscreenControl(), "top-right");
+      // map.addControl(
+      //   new maplibregl.AttributionControl({
+      //     customAttribution:
+      //       "Created by: Luis F. J. Velázquez Sosa | Health Risk: Abartys Health | SDoH: ACS 2020 | Municipalities: US Census",
+      //   }),
+      //   "bottom-right"
+      // );
+
+      map.on("load", () => {
+        if (
+          !geojsonData ||
+          !geojsonData.features ||
+          geojsonData.features.length === 0
+        ) {
+          document.getElementById("map").innerHTML =
+            "<p>Could not load map boundary data. Please check GeoJSON.</p>";
+          console.error("GeoJSON data is missing or empty after parsing.");
+          return;
+        }
+        map.addSource("municipalities", {
+          type: "geojson",
+          data: geojsonData,
+          promoteId: "NAME", // NAME is now the ID
+        });
+        map.addLayer({
+          id: "municipalities-fill",
+          type: "fill",
+          source: "municipalities",
+          paint: {
+            "fill-color": getSDoHColorExpression(currentSDoHMetricKey),
+            "fill-opacity": [
+              "case",
+              ["boolean", ["feature-state", "select"], false],
+              0.95,
+              ["boolean", ["feature-state", "hover"], false],
+              0.9,
+              0.85,
+            ],
+          },
+        });
+        map.addLayer({
+          id: "municipalities-outline",
+          type: "line",
+          source: "municipalities",
+          paint: {
+            "line-color": [
+              "case",
+              ["boolean", ["feature-state", "select"], false],
+              "#020c1a",
+              ["boolean", ["feature-state", "hover"], false],
+              "#051B35",
+              "#777",
+            ],
+            "line-width": [
+              "case",
+              ["boolean", ["feature-state", "select"], false],
+              2.5,
+              ["boolean", ["feature-state", "hover"], false],
+              2,
+              1,
+            ],
+          },
+        });
+
+        // Reusable popup
+        const muniPopup = new maplibregl.Popup({
+          closeButton: false,
+          closeOnClick: false,
+          anchor: "top",
+        });
+
+        map.on("mousemove", "municipalities-fill", (e) => {
+          map.getCanvas().style.cursor = "pointer";
+          if (!e.features || !e.features.length) return;
+
+          const feature = e.features[0];
+          const props = feature.properties;
+
+          // Parse healthData if it was serialized to a string
+          let healthData = props.healthData;
+          if (typeof healthData === "string") {
+            try {
+              healthData = JSON.parse(healthData);
+            } catch (err) {
+              healthData = null;
+            }
+          }
+
+          // Parse sdoh if needed
+          let sdohData = props.sdoh;
+          if (typeof sdohData === "string") {
+            try {
+              sdohData = JSON.parse(sdohData);
+            } catch (err) {
+              sdohData = null;
+            }
+          }
+
+          // HEALTH RISK
+          const hc = filteredHealthMetricConfigs[currentHealthMetricKey];
+          const rawH = getNestedHealthValue(healthData, hc.dataPath);
+          let healthDisplay = "N/A";
+          if (rawH != null && !isNaN(+rawH)) {
+            const decimals = hc.unit === "%" ? 2 : 0;
+            healthDisplay = `${parseFloat(rawH).toFixed(decimals)}${
+              hc.unit || ""
+            }`;
+          }
+
+          // SDoH
+          const sdKey = currentSDoHMetricKey.trim();
+          const sc = sdohMetricConfigs[sdKey];
+          const rawS = sdohData && sdohData[sdKey];
+          let sdDisplay = "N/A";
+          if (rawS != null && !isNaN(+rawS)) {
+            const decimals =
+              sc.type === "percentage" ? 1 : sc.type === "count" ? 0 : 2;
+            sdDisplay = `${parseFloat(rawS).toFixed(decimals)}${sc.unit || ""}`;
+          }
+          const sdLabel = sdohVariableMap[sdKey] || sdKey;
+
+          // Build popup HTML
+          const html = `
+    <strong>${props.NAME}</strong><br>
+    ${hc.displayName}: <strong>${healthDisplay}</strong><br>
+    ${sdLabel}: <strong>${sdDisplay}</strong>
+  `.trim();
+
+          muniPopup.setLngLat(e.lngLat).setHTML(html).addTo(map);
+        });
+
+        map.on("mouseleave", "municipalities-fill", () => {
+          map.getCanvas().style.cursor = "";
+          muniPopup.remove();
+        });
+        map.on("click", "municipalities-fill", (e) => {
+          if (e.features.length > 0) {
+            const clickedFeature = e.features[0];
+            if (selectedFeatureId) {
+              map.setFeatureState(
+                { source: "municipalities", id: selectedFeatureId },
+                { select: false }
+              );
+            }
+            selectedFeatureId = clickedFeature.id; // id is NAME
+            map.setFeatureState(
+              { source: "municipalities", id: selectedFeatureId },
+              { select: true, hover: false }
+            );
+
+            const bounds = getFeatureLngLatBounds(clickedFeature);
+            if (bounds.getNorthEast() && bounds.getSouthWest()) {
+              map.fitBounds(bounds, { padding: 60, maxZoom: 11 });
+            }
+            updateInfoPanel(clickedFeature.properties);
+          }
+        });
+
+        map.addSource("health-points", {
+          type: "geojson",
+          data: { type: "FeatureCollection", features: [] },
+        });
+        map.addLayer({
+          id: "health-circles",
+          type: "circle",
+          source: "health-points",
+          paint: {
+            "circle-radius": ["get", "radiusForCircle"],
+            "circle-color": ["get", "colorForCircle"],
+            "circle-stroke-width": 0.5,
+            "circle-stroke-color": "#444",
+            "circle-opacity": 0.85,
+          },
+        });
+
+        /* --- MODIFICATION START: Circle hover functionality removed --- */
+        /*
+        const healthCirclePopup = new maplibregl.Popup({
+          closeButton: false,
+          closeOnClick: false,
+          anchor: "bottom",
+        });
+
+        map.on("mouseenter", "health-circles", (e) => {
+          map.getCanvas().style.cursor = "pointer";
+          const coordinates = e.features[0].geometry.coordinates.slice();
+          const props = e.features[0].properties;
+          const healthConf =
+            filteredHealthMetricConfigs[currentHealthMetricKey];
+          let displayHealthValue;
+          if (
+            props.healthRiskValue !== null &&
+            props.healthRiskValue !== undefined &&
+            !isNaN(parseFloat(props.healthRiskValue))
+          ) {
+            const decimals =
+              healthConf.unit === "%"
+                ? 2
+                : healthConf.type === "count" || !healthConf.unit
+                ? 0
+                : 1;
+            displayHealthValue = `${parseFloat(props.healthRiskValue).toFixed(
+              decimals
+            )}${healthConf.unit || ""}`;
+          } else {
+            displayHealthValue = "N/A";
+          }
+          const description = `<b>${props.municipalityName}</b><br>${props.healthDisplayName}: ${displayHealthValue}`;
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+          healthCirclePopup
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+        });
+
+        map.on("mouseleave", "health-circles", () => {
+          map.getCanvas().style.cursor = "";
+          healthCirclePopup.remove();
+        });
+        */
+        /* --- MODIFICATION END --- */
+
+        updateSDoHLegend(currentSDoHMetricKey);
+        drawHealthRiskCircles();
+        updateInfoPanel(null);
+      });
+
+      function updateInfoPanel(muniPropsFromEvent) {
+        if (!muniPropsFromEvent?.NAME) {
+          infoPanel.innerHTML =
+            '<p class="placeholder-text">Click on a municipality for details.</p>';
+          return;
+        }
+
+        let healthData = muniPropsFromEvent.healthData;
+        let sdohDataForMuni = muniPropsFromEvent.sdoh;
+        const municipalityName = muniPropsFromEvent.NAME;
+
+        if (typeof healthData === "string") {
+          try {
+            healthData = JSON.parse(healthData);
+          } catch (e) {
+            console.error(
+              `[INFO_PANEL ${municipalityName}] Failed to parse healthData string:`,
+              e,
+              healthData
+            );
+            healthData = null;
+          }
+        }
+        if (typeof sdohDataForMuni === "string") {
+          try {
+            sdohDataForMuni = JSON.parse(sdohDataForMuni);
+          } catch (e) {
+            console.error(
+              `[INFO_PANEL ${municipalityName}] Failed to parse sdohDataForMuni string:`,
+              e,
+              sdohDataForMuni
+            );
+            sdohDataForMuni = {};
+          }
+        }
+
+        const currentSDoHMetricKeyTrimmed = currentSDoHMetricKey.trim();
+        const currentHealthMetricKeyExact = currentHealthMetricKey;
+        const currentHealthConfig =
+          filteredHealthMetricConfigs[currentHealthMetricKeyExact];
+
+        let content = `<h3>Municipality: ${municipalityName}</h3>`;
+        content += `<hr style="margin:10px 0;"><h4>Demographic Factor (Purple)</h4>`;
+        if (
+          sdohDataForMuni &&
+          typeof sdohDataForMuni === "object" &&
+          !Array.isArray(sdohDataForMuni) &&
+          Object.keys(sdohDataForMuni).length > 0
+        ) {
+          const sc = sdohMetricConfigs[currentSDoHMetricKeyTrimmed];
+          const sv = sdohDataForMuni[currentSDoHMetricKeyTrimmed];
+          const sd =
+            sdohVariableMap[currentSDoHMetricKeyTrimmed] ||
+            sc?.displayName ||
+            currentSDoHMetricKeyTrimmed;
+          const sdv =
+            sv !== null && sv !== undefined && !isNaN(parseFloat(sv))
+              ? `${parseFloat(sv).toFixed(
+                  sc?.type === "percentage" ? 1 : sc?.type === "count" ? 0 : 2
+                )}${sc?.unit || ""}`
+              : "N/A";
+          content += `<p><span class="data-label">${sd}:</span> <strong class="data-value">${sdv}</strong></p>`;
+        } else {
+          content += `<p>No SDoH data object found for "${currentSDoHMetricKeyTrimmed}" in ${municipalityName}.</p>`;
+        }
+
+        content += `<h4 style="margin-top:15px;">Cardiometabolic Risk Factor (Red)</h4>`;
+        if (
+          healthData &&
+          typeof healthData === "object" &&
+          !Array.isArray(healthData)
+        ) {
+          if (currentHealthConfig && currentHealthConfig.dataPath) {
+            const healthValue = getNestedHealthValue(
+              healthData,
+              currentHealthConfig.dataPath
+            );
+            const displayValue =
+              healthValue !== null &&
+              healthValue !== undefined &&
+              !isNaN(parseFloat(healthValue))
+                ? `${parseFloat(healthValue).toFixed(
+                    currentHealthConfig.unit === "%" ? 2 : 0
+                  )} ${currentHealthConfig.unit || ""}`
+                : "N/A";
+            content += `<p><span class="data-label">${currentHealthConfig.displayName}:</span> <strong class="data-value">${displayValue}</strong> (This value is represented by the circle on the map)</p>`;
+
+            const riskTypeKey = currentHealthConfig.dataPath[0];
+            const calculationInfo = riskCalculationDescriptions[riskTypeKey];
+            if (calculationInfo) {
+              content += `<p style="font-size:0.85em; margin-top:5px; color:#555;"><em><strong>Note:</strong> ${calculationInfo}</em></p>`;
+            }
+
+            const riskDetailsObject = getNestedHealthValue(healthData, [
+              riskTypeKey,
+            ]);
+
+            if (
+              riskDetailsObject &&
+              riskDetailsObject.percentages &&
+              typeof riskDetailsObject.percentages === "object"
+            ) {
+              content += `<p style="margin-top:10px;"><small><i>Full breakdown for ${riskTypeKey} in ${municipalityName}:</i></small></p>`;
+
+              let categoryOrder = Object.keys(riskDetailsObject.percentages);
+              if (riskTypeKey === "eGFR CKD-EPI Risk") {
+                categoryOrder = ["Normal", "Mild", "High", "Severe"];
+              } else if (riskTypeKey === "BUN/Creatinine Ratio Risk") {
+                categoryOrder = ["Low", "Normal", "High"];
+              } else if (riskTypeKey === "AST/ALT Ratio Risk") {
+                categoryOrder = [
+                  "Compatible with mild fatty liver",
+                  "Suggests fibrosis/active hepatitis",
+                ];
+              } else if (riskTypeKey === "APRI Score Risk") {
+                categoryOrder = [
+                  "No significant fibrosis",
+                  "Moderate risk",
+                  "High risk",
+                ];
+              } else if (riskTypeKey === "FIB-4 Index Risk") {
+                categoryOrder = ["Low risk", "Mild risk", "High risk"];
+              } else if (riskTypeKey === "Vitamin D Risk") {
+                categoryOrder = ["Deficiency", "Toxicity"];
+              } else if (
+                [
+                  "Risk of Coronary Heart Disease",
+                  "Risk of Arterial Obstruction",
+                  "Risk of Heart Attack or Atherosclerosis",
+                ].includes(riskTypeKey)
+              ) {
+                categoryOrder = ["Low", "Moderate", "High"];
+              }
+
+              categoryOrder.forEach((level) => {
+                if (riskDetailsObject.percentages.hasOwnProperty(level)) {
+                  const val = riskDetailsObject.percentages[level];
+                  const dispVal =
+                    val !== null && val !== undefined && !isNaN(parseFloat(val))
+                      ? `${parseFloat(val).toFixed(2)}%`
+                      : "N/A";
+                  content += `<p style="font-size:0.9em;"><span class="data-label">${level}:</span> <span class="data-value">${dispVal}</span></p>`;
+                }
+              });
+
+              if (riskDetailsObject.total_evaluated !== undefined) {
+                const totalEval = riskDetailsObject.total_evaluated;
+                const totalEvalDisp =
+                  totalEval !== null &&
+                  totalEval !== undefined &&
+                  !isNaN(parseFloat(totalEval))
+                    ? `${parseFloat(totalEval).toLocaleString()}`
+                    : "N/A";
+                content += `<p style="font-size:0.9em;"><span class="data-label">Total Evaluated:</span> <span class="data-value">${totalEvalDisp}</span></p>`;
+              }
+            }
+          } else {
+            content += `<p>Health configuration for ${currentHealthMetricKeyExact} is incomplete.</p>`;
+          }
+        } else {
+          content += `<p>No valid health data object found for ${municipalityName}.</p>`;
+        }
+        // ── Island rank badge ──────────────────────────────────────────────
+        if (currentHealthConfig?.dataPath) {
+          const allVals = [];
+          geojsonData.features.forEach(f => {
+            const hd = typeof f.properties.healthData === 'string'
+              ? (() => { try { return JSON.parse(f.properties.healthData); } catch(e) { return null; } })()
+              : f.properties.healthData;
+            if (!hd) return;
+            const v = getNestedHealthValue(hd, currentHealthConfig.dataPath);
+            if (v != null && !isNaN(parseFloat(v))) {
+              allVals.push({ muni: f.properties.NAME, v: parseFloat(v) });
+            }
+          });
+          if (allVals.length > 1) {
+            allVals.sort((a, b) => a.v - b.v); // ascending: rank 1 = lowest (best for "bad is high")
+            const pos = allVals.findIndex(x => x.muni === municipalityName);
+            if (pos !== -1) {
+              const rank = pos + 1;
+              const total = allVals.length;
+              const rankLabel = currentHealthConfig.type === 'goodIsHigh'
+                ? `#${rank} of ${total} — higher is better`
+                : `#${rank} of ${total} — lower is better`;
+              content = `<h3>Municipality: ${municipalityName}</h3><div class="info-rank-badge">&#9733; Ranks ${rankLabel}</div>` +
+                content.replace(`<h3>Municipality: ${municipalityName}</h3>`, '');
+            }
+          }
+        }
+
+        // ── Donut chart for risk distribution ─────────────────────────────
+        const riskTypeKeyForDonut = currentHealthConfig?.dataPath?.[0];
+        let riskDetailsForDonut = null;
+        if (healthData && riskTypeKeyForDonut) {
+          riskDetailsForDonut = getNestedHealthValue(healthData, [riskTypeKeyForDonut]);
+        }
+        if (riskDetailsForDonut?.percentages && Object.keys(riskDetailsForDonut.percentages).length > 1) {
+          content += `<div class="info-donut-section">
+            <h4>Risk Distribution</h4>
+            <canvas id="info-risk-donut"></canvas>
+          </div>`;
+        }
+
+        // ── SDoH outlier highlights ────────────────────────────────────────
+        const outlierHTML = buildSdohOutlierHTML(sdohDataForMuni);
+        if (outlierHTML) {
+          content += `<div class="info-outliers-section">
+            <h4>Notable SDoH Factors vs Island Average</h4>
+            ${outlierHTML}
+          </div>`;
+        }
+
+        infoPanel.innerHTML = content;
+
+        // ── Render donut after DOM update ──────────────────────────────────
+        if (riskDetailsForDonut?.percentages) {
+          renderInfoPanelDonut(riskDetailsForDonut.percentages);
+        }
+      }
+
+      function renderInfoPanelDonut(percentages) {
+        const canvas = document.getElementById('info-risk-donut');
+        if (!canvas) return;
+        if (infoPanelChartInstance) {
+          infoPanelChartInstance.destroy();
+          infoPanelChartInstance = null;
+        }
+        const labels = Object.keys(percentages);
+        const data   = labels.map(k => parseFloat(percentages[k]) || 0);
+        const DONUT_COLORS = {
+          Low:  '#4ade80', Normal: '#4ade80', 'Low risk': '#4ade80', 'No significant fibrosis': '#4ade80',
+          Moderate: '#fbbf24', 'Mild': '#fbbf24', 'Moderate risk': '#fbbf24', 'Mild risk': '#fbbf24',
+          High: '#f87171', Severe: '#f87171', 'High risk': '#f87171', 'High (Moderate)': '#f87171',
+          Deficiency: '#fb923c', Toxicity: '#a78bfa',
+          'Compatible with mild fatty liver': '#fbbf24',
+          'Suggests fibrosis/active hepatitis': '#f87171',
+        };
+        const bgColors = labels.map(l => DONUT_COLORS[l] || '#94a3b8');
+        infoPanelChartInstance = new Chart(canvas, {
+          type: 'doughnut',
+          data: {
+            labels,
+            datasets: [{ data, backgroundColor: bgColors, borderWidth: 1, borderColor: '#fff' }],
+          },
+          options: {
+            responsive: true,
+            animation: { duration: 300 },
+            plugins: {
+              legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 8 } },
+              tooltip: {
+                callbacks: {
+                  label: ctx => ` ${ctx.label}: ${ctx.parsed.toFixed(1)}%`,
+                },
+              },
+            },
+          },
+        });
+      }
+
+      function buildSdohOutlierHTML(sdohDataForMuni) {
+        if (!sdohDataForMuni || !Object.keys(sdohIslandStats).length) return '';
+        const SDOH_DISPLAY_KEYS = [
+          'ACS_PCT_UNINSURED', 'ACS_PCT_LT_HS', 'ACS_PCT_HH_PUB_ASSIST',
+          'ACS_PCT_INC50_BELOW17', 'ACS_PCT_INC50_ABOVE65', 'ACS_PCT_DISABLE',
+          'HIFLD_MIN_DIST_UC', 'POS_MIN_DIST_ED', 'ACS_PCT_POSTHS_ED', 'ACS_PCT_BACHELOR_DGR',
+        ];
+        const above = [], below = [];
+        for (const key of SDOH_DISPLAY_KEYS) {
+          const ist = sdohIslandStats[key];
+          if (!ist || ist.std === 0) continue;
+          const val = parseFloat(sdohDataForMuni[key]);
+          if (isNaN(val)) continue;
+          const z = (val - ist.mean) / ist.std;
+          const label = sdohVariableMap[key] || key;
+          const sc = sdohMetricConfigs[key];
+          const unit = sc?.unit || '';
+          const valFmt = `${parseFloat(val).toFixed(unit === ' mi' ? 1 : 1)}${unit}`;
+          const avgFmt = `${parseFloat(ist.mean).toFixed(unit === ' mi' ? 1 : 1)}${unit}`;
+          if (z > 0.8) above.push({ label, valFmt, avgFmt, z });
+          else if (z < -0.8) below.push({ label, valFmt, avgFmt, z });
+        }
+        above.sort((a, b) => b.z - a.z);
+        below.sort((a, b) => a.z - b.z);
+        if (!above.length && !below.length) return '';
+        let html = '';
+        above.slice(0, 3).forEach(({ label, valFmt, avgFmt }) => {
+          html += `<div class="outlier-row">
+            <span class="outlier-arrow-up">&#8679;</span>
+            <span class="outlier-label">${label}</span>
+            <span class="outlier-val">${valFmt} <small style="font-weight:400;color:#888;">(avg ${avgFmt})</small></span>
+          </div>`;
+        });
+        below.slice(0, 3).forEach(({ label, valFmt, avgFmt }) => {
+          html += `<div class="outlier-row">
+            <span class="outlier-arrow-down">&#8681;</span>
+            <span class="outlier-label">${label}</span>
+            <span class="outlier-val">${valFmt} <small style="font-weight:400;color:#888;">(avg ${avgFmt})</small></span>
+          </div>`;
+        });
+        return html;
+      }
+
+      function updateHealthLegend(metricKey, valueForMaxRadiusForLegend) {
+        const config = filteredHealthMetricConfigs[metricKey];
+        healthLegendDiv.innerHTML = "";
+        if (
+          !config ||
+          !config.colors ||
+          !config.colors.length ||
+          !config.breaks ||
+          !config.breaks.length
+        ) {
+          healthLegendDiv.innerHTML = `<p>Health Risk legend not available for ${
+            config?.displayName || metricKey
+          }.</p>`;
+          return;
+        }
+        if (config.colors.length < config.breaks.length + 1) {
+          healthLegendDiv.innerHTML = `<p>Health legend configuration error for ${config.displayName}.</p>`;
+          return;
+        }
+        const { colors, breaks, unit, displayName, type } = config;
+        let barWidth = healthLegendDiv.offsetWidth || 300;
+        barWidth = Math.max(160, Math.min(barWidth, 420));
+        let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18" aria-hidden="true">`;
+        const bandWidth = barWidth / colors.length;
+        for (let i = 0; i < colors.length; i++) {
+          barSvg += `<rect x="${
+            i * bandWidth
+          }" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
+        }
+        barSvg += `</svg>`;
+
+        let minLabelText = `≤ ${breaks[0]}${unit}`;
+        let maxLabelText = `> ${breaks[breaks.length - 1]}${unit}`;
+        let legendTitleSuffix = "(Circle Color - Higher % is Worse)";
+
+        if (type === "goodIsHigh") {
+          legendTitleSuffix = "(Circle Color - Higher % is Better)";
+        }
+        let labelsHtml = `<div class="legend-labels"><span>${minLabelText}</span><span>${maxLabelText}</span></div>`;
+
+        healthLegendDiv.innerHTML = `<div class="legend-title">${displayName} ${legendTitleSuffix}</div>${barSvg}${labelsHtml}`;
+      }
+
+      function updateSDoHLegend(metricKey) {
+        const trimmedKey = metricKey.trim();
+        const config = sdohMetricConfigs[trimmedKey];
+        const variableDesc = sdohVariableMap[trimmedKey] || trimmedKey;
+        sdohLegendDiv.innerHTML = "";
+        if (
+          !config ||
+          !config.colors ||
+          !config.colors.length ||
+          !config.breaks ||
+          !config.breaks.length
+        ) {
+          sdohLegendDiv.innerHTML = `<p>SDoH Legend not available for ${variableDesc}.</p>`;
+          return;
+        }
+        if (config.colors.length < config.breaks.length + 1) {
+          sdohLegendDiv.innerHTML = `<p>SDoH legend configuration error for ${variableDesc}.</p>`;
+          return;
+        }
+        let barWidth = sdohLegendDiv.offsetWidth || 300;
+        barWidth = Math.max(160, Math.min(barWidth, 420));
+        const { colors, breaks, unit } = config;
+        let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18" aria-hidden="true">`;
+        const bandWidth = barWidth / colors.length;
+        for (let i = 0; i < colors.length; i++) {
+          barSvg += `<rect x="${
+            i * bandWidth
+          }" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
+        }
+        barSvg += `</svg>`;
+        let minLabelVal = breaks[0],
+          maxLabelVal = breaks[breaks.length - 1];
+        let minLabel = `${minLabelVal}${unit}`,
+          maxLabel = `${maxLabelVal}${unit}+`;
+        let labelsHtml = `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}</span></div>`;
+        sdohLegendDiv.innerHTML = `<div class="legend-title">${variableDesc}</div>${barSvg}${labelsHtml}`;
+      }
+
+      healthMetricSelect.addEventListener("change", function () {
+        currentHealthMetricKey = this.value;
+        drawHealthRiskCircles();
+        updateDescriptionPanel(
+          healthMetricDescriptionPanel,
+          currentHealthMetricKey,
+          filteredHealthMetricConfigs,
+          null
+        );
+        if (selectedFeatureId && map.getSource("municipalities")) {
+          const features = map.querySourceFeatures("municipalities", {
+            filter: ["==", ["id"], selectedFeatureId],
+          });
+          if (features.length > 0) updateInfoPanel(features[0].properties);
+        } else {
+          updateInfoPanel(null); // Clear panel if no selection or data
+        }
+      });
+
+      sdohSelect.addEventListener("change", function () {
+        currentSDoHMetricKey = this.value.trim();
+        const trimmedKey = currentSDoHMetricKey;
+        if (!sdohMetricConfigs[trimmedKey]) {
+          console.error(`Config missing for SDoH key: ${trimmedKey}`);
+          sdohLegendDiv.innerHTML = `<p>Visualization configuration missing for ${trimmedKey}.</p>`;
+        } else {
+          if (map.getLayer("municipalities-fill")) {
+            map.setPaintProperty(
+              "municipalities-fill",
+              "fill-color",
+              getSDoHColorExpression(trimmedKey)
+            );
+          }
+          updateSDoHLegend(trimmedKey);
+        }
+        updateDescriptionPanel(
+          sdohDescriptionPanel,
+          trimmedKey,
+          sdohMetricConfigs,
+          sdohVariableMap
+        );
+        if (selectedFeatureId && map.getSource("municipalities")) {
+          const features = map.querySourceFeatures("municipalities", {
+            filter: ["==", ["id"], selectedFeatureId],
+          });
+          if (features.length > 0) updateInfoPanel(features[0].properties);
+        }
+      });
+
+      function drawHealthRiskCircles() {
+        if (
+          !map ||
+          !map.getSource("health-points") ||
+          !map.getLayer("health-circles")
+        ) {
+          console.warn(
+            "Map or health-points source/layer not ready for drawing circles."
+          );
+          return;
+        }
+        const healthConfig =
+          filteredHealthMetricConfigs[currentHealthMetricKey];
+
+        if (!healthConfig || !healthConfig.dataPath) {
+          console.error(
+            "[DRAW_CIRCLES] Health config or dataPath missing for key:",
+            currentHealthMetricKey
+          );
+          updateHealthLegend(currentHealthMetricKey, 30); // Default max value for legend if no data
+          map
+            .getSource("health-points")
+            .setData({ type: "FeatureCollection", features: [] });
+          return;
+        }
+
+        let V_max_for_scaling = 0;
+        let validValuesFound = false;
+        geojsonData.features.forEach((feature) => {
+          const healthDataForMuni = feature.properties.healthData;
+          if (healthDataForMuni) {
+            const val = getNestedHealthValue(
+              healthDataForMuni,
+              healthConfig.dataPath
+            );
+            if (
+              val !== null &&
+              val !== undefined &&
+              !isNaN(parseFloat(val)) &&
+              parseFloat(val) > 0
+            ) {
+              V_max_for_scaling = Math.max(V_max_for_scaling, parseFloat(val));
+              validValuesFound = true;
+            }
+          }
+        });
+        if (!validValuesFound || V_max_for_scaling <= 0) {
+          V_max_for_scaling =
+            healthConfig.breaks && healthConfig.breaks.length > 0
+              ? healthConfig.breaks[healthConfig.breaks.length - 1] * 1.2 // Use last break * 1.2 as a fallback
+              : 30; // Absolute fallback
+          if (V_max_for_scaling <= 0) V_max_for_scaling = 30;
+        }
+
+        const circleFeatures = [];
+        geojsonData.features.forEach((feature) => {
+          const {
+            NAME: municipalityName,
+            healthData: healthDataForMuni,
+            sdoh: sdohMuniData,
+          } = feature.properties;
+
+          if (
+            municipalityName &&
+            healthDataForMuni && // Ensure healthDataForMuni is an object
+            sdohMuniData &&
+            typeof sdohMuniData.lat === "number" &&
+            typeof sdohMuniData.lon === "number"
+          ) {
+            const healthRiskValue = getNestedHealthValue(
+              healthDataForMuni,
+              healthConfig.dataPath
+            );
+            const radius = getHealthRiskCircleRadius(
+              healthRiskValue,
+              V_max_for_scaling
+            );
+            const color = getHealthColor(
+              healthRiskValue,
+              currentHealthMetricKey
+            );
+            circleFeatures.push({
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: [sdohMuniData.lon, sdohMuniData.lat],
+              },
+              properties: {
+                municipalityName,
+                healthRiskValue,
+                healthDisplayName: healthConfig.displayName,
+                colorForCircle: color,
+                radiusForCircle: radius,
+              },
+            });
+          }
+        });
+
+        map
+          .getSource("health-points")
+          .setData({ type: "FeatureCollection", features: circleFeatures });
+        updateHealthLegend(currentHealthMetricKey, V_max_for_scaling);
+      }
+
+    }
+</script>
+  </body>
+</html>

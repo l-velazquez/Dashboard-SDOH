@@ -1,0 +1,1452 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="57x57" href="./icons/apple/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./icons/apple/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./icons/apple/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./icons/apple/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./icons/apple/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./icons/apple/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./icons/apple/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./icons/apple/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icons/android/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/icons/windows/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puerto Rico Health Indicators Map</title>
+    <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet"/>
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* --- 1. Global & Basic Resets --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif;
+      background-color: #f4f7f6;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* --- 2. Header --- */
+    header {
+      background-color: rgb(60, 0, 88);
+      color: white;
+      padding: 15px 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
+      text-align: center;
+      order: 1;
+    }
+    .header-logos-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      order: 2;
+    }
+    .header-logo {
+      height: 70px;
+      max-width: 160px;
+      object-fit: contain;
+      background: white;
+      border-radius: 8px;
+      padding: 6px 12px;
+    }
+
+    /* --- 3. Main Content Area (Mobile First) --- */
+    .main-content {
+      flex-grow: 1;
+      padding: 15px;
+    }
+
+    .sidebar,
+    .map-container {
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .main-content > *:last-child {
+      margin-bottom: 0;
+    }
+    .sidebar {
+      overflow-y: auto; /* Allows vertical scrolling if content is taller */
+      overflow-x: hidden; /* Prevents horizontal scrolling */
+    }
+
+    .map-container {
+      display: flex; /* Make it a flex container */
+      flex-direction: column; /* Stack map and legends vertically */
+    }
+
+    #map {
+      width: 100%;
+      height: 400px; /* Mobile height */
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      flex-shrink: 0;
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      font-size: 1.3em;
+      color: #004d40;
+      border-bottom: 2px solid #b2dfdb;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+    .control-group {
+      margin-bottom: 20px;
+    }
+    .control-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
+    .control-group select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      font-size: 0.95em;
+    }
+    .metric-description-panel {
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: #333;
+      min-height: 60px;
+      margin-top: 5px;
+    }
+    .metric-description-panel p {
+      margin: 0 0 5px 0;
+    }
+    .metric-description-panel strong {
+      color: #004d40;
+    }
+
+    /* --- 4. Legend Styles --- */
+    #legend-container {
+      margin-top: 15px;
+      padding: 16px 0 8px 0;
+      border-top: 1px solid #e0e0e0;
+      width: 100%;
+      background: #fafbfc;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+    #legend-container > label {
+      display: block;
+      text-align: center;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 1.08em;
+      letter-spacing: 0.03em;
+    }
+    .legends-content {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-end;
+    }
+    .legend {
+      background: none;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      min-width: 220px;
+      flex: 1 1 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .legend-title {
+      font-size: 0.7em;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 6px;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+    .legend-bar {
+      width: 100%;
+      max-width: 420px;
+      min-width: 160px;
+      height: 18px;
+      border-radius: 0;
+      margin-bottom: 6px;
+      position: relative;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      border: none;
+      overflow: hidden;
+      transition: max-width 0.2s;
+      background: none;
+    }
+    .legend-labels {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 420px;
+      min-width: 160px;
+      font-size: 0.85em;
+      color: #444;
+      margin-top: 0;
+      margin-bottom: 2px;
+    }
+    @media (max-width: 600px) {
+      .legend-bar, .legend-labels { max-width: 180px; }
+    }
+    @media (min-width: 601px) and (max-width: 991px) {
+      .legend-bar, .legend-labels { max-width: 300px; }
+    }
+
+    /* --- 5. Info Panel Styles --- */
+    .info-panel h3,
+    .info-panel h4 {
+      font-size: 1.1em;
+      color: #004d40;
+      margin: 0 0 5px 0;
+    }
+    .info-panel h4 {
+      font-size: 1em;
+      color: #333;
+      margin-top: 15px;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+    }
+    .info-panel p {
+      margin: 5px 0;
+      line-height: 1.5;
+    }
+    .info-panel .data-item {
+      margin-bottom: 8px;
+    }
+    .info-panel .data-label {
+      font-weight: 600;
+      color: #444;
+    }
+    .info-panel .data-value {
+      color: #111;
+    }
+    .placeholder-text {
+      color: #777;
+      font-style: italic;
+    }
+
+    /* --- 6. Footer --- */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #e0e0e0;
+      color: #555;
+      font-size: 0.9em;
+      margin-top: auto;
+    }
+
+    /* --- 7. Media Queries for Larger Screens (Tablets & Desktops) --- */
+    @media (min-width: 992px) {
+      header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      header h1 {
+        font-size: 1.8em;
+        order: 2;
+        flex-grow: 1;
+        text-align: center;
+      }
+      .header-logos-container {
+        display: contents;
+      }
+      .header-logo {
+        height: 90px;
+        max-width: none;
+      }
+      img[alt="AIM AHEAD Logo"] {
+        order: 1;
+      }
+      img[alt="RCMI Logo"] {
+        order: 3;
+      }
+
+      .main-content {
+        display: flex;
+        padding: 20px;
+        gap: 20px;
+        align-items: stretch;
+      }
+      .sidebar,
+      .map-container {
+        width: auto;
+        margin-bottom: 0;
+        padding: 20px;
+      }
+      .left-sidebar {
+        flex: 0 0 300px;
+      }
+      .right-sidebar {
+        flex: 0 0 350px;
+      }
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .map-container {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      #map {
+        flex-grow: 1;
+        height: auto;
+        min-height: 600px;
+      }
+
+      #legend-container {
+        padding: 15px 0;
+        width: 100%;
+        flex-shrink: 0;
+      }
+      #legend-container > label {
+        display: none;
+      }
+      .legends-content {
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .legend {
+        flex-grow: 1;
+      }
+
+      .sidebar h2 {
+        font-size: 1.4em;
+      }
+      .info-panel h3 {
+        font-size: 1.2em;
+      }
+      .info-panel h4 {
+        font-size: 1.1em;
+      }
+    }
+    /* --- START: New Back Button Styles --- */
+    .back-button-container {
+      margin-top: 20px; /* Default spacing for mobile, below other controls */
+      padding-top: 15px; /* Space above the button, below the border */
+      border-top: 1px solid #eee; /* Visual separator from controls above */
+    }
+
+    .back-button {
+      display: block; /* Take full width of its container */
+      width: 100%;
+      padding: 12px 15px; /* Slightly more padding for better click target */
+      background-color: #004d40; /* Consistent theme color (matches h2) */
+      color: white;
+      text-align: center;
+      text-decoration: none; /* Remove underline from anchor */
+      border-radius: 4px; /* Consistent with other form elements */
+      font-weight: 600;
+      font-size: 1em; /* Slightly larger font for prominence */
+      border: none; /* Remove default anchor/button border */
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .back-button:hover,
+    .back-button:focus {
+      background-color: #00392e; /* Darker shade for hover/focus */
+      color: white; /* Ensure text color remains white */
+      text-decoration: none; /* Ensure no underline on hover/focus */
+    }
+    /* --- END: New Back Button Styles --- */
+
+    /* Inside @media (min-width: 992px) block */
+    /* --- START: Desktop specific style for Back Button --- */
+    .left-sidebar.sidebar .back-button-container {
+      /* Target specifically for desktop layout */
+      margin-top: auto; /* Pushes this container to the bottom of the flex parent (.left-sidebar) */
+    }
+    /* --- END: Desktop specific style for Back Button --- */
+
+    /* --- Rank Badge --- */
+    .rank-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #3c0058 0%, #1a1140 100%);
+      color: #c4b5fd;
+      border: 1px solid #6d28d9;
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 0.82em;
+      font-weight: 600;
+      margin: 5px 0 10px 0;
+    }
+
+    /* --- Risk Donut --- */
+    .info-donut-section { margin: 10px 0; text-align: center; }
+
+    /* --- SDoH Outlier Rows --- */
+    .info-outliers-section { margin-top: 12px; }
+    .outlier-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 4px; font-size: 0.85em; }
+    .outlier-arrow-up   { color: #c62828; font-size: 1.2em; }
+    .outlier-arrow-down { color: #1565c0; font-size: 1.2em; }
+    .outlier-label { flex: 1; color: #444; }
+    .outlier-val   { font-weight: 600; white-space: nowrap; }
+
+    /* --- Analytics CTA Banner --- */
+    .analytics-cta-banner {
+      background: linear-gradient(135deg, #1a0030 0%, #2d1060 50%, #1a0030 100%);
+      border-top: 1px solid rgba(167,139,250,0.2);
+      padding: 32px 24px;
+    }
+    .cta-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .cta-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+    .cta-text strong {
+      font-size: 1.15em;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+    .cta-text span {
+      font-size: 0.9em;
+      color: rgba(255,255,255,0.55);
+      max-width: 520px;
+    }
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95em;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      transition: filter 0.2s, transform 0.2s;
+      box-shadow: 0 4px 20px rgba(124,58,237,0.35);
+    }
+    .cta-button:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+ 
+ <header>
+      <h1>Puerto Rico Health Indicators Map by ZIP Code</h1>
+      <div class="header-logos-container">
+        <img
+          src="./images/aim_ahead_600x474.webp"
+          alt="AIM AHEAD Logo"
+          class="header-logo"
+        />
+        <img
+          src="./images/rcmi.webp"
+          alt="RCMI Logo"
+          class="header-logo"
+        />
+      </div>
+    </header>
+<div class="main-content">
+  <div class="left-sidebar sidebar">
+    <h2>Controls</h2>
+
+    <div class="control-group">
+      <label for="metric-select">Select Health Indicator (ZIP Code):</label>
+      <select id="metric-select"></select>
+      <div id="metric-description" class="metric-description-panel">
+        <p class="placeholder-text">
+          Select a health indicator to see its description.
+        </p>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="sdoh-select">Select SDoH Indicator (Municipality):</label>
+      <select id="sdoh-select"></select>
+      <div id="sdoh-description" class="metric-description-panel">
+        <p class="placeholder-text">
+          Select an SDoH indicator to see its description.
+        </p>
+      </div>
+    </div>
+    <!-- ****** NEW BACK BUTTON SECTION ****** -->
+    <div class="back-button-container">
+      <a href="./index.html" class="back-button">Back to SDoH Page</a>
+    </div>
+    <!-- ****** END NEW BACK BUTTON SECTION ****** -->
+  </div>
+
+  <div class="map-container">
+    <div id="map"></div>
+
+    <div id="legend-container">
+      <div class="legends-content">
+        <div id="health-legend" class="legend">
+          <p class="placeholder-text">Select a health indicator for legend.</p>
+        </div>
+        <div id="sdoh-legend" class="legend">
+          <p class="placeholder-text">Select an SDoH indicator for legend.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-sidebar sidebar">
+    <h2>Area Information</h2>
+    <div id="info-panel" class="info-panel">
+      <p class="placeholder-text">
+        Click on a ZIP code area on the map to see details.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Analytics CTA Banner -->
+<div class="analytics-cta-banner">
+  <div class="cta-content">
+    <div class="cta-text">
+      <strong>Want deeper insights?</strong>
+      <span>Explore correlations between cholesterol outcomes and social determinants across Puerto Rico ZIP codes.</span>
+    </div>
+    <a href="./zip-analytics.html" class="cta-button">View ZIP Analytics &amp; Insights &#8594;</a>
+  </div>
+</div>
+
+<footer>
+  <p>
+    Data Source: Abartys Health, US Census ZCTA, ACS 5-Year Estimates (2020)
+  </p>
+  <p>Map created by Luis F. Velazquez Sosa © 2025</p>
+</footer>
+
+<script>
+  // --- Data from Django context ---
+  
+
+  
+
+        const staticSdohVariableMap = {"YEAR": "SDOH file year", "COUNTYFIPS": "State-county FIPS Code (5-digit)", "COUNTY": "County name", "STATE": "State name", "lon": "Longitude", "lat": "Latitude", "ACS_PCT_INC50_ABOVE65": "Pct. population with income-to-poverty ratio < 0.50", "ACS_PCT_INC50_BELOW17": "Pct. children with income-to-poverty ratio < 0.50", "ACS_PCT_HEALTH_INC_BELOW137": "Pct. population < 138% of poverty threshold", "ACS_PCT_HEALTH_INC_138_199": "Pct. population 138-199% of poverty threshold", "ACS_PCT_HEALTH_INC_200_399": "Pct. population 200-399% of poverty threshold", "ACS_PCT_HEALTH_INC_ABOVE400": "Pct. population >= 400% of poverty threshold", "ACS_PCT_HH_PUB_ASSIST": "Pct. households with public assistance/SNAP", "ACS_PCT_COLLEGE_ASSOCIATE_DGR": "Pct. population with some college or associate's degree", "ACS_PCT_BACHELOR_DGR": "Pct. population with bachelor's degree", "ACS_PCT_GRADUATE_DGR": "Pct. population with graduate/professional degree", "ACS_PCT_HS_GRADUATE": "Pct. population with high school diploma only", "ACS_PCT_LT_HS": "Pct. population with less than high school education", "ACS_PCT_POSTHS_ED": "Pct. population with any post-high school education ", "ACS_TOT_CIVIL_EMPLOY_POP": "Total civilian employed population", "ACS_PCT_UNINSURED": "Pct. population with no health insurance", "HIFLD_MIN_DIST_UC": "Min. distance to nearest urgent care ", "POS_MIN_DIST_ED": "Min. distance to nearest emergency department", "POS_MIN_DIST_ALC": "Min. distance to nearest inpatient alcohol/drug abuse care", "ACS_PCT_DISABLE": "Pct. population with a disability", "ACS_PCT_NONVET_DISABLE_18_64": "Pct. nonveterans with a disability", "ACS_PCT_VET_DISABLE_18_64": "Pct. civilian veterans with a disability"};
+        const staticZipToMuniMap = {"00601": "Adjuntas", "00602": "Aguada", "00603": "Aguadilla", "00604": "Aguadilla", "00605": "Aguadilla", "00606": "Maricao", "00610": "A\u00f1asco", "00611": "Utuado", "00612": "Arecibo", "00613": "Arecibo", "00614": "Arecibo", "00616": "Arecibo", "00617": "Barceloneta", "00622": "Cabo Rojo", "00623": "Cabo Rojo", "00624": "Pe\u00f1uelas", "00627": "Camuy", "00631": "Lares", "00636": "San Germ\u00e1n", "00637": "Sabana Grande", "00638": "Ciales", "00641": "Utuado", "00646": "Dorado", "00647": "Gu\u00e1nica", "00650": "Florida", "00652": "Arecibo", "00653": "Gu\u00e1nica", "00656": "Guayanilla", "00659": "Hatillo", "00660": "Hormigueros", "00662": "Isabela", "00664": "Jayuya", "00667": "Lajas", "00669": "Lares", "00670": "Las Mar\u00edas", "00674": "Manat\u00ed", "00676": "Moca", "00677": "Rinc\u00f3n", "00678": "Quebradillas", "00680": "Mayag\u00fcez", "00681": "Mayag\u00fcez", "00682": "Mayag\u00fcez", "00683": "San Germ\u00e1n", "00685": "San Sebasti\u00e1n", "00687": "Morovis", "00688": "Arecibo", "00690": "Aguadilla", "00692": "Vega Alta", "00693": "Vega Baja", "00694": "Vega Baja", "00698": "Yauco", "00703": "Aguas Buenas", "00704": "Salinas", "00705": "Aibonito", "00707": "Maunabo", "00714": "Arroyo", "00715": "Ponce", "00716": "Ponce", "00717": "Ponce", "00718": "Naguabo", "00719": "Naranjito", "00720": "Orocovis", "00721": "Rio Grande", "00723": "Patillas", "00725": "Caguas", "00726": "Caguas", "00727": "Caguas", "00728": "Ponce", "00729": "Can\u00f3vanas", "00730": "Ponce", "00731": "Ponce", "00732": "Ponce", "00733": "Ponce", "00734": "Ponce", "00735": "Ceiba", "00736": "Cayey", "00737": "Cayey", "00738": "Fajardo", "00739": "Cidra", "00740": "Fajardo", "00741": "Humacao", "00742": "Ceiba", "00744": "Humacao", "00745": "R\u00edo Grande", "00746": null, "00748": null, "00751": "Salinas", "00754": "San Lorenzo", "00757": "Santa Isabel", "00765": "Vieques", "00766": "Villalba", "00767": "Yabucoa", "00769": "Coamo", "00771": "Las Piedras", "00772": "Lo\u00edza", "00773": "Luquillo", "00774": null, "00775": "Culebra", "00777": "Juncos", "00778": "Gurabo", "00780": "Ponce", "00782": "Comer\u00edo", "00783": "Corozal", "00784": "Guayama", "00785": null, "00786": "Aibonito", "00791": "Humacao", "00792": null, "00794": "Barranquitas", "00795": "Juana D\u00edaz", "00797": null, "00901": "San Juan", "00902": null, "00906": "San Juan", "00907": "San Juan", "00908": null, "00909": "San Juan", "00910": null, "00911": "San Juan", "00912": "San Juan", "00913": "San Juan", "00914": null, "00915": "San Juan", "00916": null, "00917": "San Juan", "00918": "San Juan", "00919": null, "00920": "San Juan", "00921": "San Juan", "00922": null, "00923": "San Juan", "00924": "San Juan", "00925": "San Juan", "00926": "San Juan", "00927": "San Juan", "00928": "San Juan", "00929": "San Juan", "00930": null, "00931": "San Juan", "00933": "San Juan", "00934": "Guaynabo", "00935": "San Juan", "00936": "San Juan", "00937": "San Juan", "00939": "San Juan", "00940": "San Juan", "00949": "Toa Baja", "00950": "Dorado", "00951": "Toa Baja", "00952": "Toa Baja", "00953": "Toa Alta", "00954": "Toa Alta", "00955": "San Juan", "00956": "Bayam\u00f3n", "00957": "Bayam\u00f3n", "00958": "Bayam\u00f3n", "00959": "Bayam\u00f3n", "00960": "Bayam\u00f3n", "00961": "Bayam\u00f3n", "00962": "Cata\u00f1o", "00963": "Cata\u00f1o", "00964": null, "00965": "Guaynabo", "00966": "Guaynabo", "00968": "Guaynabo", "00969": "Guaynabo", "00970": "Guaynabo", "00971": "Guaynabo", "00972": null, "00975": "San Juan", "00976": "Trujillo Alto", "00977": "Trujillo Alto", "00978": "San Juan", "00979": "Carolina", "00981": "Carolina", "00982": "Carolina", "00983": "Carolina", "00984": "Carolina", "00985": "Carolina", "00986": "Carolina", "00987": "Carolina", "00988": "Carolina"};
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            Promise.all([
+                fetch('./maps/puerto_rico_zcta.geojson').then(r => r.json()),
+                fetch('./data/puerto_rico_cardiovascular_risk_by_zip_monthly_avg.json').then(r => r.json()),
+                fetch('./data/sdoh_by_municipality.json').then(r => r.json())
+            ]).then(([geoData, healthData, sdohDataObj]) => {
+                runApp(geoData, healthData, sdohDataObj, staticSdohVariableMap, staticZipToMuniMap);
+            }).catch(err => console.error("Failed to load map data:", err));
+        });
+        
+
+function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSdohVariableMap, fetchedZipToMuniMap) {
+  let healthStatsLookup = {};
+  let sdohDataLookup = {};
+  let sdohVariableMap = fetchedSdohVariableMap || {};
+  let zipToMuniMap = fetchedZipToMuniMap || {};
+  let currentHealthMetricKey = "composite_risk_score_mean";
+  let currentSDoHMetricKey = "ACS_PCT_UNINSURED";
+  let selectedZip = null;
+  let selectedZipProps = null;
+  let infoPanelChartInstance = null;
+  let sdohIslandStats = {};
+  const currentBreaks = {};
+
+  // --- Parse Data ---
+  if (Array.isArray(fetchedHealthData)) {
+    fetchedHealthData.forEach(item => { if (item.postal) healthStatsLookup[item.postal] = item; });
+  }
+  if (Array.isArray(fetchedSdohDataObj)) {
+    fetchedSdohDataObj.forEach(item => { if (item.COUNTY && item.YEAR === 2020) sdohDataLookup[item.COUNTY] = item; });
+  }
+  const geojsonData = fetchedGeoData || { type: "FeatureCollection", features: [] };
+
+  // --- Color Palettes ---
+  const GOOD_HIGH_COLORS = ["#b10026","#fc4e2a","#fd8d3c","#feb24c","#ffffb2"];
+  const GOOD_LOW_COLORS  = ["#ffffb2","#feb24c","#fd8d3c","#fc4e2a","#b10026"];
+  const NEUTRAL_COLORS   = ["#e0ecf4","#9ebcda","#8c96c6","#88419d","#4d0042"];
+  const SDOH_5_COLORS    = ["#e0ecf4","#9ebcda","#8c6bb1","#88419d","#4d0042"];
+  // (kept for sdohMetricConfigs reference, unused in rendering)
+  const SDOH_COLORS = [
+    "#feedde",
+    "#fdd0a2",
+    "#fdae6b",
+    "#fd8d3c",
+    "#f16913",
+    "#d94801",
+    "#a63603",
+    "#7f2704",
+  ];
+
+  // Health Metric Configs (Keep as is)
+  const healthMetricConfigs = {
+    composite_risk_score_mean: {
+      displayName: "Composite Risk Score (Mean)",
+      dataKey: "composite_risk_score_mean",
+      type: "goodIsLow",
+      breaks: [0.5, 0.75, 1.0, 1.25],
+      colors: GOOD_LOW_COLORS,
+      unit: "score",
+      description:
+        "Average composite risk score (0-4). Calculated based on LDL>160, HDL<40, TG>150, TC/HDL≥5. Lower is better.",
+    },
+    composite_risk_score_median: {
+      displayName: "Composite Risk Score (Median)",
+      dataKey: "composite_risk_score_median",
+      type: "goodIsLow",
+      breaks: [0.5, 0.75, 1.0, 1.25],
+      colors: GOOD_LOW_COLORS,
+      unit: "score",
+      description: "Median composite risk score (0-4). Lower is better.",
+    },
+    ldl_value_mean: {
+      displayName: "Avg. LDL (Mean)",
+      dataKey: "ldl_value_mean",
+      type: "goodIsLow",
+      breaks: [100, 130, 160, 190],
+      colors: GOOD_LOW_COLORS,
+      unit: "mg/dL",
+      description:
+        "Average LDL ('bad') Cholesterol. High Risk: > 160. Lower is better.",
+    },
+    ldl_value_median: {
+      displayName: "Median LDL",
+      dataKey: "ldl_value_median",
+      type: "goodIsLow",
+      breaks: [100, 130, 160, 190],
+      colors: GOOD_LOW_COLORS,
+      unit: "mg/dL",
+      description: "Median LDL Cholesterol. Lower is better.",
+    },
+    hdl_value_mean: {
+      displayName: "Avg. HDL (Mean)",
+      dataKey: "hdl_value_mean",
+      type: "goodIsHigh",
+      breaks: [30, 40, 50, 60],
+      colors: GOOD_HIGH_COLORS,
+      unit: "mg/dL",
+      description:
+        "Average HDL ('good') Cholesterol. Low Risk: < 40. Higher is better.",
+    },
+    hdl_value_median: {
+      displayName: "Median HDL",
+      dataKey: "hdl_value_median",
+      type: "goodIsHigh",
+      breaks: [30, 40, 50, 60],
+      colors: GOOD_HIGH_COLORS,
+      unit: "mg/dL",
+      description: "Median HDL Cholesterol. Higher is better.",
+    },
+    tc_value_mean: {
+      displayName: "Avg. Total Cholesterol (Mean)",
+      dataKey: "tc_value_mean",
+      type: "goodIsLow",
+      breaks: [180, 200, 220, 240],
+      colors: GOOD_LOW_COLORS,
+      unit: "mg/dL",
+      description:
+        "Average Total Cholesterol. High Risk: > 240. Lower is better.",
+    },
+    tc_value_median: {
+      displayName: "Median Total Cholesterol",
+      dataKey: "tc_value_median",
+      type: "goodIsLow",
+      breaks: [180, 200, 220, 240],
+      colors: GOOD_LOW_COLORS,
+      unit: "mg/dL",
+      description: "Median Total Cholesterol. Lower is better.",
+    },
+    tg_value_mean: {
+      displayName: "Avg. Triglycerides (Mean)",
+      dataKey: "tg_value_mean",
+      type: "goodIsLow",
+      breaks: [150, 200, 300, 500],
+      colors: GOOD_LOW_COLORS,
+      unit: "mg/dL",
+      description: "Average Triglycerides. High: > 200. Lower is better.",
+    },
+    tc_hdl_ratio_mean: {
+      displayName: "TC/HDL Ratio (Mean)",
+      dataKey: "tc_hdl_ratio_mean",
+      type: "goodIsLow",
+      breaks: [3.5, 4.0, 5.0, 6.0],
+      colors: GOOD_LOW_COLORS,
+      unit: "",
+      description:
+        "Average Total Cholesterol / HDL Ratio. High Risk: ≥ 5.0. Lower is better.",
+    },
+    ldl_hdl_ratio_mean: {
+      displayName: "LDL/HDL Ratio (Mean)",
+      dataKey: "ldl_hdl_ratio_mean",
+      type: "goodIsLow",
+      breaks: [2.0, 2.5, 3.0, 3.5],
+      colors: GOOD_LOW_COLORS,
+      unit: "",
+      description:
+        "Average LDL / HDL Ratio. High Risk: > 3.5. Lower is better.",
+    },
+    ldl_is_high_percentage: {
+      displayName: "% LDL High (>160)",
+      dataKey: "ldl_is_high_percentage",
+      type: "goodIsLow",
+      breaks: [5, 10, 15, 20],
+      colors: GOOD_LOW_COLORS,
+      unit: "%",
+      description: "% of individuals with LDL > 160 mg/dL. Lower is better.",
+    },
+    hdl_is_low_percentage: {
+      displayName: "% HDL Low (<40)",
+      dataKey: "hdl_is_low_percentage",
+      type: "goodIsLow",
+      breaks: [20, 30, 40, 50],
+      colors: GOOD_LOW_COLORS,
+      unit: "%",
+      description: "% of individuals with HDL < 40 mg/dL. Lower is better.",
+    },
+    patient_month_count: {
+      displayName: "Test Volumn",
+      dataKey: "patient_month_count",
+      type: "neutral",
+      breaks: [1000, 2500, 5000, 10000, 20000, 50000, 100000],
+      colors: NEUTRAL_COLORS,
+      unit: "",
+      description:
+        "Totalnumber of laboratory tests performed in the ZIP code. Higher is better.",
+    },
+  };
+  // SDoH Metric Configs (Keep as is, ensure breaks are good)
+  const sdohMetricConfigs = {
+    ACS_PCT_UNINSURED: {
+      type: "percentage",
+      breaks: [4, 6, 8, 10, 12, 14, 16],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_LT_HS: {
+      type: "percentage",
+      breaks: [15, 20, 25, 30, 35, 40, 45],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_HH_PUB_ASSIST: {
+      type: "percentage",
+      breaks: [25, 35, 45, 50, 55, 60, 65],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_INC50_BELOW17: {
+      type: "percentage",
+      breaks: [25, 35, 45, 50, 55, 60, 65],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_INC50_ABOVE65: {
+      type: "percentage",
+      breaks: [10, 15, 20, 25, 30, 35, 40],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_DISABLE: {
+      type: "percentage",
+      breaks: [10, 15, 20, 25, 30, 35, 40],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_NONVET_DISABLE_18_64: {
+      type: "percentage",
+      breaks: [10, 15, 20, 25, 30, 35, 40],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_VET_DISABLE_18_64: {
+      type: "percentage",
+      breaks: [10, 20, 30, 40, 50, 60, 70],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    HIFLD_MIN_DIST_UC: {
+      type: "distance",
+      breaks: [2, 5, 8, 12, 16, 20, 25],
+      colors: SDOH_COLORS,
+      unit: " mi",
+    },
+    POS_MIN_DIST_ED: {
+      type: "distance",
+      breaks: [1, 3, 5, 8, 12, 15, 20],
+      colors: SDOH_COLORS,
+      unit: " mi",
+    },
+    POS_MIN_DIST_ALC: {
+      type: "distance",
+      breaks: [5, 10, 15, 20, 25, 30, 40],
+      colors: SDOH_COLORS,
+      unit: " mi",
+    },
+    ACS_TOT_CIVIL_EMPLOY_POP: {
+      type: "count",
+      breaks: [2500, 5000, 10000, 20000, 40000, 80000, 120000],
+      colors: SDOH_COLORS,
+      unit: "",
+    },
+    ACS_PCT_COLLEGE_ASSOCIATE_DGR: {
+      type: "percentage",
+      breaks: [10, 15, 20, 25, 30, 35, 40],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_BACHELOR_DGR: {
+      type: "percentage",
+      breaks: [5, 10, 15, 20, 25, 30, 35],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_GRADUATE_DGR: {
+      type: "percentage",
+      breaks: [1, 3, 5, 7, 10, 13, 16],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_HS_GRADUATE: {
+      type: "percentage",
+      breaks: [20, 25, 30, 35, 40, 45, 50],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_POSTHS_ED: {
+      type: "percentage",
+      breaks: [20, 30, 40, 45, 50, 55, 60],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_HEALTH_INC_BELOW137: {
+      type: "percentage",
+      breaks: [30, 40, 50, 60, 70, 80, 90],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_HEALTH_INC_138_199: {
+      type: "percentage",
+      breaks: [5, 10, 15, 20, 25, 30, 35],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_HEALTH_INC_200_399: {
+      type: "percentage",
+      breaks: [5, 10, 15, 20, 25, 30, 35],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+    ACS_PCT_HEALTH_INC_ABOVE400: {
+      type: "percentage",
+      breaks: [1, 3, 5, 8, 12, 16, 20],
+      colors: SDOH_COLORS,
+      unit: "%",
+    },
+  };
+
+  function buildSdohIslandStats() {
+    const stats = {};
+    for (const key of Object.keys(sdohMetricConfigs)) {
+      const vals = Object.values(sdohDataLookup)
+        .map(d => parseFloat(d[key]))
+        .filter(v => !isNaN(v));
+      if (!vals.length) continue;
+      const mean = vals.reduce((s, x) => s + x, 0) / vals.length;
+      const std  = Math.sqrt(vals.reduce((s, x) => s + (x - mean) ** 2, 0) / vals.length);
+      stats[key] = { mean, std };
+    }
+    return stats;
+  }
+  sdohIslandStats = buildSdohIslandStats();
+
+  const metricRiskBreakdownMap = {
+    ldl_value_mean:            { High: 'ldl_is_high_percentage',  Borderline: 'ldl_is_borderline_percentage' },
+    ldl_value_median:          { High: 'ldl_is_high_percentage',  Borderline: 'ldl_is_borderline_percentage' },
+    hdl_value_mean:            { 'Low (Poor)': 'hdl_is_low_percentage' },
+    hdl_value_median:          { 'Low (Poor)': 'hdl_is_low_percentage' },
+    tc_value_mean:             { High: 'tc_is_high_percentage',   Borderline: 'tc_is_borderline_percentage' },
+    tc_value_median:           { High: 'tc_is_high_percentage',   Borderline: 'tc_is_borderline_percentage' },
+    tg_value_mean:             { High: 'tg_is_high_percentage',   Borderline: 'tg_is_borderline_percentage' },
+    tg_value_median:           { High: 'tg_is_high_percentage',   Borderline: 'tg_is_borderline_percentage' },
+    composite_risk_score_mean:   { '2+ Risk Factors': 'has_2_plus_risk_factors_percentage' },
+    composite_risk_score_median: { '2+ Risk Factors': 'has_2_plus_risk_factors_percentage' },
+  };
+
+  // --- DOM Elements ---
+  const healthMetricSelect = document.getElementById("metric-select");
+  const healthMetricDescriptionPanel = document.getElementById("metric-description");
+  const sdohSelect = document.getElementById("sdoh-select");
+  const sdohDescriptionPanel = document.getElementById("sdoh-description");
+  const healthLegendDiv = document.getElementById("health-legend");
+  const sdohLegendDiv = document.getElementById("sdoh-legend");
+  const infoPanel = document.getElementById("info-panel");
+
+  // --- Populate Select Dropdowns (Keep as is) ---
+  function populateSelect(selectElement, configObject, defaultKey) {
+    selectElement.innerHTML = "";
+    const sortedKeys = Object.keys(configObject).sort((a, b) => {
+      const itemA = configObject[a];
+      const itemB = configObject[b];
+      const stringA =
+        typeof itemA === "object" && itemA?.displayName
+          ? itemA.displayName
+          : typeof itemA === "string"
+          ? itemA
+          : String(a);
+      const stringB =
+        typeof itemB === "object" && itemB?.displayName
+          ? itemB.displayName
+          : typeof itemB === "string"
+          ? itemB
+          : String(b);
+      return stringA.localeCompare(stringB);
+    });
+    sortedKeys.forEach((key) => {
+      if (selectElement.id === "sdoh-select") {
+        const nonNumericSDoHKeys = [
+          "YEAR",
+          "COUNTYFIPS",
+          "COUNTY",
+          "STATE",
+          "lon",
+          "lat",
+        ];
+        if (nonNumericSDoHKeys.includes(key) || !sdohMetricConfigs[key]) return;
+      }
+      const option = document.createElement("option");
+      option.value = key;
+      const item = configObject[key];
+      option.textContent =
+        typeof item === "object" && item?.displayName
+          ? item.displayName
+          : typeof item === "string"
+          ? item
+          : key;
+      if (key === defaultKey) option.selected = true;
+      selectElement.appendChild(option);
+    });
+  }
+  populateSelect(
+    healthMetricSelect,
+    healthMetricConfigs,
+    currentHealthMetricKey
+  );
+  populateSelect(sdohSelect, sdohVariableMap, currentSDoHMetricKey);
+
+  // --- Update Description Panels (Keep as is) ---
+  function updateDescriptionPanel(
+    panelElement,
+    key,
+    configMap,
+    variableMap = null
+  ) {
+    let description = "Description not available.";
+    if (variableMap && variableMap[key]) {
+      description = variableMap[key];
+    } else if (configMap && configMap[key]?.description) {
+      description = configMap[key].description;
+    } else if (configMap && configMap[key]?.displayName) {
+      description = configMap[key].displayName;
+    }
+    panelElement.innerHTML = description
+      ? `<p>${description.replace(/\n/g, "<br>")}</p>`
+      : '<p class="placeholder-text">Select an indicator.</p>';
+  }
+  updateDescriptionPanel(
+    healthMetricDescriptionPanel,
+    currentHealthMetricKey,
+    healthMetricConfigs
+  );
+  updateDescriptionPanel(
+    sdohDescriptionPanel,
+    currentSDoHMetricKey,
+    sdohMetricConfigs,
+    sdohVariableMap
+  );
+
+  // --- Flat-merge health data into GeoJSON features ---
+  if (geojsonData?.features) {
+    geojsonData.features.forEach(f => {
+      const zip = f.properties.ZCTA5CE10;
+      const health = healthStatsLookup[zip];
+      if (health) Object.assign(f.properties, health);
+    });
+  }
+
+  // --- Build municipality GeoJSON point FeatureCollection ---
+  const muniGeoJSON = {
+    type: "FeatureCollection",
+    features: Object.values(sdohDataLookup)
+      .filter(d => d.lat != null && d.lon != null && !isNaN(parseFloat(d.lat)))
+      .map(d => ({
+        type: "Feature",
+        geometry: { type: "Point", coordinates: [parseFloat(d.lon), parseFloat(d.lat)] },
+        properties: { ...d }
+      }))
+  };
+
+  // --- Data-Driven Color Scale Helpers ---
+  function computeQuantileBreaks(values, n) {
+    const sorted = values.filter(v => v != null && !isNaN(v)).sort((a, b) => a - b);
+    if (sorted.length < n + 1) return [];
+    const raw = Array.from({length: n}, (_, i) =>
+      sorted[Math.floor(((i + 1) / (n + 1)) * sorted.length)]
+    );
+    // ensure strictly increasing (MapLibre step requires it)
+    const uniq = [raw[0]];
+    for (let i = 1; i < raw.length; i++) {
+      if (raw[i] > uniq[uniq.length - 1]) uniq.push(raw[i]);
+    }
+    return uniq;
+  }
+
+  function buildStepExpr(inputExpr, breaks, colors) {
+    const expr = ["step", inputExpr, colors[0]];
+    for (let i = 0; i < breaks.length; i++) {
+      expr.push(breaks[i]);
+      expr.push(colors[Math.min(i + 1, colors.length - 1)]);
+    }
+    return expr;
+  }
+
+  function buildHealthColorExpr(metricKey) {
+    const config = healthMetricConfigs[metricKey];
+    if (!config) return "#e0e0e0";
+    const values = Object.values(healthStatsLookup)
+      .map(d => parseFloat(d[metricKey])).filter(v => !isNaN(v));
+    const breaks = computeQuantileBreaks(values, 4);
+    currentBreaks[metricKey] = breaks;
+    const colors = config.type === "goodIsHigh" ? GOOD_HIGH_COLORS :
+                   config.type === "neutral" ? NEUTRAL_COLORS : GOOD_LOW_COLORS;
+    if (!breaks.length) return "#e0e0e0";
+    return [
+      "case",
+      ["!", ["has", metricKey]], "#e0e0e0",
+      buildStepExpr(["to-number", ["get", metricKey]], breaks, colors)
+    ];
+  }
+
+  function buildSDoHCircleColorExpr(metricKey) {
+    const values = Object.values(sdohDataLookup)
+      .map(d => parseFloat(d[metricKey])).filter(v => !isNaN(v));
+    const breaks = computeQuantileBreaks(values, 4);
+    if (!breaks.length) return "#999999";
+    return [
+      "case",
+      ["!", ["has", metricKey]], "#999999",
+      buildStepExpr(["to-number", ["get", metricKey]], breaks, SDOH_5_COLORS)
+    ];
+  }
+
+  function buildSDoHCircleRadiusExpr(metricKey) {
+    const values = Object.values(sdohDataLookup)
+      .map(d => parseFloat(d[metricKey])).filter(v => !isNaN(v));
+    if (!values.length) return 6;
+    const minVal = Math.min(...values);
+    const maxVal = Math.max(...values);
+    if (minVal === maxVal) return 8;
+    return ["interpolate", ["linear"],
+      ["coalesce", ["to-number", ["get", metricKey]], minVal],
+      minVal, 4, maxVal, 18
+    ];
+  }
+
+  // --- Rank Badge ---
+  function getZipRank(zipCode, metricKey) {
+    const config = healthMetricConfigs[metricKey];
+    const allVals = [];
+    Object.values(healthStatsLookup).forEach(d => {
+      const v = parseFloat(d[metricKey]);
+      if (!isNaN(v)) allVals.push({ postal: d.postal, v });
+    });
+    if (!allVals.length) return null;
+    const asc = config?.type === 'goodIsLow';
+    allVals.sort((a, b) => asc ? a.v - b.v : b.v - a.v);
+    const rank = allVals.findIndex(x => x.postal === zipCode) + 1;
+    return rank > 0 ? { rank, total: allVals.length, lowerBetter: asc } : null;
+  }
+
+  // --- Risk Donut ---
+  function renderInfoPanelDonut(percentages) {
+    const canvas = document.getElementById('info-risk-donut');
+    if (!canvas) return;
+    if (infoPanelChartInstance) {
+      infoPanelChartInstance.destroy();
+      infoPanelChartInstance = null;
+    }
+    const labels = Object.keys(percentages);
+    const data   = labels.map(k => parseFloat(percentages[k]) || 0);
+    const DONUT_COLORS = {
+      High: '#f87171', Borderline: '#fbbf24', 'Low (Poor)': '#f87171',
+      '2+ Risk Factors': '#f87171', 'Normal / Other': '#4ade80',
+    };
+    const bgColors = labels.map(l => DONUT_COLORS[l] || '#94a3b8');
+    infoPanelChartInstance = new Chart(canvas, {
+      type: 'doughnut',
+      data: {
+        labels,
+        datasets: [{ data, backgroundColor: bgColors, borderWidth: 1, borderColor: '#fff' }],
+      },
+      options: {
+        responsive: true,
+        animation: { duration: 300 },
+        plugins: {
+          legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 8 } },
+          tooltip: {
+            callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed.toFixed(1)}%` },
+          },
+        },
+      },
+    });
+  }
+
+  // --- SDoH Outlier Analysis ---
+  function buildSdohOutlierHTML(sdohDataForMuni) {
+    if (!sdohDataForMuni || !Object.keys(sdohIslandStats).length) return '';
+    const SDOH_DISPLAY_KEYS = [
+      'ACS_PCT_UNINSURED', 'ACS_PCT_LT_HS', 'ACS_PCT_HH_PUB_ASSIST',
+      'ACS_PCT_INC50_BELOW17', 'ACS_PCT_INC50_ABOVE65', 'ACS_PCT_DISABLE',
+      'HIFLD_MIN_DIST_UC', 'POS_MIN_DIST_ED', 'ACS_PCT_POSTHS_ED', 'ACS_PCT_BACHELOR_DGR',
+    ];
+    const above = [], below = [];
+    for (const key of SDOH_DISPLAY_KEYS) {
+      const ist = sdohIslandStats[key];
+      if (!ist || ist.std === 0) continue;
+      const val = parseFloat(sdohDataForMuni[key]);
+      if (isNaN(val)) continue;
+      const z = (val - ist.mean) / ist.std;
+      const label = sdohVariableMap[key] || key;
+      const sc = sdohMetricConfigs[key];
+      const unit = sc?.unit || '';
+      const valFmt = `${parseFloat(val).toFixed(unit === ' mi' ? 1 : 1)}${unit}`;
+      const avgFmt = `${parseFloat(ist.mean).toFixed(unit === ' mi' ? 1 : 1)}${unit}`;
+      if (z > 0.8) above.push({ label, valFmt, avgFmt, z });
+      else if (z < -0.8) below.push({ label, valFmt, avgFmt, z });
+    }
+    above.sort((a, b) => b.z - a.z);
+    below.sort((a, b) => a.z - b.z);
+    if (!above.length && !below.length) return '';
+    let html = '';
+    above.slice(0, 3).forEach(({ label, valFmt, avgFmt }) => {
+      html += `<div class="outlier-row">
+        <span class="outlier-arrow-up">&#8679;</span>
+        <span class="outlier-label">${label}</span>
+        <span class="outlier-val">${valFmt} <small style="font-weight:400;color:#888;">(avg ${avgFmt})</small></span>
+      </div>`;
+    });
+    below.slice(0, 3).forEach(({ label, valFmt, avgFmt }) => {
+      html += `<div class="outlier-row">
+        <span class="outlier-arrow-down">&#8681;</span>
+        <span class="outlier-label">${label}</span>
+        <span class="outlier-val">${valFmt} <small style="font-weight:400;color:#888;">(avg ${avgFmt})</small></span>
+      </div>`;
+    });
+    return html;
+  }
+
+  // --- Update Info Panel ---
+  function updateInfoPanel(zipProps) {
+    if (!zipProps?.ZCTA5CE10) {
+      infoPanel.innerHTML = '<p class="placeholder-text">Click on a ZIP code area on the map to see details.</p>';
+      return;
+    }
+    const zipCode = zipProps.ZCTA5CE10;
+    const municipalityName = zipToMuniMap[zipCode];
+    const sdohData = municipalityName ? sdohDataLookup[municipalityName] : null;
+
+    let content = `<h3>ZIP: ${zipCode}</h3>`;
+    content += municipalityName
+      ? `<p style="margin:2px 0 4px 0; font-size:0.9em; color:#555;">Municipality: <strong>${municipalityName}</strong></p>`
+      : `<p><small>(Muni N/A)</small></p>`;
+
+    const rankInfo = getZipRank(zipCode, currentHealthMetricKey);
+    if (rankInfo) {
+      content += `<div class="rank-badge">Ranks #${rankInfo.rank} of ${rankInfo.total} ZIPs &mdash; ${rankInfo.lowerBetter ? 'lower' : 'higher'} is better</div>`;
+    }
+
+    content += `<hr style="margin:10px 0;"><h4>Health (ZIP)</h4>`;
+
+    let donutSlices = null;
+    const hv = zipProps[currentHealthMetricKey];
+    const hasHealth = hv !== undefined && hv !== null && !isNaN(parseFloat(hv));
+    if (hasHealth) {
+      const hc = healthMetricConfigs[currentHealthMetricKey];
+      const hd = `${parseFloat(hv).toFixed(2)} ${hc.unit || ""}`;
+      content += `<p><span class="data-label">${hc.displayName}:</span> <strong class="data-value">${hd}</strong></p>`;
+
+      const breakdownMap = metricRiskBreakdownMap[currentHealthMetricKey];
+      if (breakdownMap) {
+        const slices = {};
+        let usedPct = 0;
+        for (const [label, field] of Object.entries(breakdownMap)) {
+          const v = parseFloat(zipProps[field]);
+          if (!isNaN(v)) { slices[label] = v; usedPct += v; }
+        }
+        if (usedPct > 0) {
+          slices['Normal / Other'] = Math.max(0, 100 - usedPct);
+          donutSlices = slices;
+          content += `<div class="info-donut-section"><canvas id="info-risk-donut" width="200" height="200"></canvas></div>`;
+        }
+      }
+    } else {
+      content += `<p>No health data.</p>`;
+    }
+
+    content += `<h4 style="margin-top:15px;">SDoH (Muni)</h4>`;
+    if (sdohData) {
+      const sc = sdohMetricConfigs[currentSDoHMetricKey];
+      const sv = sdohData[currentSDoHMetricKey];
+      const sd = sdohVariableMap[currentSDoHMetricKey] || sc?.displayName || currentSDoHMetricKey;
+      const sdv = sv !== null && !isNaN(sv)
+        ? `${parseFloat(sv).toFixed(sc?.type === "percentage" ? 1 : 2)}${sc?.unit || ""}`
+        : "N/A";
+      content += `<p><span class="data-label">${sd}:</span> <strong class="data-value">${sdv}</strong></p>`;
+      const outlierHTML = buildSdohOutlierHTML(sdohData);
+      if (outlierHTML) {
+        content += `<div class="info-outliers-section"><h4>Notable SDoH Factors vs Island Average</h4>${outlierHTML}</div>`;
+      }
+    } else if (municipalityName) {
+      content += `<p>No SDoH data for ${municipalityName}.</p>`;
+    } else {
+      content += `<p>Cannot determine muni.</p>`;
+    }
+
+    infoPanel.innerHTML = content;
+    if (donutSlices) renderInfoPanelDonut(donutSlices);
+  }
+
+  // --- Legends (data-driven quantile labels) ---
+  function updateHealthLegend(metricKey) {
+    const config = healthMetricConfigs[metricKey];
+    const breaks = currentBreaks[metricKey];
+    healthLegendDiv.innerHTML = "";
+    if (!breaks || !breaks.length || !config) {
+      healthLegendDiv.innerHTML = "<p>Health legend N/A.</p>";
+      return;
+    }
+    const colors = config.type === "goodIsHigh" ? GOOD_HIGH_COLORS :
+                   config.type === "neutral" ? NEUTRAL_COLORS : GOOD_LOW_COLORS;
+    const { unit, displayName, type } = config;
+    let barWidth = healthLegendDiv.offsetWidth || 300;
+    barWidth = Math.max(160, Math.min(barWidth, 420));
+    let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18" aria-hidden="true">`;
+    const bandWidth = barWidth / colors.length;
+    for (let i = 0; i < colors.length; i++) {
+      barSvg += `<rect x="${i * bandWidth}" y="0" width="${bandWidth}" height="18" fill="${colors[i]}" />`;
+    }
+    barSvg += `</svg>`;
+    const suffix = type === 'goodIsHigh' ? '(Higher is Better)' : type === 'neutral' ? '' : '(Lower is Better)';
+    const fmt = v => unit === "%" ? `${v.toFixed(1)}%` : unit === " mi" ? `${v.toFixed(1)} mi` : unit ? `${v.toFixed(2)} ${unit}` : v.toFixed(2);
+    const minLabel = `≤ ${fmt(breaks[0])}`;
+    const maxLabel = `> ${fmt(breaks[breaks.length - 1])}`;
+    healthLegendDiv.innerHTML =
+      `<div class="legend-title">${displayName} ${suffix}</div>` + barSvg +
+      `<div class="legend-labels"><span>${minLabel}</span><span>${maxLabel}</span></div>`;
+  }
+
+  function updateSDoHLegend(metricKey) {
+    const variableDesc = sdohVariableMap[metricKey] || metricKey;
+    const values = Object.values(sdohDataLookup).map(d => parseFloat(d[metricKey])).filter(v => !isNaN(v));
+    const breaks = computeQuantileBreaks(values, 4);
+    const sc = sdohMetricConfigs[metricKey];
+    const unit = sc?.unit || '';
+    sdohLegendDiv.innerHTML = "";
+    if (!breaks.length) { sdohLegendDiv.innerHTML = `<p>SDoH legend N/A.</p>`; return; }
+    let barWidth = sdohLegendDiv.offsetWidth || 300;
+    barWidth = Math.max(160, Math.min(barWidth, 420));
+    let barSvg = `<svg class="legend-bar" width="${barWidth}" height="18" viewBox="0 0 ${barWidth} 18" aria-hidden="true">`;
+    const bandWidth = barWidth / SDOH_5_COLORS.length;
+    for (let i = 0; i < SDOH_5_COLORS.length; i++) {
+      barSvg += `<rect x="${i * bandWidth}" y="0" width="${bandWidth}" height="18" fill="${SDOH_5_COLORS[i]}" />`;
+    }
+    barSvg += `</svg>`;
+    const fmt = v => `${v.toFixed(1)}${unit}`;
+    sdohLegendDiv.innerHTML =
+      `<div class="legend-title">${variableDesc} (Municipality)</div>` + barSvg +
+      `<div class="legend-labels"><span>${fmt(breaks[0])}</span><span>${fmt(breaks[breaks.length - 1])}+</span></div>`;
+  }
+
+  // --- Map Initialization (MapLibre GL JS) ---
+  const map = new maplibregl.Map({
+    container: "map",
+    style: {
+      version: 8,
+      sources: {
+        "carto-basemap": {
+          type: "raster",
+          tiles: [
+            "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+            "https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+          ],
+          tileSize: 256,
+          attribution: "© OpenStreetMap contributors © CARTO",
+        }
+      },
+      layers: [{ id: "carto-layer", type: "raster", source: "carto-basemap" }]
+    },
+    center: [-66.255, 18.08],
+    zoom: 9,
+    minZoom: 8,
+    maxZoom: 14,
+    attributionControl: false,
+  });
+
+  map.on("load", () => {
+    // ZIP shapes fill + outline
+    map.addSource("zip-shapes", { type: "geojson", data: geojsonData, promoteId: "ZCTA5CE10" });
+    map.addLayer({
+      id: "zip-fill", type: "fill", source: "zip-shapes",
+      paint: {
+        "fill-color": buildHealthColorExpr(currentHealthMetricKey),
+        "fill-opacity": ["case", ["boolean", ["feature-state", "select"], false], 0.92, 0.75]
+      }
+    });
+    map.addLayer({
+      id: "zip-outline", type: "line", source: "zip-shapes",
+      paint: {
+        "line-color": ["case", ["boolean", ["feature-state", "select"], false], "#a78bfa", "#888888"],
+        "line-width": ["case", ["boolean", ["feature-state", "select"], false], 2.5, 0.5]
+      }
+    });
+
+    // Municipality circles
+    map.addSource("muni-points", { type: "geojson", data: muniGeoJSON });
+    map.addLayer({
+      id: "muni-circles", type: "circle", source: "muni-points",
+      paint: {
+        "circle-color": buildSDoHCircleColorExpr(currentSDoHMetricKey),
+        "circle-radius": buildSDoHCircleRadiusExpr(currentSDoHMetricKey),
+        "circle-stroke-color": "#333333",
+        "circle-stroke-width": 0.8,
+        "circle-opacity": 0.85,
+      }
+    });
+
+    updateHealthLegend(currentHealthMetricKey);
+    updateSDoHLegend(currentSDoHMetricKey);
+    updateInfoPanel(null);
+
+    // --- Hover popups ---
+    const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, maxWidth: "260px" });
+    map.on("mousemove", "zip-fill", e => {
+      map.getCanvas().style.cursor = "pointer";
+      const props = e.features[0].properties;
+      const hc = healthMetricConfigs[currentHealthMetricKey];
+      const hv = props[currentHealthMetricKey];
+      const healthDisplay = hv != null && !isNaN(parseFloat(hv))
+        ? `${parseFloat(hv).toFixed(2)} ${hc.unit || ""}` : "N/A";
+      const muniName = zipToMuniMap[props.ZCTA5CE10] || "–";
+      popup.setLngLat(e.lngLat)
+           .setHTML(`<strong>ZIP ${props.ZCTA5CE10}</strong><br><span style="color:#666;font-size:0.9em">${muniName}</span><br>${hc.displayName}: <strong>${healthDisplay}</strong>`)
+           .addTo(map);
+    });
+    map.on("mouseleave", "zip-fill", () => { map.getCanvas().style.cursor = ""; popup.remove(); });
+
+    const muniPopup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, maxWidth: "220px" });
+    map.on("mousemove", "muni-circles", e => {
+      map.getCanvas().style.cursor = "pointer";
+      const props = e.features[0].properties;
+      const sc = sdohMetricConfigs[currentSDoHMetricKey];
+      const sv = props[currentSDoHMetricKey];
+      const sdLabel = sdohVariableMap[currentSDoHMetricKey] || currentSDoHMetricKey;
+      const sdDisplay = sv != null && !isNaN(parseFloat(sv))
+        ? `${parseFloat(sv).toFixed(1)}${sc?.unit || ""}` : "N/A";
+      muniPopup.setLngLat(e.lngLat)
+               .setHTML(`<strong>${props.COUNTY}</strong><br>${sdLabel}: <strong>${sdDisplay}</strong>`)
+               .addTo(map);
+    });
+    map.on("mouseleave", "muni-circles", () => { map.getCanvas().style.cursor = ""; muniPopup.remove(); });
+
+    // --- Click ZIP → highlight + info panel ---
+    map.on("click", "zip-fill", e => {
+      if (selectedZip) map.setFeatureState({ source: "zip-shapes", id: selectedZip }, { select: false });
+      selectedZip = e.features[0].id;
+      selectedZipProps = e.features[0].properties;
+      map.setFeatureState({ source: "zip-shapes", id: selectedZip }, { select: true });
+      updateInfoPanel(selectedZipProps);
+    });
+  });
+
+  // --- Event Listeners ---
+  healthMetricSelect.addEventListener("change", function() {
+    currentHealthMetricKey = this.value;
+    if (map.getLayer("zip-fill")) {
+      map.setPaintProperty("zip-fill", "fill-color", buildHealthColorExpr(currentHealthMetricKey));
+    }
+    updateHealthLegend(currentHealthMetricKey);
+    updateDescriptionPanel(healthMetricDescriptionPanel, currentHealthMetricKey, healthMetricConfigs);
+    if (selectedZipProps) updateInfoPanel(selectedZipProps);
+    else updateInfoPanel(null);
+  });
+
+  sdohSelect.addEventListener("change", function() {
+    currentSDoHMetricKey = this.value;
+    if (!sdohMetricConfigs[currentSDoHMetricKey]) {
+      sdohLegendDiv.innerHTML = `<p>Viz config missing.</p>`;
+      updateDescriptionPanel(sdohDescriptionPanel, currentSDoHMetricKey, null, sdohVariableMap);
+      return;
+    }
+    if (map.getLayer("muni-circles")) {
+      map.setPaintProperty("muni-circles", "circle-color", buildSDoHCircleColorExpr(currentSDoHMetricKey));
+      map.setPaintProperty("muni-circles", "circle-radius", buildSDoHCircleRadiusExpr(currentSDoHMetricKey));
+    }
+    updateSDoHLegend(currentSDoHMetricKey);
+    updateDescriptionPanel(sdohDescriptionPanel, currentSDoHMetricKey, sdohMetricConfigs, sdohVariableMap);
+    if (selectedZipProps) updateInfoPanel(selectedZipProps);
+  });
+
+}
+</script>
+  </body>
+</html>
