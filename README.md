@@ -1,125 +1,93 @@
 # Dashboard-SDOH
 
-![Django](https://img.shields.io/badge/Django-5.1.10-blue.svg)
-![Python](https://img.shields.io/badge/Python-3.13-blue.svg)
+![HTML5](https://img.shields.io/badge/HTML5-static-orange.svg)
+![JavaScript](https://img.shields.io/badge/JavaScript-vanilla-yellow.svg)
+![MapLibre GL](https://img.shields.io/badge/MapLibre_GL-3.6.2-blue.svg)
 ![Docker](https://img.shields.io/badge/Docker-ready-blue.svg)
 ![Issues](https://img.shields.io/github/issues/l-velazquez/Dashboard-SDOH)
 ![Last Commit](https://img.shields.io/github/last-commit/l-velazquez/Dashboard-SDOH)
 
 ---
-![image of a map dashboard](<images/Screenshot 2025-07-02 at 1.31.54 PM.png>)
-
-Prototype Dashboard Updated: [https://l-velazquez.com/Dashboard-SDOH](https://l-velazquez.com/Dashboard-SDOH)
-
+![image of a map dashboard](images/Preview-Index.png)
 
 Live Page: [https://sdoh-rcmi.rcm.upr.edu](https://sdoh-rcmi.rcm.upr.edu)
 
-This project is a Django web application that visualises data from the Cardiovascular , Hepatic, Renal and Vitamin D Risk from Abartys Health Laboratory Data. It provides a dashboard to view and analyse the data.
+Backup: [https://l-velazquez.github.io/Dashboard-SDOH/index.html](https://l-velazquez.github.io/Dashboard-SDOH/index.html)
 
-Table of Contents
-
-- Requirements
-- Installation
-- Environment Variables
-- Running the Project
-- Docker Setup
-- Testing
-- License
-
-### Requirements
-
-Make sure you have the following installed:
-
-- Python 3.13 (as used in the Dockerfile)
-- Django 5.1.10 (or your project’s version)
-- Virtualenv (optional but recommended)
-- Other dependencies are listed in requirements.txt
-
-### Installation
-
-1. Clone the repository
-
-```sh
-git clone https://github.com/l-velazquez/Dashboard-SDOH.git
-cd Dashboard-SDOH
-```
-
-2. Set up a virtual environment
-
-```sh
-python3 -m venv env
-source env/bin/activate  # On Windows use `env\Scripts\activate`
-```
-
-3. Install dependencies
-
-```sh
-pip install --upgrade pip && pip install -r requirements.txt
-```
-
-### Environment Variables
-
-4. Copy the .env.example file to .env
-
-```sh
-cp .env.example .env
-```
-
-5. Update the .env file with your environment-specific variables, such as database credentials, secret key, etc.
-
-### Running the Project (Local Development)
-
-6. Run Django migrations (if applicable):
-
-   ```sh
-   python manage.py migrate
-   ```
-
-7. Run the development server:
-
-```sh
-python manage.py runserver 0.0.0.0:8000
-```
-
-8. Open a browser and go to `http://localhost:8000` to view the project.
+Static web dashboard visualising cardiometabolic health risk and Social Determinants of Health (SDoH) across Puerto Rico municipalities and ZIP codes. Data sourced from Abartys Health Laboratory (cardiovascular, hepatic, renal, Vitamin D) and the US Census ACS (poverty, education, healthcare access).
 
 ---
 
-### Docker Setup
+## Pages
 
-This project includes a `Dockerfile` for containerization.
+| File | Description |
+|---|---|
+| `index.html` | Municipality-level health risk map (main page) |
+| `puerto_rico.html` | Landing / navigation page |
+| `zipcodes.html` | ZIP code-level health indicator map |
+| `analytics.html` | Municipality correlation analysis (Pearson, scatter plots) |
+| `zip-analytics.html` | ZIP code correlation analysis |
 
-#### 1. Prerequisites
+## Tech Stack
 
-Ensure you have Docker installed and running on your system (e.g., Docker Desktop, OrbStack).
+- **MapLibre GL JS v3.6.2** — vector tile mapping
+- **Chart.js** — scatter plots and correlation charts
+- **Vanilla JavaScript** — no framework
+- **Nginx 1.27-alpine** — production static file server (Docker)
 
-#### 2. Build the Docker Image
+## Data
 
-Navigate to the root directory of the project where the `Dockerfile` is located.
-Then, build the Docker image:
+Pre-computed JSON files in `/data/`:
+
+- `cardiovascular_risk_by_municipality.json` — CHD, arterial obstruction, heart attack, Vitamin D, kidney, liver risk by municipality
+- `cardio_risk_by_zipcodes.json` — same metrics at ZIP code granularity
+- `sdoh_by_municipality.json` — ACS 2020 SDoH indicators (poverty, education, insurance, disability, healthcare access)
+- `puerto_rico_cardiovascular_risk_by_zip_monthly_avg.json` — monthly time-series by ZIP
+
+GeoJSON boundaries in `/maps/` (municipalities and ZIP Code Tabulation Areas).
+
+---
+
+## Running Locally
+
+No build step required. Open any `.html` file directly in a browser, or serve with any static server:
+
+```sh
+npx serve .
+# or
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000`.
+
+---
+
+## Docker Setup
+
+The project ships with a Docker image based on `nginx:1.27-alpine`.
+
+### Build
 
 ```sh
 docker build -t sdoh-dashboard .
 ```
 
-This command builds the image and tags it as `sdoh-dashboard`.
-
-#### 3. Run the Docker Container
-
-Once the image is built, you can run a container from it:
+### Run
 
 ```sh
-docker run -p 8000:8000 sdoh-dashboard
+docker run -p 8080:80 sdoh-dashboard
 ```
 
-This command maps port `8000` on your host machine to port `8000` inside the container, making the Django application accessible.
+Open `http://localhost:8080`.
 
-#### 4. Access the Application
-
-Open a web browser and navigate to `http://localhost:8000`.
+The Nginx config includes:
+- Gzip compression (level 6)
+- Security headers (X-Frame-Options, X-Content-Type-Options, XSS-Protection)
+- Tiered cache policy — HTML: no-cache; JS/CSS: 7 days; JSON/GeoJSON: 1 day; images: 30 days
+- Health check endpoint at `/health`
 
 ---
 
-### License
+## License
 
-Copyright (c) [2025] Luis Fernando Javier Velázquez Sosa. All Rights Reserved.
+Copyright (c) 2025 Luis Fernando Javier Velázquez Sosa. All Rights Reserved.
