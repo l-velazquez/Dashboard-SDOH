@@ -201,6 +201,17 @@
       }
       .legend-swatch-label { font-size: 0.72em; color: rgba(255,255,255,0.5); }
 
+      /* ── Abbreviation glossary ── */
+      .abbrev-glossary {
+        margin-top: 14px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        font-size: 0.75em;
+        color: rgba(255,255,255,0.4);
+      }
+      .abbrev-glossary strong { color: rgba(255,255,255,0.65); font-weight: 600; }
+
       /* ──────────────────────────────────────────
          SECTION 1b: Scatter detail (on cell click)
       ────────────────────────────────────────── */
@@ -510,6 +521,18 @@
           <span class="legend-swatch" style="background:#f97316;"></span><span class="legend-swatch-label">Mod +</span>
           <span class="legend-swatch" style="background:#dc2626;"></span><span class="legend-swatch-label">Strong +</span>
         </div>
+      </div>
+
+      <!-- Abbreviation glossary -->
+      <div class="abbrev-glossary">
+        <span><strong>CHD</strong> — Coronary Heart Disease</span>
+        <span><strong>AO</strong> — Arterial Obstruction</span>
+        <span><strong>HA</strong> — Heart Attack / Atherosclerosis</span>
+        <span><strong>eGFR</strong> — Estimated Glomerular Filtration Rate (kidney function)</span>
+        <span><strong>BCR</strong> — BUN/Creatinine Ratio (kidney waste markers)</span>
+        <span><strong>APRI</strong> — AST-to-Platelet Ratio Index (liver fibrosis)</span>
+        <span><strong>FIB-4</strong> — Fibrosis-4 Index (liver scarring risk)</span>
+        <span><strong>Vit-D Def</strong> — Vitamin D Deficiency</span>
       </div>
 
       <!-- Detail panel shown on cell click -->

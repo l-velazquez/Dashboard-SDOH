@@ -1,0 +1,16 @@
+.git
+.gitignore
+.gitattributes
+.DS_Store
+.dockerignore
+Dockerfile
+nginx.conf
+*.md
+*.log
+*.py
+*.pyc
+__pycache__/
+venv/
+env/
+.env
+maps/extra/

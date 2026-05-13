@@ -1,10 +1,11 @@
-# Use the official Nginx image as the base
-FROM nginx:alpine
+FROM nginx:1.27-alpine
 
-# Copy the static website files to the nginx default public folder
+RUN rm /etc/nginx/conf.d/default.conf
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY . /usr/share/nginx/html
 
-# Expose port 80 for normal web traffic
 EXPOSE 80
 
-# Nginx runs automatically
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD wget -qO- http://localhost/health || exit 1
