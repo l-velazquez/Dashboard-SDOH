@@ -90,4 +90,6 @@ The Nginx config includes:
 
 ## License
 
-Copyright (c) 2025 Luis Fernando Javier Velázquez Sosa. All Rights Reserved.
+Copyright (c) 2025 University of Puerto Rico, Medical Sciences Campus. All Rights Reserved.
+
+Authored and developed by Luis Fernando Javier Velázquez Sosa as part of his work with the institution. See [LICENSE](LICENSE) for details.
