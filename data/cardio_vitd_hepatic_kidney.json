@@ -1750,39 +1750,6 @@
             "total_evaluated": 3077
         }
     },
-    "Rio Grande": {
-        "Vitamin D Risk": {
-            "percentages": {
-                "Deficiency": 7.5,
-                "Toxicity": 0.4
-            },
-            "total_evaluated": 241
-        },
-        "Risk of Coronary Heart Disease": {
-            "percentages": {
-                "Low": 72.87,
-                "Moderate": 18.19,
-                "High": 8.94
-            },
-            "total_evaluated": 2160
-        },
-        "Risk of Arterial Obstruction": {
-            "percentages": {
-                "Low": 60.69,
-                "Moderate": 23.15,
-                "High": 16.16
-            },
-            "total_evaluated": 2160
-        },
-        "Risk of Heart Attack or Atherosclerosis": {
-            "percentages": {
-                "Low": 76.57,
-                "Moderate": 17.84,
-                "High": 5.59
-            },
-            "total_evaluated": 2130
-        }
-    },
     "Ceiba": {
         "Vitamin D Risk": {
             "percentages": {
@@ -2877,34 +2844,34 @@
     "Río Grande": {
         "Vitamin D Risk": {
             "percentages": {
-                "Deficiency": 12.7,
+                "Deficiency": 12.6,
                 "Toxicity": 0.4
             },
-            "total_evaluated": 13869
+            "total_evaluated": 14110
         },
         "Risk of Coronary Heart Disease": {
             "percentages": {
-                "Low": 70.91,
+                "Low": 70.95,
                 "Moderate": 18.45,
-                "High": 10.64
+                "High": 10.61
             },
-            "total_evaluated": 111811
+            "total_evaluated": 113971
         },
         "Risk of Arterial Obstruction": {
             "percentages": {
-                "Low": 62.23,
-                "Moderate": 22.3,
-                "High": 15.47
+                "Low": 62.2,
+                "Moderate": 22.32,
+                "High": 15.48
             },
-            "total_evaluated": 111811
+            "total_evaluated": 113971
         },
         "Risk of Heart Attack or Atherosclerosis": {
             "percentages": {
-                "Low": 74.65,
-                "Moderate": 18.92,
-                "High": 6.43
+                "Low": 74.69,
+                "Moderate": 18.9,
+                "High": 6.41
             },
-            "total_evaluated": 110579
+            "total_evaluated": 112709
         },
         "BUN/Creatinine Ratio Risk": {
             "percentages": {
