@@ -85,7 +85,7 @@
     />
     <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
     <!-- Chart.js for scatter plot -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -98,8 +98,8 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Helvetica, Arial, sans-serif;
         background-color: #f4f7f6;
         color: #333;
         display: flex;
@@ -492,6 +492,74 @@
         transform: translateY(-1px);
       }
 
+      .cta-button--zip {
+        background: linear-gradient(135deg, #0d7377, #14a085);
+      }
+
+      /* --- Municipality search --- */
+      .control-group input[type="search"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        font-size: 0.95em;
+        font-family: inherit;
+      }
+      .search-error {
+        color: #b10026;
+        font-size: 0.85em;
+        margin-top: 6px;
+      }
+
+      /* --- Map loading / error overlay --- */
+      .map-wrapper {
+        position: relative;
+      }
+      .map-status {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 8px;
+        color: #333;
+        font-weight: 600;
+        text-align: center;
+        padding: 20px;
+        z-index: 5;
+      }
+      .map-status[hidden] {
+        display: none;
+      }
+      .map-status.is-error {
+        color: #b10026;
+      }
+      .map-spinner {
+        width: 36px;
+        height: 36px;
+        border: 4px solid #e0d4ea;
+        border-top-color: rgb(60, 0, 88);
+        border-radius: 50%;
+        animation: map-spin 0.9s linear infinite;
+      }
+      .map-status.is-error .map-spinner {
+        display: none;
+      }
+      @keyframes map-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .map-spinner {
+          animation-duration: 3s;
+        }
+      }
+
       /* --- START: New Back Button Styles --- */
       .back-button-container {
         margin-top: 20px;
@@ -664,11 +732,30 @@
           </div>
         </div>
 
+        <div class="control-group">
+          <label for="muni-search">Find a Municipality:</label>
+          <input
+            type="search"
+            id="muni-search"
+            list="muni-list"
+            placeholder="e.g. Mayagüez"
+            autocomplete="off"
+          />
+          <datalist id="muni-list"></datalist>
+          <p id="muni-search-error" class="search-error" role="alert" hidden></p>
+        </div>
+
         
       </div>
 
       <div class="map-container">
-        <div id="map"></div>
+        <div class="map-wrapper">
+          <div id="map"></div>
+          <div id="map-status" class="map-status" role="status" aria-live="polite">
+            <div class="map-spinner" aria-hidden="true"></div>
+            <p id="map-status-text">Loading map data…</p>
+          </div>
+        </div>
 
         <div id="legend-container">
           <label>Scale</label>
@@ -684,7 +771,7 @@
 
         <div class="right-sidebar sidebar">
           <h2>Area Information</h2>
-          <div id="info-panel" class="info-panel">
+          <div id="info-panel" class="info-panel" aria-live="polite">
             <p class="placeholder-text">
               Click on a municipality on the map to see details.
             </p>
@@ -701,7 +788,7 @@
           <span>Explore correlations between health outcomes and social determinants, island-wide statistics, and full municipality profiles.</span>
         </div>
         <a href="./analytics.html" class="cta-button">View Analytics &amp; Insights &#8594;</a>
-        <a href="./zipcodes.html" class="cta-button" style="background: linear-gradient(135deg,#0d7377,#14a085);">ZIP Code Map &#8594;</a>
+        <a href="./zipcodes.html" class="cta-button cta-button--zip">ZIP Code Map &#8594;</a>
       </div>
     </div>
 
@@ -710,41 +797,47 @@
         Data Source: Cardiovascular Risk & Vitamin D (Provided), US Census
         Municipalities, ACS 5-Year Estimates (2020)
       </p>
-      <p>Map created by Luis F. J. Velázquez Sosa © 2025</p>
+      <p>© 2025–2026 University of Puerto Rico, Medical Sciences Campus. Map created by Luis F. J. Velázquez Sosa.</p>
     </footer>
 
     <script>
-      // --- Data from Django context ---
-      
-
-      
-
         const staticSdohVariableMap = {"YEAR": "SDOH file year", "COUNTYFIPS": "State-county FIPS Code (5-digit)", "COUNTY": "County name", "STATE": "State name", "lon": "Longitude", "lat": "Latitude", "ACS_PCT_INC50_ABOVE65": "Pct. population with income-to-poverty ratio < 0.50", "ACS_PCT_INC50_BELOW17": "Pct. children with income-to-poverty ratio < 0.50", "ACS_PCT_HEALTH_INC_BELOW137": "Pct. population < 138% of poverty threshold", "ACS_PCT_HEALTH_INC_138_199": "Pct. population 138-199% of poverty threshold", "ACS_PCT_HEALTH_INC_200_399": "Pct. population 200-399% of poverty threshold", "ACS_PCT_HEALTH_INC_ABOVE400": "Pct. population >= 400% of poverty threshold", "ACS_PCT_HH_PUB_ASSIST": "Pct. households with public assistance/SNAP", "ACS_PCT_COLLEGE_ASSOCIATE_DGR": "Pct. population with some college or associate's degree", "ACS_PCT_BACHELOR_DGR": "Pct. population with bachelor's degree", "ACS_PCT_GRADUATE_DGR": "Pct. population with graduate/professional degree", "ACS_PCT_HS_GRADUATE": "Pct. population with high school diploma only", "ACS_PCT_LT_HS": "Pct. population with less than high school education", "ACS_PCT_POSTHS_ED": "Pct. population with any post-high school education ", "ACS_TOT_CIVIL_EMPLOY_POP": "Total civilian employed population", "ACS_PCT_UNINSURED": "Pct. population with no health insurance", "HIFLD_MIN_DIST_UC": "Min. distance to nearest urgent care ", "POS_MIN_DIST_ED": "Min. distance to nearest emergency department", "POS_MIN_DIST_ALC": "Min. distance to nearest inpatient alcohol/drug abuse care", "ACS_PCT_DISABLE": "Pct. population with a disability", "ACS_PCT_NONVET_DISABLE_18_64": "Pct. nonveterans with a disability", "ACS_PCT_VET_DISABLE_18_64": "Pct. civilian veterans with a disability"};
         
+        function showMapStatus(message, isError) {
+            const statusEl = document.getElementById('map-status');
+            if (!message) {
+                statusEl.hidden = true;
+                return;
+            }
+            document.getElementById('map-status-text').textContent = message;
+            statusEl.classList.toggle('is-error', !!isError);
+            statusEl.hidden = false;
+        }
+
+        function fetchJson(url) {
+            return fetch(url).then(r => {
+                if (!r.ok) throw new Error(`${url} returned HTTP ${r.status}`);
+                return r.json();
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             Promise.all([
-                fetch('./maps/municipalities.geojson').then(r => r.json()),
-                fetch('./data/cardio_vitd_hepatic_kidney.json').then(r => r.json()),
-                fetch('./data/sdoh_by_municipality.json').then(r => r.json())
+                fetchJson('./maps/municipalities.geojson'),
+                fetchJson('./data/cardio_vitd_hepatic_kidney.json'),
+                fetchJson('./data/sdoh_by_municipality.json')
             ]).then(([geoData, healthData, sdohDataObj]) => {
                 runApp(geoData, healthData, sdohDataObj, staticSdohVariableMap);
-            }).catch(err => console.error("Failed to load map data:", err));
+            }).catch(err => {
+                console.error("Failed to load map data:", err);
+                showMapStatus("Could not load the map data. Please refresh the page or try again later.", true);
+            });
         });
-        
 
 // --- Global Variables ---
 let map;
 
-function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSdohVariableMap) {
-    const geojsonDataString = JSON.stringify(fetchedGeoData);
-    const healthStatsDataString = JSON.stringify(fetchedHealthData);
-    const sdohDataString = JSON.stringify(fetchedSdohDataObj);
-    const sdohVariableMapString = JSON.stringify(fetchedSdohVariableMap);
-
-      let geojsonData;
-      let healthStatsLookup = {};
-      let sdohDataLookup = {};
-      let sdohVariableMap = {};
+function runApp(geojsonData, healthStatsLookup, sdohRawData, sdohVariableMap) {
       let currentHealthMetricKey = "AO_High"; // Default health metric
       let currentSDoHMetricKey = "POS_MIN_DIST_ED";
       let selectedFeatureId = null;
@@ -756,9 +849,9 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
         "Risk of Coronary Heart Disease":
           "Coronary Heart Disease risk is often assessed using ratios like TC/HDL (Total Cholesterol to HDL). <br> - TC/HDL < 4.0: Low Risk <br> - TC/HDL 4.0-5.0: Moderate Risk <br> - TC/HDL > 5.0: High Risk",
         "Risk of Arterial Obstruction":
-          "Arterial Obstruction risk can be indicated by LDL/HDL ratios. <br> - LDL/HDL < 2.5: Low Risk <br> - LDL/HDL 2.5-3.5: Moderate Risk <br> - LDL/HDL > 3.5: High Risk",
+          "Arterial Obstruction risk can be evaluated using Non-HDL Cholesterol (Total Cholesterol minus HDL). <br> - Non-HDL < 130 mg/dL: Low Risk <br> - Non-HDL 130-160 mg/dL: Moderate Risk <br> - Non-HDL > 160 mg/dL: High Risk",
         "Risk of Heart Attack or Atherosclerosis":
-          "Risk of Heart Attack or Atherosclerosis can be evaluated using Non-HDL Cholesterol levels. <br> - Non-HDL < 130 mg/dL: Low Risk <br> - Non-HDL 130-160 mg/dL: Moderate Risk <br> - Non-HDL > 160 mg/dL: High Risk",
+          "Risk of Heart Attack or Atherosclerosis can be indicated by LDL/HDL ratios. <br> - LDL/HDL < 2.5: Low Risk <br> - LDL/HDL 2.5-3.5: Moderate Risk <br> - LDL/HDL > 3.5: High Risk",
         "Vitamin D Risk":
           "Vitamin D status is crucial for health. <br> - Deficiency: Can lead to bone problems, weakened immune system, and other health issues. <br> - Toxicity: Rare, but can cause hypercalcemia and other complications from excessive intake, usually through high-dose supplements.",
         "eGFR CKD-EPI Risk":
@@ -773,138 +866,22 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           "Fibrosis-4 (FIB-4) Index is another marker for liver fibrosis. Percentages reflect population distribution. <br> - Low risk: Lower likelihood. <br> - Mild risk: Intermediate likelihood. <br> - High risk: Higher likelihood of advanced fibrosis.",
       };
 
-      try {
-        geojsonData = JSON.parse(geojsonDataString);
-      } catch (e) {
-        console.error(
-          "GeoJSON Parse Error:",
-          e,
-          "\nString snippet:",
-          geojsonDataString.substring(0, 200)
-        );
-        geojsonData = { type: "FeatureCollection", features: [] };
-      }
-
-      console.log(
-        "[DEBUG] Raw healthStatsDataString (first 1000 chars):",
-        healthStatsDataString.substring(0, 1000)
-      );
-      try {
-        if (
-          healthStatsDataString &&
-          healthStatsDataString.trim() !== "" &&
-          healthStatsDataString.trim() !== "{}"
-        ) {
-          const parsedHealthData = JSON.parse(healthStatsDataString);
-          if (
-            typeof parsedHealthData === "object" &&
-            !Array.isArray(parsedHealthData)
-          ) {
-            healthStatsLookup = parsedHealthData;
-            if (healthStatsLookup["Las Piedras"]) {
-              console.log(
-                "[DEBUG] healthStatsLookup['Las Piedras'] after parsing:",
-                JSON.stringify(healthStatsLookup["Las Piedras"])
-              );
-            } else {
-              console.warn(
-                "[DEBUG] 'Las Piedras' not found in healthStatsLookup after parsing. Check your full health_stats_data JSON."
-              );
-            }
-            if (
-              Object.keys(healthStatsLookup).length === 0 &&
-              healthStatsDataString.length > 2
-            ) {
-              console.error(
-                "[DEBUG] CRITICAL: healthStatsLookup is empty but healthStatsDataString was not. JSON parsing likely failed to produce the expected object structure."
-              );
-            }
-          } else {
-            console.warn(
-              "[DEBUG] Health Stats data is not a JSON object. Received:",
-              healthStatsDataString.substring(0, 200),
-              "\nUsing empty lookup."
-            );
-            healthStatsLookup = {};
-          }
-        } else {
-          console.warn(
-            "[DEBUG] healthStatsDataString is empty or placeholder. Using empty healthStatsLookup."
-          );
-          healthStatsLookup = {};
-        }
-      } catch (e) {
-        console.error(
-          "[DEBUG] Health Stats Parse Error:",
-          e,
-          "\nString snippet:",
-          healthStatsDataString.substring(0, 200)
-        );
+      if (
+        !healthStatsLookup ||
+        typeof healthStatsLookup !== "object" ||
+        Array.isArray(healthStatsLookup)
+      ) {
         healthStatsLookup = {};
       }
+      sdohVariableMap = sdohVariableMap || {};
 
-      if (Object.keys(healthStatsLookup).length > 0) {
-        console.log(
-          `[DEBUG] healthStatsLookup successfully populated with ${
-            Object.keys(healthStatsLookup).length
-          } entries.`
-        );
-      } else {
-        console.warn(
-          "[DEBUG] healthStatsLookup is EMPTY. Check health_stats_data from Django and JSON file format."
-        );
-      }
-
-      try {
-        if (
-          sdohDataString &&
-          sdohDataString.trim() !== "" &&
-          sdohDataString.trim() !== "[]"
-        ) {
-          const sdohRawData = JSON.parse(sdohDataString);
-          if (Array.isArray(sdohRawData)) {
-            sdohRawData.forEach((item) => {
-              if (
-                item.COUNTY &&
-                typeof item.COUNTY === "string" &&
-                item.YEAR === 2020
-              ) {
-                sdohDataLookup[item.COUNTY.trim()] = item;
-              } else if (item.COUNTY && item.YEAR === 2020) {
-                sdohDataLookup[item.COUNTY] = item;
-              }
-            });
-          } else {
-            console.warn(
-              "SDoH data is not a JSON array. Received:",
-              sdohDataString.substring(0, 200)
-            );
+      const sdohDataLookup = {};
+      if (Array.isArray(sdohRawData)) {
+        sdohRawData.forEach((item) => {
+          if (item.COUNTY && item.YEAR === 2020) {
+            sdohDataLookup[String(item.COUNTY).trim()] = item;
           }
-        }
-      } catch (e) {
-        console.error(
-          "SDoH Data Parse Error:",
-          e,
-          "\nString snippet:",
-          sdohDataString.substring(0, 200)
-        );
-      }
-      if (Object.keys(sdohDataLookup).length > 0) {
-        console.log(
-          `[DEBUG] sdohDataLookup contains ${
-            Object.keys(sdohDataLookup).length
-          } entries.`
-        );
-      } else {
-        console.warn("[DEBUG] sdohDataLookup is EMPTY!");
-      }
-
-      try {
-        if (sdohVariableMapString && sdohVariableMapString.trim() !== "") {
-          sdohVariableMap = JSON.parse(sdohVariableMapString);
-        }
-      } catch (e) {
-        console.error("SDoH Variable Map Parse Error:", e);
+        });
       }
 
       const GOOD_LOW_COLORS = [
@@ -1000,42 +977,15 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
         // --- NEW HEALTH METRICS START ---
         // eGFR CKD-EPI Risk
         eGFR_Severe: {
-          displayName: "Risk of Chronic Kidney Disease (CKD) Risk",
+          displayName: "Risk of Chronic Kidney Disease (CKD)",
           dataPath: ["eGFR CKD-EPI Risk", "percentages", "Severe"],
           type: "goodIsLow",
           breaks: [0.5, 1.0, 1.5, 2.0, 2.5, 3.0], // ADJUST BREAKS
           colors: GOOD_LOW_COLORS,
           unit: "%",
           description:
-            "<strong>Liver Risk:</strong>\nPercentage of population with Severe kidney function decline (eGFR).",
+            "<strong>Kidney Risk:</strong>\nPercentage of population with Severe kidney function decline (eGFR).",
         },
-        /*eGFR_High: {
-          displayName: "eGFR Risk (High/Moderate Decline %)",
-          dataPath: ["eGFR CKD-EPI Risk", "percentages", "High"], // 'High' in your JSON means moderate decline
-          type: "goodIsLow",
-          breaks: [3, 5, 7, 9, 11, 13], // ADJUST BREAKS
-          colors: GOOD_LOW_COLORS,
-          unit: "%",
-          description:
-            "Percentage of population with High risk/Moderate kidney function decline (eGFR). Higher is worse.",
-        },
-        eGFR_Mild: {
-          displayName: "eGFR Risk (Mild Decline %)",
-          dataPath: ["eGFR CKD-EPI Risk", "percentages", "Mild"],
-          type: "goodIsLow",
-          breaks: [15, 20, 25, 30, 35, 40], // ADJUST BREAKS
-          colors: GOOD_LOW_COLORS,
-          unit: "%",
-          description:
-            "Percentage of population with Mild kidney function decline (eGFR). Higher is worse.",
-        },
-        eGFR_Normal: {
-          displayName: "eGFR (Normal %)",
-          dataPath: ["eGFR CKD-EPI Risk", "percentages", "Normal"],
-          type: "goodIsHigh",
-          breaks: [50, 55, 60, 65, 70, 75], // ADJUST BREAKS
-        }, 
-        */
         // BUN/Creatinine Ratio Risk
         BCR_High: {
           displayName: "Evaluation of Prerenal Cause or Tubular Damage",
@@ -1047,26 +997,6 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           description:
             "<strong>Kidney Risk:</strong>\nPercentage of population with a High BUN/Creatinine Ratio.",
         },
-        /*BCR_Low: {
-          displayName: "BUN/Creatinine Ratio (Low %)",
-          dataPath: ["BUN/Creatinine Ratio Risk", "percentages", "Low"],
-          type: "goodIsLow",
-          breaks: [1, 1.5, 2, 2.5, 3, 3.5], // ADJUST BREAKS
-          colors: GOOD_LOW_COLORS,
-          unit: "%",
-          description:
-            "Percentage of population with a Low BUN/Creatinine Ratio. Higher percentage of 'low' is worse.",
-        },
-        BCR_Normal: {
-          displayName: "BUN/Creatinine Ratio (Normal %)",
-          dataPath: ["BUN/Creatinine Ratio Risk", "percentages", "Normal"],
-          type: "goodIsHigh",
-          breaks: [40, 45, 50, 55, 60, 65], // ADJUST BREAKS
-          colors: GOOD_HIGH_COLORS,
-          unit: "%",
-          description:
-            "Percentage of population with a Normal BUN/Creatinine Ratio. Higher is better.",
-        },*/
 
         // AST/ALT Ratio Risk
         AAR_FibrosisHepatitis: {
@@ -1083,20 +1013,6 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           description:
             "<strong>Liver Risk:</strong>\nPercentage of population whose AST/ALT ratio suggests fibrosis or active hepatitis.",
         },
-        /*AAR_MildFattyLiver: {
-          displayName: "AST/ALT Ratio (Mild Fatty Liver %)",
-          dataPath: [
-            "AST/ALT Ratio Risk",
-            "percentages",
-            "Compatible with mild fatty liver",
-          ],
-          type: "goodIsLow",
-          breaks: [40, 45, 50, 55, 60, 65], // ADJUST BREAKS
-          colors: GOOD_LOW_COLORS,
-          unit: "%",
-          description:
-            "<strong>Liver Risk:</strong>\nPercentage of population whose AST/ALT ratio is compatible with mild fatty liver. Higher is worse.",
-        },*/
 
         // APRI Score Risk
         APRI_High: {
@@ -1109,30 +1025,6 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           description:
             "<strong>Liver Risk:</strong>\nPercentage of population at High Risk for liver fibrosis based on APRI score.",
         },
-        /*APRI_Moderate: {
-          displayName: "APRI Score (Moderate Risk %)",
-          dataPath: ["APRI Score Risk", "percentages", "Moderate risk"],
-          type: "goodIsLow",
-          breaks: [2, 3, 4, 5, 6, 7], // ADJUST BREAKS
-          colors: GOOD_LOW_COLORS,
-          unit: "%",
-          description:
-            "Percentage of population at Moderate Risk for liver fibrosis based on APRI score. Higher is worse.",
-        },
-        APRI_NoSigFibrosis: {
-          displayName: "APRI Score (No Significant Fibrosis %)",
-          dataPath: [
-            "APRI Score Risk",
-            "percentages",
-            "No significant fibrosis",
-          ],
-          type: "goodIsHigh",
-          breaks: [80, 85, 90, 92, 94, 96], // ADJUST BREAKS
-          colors: GOOD_HIGH_COLORS,
-          unit: "%",
-          description:
-            "Percentage of population with no significant liver fibrosis based on APRI score. Higher is better.",
-        },*/
 
         // FIB-4 Index Risk
         FIB4_High: {
@@ -1145,26 +1037,6 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           description:
             "<strong>Liver Risk:</strong>\nPercentage of population at High Risk for liver fibrosis based on FIB-4 Index.",
         },
-        /*FIB4_Mild: {
-          displayName: "FIB-4 Index (Mild Risk %)",
-          dataPath: ["FIB-4 Index Risk", "percentages", "Mild risk"],
-          type: "goodIsLow",
-          breaks: [10, 13, 16, 19, 22, 25], // ADJUST BREAKS
-          colors: GOOD_LOW_COLORS,
-          unit: "%",
-          description:
-            "Percentage of population at Mild Risk for liver fibrosis based on FIB-4 Index. Higher is worse.",
-        },
-        FIB4_LowRisk: {
-          displayName: "FIB-4 Index (Low Risk %)",
-          dataPath: ["FIB-4 Index Risk", "percentages", "Low risk"],
-          type: "goodIsHigh",
-          breaks: [50, 55, 60, 65, 70, 75], // ADJUST BREAKS
-          colors: GOOD_HIGH_COLORS,
-          unit: "%",
-          description:
-            "Percentage of population at Low Risk for liver fibrosis based on FIB-4 Index. Higher is better.",
-        },*/
         // --- NEW HEALTH METRICS END ---
       };
 
@@ -1518,9 +1390,6 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
 
       function preprocessGeojsonData() {
         if (!geojsonData || !geojsonData.features) {
-          console.warn(
-            "[DEBUG] geojsonData is null or has no features during preprocessing."
-          );
           return;
         }
         let healthDataLinkedCount = 0;
@@ -1557,20 +1426,6 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
             feature.properties.healthData = null;
           }
 
-          if (municipalityNameForLookup === "Las Piedras") {
-            console.log(
-              `[DEBUG PreProcess Las Piedras] Original GeoJSON Name: '${originalName}', Used Lookup Name: '${municipalityNameForLookup}'`
-            );
-            console.log(
-              `[DEBUG PreProcess Las Piedras] muniHealthData from healthStatsLookup:`,
-              JSON.stringify(muniHealthData)
-            );
-            console.log(
-              `[DEBUG PreProcess Las Piedras] feature.properties.healthData after assignment:`,
-              JSON.stringify(feature.properties.healthData)
-            );
-          }
-
           if (
             muniSDoHData &&
             typeof muniSDoHData === "object" &&
@@ -1583,29 +1438,12 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           }
         });
 
-        console.log(
-          `[DEBUG] Preprocessing complete. Health data linked for ${healthDataLinkedCount}/${geojsonData.features.length} features.`
-        );
-        console.log(
-          `[DEBUG] Preprocessing complete. SDoH data linked for ${sdohDataLinkedCount}/${geojsonData.features.length} features.`
-        );
-
         if (
-          healthDataLinkedCount === 0 &&
           geojsonData.features.length > 0 &&
-          Object.keys(healthStatsLookup).length > 0
+          (healthDataLinkedCount === 0 || sdohDataLinkedCount === 0)
         ) {
           console.error(
-            "[DEBUG] CRITICAL: No health data was linked. Check municipality name matching (e.g. 'Adjuntas' vs 'Adjuntas Municipio') between GeoJSON NAME property and healthStatsLookup keys."
-          );
-        }
-        if (
-          sdohDataLinkedCount === 0 &&
-          geojsonData.features.length > 0 &&
-          Object.keys(sdohDataLookup).length > 0
-        ) {
-          console.error(
-            "[DEBUG] CRITICAL: No SDoH data was linked. Check municipality name matching."
+            `Data linking problem: health ${healthDataLinkedCount}/${geojsonData.features.length}, SDoH ${sdohDataLinkedCount}/${geojsonData.features.length}. Check municipality names match between the GeoJSON and data files.`
           );
         }
       }
@@ -1660,6 +1498,96 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           selectElement.appendChild(option);
         });
       }
+      // --- Shareable URL state (?metric=…&sdoh=…&muni=…) ---
+      const initialParams = new URLSearchParams(window.location.search);
+      if (filteredHealthMetricConfigs[initialParams.get("metric")]) {
+        currentHealthMetricKey = initialParams.get("metric");
+      }
+      if (sdohMetricConfigs[initialParams.get("sdoh")]) {
+        currentSDoHMetricKey = initialParams.get("sdoh");
+      }
+      const initialMuni = initialParams.get("muni");
+
+      function updateUrl() {
+        const params = new URLSearchParams(window.location.search);
+        params.set("metric", currentHealthMetricKey);
+        params.set("sdoh", currentSDoHMetricKey);
+        if (selectedFeatureId) params.set("muni", selectedFeatureId);
+        else params.delete("muni");
+        history.replaceState(null, "", `${window.location.pathname}?${params}`);
+      }
+
+      // Accent- and case-insensitive name key, so "mayaguez" finds "Mayagüez"
+      function normalizeName(name) {
+        return String(name)
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .trim()
+          .toLowerCase();
+      }
+
+      function findMunicipalityFeature(name) {
+        if (!name || !geojsonData?.features) return null;
+        const key = normalizeName(name);
+        return (
+          geojsonData.features.find(
+            (f) => normalizeName(f.properties.NAME) === key
+          ) || null
+        );
+      }
+
+      function getSelectedFeature() {
+        return selectedFeatureId ? findMunicipalityFeature(selectedFeatureId) : null;
+      }
+
+      function selectMunicipality(name) {
+        const feature = findMunicipalityFeature(name);
+        if (!feature || !map.getSource("municipalities")) return false;
+        if (selectedFeatureId) {
+          map.setFeatureState(
+            { source: "municipalities", id: selectedFeatureId },
+            { select: false }
+          );
+        }
+        selectedFeatureId = feature.properties.NAME; // promoteId: NAME
+        map.setFeatureState(
+          { source: "municipalities", id: selectedFeatureId },
+          { select: true, hover: false }
+        );
+        const bounds = getFeatureLngLatBounds(feature);
+        if (!bounds.isEmpty()) {
+          map.fitBounds(bounds, { padding: 60, maxZoom: 11 });
+        }
+        updateInfoPanel(feature.properties);
+        updateUrl();
+        return true;
+      }
+
+      // --- Municipality search ---
+      const muniSearchInput = document.getElementById("muni-search");
+      const muniSearchError = document.getElementById("muni-search-error");
+      const muniList = document.getElementById("muni-list");
+      (geojsonData.features || [])
+        .map((f) => f.properties.NAME)
+        .filter(Boolean)
+        .sort((a, b) => a.localeCompare(b, "es"))
+        .forEach((name) => {
+          const option = document.createElement("option");
+          option.value = name;
+          muniList.appendChild(option);
+        });
+      muniSearchInput.addEventListener("change", () => {
+        const query = muniSearchInput.value;
+        muniSearchError.hidden = true;
+        if (!query.trim()) return;
+        if (selectMunicipality(query)) {
+          muniSearchInput.value = selectedFeatureId;
+        } else {
+          muniSearchError.textContent = `No municipality named "${query}".`;
+          muniSearchError.hidden = false;
+        }
+      });
+
       populateSelect(
         healthMetricSelect,
         filteredHealthMetricConfigs,
@@ -1718,13 +1646,6 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
 
       map.addControl(new maplibregl.NavigationControl(), "top-right");
       map.addControl(new maplibregl.FullscreenControl(), "top-right");
-      // map.addControl(
-      //   new maplibregl.AttributionControl({
-      //     customAttribution:
-      //       "Created by: Luis F. J. Velázquez Sosa | Health Risk: Abartys Health | SDoH: ACS 2020 | Municipalities: US Census",
-      //   }),
-      //   "bottom-right"
-      // );
 
       map.on("load", () => {
         if (
@@ -1732,9 +1653,8 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           !geojsonData.features ||
           geojsonData.features.length === 0
         ) {
-          document.getElementById("map").innerHTML =
-            "<p>Could not load map boundary data. Please check GeoJSON.</p>";
-          console.error("GeoJSON data is missing or empty after parsing.");
+          showMapStatus("Could not load the municipality boundaries.", true);
+          console.error("GeoJSON data is missing or empty.");
           return;
         }
         map.addSource("municipalities", {
@@ -1855,24 +1775,9 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
         });
         map.on("click", "municipalities-fill", (e) => {
           if (e.features.length > 0) {
-            const clickedFeature = e.features[0];
-            if (selectedFeatureId) {
-              map.setFeatureState(
-                { source: "municipalities", id: selectedFeatureId },
-                { select: false }
-              );
-            }
-            selectedFeatureId = clickedFeature.id; // id is NAME
-            map.setFeatureState(
-              { source: "municipalities", id: selectedFeatureId },
-              { select: true, hover: false }
-            );
-
-            const bounds = getFeatureLngLatBounds(clickedFeature);
-            if (bounds.getNorthEast() && bounds.getSouthWest()) {
-              map.fitBounds(bounds, { padding: 60, maxZoom: 11 });
-            }
-            updateInfoPanel(clickedFeature.properties);
+            selectMunicipality(e.features[0].properties.NAME);
+            muniSearchInput.value = selectedFeatureId || "";
+            muniSearchError.hidden = true;
           }
         });
 
@@ -1893,58 +1798,15 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           },
         });
 
-        /* --- MODIFICATION START: Circle hover functionality removed --- */
-        /*
-        const healthCirclePopup = new maplibregl.Popup({
-          closeButton: false,
-          closeOnClick: false,
-          anchor: "bottom",
-        });
-
-        map.on("mouseenter", "health-circles", (e) => {
-          map.getCanvas().style.cursor = "pointer";
-          const coordinates = e.features[0].geometry.coordinates.slice();
-          const props = e.features[0].properties;
-          const healthConf =
-            filteredHealthMetricConfigs[currentHealthMetricKey];
-          let displayHealthValue;
-          if (
-            props.healthRiskValue !== null &&
-            props.healthRiskValue !== undefined &&
-            !isNaN(parseFloat(props.healthRiskValue))
-          ) {
-            const decimals =
-              healthConf.unit === "%"
-                ? 2
-                : healthConf.type === "count" || !healthConf.unit
-                ? 0
-                : 1;
-            displayHealthValue = `${parseFloat(props.healthRiskValue).toFixed(
-              decimals
-            )}${healthConf.unit || ""}`;
-          } else {
-            displayHealthValue = "N/A";
-          }
-          const description = `<b>${props.municipalityName}</b><br>${props.healthDisplayName}: ${displayHealthValue}`;
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-          healthCirclePopup
-            .setLngLat(coordinates)
-            .setHTML(description)
-            .addTo(map);
-        });
-
-        map.on("mouseleave", "health-circles", () => {
-          map.getCanvas().style.cursor = "";
-          healthCirclePopup.remove();
-        });
-        */
-        /* --- MODIFICATION END --- */
 
         updateSDoHLegend(currentSDoHMetricKey);
         drawHealthRiskCircles();
-        updateInfoPanel(null);
+        if (initialMuni && selectMunicipality(initialMuni)) {
+          muniSearchInput.value = selectedFeatureId;
+        } else {
+          updateInfoPanel(null);
+        }
+        showMapStatus(null);
       });
 
       function updateInfoPanel(muniPropsFromEvent) {
@@ -2339,14 +2201,9 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           filteredHealthMetricConfigs,
           null
         );
-        if (selectedFeatureId && map.getSource("municipalities")) {
-          const features = map.querySourceFeatures("municipalities", {
-            filter: ["==", ["id"], selectedFeatureId],
-          });
-          if (features.length > 0) updateInfoPanel(features[0].properties);
-        } else {
-          updateInfoPanel(null); // Clear panel if no selection or data
-        }
+        const selectedFeature = getSelectedFeature();
+        updateInfoPanel(selectedFeature ? selectedFeature.properties : null);
+        updateUrl();
       });
 
       sdohSelect.addEventListener("change", function () {
@@ -2371,12 +2228,9 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           sdohMetricConfigs,
           sdohVariableMap
         );
-        if (selectedFeatureId && map.getSource("municipalities")) {
-          const features = map.querySourceFeatures("municipalities", {
-            filter: ["==", ["id"], selectedFeatureId],
-          });
-          if (features.length > 0) updateInfoPanel(features[0].properties);
-        }
+        const selectedFeature = getSelectedFeature();
+        if (selectedFeature) updateInfoPanel(selectedFeature.properties);
+        updateUrl();
       });
 
       function drawHealthRiskCircles() {
@@ -2385,9 +2239,6 @@ function runApp(fetchedGeoData, fetchedHealthData, fetchedSdohDataObj, fetchedSd
           !map.getSource("health-points") ||
           !map.getLayer("health-circles")
         ) {
-          console.warn(
-            "Map or health-points source/layer not ready for drawing circles."
-          );
           return;
         }
         const healthConfig =
